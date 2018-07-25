@@ -13,6 +13,7 @@ export default function createReducer(initialState, handlers) {
 }
 */
 
+
 export function films(state = initialState, action) {
   switch (action.type) {
     case C.SEARCHED_FILM:

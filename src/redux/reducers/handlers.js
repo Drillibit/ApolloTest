@@ -16,6 +16,28 @@ export default function createReducer(initialState, handlers) {
   };
 }
 
+export default createReducer(initialState, {
+
+  [REHYDRATE](state, { roles }) {
+    return { ...state, ...roles, loading: false };
+  },
+
+  [TYPES.LOAD_ROLES](state) {
+    state.loading = true;
+    return state;
+  },
+
+  [TYPES.ADD_ROLE](state, payload) {
+    state.list.push(payload.role);
+    return state;
+  },
+
+  [TYPES.CLEAR_DATA]() {
+    return initialState;
+  }
+
+});
+
 export default function createReducer(initialState, handlers) {
   return (state = initialState, action) =>
     handlers[action.type]
@@ -24,9 +46,12 @@ export default function createReducer(initialState, handlers) {
 */
 
 /*
-const handlers = [
-  {},
-  {},
-  {}
-]
+import { constants as C } from '../actions/constants';
+
+export const handlers = {
+  {type: C.SEARCHED_FILM, payload: text},
+  {type: C.SEARCH_FILM_SUCCEDED, payload: data},
+  {type: C.SEARCH_FILM_FAILED},
+  {type: C.FETCHED_FILM, payload: text}
+};
 */
