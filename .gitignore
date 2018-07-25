@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+www
+coverage
+.idea
+.vscode
+.DS_Store
+yarn-error.log
+.awcache

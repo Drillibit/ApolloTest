@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "modules": "commonjs",
+        "targets": {
+          "node": "7.10.1",
+          "uglify": false
+        },
+        "useBuiltIns": true
+      }
+    ],
+    "stage-2",
+    "react"
+  ]
+}
