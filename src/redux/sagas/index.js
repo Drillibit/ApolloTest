@@ -15,6 +15,7 @@ function* fetchFilmAsync({ text }) {
     yield put(searchFilm(text));
     yield put(searchFilmSuccess(data));
   } catch (error) {
+    console.log(error, 'error');
     yield put(searchFilmError());
   }
 }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 export const FilmsList = ({ films }) => {
   if (films.loading) return <li>Loading...</li>;
+  if (films.filmsList.length === 0) return <li>Nothing found...</li>;
   return (
     <ul>
       {
