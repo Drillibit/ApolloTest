@@ -10,7 +10,9 @@
     "start": "webpack-dev-server --progress --colors --open",
     "test": "jest",
     "build:dev": "NODE_ENV=production webpack --env dev --progress --colors",
-    "build:prod": "NODE_ENV=production webpack --env production --progress --colors"
+    "build:prod": "NODE_ENV=production webpack --env production --progress --colors",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "browserslist": [
     "last 1 Chrome major versions",
@@ -32,7 +34,11 @@
     "react-router-redux": "5.0.0-alpha.9",
     "redux": "3.7.2",
     "redux-devtools-extension": "^2.13.5",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "@storybook/react": "^3.4.8",
+    "@storybook/addon-actions": "^3.4.8",
+    "@storybook/addon-links": "^3.4.8",
+    "@storybook/addons": "^3.4.8"
   },
   "devDependencies": {
     "babel-core": "6.26.3",
