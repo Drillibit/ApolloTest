@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { MovieCard } from '../MovieCard';
 
 export const FilmsList = ({ films }) => {
   if (films.loading) return <li>Loading...</li>;
@@ -10,7 +10,7 @@ export const FilmsList = ({ films }) => {
       {
         films.error
           ? <li> Error, try again</li>
-          : films.filmsList.map(film => (<li key={film.id}>{film.title}</li>))
+          : films.filmsList.map(({ id, title }) => (<MovieCard key={id} id={id} title={title} />))
       }
     </ul>
   );
