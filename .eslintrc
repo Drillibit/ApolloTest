@@ -25,5 +25,16 @@
     ]
   },
 
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+
+  "overrides": [
+    {
+      "files": ["stories/**/*.@(js|jsx)"],
+
+      "rules": {
+        "import/no-extraneous-dependencies": "off",
+        "react/forbid-prop-types": "off"
+      }
+    }
+  ]
 }
