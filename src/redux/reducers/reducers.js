@@ -17,6 +17,12 @@ export default function createReducer(initialState, handlers) {
 export function films(state = initialState, action) {
   switch (action.type) {
     case C.SEARCHED_FILM:
+      // return {
+      //   filmsList: state.filmsList,
+      //   loading: false,
+      //   error: false
+      // };
+
       return Object.assign({},
         {
           filmsList: state.filmsList,

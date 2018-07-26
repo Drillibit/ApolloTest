@@ -5,10 +5,13 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+
 import { films } from './redux/reducers/reducers';
 import { filmsSaga } from './redux/sagas';
 
 import { Application } from './application';
+import './components/injectGlobalStyles';
+
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
