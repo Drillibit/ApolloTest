@@ -5,13 +5,21 @@ import { initialState } from './initialState';
 export function films(state = initialState, action) {
   switch (action.type) {
     case C.SEARCHED_FILM:
-      return Object.assign({},
-        {
-          filmsList: state.filmsList,
-          loading: false,
-          error: false
-        }
-      );
+      console.log('fetch');
+
+      return {
+        filmsList: state.filmsList,
+        loading: false,
+        error: false
+      };
+
+      // return Object.assign({},
+      //   {
+      //     filmsList: state.filmsList,
+      //     loading: false,
+      //     error: false
+      //   }
+      // );
     case C.SEARCH_FILM_SUCCEDED:
       return Object.assign({},
         {
