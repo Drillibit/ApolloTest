@@ -21,7 +21,7 @@ const ModalHeader = styled.h3`
   font-style: normal;
   font-stretch: normal;
   margin: 0 auto;
-  padding-top: 32px;
+  padding-top: 21px;
   line-height: 1.2;
   letter-spacing: normal;
   color: #494c62;
@@ -32,10 +32,11 @@ const ModalHeader = styled.h3`
 const ModalText = styled.p`
   width: 90%;
   height: 24px;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
+  text-align: center;
   margin: 0 auto;
   margin-top: 24px;
   line-height: 1.2;
@@ -44,7 +45,7 @@ const ModalText = styled.p`
 `;
 const CloseSign = styled.img`
   display: inline;
-  margin: 5px 5px 0 0;
+  margin: 10px 10px 0 0;
 `;
 
 const CloseContainer = styled.div`

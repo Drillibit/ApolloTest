@@ -7,13 +7,13 @@ import twitterSvg from './icons/twitter.svg';
 const SocialWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 90%;
+  width: 77%;
   margin: 20px auto 0 auto;
 `;
 
 const SocialLink = styled.a`
-    width: 64px;
-    height: 64px;
+    width: 59px;
+    height: 59px;
     text-align: center;
     text-decoration: none;
     border-radius: 50%;
