@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import { H1, H2, H3 } from '../../../src/components/UIKit/Typography/headings';
+import { H1, H2, H3 } from '../../../src/components/UIKit/Typography';
 
 const stories = storiesOf('UIKit/Typography', module);
 
