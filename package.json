@@ -11,7 +11,7 @@
     "test": "jest",
     "build:dev": "NODE_ENV=production webpack --env dev --progress --colors",
     "build:prod": "NODE_ENV=production webpack --env production --progress --colors",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 -s ./stories",
     "build-storybook": "build-storybook"
   },
   "browserslist": [
@@ -20,6 +20,9 @@
     "last 1 Safari major versions"
   ],
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.2",
+    "@fortawesome/free-solid-svg-icons": "^5.2.0",
+    "@fortawesome/react-fontawesome": "^0.1.0",
     "autoprefixer": "8.4.1",
     "axios": "^0.18.0",
     "classnames": "2.2.5",

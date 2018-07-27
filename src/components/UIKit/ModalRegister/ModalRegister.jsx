@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import close from './icons/close.svg';
+import { SocialContainer } from './SocialContainer';
 
 const ModalContainer = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600&subset=cyrillic');
@@ -41,10 +42,23 @@ const ModalText = styled.p`
   letter-spacing: normal;
   color: #494c62;
 `;
+const CloseSign = styled.img`
+  display: inline;
+  margin: 5px 5px 0 0;
+`;
 
+const CloseContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+`;
 export const ModalRegister = () => (
   <ModalContainer>
+    <CloseContainer>
+      <CloseSign src={close} />
+    </CloseContainer>
     <ModalHeader>Регистрация</ModalHeader>
     <ModalText>Используйте любую соцсеть для регистрации</ModalText>
+    <SocialContainer />
   </ModalContainer>
 );
