@@ -12,12 +12,8 @@ export const Text = styled.p`
   font-style: normal;
 `;
 
-// export const smallText = text.extend`
-//   font-size: 12px;
-// `;
-
 export const SmallText = Text.extend`
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 export const LargeText = Text.extend`
