@@ -2,8 +2,8 @@ import React from 'react';
 import { arrayOf, node, oneOfType } from 'prop-types';
 import styled from 'styled-components';
 
-const H1Styled = styled.h1`
-  font-size: 48px;
+const ExtraSmallTextStyled = styled.p`
+  font-size: 12px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -11,16 +11,16 @@ const H1Styled = styled.h1`
   letter-spacing: normal;
 `;
 
-export const H1 = ({ children }) => (
-  <H1Styled>
+export const ExtraSmallText = ({ children }) => (
+  <ExtraSmallTextStyled>
     {children}
-  </H1Styled>
+  </ExtraSmallTextStyled>
 );
 
-H1.propTypes = {
+ExtraSmallText.propTypes = {
   children: oneOfType([node, arrayOf(node)])
 };
 
-H1.defaultProps = {
+ExtraSmallText.defaultProps = {
   children: ''
 };

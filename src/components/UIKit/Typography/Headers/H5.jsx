@@ -2,8 +2,8 @@ import React from 'react';
 import { arrayOf, node, oneOfType } from 'prop-types';
 import styled from 'styled-components';
 
-const H1Styled = styled.h1`
-  font-size: 48px;
+const H5Styled = styled.h5`
+  font-size: 16px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -11,16 +11,16 @@ const H1Styled = styled.h1`
   letter-spacing: normal;
 `;
 
-export const H1 = ({ children }) => (
-  <H1Styled>
+export const H5 = ({ children }) => (
+  <H5Styled>
     {children}
-  </H1Styled>
+  </H5Styled>
 );
 
-H1.propTypes = {
+H5.propTypes = {
   children: oneOfType([node, arrayOf(node)])
 };
 
-H1.defaultProps = {
+H5.defaultProps = {
   children: ''
 };
