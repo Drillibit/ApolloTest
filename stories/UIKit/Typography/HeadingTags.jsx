@@ -8,8 +8,8 @@ const stories = storiesOf('UIKit/Typography', module);
 stories
   .add('Headings', () => (
     <div>
-      <H1>h1: 48px</H1>
-      <H2>h2: 32px</H2>
-      <H3>h3: 20px</H3>
+      <H1>{'<H1>'} 48px: Almost before we knew it, we had left the ground.</H1>
+      <H2>{'<H2>'} 32px: Almost before we knew it, we had left the ground.</H2>
+      <H3>{'<H3>'} 20px: Almost before we knew it, we had left the ground.</H3>
     </div>
   ));
