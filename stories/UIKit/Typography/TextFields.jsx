@@ -10,6 +10,6 @@ stories
     <div>
       <LargeText>Large text: 18px</LargeText><br />
       <Text>Text: 16px</Text><br />
-      <SmallText>Small text: 12px</SmallText><br />
+      <SmallText>Small text: 14px</SmallText><br />
     </div>
   ));
