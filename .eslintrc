@@ -27,6 +27,10 @@
 
   "parser": "babel-eslint",
 
+  "settings": {
+    "import/resolver": "webpack"
+  },
+
   "overrides": [
     {
       "files": ["stories/**/*.@(js|jsx)"],
