@@ -12,7 +12,7 @@ const buttonDefault = css`
   text-transform: uppercase;
 
   &:disabled {
-    opacity: 0.8;
+    opacity: 0.7;
 
     &::before {
       display: none;
