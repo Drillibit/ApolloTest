@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import PropTypes, { func } from 'prop-types';
 
 const buttonDefault = css`
   position: relative;
@@ -11,9 +12,11 @@ const buttonDefault = css`
   text-transform: uppercase;
 `;
 
-const primary = css`
+const typePrimaryStyles = css`
   border: none;
   z-index: 100; ${''/* Для хака с анимацией linear-gradient */}
+  background-image: linear-gradient(280deg, #bf1366, #ff0079);
+  color: #fff;
 
   &::before {
     content: '';
@@ -27,6 +30,7 @@ const primary = css`
     height: 100%;
     opacity: 0;
     transition: opacity 1s ease; 
+    background-image: linear-gradient(280deg, #a60050, #cc146d);
   }
 
   &:hover {
@@ -36,103 +40,93 @@ const primary = css`
   }
 `;
 
-const typePrimary = css`
-  ${primary}
-  background-image: linear-gradient(280deg, #bf1366, #ff0079);
-
-  &::before {
-    background-image: linear-gradient(280deg, #ff0079, #bf1366);
-  }
-`;
-
-const typePrimaryDark = css`
-  ${primary}
-  background-image: linear-gradient(280deg, #a60050, #cc146d);
-
-  &::before {
-    background-image: linear-gradient(280deg, #cc146d, #a60050);
-  }
-`;
-
-const typeTransparent = css`
+const typeTransparentWhiteStyles = css`
   border: 1px solid #fff;
   background: transparent;
+  color: #fff;
 `;
 
-const sizeSmall = css`
+const typeTransparentDarkStyles = css`
+  border: 1px solid #494c62;
+  background: transparent;
+  color: #494c62;
+`;
+
+const sizeSmallStyles = css`
   height: 32px;
   padding: 6px 16px;
   font-size: 16px;
   font-weight: normal;
 `;
 
-const sizeMiddle = css`
+const sizeMiddleStyles = css`
   height: 40px;
   padding: 4px 20px;
   font-size: 20px;
   font-weight: 600;
 `;
 
-const sizeBig = css`
+const sizeBigStyles = css`
   height: 48px;
   padding: 8px 40px;
   font-size: 20px;
   font-weight: 600;
 `;
 
-const colorWhite = css`
-  color: #fff;
-  border-color: #fff;
-`;
-
-const colorDark = css`
-  color: #494c62;
-  border-color: #494c62;
-`;
-
-const shadow = css`
+const shadowStyles = css`
   box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.5);
 `;
 
-const ButtonStyles = styled.button`
+const StyledButton = styled.button`
   ${buttonDefault}
 
   ${(props) => {
-    switch (props.type) {
+    switch (props.btnType) {
       case 'primary':
-        return typePrimary;
-      case 'primary-dark':
-        return typePrimaryDark;
+        return typePrimaryStyles;
+      case 'transparent-dark':
+        return typeTransparentDarkStyles;
       default:
-        return typeTransparent;
+        return typeTransparentWhiteStyles;
     }
   }}
 
   ${(props) => {
-    switch (props.size) {
+    switch (props.btnSize) {
       case 'small':
-        return sizeSmall;
+        return sizeSmallStyles;
       case 'big':
-        return sizeBig;
+        return sizeBigStyles;
       default:
-        return sizeMiddle;
+        return sizeMiddleStyles;
     }
   }}
 
-  ${(props) => {
-    switch (props.color) {
-      case 'dark':
-        return colorDark;
-      default:
-        return colorWhite;
-    }
-  }}
-
-  ${(props) => props.shadow ? shadow : ''}
-  
+  ${({ btnShadow }) => btnShadow && shadowStyles}
 `;
 
-export const Button = ({ type, size, color, shadow, onClick, children }) => (
-  <ButtonStyles onClick={onClick} type={type} size={size} color={color} shadow={shadow}>{children}</ButtonStyles>
+export const Button = ({
+  btnType, btnSize, btnShadow, onClick, children
+}) => (
+  <StyledButton
+    btnType={btnType}
+    btnSize={btnSize}
+    btnShadow={btnShadow}
+    onClick={onClick}
+  >
+    {children}
+  </StyledButton>
 );
+
+Button.propTypes = {
+  btnType: PropTypes.string.isRequired,
+  btnSize: PropTypes.string.isRequired,
+  btnShadow: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
+  onClick: func,
+};
+
+Button.defaultProps = {
+  onClick: f => f,
+};
 
