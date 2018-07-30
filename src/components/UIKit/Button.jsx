@@ -10,6 +10,14 @@ const buttonDefault = css`
   transition: all 0.3s ease;
   -webkit-appearance: none;
   text-transform: uppercase;
+
+  &:disabled {
+    opacity: 0.8;
+
+    &::before {
+      display: none;
+    }
+  }
 `;
 
 const typePrimaryStyles = css`
@@ -106,12 +114,13 @@ const StyledButton = styled.button`
 `;
 
 export const Button = ({
-  btnType, btnSize, btnShadow, onClick, children
+  btnType, btnSize, btnShadow, disabled, onClick, children
 }) => (
   <StyledButton
     btnType={btnType}
     btnSize={btnSize}
     btnShadow={btnShadow}
+    disabled={disabled}
     onClick={onClick}
   >
     {children}
@@ -123,6 +132,7 @@ Button.propTypes = {
   btnSize: PropTypes.string.isRequired,
   btnShadow: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
   onClick: func,
 };
 

@@ -9,30 +9,33 @@ const stories = storiesOf('UIKit/Buttons', module);
 stories.addWithJSX('basic', () => (
   <React.Fragment>
     <Button
+      disabled
       btnType="primary"
       btnSize="big"
       btnShadow
-      onClick={action('click')}
-    >Подробнее 1
+      onClick={action('click')
+      }
+    >Подробнее
     </Button>
 
     <Button
       btnType="primary"
       btnSize="middle"
       onClick={action('click')}
-    >Подробнее
+    >Регистрация
     </Button>
 
     <Button
       btnType="transparent-dark"
       btnSize="small"
       onClick={action('click')}
-    >Подробнее
+    >В избранное
     </Button>
 
     <Button
       onClick={action('click')}
-    >Подробнее
+      disabled
+    >В избранном
     </Button>
   </React.Fragment>
 ));
