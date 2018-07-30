@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import close from './icons/close.svg';
 import { SocialContainer } from './SocialContainer';
 
@@ -53,13 +54,17 @@ const CloseContainer = styled.div`
   width: 100%;
   justify-content: flex-end;
 `;
-export const ModalRegister = () => (
+export const ModalRegister = ({ onClick }) => (
   <ModalContainer>
     <CloseContainer>
-      <CloseSign src={close} />
+      <CloseSign src={close} onClick={onClick} />
     </CloseContainer>
     <ModalHeader>Регистрация</ModalHeader>
     <ModalText>Используйте любую соцсеть для регистрации</ModalText>
     <SocialContainer />
   </ModalContainer>
 );
+
+ModalRegister.propTypes = {
+  onClick: PropTypes.func.isRequired
+};

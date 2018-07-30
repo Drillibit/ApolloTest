@@ -1,13 +1,17 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
 
 import { ModalRegister, SocialContainer } from '../../src/components/UIKit/ModalRegister';
+import { Modal, ModalButton } from '../../src/components/UIKit/ModalButton';
 
-const stories = storiesOf('UIKit/Modal', module);
 
-stories.addWithJSX('register', () => (
-  <ModalRegister>
-    <SocialContainer />
-  </ModalRegister>
-));
+storiesOf('UIKit/Modal', module)
+  .add('click test', () => (
+    <ModalButton onClick={action('onClick')} />
+  ));
+
+// stories.addWithJSX('register', () => (
+//   <ModalButton onClick={action('clicked')} />
+// ));
