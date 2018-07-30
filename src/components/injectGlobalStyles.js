@@ -66,4 +66,8 @@ injectGlobal`
   *, *:before, *:after {
     box-sizing: inherit;
   }  
+
+  body {
+    -webkit-font-smoothing: antialiased;
+  }
 `;
