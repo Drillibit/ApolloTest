@@ -10,9 +10,16 @@ const buttonDefault = css`
   transition: all 0.3s ease;
   -webkit-appearance: none;
   text-transform: uppercase;
+  outline: none;
+  line-height: 1;
+
+  &>.svg-inline--fa {
+    margin-right: 10px;
+  }
 
   &:disabled {
-    opacity: 0.7;
+    opacity: 0.65;
+    cursor: not-allowed;
 
     &::before {
       display: none;
@@ -22,7 +29,7 @@ const buttonDefault = css`
 
 const typePrimaryStyles = css`
   border: none;
-  z-index: 100; ${''/* Для хака с анимацией linear-gradient */}
+  z-index: 100;
   background-image: linear-gradient(280deg, #bf1366, #ff0079);
   color: #fff;
 
@@ -62,21 +69,26 @@ const typeTransparentDarkStyles = css`
 
 const sizeSmallStyles = css`
   height: 32px;
-  padding: 6px 16px;
+  padding: 7px 16px;
   font-size: 16px;
   font-weight: normal;
+
+  &>.svg-inline--fa {
+    margin-right: 8px;
+    color: #f40376;
+  }
 `;
 
 const sizeMiddleStyles = css`
   height: 40px;
-  padding: 4px 20px;
+  padding: 9px 20px;
   font-size: 20px;
   font-weight: 600;
 `;
 
 const sizeBigStyles = css`
   height: 48px;
-  padding: 8px 40px;
+  padding: 10px 40px;
   font-size: 20px;
   font-weight: 600;
 `;
@@ -128,15 +140,19 @@ export const Button = ({
 );
 
 Button.propTypes = {
-  btnType: PropTypes.string.isRequired,
-  btnSize: PropTypes.string.isRequired,
-  btnShadow: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  btnType: PropTypes.string,
+  btnSize: PropTypes.string,
+  btnShadow: PropTypes.bool,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
+  disabled: PropTypes.bool,
   onClick: func,
 };
 
 Button.defaultProps = {
   onClick: f => f,
+  btnType: 'transparent-white',
+  btnSize: 'middle',
+  btnShadow: false,
+  disabled: false,
 };
 
