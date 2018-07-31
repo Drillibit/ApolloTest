@@ -70,10 +70,9 @@ const Preload = styled.div`
 export const Preloader = ({ children }) => (
   <Preload>
     <RectWrapper>
-      {
-        rectlist.map(({ id, height, animation }) =>
-          <Rectangle key={id} height={height} animation={animation} />)
-      }
+      {rectlist.map(({ id, height, animation }) =>
+        <Rectangle key={id} height={height} animation={animation} />
+      )}
     </RectWrapper>
     <MsgWrapper>{children}</MsgWrapper>
   </Preload>
