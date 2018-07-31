@@ -1,5 +1,7 @@
 import { injectGlobal } from 'styled-components';
 
+/* eslint-disable */
+
 injectGlobal`
 
   /* reset.css v2.0 */
@@ -34,7 +36,8 @@ injectGlobal`
     display: block;
   }
   body {
-    line-height: 1;
+    line-height: 1.15;
+    font-size: 16px;
   }
   ol, ul {
     list-style: none;
@@ -65,5 +68,8 @@ injectGlobal`
 
   *, *:before, *:after {
     box-sizing: inherit;
+    font-family: 'Source Sans Pro', sans-serif;
   }  
 `;
+
+/* eslint-enable */
