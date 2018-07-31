@@ -7,7 +7,7 @@ import { hot } from 'react-hot-loader';
  */
 import { FilmsListContainer } from './containers/FilmsListContainer';
 import { SearchFilmContainer } from './containers/SearchFilm';
-import { SearchContainer } from './components/Search';
+import { SearchContainer } from './containers/SearchContainer';
 
 export const Application = hot(module)(() => (
   <React.Fragment>
