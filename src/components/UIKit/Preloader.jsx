@@ -25,6 +25,7 @@ const keyframes = css`
   }
 `;
 
+
 const RectangleWr = styled.div`
   height: 50px;
   display: flex;
