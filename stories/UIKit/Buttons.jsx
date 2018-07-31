@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Button } from '../../src/components/UIKit/Button';
 
+const Icon = ({ icon }) => <FontAwesomeIcon icon={icon === 'heart-fillout' ? ['far', 'heart'] : icon} />;
+
 const stories = storiesOf('UIKit/Buttons', module);
 
 stories.addWithJSX('basic', () => (
@@ -15,14 +17,14 @@ stories.addWithJSX('basic', () => (
       onClick={action('click')
       }
     >
-      <FontAwesomeIcon icon={['fas', 'heart']} />В избранном
+      <Icon icon="heart" />В избранном
     </Button>
 
     <Button
       btnType="primary"
       btnSize="middle"
       onClick={action('click')}
-    ><FontAwesomeIcon icon={['fas', 'play']} />Смотреть трейлер
+    ><Icon icon="play" />Смотреть трейлер
     </Button>
 
     <Button
@@ -35,7 +37,7 @@ stories.addWithJSX('basic', () => (
     <Button
       onClick={action('click')}
     >
-      <FontAwesomeIcon icon={['fas', 'heart']} />Избранное
+      <Icon icon={['fas', 'heart']} />Избранное
     </Button>
 
     <Button
@@ -43,7 +45,7 @@ stories.addWithJSX('basic', () => (
       btnSize="small"
       onClick={action('click')}
     >
-      <FontAwesomeIcon icon={['fas', 'chevron-left']} />Назад
+      <Icon icon="chevron-left" />Назад
     </Button>
 
     <Button
@@ -51,7 +53,7 @@ stories.addWithJSX('basic', () => (
       btnSize="small"
       onClick={action('click')}
     >
-      <FontAwesomeIcon icon={['far', 'heart']} />В избранное
+      <Icon icon="heart-fillout" />В избранное
     </Button>
   </React.Fragment>
 ));

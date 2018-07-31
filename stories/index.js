@@ -6,5 +6,15 @@ import { faFacebook, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-ic
 import './UIKit/Buttons';
 import '../src/components/injectGlobalStyles';
 
-
-library.add(faHeart, faChevronDown, faChevronLeft, faCheck, faSearch, faPlay, faHeartFill, faFacebook, faGoogle, faTwitter);
+library.add(
+  faHeart,
+  faChevronDown,
+  faChevronLeft,
+  faCheck,
+  faSearch,
+  faPlay,
+  faHeartFill,
+  faFacebook,
+  faGoogle,
+  faTwitter,
+);
