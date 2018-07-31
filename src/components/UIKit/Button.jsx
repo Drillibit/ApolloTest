@@ -55,15 +55,26 @@ const typePrimaryStyles = css`
   }
 `;
 
-const typeTransparentWhiteStyles = css`
+const transparentStyles = css`
   border: 1px solid #fff;
   background: transparent;
   color: #fff;
+  transition: all 0.5s ease;
+
+  &:hover {
+    color: #ff0079;
+    border-color: #ff0079;
+  }
+`;
+
+const typeTransparentWhiteStyles = css`
+  ${transparentStyles};
 `;
 
 const typeTransparentDarkStyles = css`
-  border: 1px solid #494c62;
-  background: transparent;
+  ${transparentStyles};
+
+  border-color: #494c62;
   color: #494c62;
 `;
 
