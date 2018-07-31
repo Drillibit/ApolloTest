@@ -86,7 +86,10 @@ const sizeSmallStyles = css`
 
   &>.svg-inline--fa {
     margin-right: 8px;
-    color: #f40376;
+  }
+  
+  &>.fa-heart[data-prefix='fas']{
+    color: #ff0079;
   }
 `;
 
