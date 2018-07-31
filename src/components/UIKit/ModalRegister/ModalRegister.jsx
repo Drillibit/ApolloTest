@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import close from './icons/close.svg';
-import { SocialContainer } from './SocialContainer';
+
+// import { SocialContainer } from './SocialContainer';
 
 const ModalOverlay = styled.div`
   margin: 0 auto;
@@ -73,12 +73,12 @@ const CloseContainer = styled.div`
 export const ModalRegister = ({ onClick }) => (
   <Fragment>
     <ModalContainer>
-      <CloseContainer>
+      {/* <CloseContainer>
         <CloseSign src={close} onClick={onClick} />
-      </CloseContainer>
+      </CloseContainer> */}
       <ModalHeader>Регистрация</ModalHeader>
       <ModalText>Используйте любую соцсеть для регистрации</ModalText>
-      <SocialContainer />
+      {/* <SocialContainer /> */}
     </ModalContainer>
     <ModalOverlay onClick={onClick} />
   </Fragment>

@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import facebookSvg from './icons/facebook.svg';
-import googleSvg from './icons/google-plus.svg';
-import twitterSvg from './icons/twitter.svg';
+
 
 const SocialWrapper = styled.div`
   display: flex;
@@ -40,13 +38,13 @@ const StyledImage = styled.img`
 export const SocialContainer = () => (
   <SocialWrapper>
     <TwitterLink>
-      <StyledImage alt="twitter" src={twitterSvg} />
+      <StyledImage alt="twitter" src="/" />
     </TwitterLink>
     <FacebookLink>
-      <StyledImage alt="facebook" src={facebookSvg} />
+      <StyledImage alt="facebook" src="/" />
     </FacebookLink>
     <GoogleLink>
-      <StyledImage alt="google" src={googleSvg} />
+      <StyledImage alt="google" src="/" />
     </GoogleLink>
   </SocialWrapper>
 );
