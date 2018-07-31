@@ -1,11 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Button } from '../../src/components/UIKit/Button';
-
-const Icon = ({ icon }) => <FontAwesomeIcon icon={icon === 'heart-fillout' ? ['far', 'heart'] : icon} />;
+import { Icon } from '../helpers/Icon';
 
 const stories = storiesOf('UIKit/Buttons', module);
 
