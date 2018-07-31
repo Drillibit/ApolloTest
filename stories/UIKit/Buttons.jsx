@@ -24,7 +24,16 @@ stories.addWithJSX('basic', () => (
       btnType="primary"
       btnSize="middle"
       onClick={action('click')}
-    ><Icon icon="play" />Смотреть трейлер
+    >
+      <Icon icon="play" />Смотреть трейлер
+    </Button>
+
+    <Button
+      btnType="primary"
+      btnSize="middle"
+      onClick={action('click')}
+    >
+      <Icon />Войти
     </Button>
 
     <Button
@@ -37,7 +46,7 @@ stories.addWithJSX('basic', () => (
     <Button
       onClick={action('click')}
     >
-      <Icon icon={['fas', 'heart']} />Избранное
+      <Icon icon="heart-fillout" />Избранное
     </Button>
 
     <Button
@@ -50,6 +59,14 @@ stories.addWithJSX('basic', () => (
 
     <Button
       btnType="transparent-white"
+      btnSize="small"
+      onClick={action('click')}
+    >
+      <Icon icon="heart-fillout" />В избранное
+    </Button>
+
+    <Button
+      btnType="transparent-dark"
       btnSize="small"
       onClick={action('click')}
     >
