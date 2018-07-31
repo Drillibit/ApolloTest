@@ -71,13 +71,13 @@ export const Preloader = ({ children }) => (
   <Preload>
     <RectWrapper>
       {
-        rectlist.map(rect => <Rectangle key={rect.id} {...rect} />)
+        rectlist.map(({ id, height, animation }) =>
+          <Rectangle key={id} height={height} animation={animation} />)
       }
     </RectWrapper>
     <MsgWrapper>{children}</MsgWrapper>
   </Preload>
 );
-
 
 Preloader.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired
