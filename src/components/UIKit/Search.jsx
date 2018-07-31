@@ -19,6 +19,7 @@ const InputStyled = styled.input`
   letter-spacing: normal;
   color: #494c62;
   font-family: 'Source Sans Pro';
+  outline:none;
 `;
 
 const UlStyled = styled.ul`
@@ -32,6 +33,10 @@ const UlStyled = styled.ul`
 `;
 
 const LiStyled = styled.li`
+  &:hover a {
+    color: #ff0079;
+    text-decoration: underline;
+  };
   margin: 5px 0;
   padding-left: 24px;
   cursor: pointer;
@@ -48,34 +53,27 @@ const LiStyled = styled.li`
 `;
 
 const A = styled.a`
-  &:hover a {
-    color: #ff0079;
-    text-decoration: underline;
-  };
   text-decoration: none;
 `;
 
 
 // в гугле реализовано через ul > li
-export const Search = ({ filmsList, onChange }) => {
-  console.log(filmsList, 'filmsList');
-  // console.log(searchFilm, 'searchFilm');
-  return (
-    <form>
-      <InputStyled
-        maxLength={37}
-        type="text"
-        placeholder={searchPhrase}
-        onChange={onChange}
-      />
-      <UlStyled>
-        {
-          filmsList.map(film => <LiStyled key={film.id}><A href="">{film.title}</A></LiStyled>)
-        }
-      </UlStyled>
-    </form>
-  );
-};
+export const Search = ({ filmsList, onChange }) => (
+  <form>
+    <InputStyled
+      maxLength={37}
+      type="text"
+      placeholder={searchPhrase}
+      onChange={onChange}
+    />
+    <UlStyled>
+      {
+        filmsList.map(film => <LiStyled key={film.id}><A href="">{film.title}</A></LiStyled>)
+      }
+    </UlStyled>
+  </form>
+);
+
 
 Search.propTypes = {
   onChange: func,
