@@ -68,6 +68,7 @@ injectGlobal`
 
   *, *:before, *:after {
     box-sizing: inherit;
+    font-family: 'Source Sans Pro', sans-serif;
   }  
 `;
 
