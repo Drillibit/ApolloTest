@@ -3,18 +3,21 @@ import styled from 'styled-components';
 import angle from './angle.svg';
 // import check from './check.svg';
 
-const ImageWrapper = styled.div`
-    font-size: 10px;
+const DropdownContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const DropdownButton = styled.button`
-    border: none;
-    font-size: 14px;
-    outline: none;
+  border: none;
+  font-size: 14px;
+  outline: none;
 `;
 
 const DropdownArrow = styled.img`
-    ${({ active }) => active && 'transfrom: rotate(45deg)'}
+  width: 14px;
+  transform: ${({ active }) => active && 'rotate(-180deg)'};
+  transition: all ease-in .3s;
 `;
 
 export class Dropdown extends Component {
@@ -40,9 +43,10 @@ export class Dropdown extends Component {
       const { dropDownValue, showDropdown } = this.state;
       return (
         <div>
-          <DropdownButton onClick={this.handleDropDown}>
-            {dropDownValue} <DropdownArrow alt="dropdown-arrow" src={angle} active={showDropdown} />
-          </DropdownButton>
+          <DropdownContainer>
+            <DropdownButton onClick={this.handleDropDown}>{dropDownValue}</DropdownButton>
+            <DropdownArrow alt="dropdown-arrow" src={angle} active={showDropdown} />
+          </DropdownContainer>
           {/* <div>
             <button value="По дате выхода">По дате выхода</button>
             <button value="По рейтингу">По рейтингу</button>
