@@ -61,6 +61,7 @@ injectGlobal`
 
   html {
     box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
   }
 
   *, *:before, *:after {

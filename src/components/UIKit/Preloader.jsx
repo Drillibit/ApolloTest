@@ -1,6 +1,15 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import PropTypes, { func } from 'prop-types';
+import PropTypes from 'prop-types';
+
+const rectlist = [
+  { id: 1, height: '24px', animation: 'change-height-1 1s ease infinite' },
+  { id: 2, height: '38px', animation: 'change-height-2 1s 0.5s ease infinite' },
+  { id: 3, height: '50px', animation: 'change-height-3 0.8s ease infinite' },
+  { id: 4, height: '34px', animation: 'change-height-4 0.8s ease infinite' },
+  { id: 5, height: '50px', animation: 'change-height-3 0.8s 0.5s ease infinite' },
+  { id: 6, height: '34px', animation: 'change-height-4 0.8s 0.5s ease infinite' },
+];
 
 const keyframes = css`
   @keyframes change-height-1{
@@ -25,8 +34,7 @@ const keyframes = css`
   }
 `;
 
-
-const RectangleWr = styled.div`
+const RectWrapper = styled.div`
   height: 50px;
   display: flex;
   justify-content: center;
@@ -35,7 +43,7 @@ const RectangleWr = styled.div`
   margin-bottom: 28px;
 `;
 
-const MessageWr = styled.div`
+const MsgWrapper = styled.div`
   display: block;
   text-align: center;
   height: 38px;
@@ -43,7 +51,6 @@ const MessageWr = styled.div`
   font-size: 30px;
   font-weight: 600;
   line-height: normal;
-  font-family: 'Source Sans Pro', sans-serif;
   text-indent: 10px;
 `;
 
@@ -52,62 +59,26 @@ const Rectangle = styled.div`
   background-color: #ff0079;
   width: 10px;
   margin-left: 8px;
-`;
-
-const RectangleOne = Rectangle.extend`
-  height: 24px;
-  animation: change-height-1 1s ease infinite;
-`;
-
-const RectangleTwo = Rectangle.extend`
-  height: 38px;
-  animation: change-height-2 1s 0.5s ease infinite;
-`;
-
-const RectangleThree = Rectangle.extend`
-  height: 50px;
-  animation: change-height-3 0.8s ease infinite;
-`;
-
-const RectangleFour = Rectangle.extend`
-  height: 34px;
-  animation: change-height-4 0.8s ease infinite;
-`;
-
-const RectangleFive = Rectangle.extend`
-  height: 50px;
-  animation: change-height-3 0.8s 0.5s ease infinite;
-`;
-
-const RectangleSix = Rectangle.extend`
-  height: 34px;
-  animation: change-height-4 0.8s 0.5s ease infinite;
+  height: ${height => (height : 'auto')};
+  animation: ${animation => (animation : 'none')};
 `;
 
 const Preload = styled.div`
   ${keyframes};
 `;
 
-export const Preloader = ({ onClick, children }) => (
-  <Preload onClick={onClick}>
-    <RectangleWr>
-      <RectangleOne />
-      <RectangleTwo />
-      <RectangleThree />
-      <RectangleFour />
-      <RectangleFive />
-      <RectangleSix />
-    </RectangleWr>
-    <MessageWr>{children}</MessageWr>
+export const Preloader = ({ children }) => (
+  <Preload>
+    <RectWrapper>
+      {
+        rectlist.map(rect => <Rectangle key={rect.id} {...rect} />)
+      }
+    </RectWrapper>
+    <MsgWrapper>{children}</MsgWrapper>
   </Preload>
 );
 
 
 Preloader.propTypes = {
-  onClick: func,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired
-};
-
-Preloader.defaultProps = {
-  onClick: f => f,
 };
