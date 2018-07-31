@@ -1,12 +1,12 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { func, objectOf } from 'prop-types';
 import styled from 'styled-components';
 
 const searchPhrase = 'Найти по названию, жанру, актеру';
 
 const InputStyled = styled.input`
   width: 400px;
-  height: 32px;
+  height: 64px;
   padding: 16px 24px;
   border-radius: 5px;
   background-color: #ffffff;
@@ -18,6 +18,7 @@ const InputStyled = styled.input`
   line-height: 1.6;
   letter-spacing: normal;
   color: #494c62;
+  font-family: 'Source Sans Pro';
 `;
 
 const UlStyled = styled.ul`
@@ -27,6 +28,7 @@ const UlStyled = styled.ul`
   border-radius: 2px;
   background-color: #ffffff;
   box-shadow: 0 12px 75px 2px rgba(0, 0, 0, 0.41), 0 2px 9px 1px rgba(0, 0, 0, 0.28);
+  font-family: 'Source Sans Pro';
 `;
 
 const LiStyled = styled.li`
@@ -42,6 +44,7 @@ const LiStyled = styled.li`
   letter-spacing: normal;
   color: #494c62;
   list-style-type: none;
+  font-family: 'Source Sans Pro';
 `;
 
 const A = styled.a`
@@ -55,7 +58,7 @@ const A = styled.a`
 
 // в гугле реализовано через ul > li
 export const Search = ({ filmsList, onChange }) => {
-  // console.log(filmsList, 'filmsList');
+  console.log(filmsList, 'filmsList');
   // console.log(searchFilm, 'searchFilm');
   return (
     <form>
@@ -75,7 +78,8 @@ export const Search = ({ filmsList, onChange }) => {
 };
 
 Search.propTypes = {
-  onChange: func
+  onChange: func,
+  filmsList: objectOf().isRequired
 };
 
 Search.defaultProps = {
