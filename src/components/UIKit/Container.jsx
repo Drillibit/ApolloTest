@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StoryBookContainer = styled.div`
   display: flex;
@@ -7,6 +8,7 @@ const StoryBookContainer = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  background-color: #333;
 `;
 
 const StoryBookItem = styled.div`
@@ -17,9 +19,14 @@ const StoryBookItem = styled.div`
 export const Container = ({ children }) => (
   <StoryBookContainer>
     {
-      children.map(item => (
-        <StoryBookItem>{item}</StoryBookItem>
+      React.Children.map(children, (child, index) => (
+        <StoryBookItem key={index}>{child}</StoryBookItem>
       ))
     }
   </StoryBookContainer>
 );
+
+Container.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
+};
+

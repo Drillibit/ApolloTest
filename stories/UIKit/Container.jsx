@@ -8,10 +8,9 @@ import { Container } from '../../src/components/UIKit/Container';
 const stories = storiesOf('UIKit/Container', module);
 
 stories.addWithJSX('main', () => (
-  <Container>{
-    [
-      <Button onClick={action('click')}>Press me</Button>
-    ]
-  }
+  <Container>
+    <Button onClick={action('click')}>Press me</Button>
+    <Button onClick={action('click')}>Press me</Button>
+    <Button onClick={action('click')}>Press me</Button>
   </Container>
 ));
