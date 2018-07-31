@@ -12,22 +12,22 @@ const rectlist = [
 ];
 
 const keyframes = css`
-  @keyframes change-height-1{
+  @keyframes change-height-1 {
     50% {
       height: 50px;
     }
   }
-  @keyframes change-height-2{
+  @keyframes change-height-2 {
     50% {
       height: 70px;
     }
   }
-  @keyframes change-height-3{
+  @keyframes change-height-3 {
     50% {
       height: 25px;
     }
   }
-  @keyframes change-height-4{
+  @keyframes change-height-4 {
     50% {
       height: 65px;
     }
@@ -59,12 +59,12 @@ const Rectangle = styled.div`
   background-color: #ff0079;
   width: 10px;
   margin-left: 8px;
-  height: ${height => (height : 'auto')};
-  animation: ${animation => (animation : 'none')};
+  animation: ${({ animation }) => animation || 'none'};
+  height: ${({ height }) => height || 'auto'};
 `;
 
 const Preload = styled.div`
-  ${keyframes};
+  ${keyframes}
 `;
 
 export const Preloader = ({ children }) => (
