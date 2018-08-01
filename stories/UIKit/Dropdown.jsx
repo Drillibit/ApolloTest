@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react';
 import React, { Children, Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 
-
+import { Container } from '../helpers/Container';
 import { Dropdown } from '../../src/components/UIKit/Dropdown';
 
 
@@ -59,9 +59,11 @@ class CustomComponentManager extends Component {
 stories.addWithJSX(
   'Ваш компонент',
   () => (
-    <CustomComponentManager>
-      <Dropdown />
-    </CustomComponentManager>
+    <Container>
+      <CustomComponentManager>
+        <Dropdown />
+      </CustomComponentManager>
+    </Container>
   )
 );
 

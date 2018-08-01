@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 import PropTypes from 'prop-types';
 
-import angle from './angle.svg';
 import { DropdownList } from './DropdownList';
 
 
