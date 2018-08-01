@@ -16,6 +16,7 @@ export const Icon = ({ icon }) => {
     'facebook': ['fab', 'facebook-f'],
     'twitter': ['fab', 'twitter'],
     'google-plus': ['fab', 'google-plus-g'],
+    'quote': ['fas', 'quote-left'],
   };
 
   return <FontAwesomeIcon icon={iconMap[icon]} />;

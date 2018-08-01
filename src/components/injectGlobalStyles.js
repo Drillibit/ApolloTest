@@ -74,7 +74,6 @@ injectGlobal`
   }  
 
   body {
-    background-color: #ddd;
     -webkit-font-smoothing: antialiased;
   }
 `;
