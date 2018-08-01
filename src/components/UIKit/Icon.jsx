@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
-export const Icon = ({ icon }) => {
+export const Icon = ({ icon, className }) => {
   const iconMap = {
     'heart-fill': ['fas', 'heart'],
     'heart': ['far', 'heart'],
@@ -19,7 +19,7 @@ export const Icon = ({ icon }) => {
     'quote': ['fas', 'quote-left'],
   };
 
-  return <FontAwesomeIcon icon={iconMap[icon]} />;
+  return <FontAwesomeIcon icon={iconMap[icon]} className={className} />;
 };
 
 Icon.propTypes = {

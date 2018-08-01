@@ -18,21 +18,23 @@ const QuoteStyled = styled.div`
   width: 500px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   color: #ffffff;
-  background-color: black;
 `;
 
 const Shape = styled.div`
   display: inline-block;
   vertical-align: top;
-  background-color: red;
   margin-right: 16.5px; 
   color: #ffffff;
-  background-color: black;
+`;
+
+const StyledIcon = styled(Icon)`
+  font-size: 24px;
+  color: white
 `;
 
 export const Quote = ({ tagline }) => (
   <div>
-    <Shape><Icon icon="quote" /></Shape>
+    <Shape><StyledIcon icon="quote" /></Shape>
     <QuoteStyled>
       <H3>{tagline}</H3>
     </QuoteStyled>
