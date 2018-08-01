@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/react';
 import React, { Children, Component, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 
 
 import { Dropdown } from '../../src/components/UIKit/Dropdown';
@@ -8,6 +9,9 @@ import { Dropdown } from '../../src/components/UIKit/Dropdown';
 const stories = storiesOf('UIKit/Dropdowns', module);
 
 class CustomComponentManager extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired
+  };
   state = {
     isOpen: false,
     activeOption: { id: 1, value: 'По дате выхода' },

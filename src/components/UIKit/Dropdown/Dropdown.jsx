@@ -33,7 +33,16 @@ const DropdownArrow = styled.img`
 `;
 
 export class Dropdown extends Component {
-
+  static propTypes = {
+    handleChange: PropTypes.func.isRequired,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    closeDropdown: PropTypes.func.isRequired,
+    showDropdown: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    activeOption: PropTypes.objectOf(PropTypes.oneOfType(
+      [PropTypes.string, PropTypes.number]
+    )).isRequired
+  };
     renderContent = () => {
       const {
         handleChange,
@@ -62,13 +71,3 @@ export class Dropdown extends Component {
     }
 }
 
-Dropdown.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
-  closeDropdown: PropTypes.func.isRequired,
-  showDropdown: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  activeOption: PropTypes.objectOf(PropTypes.oneOfType(
-    [PropTypes.string, PropTypes.number]
-  )).isRequired
-};
