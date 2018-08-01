@@ -7,8 +7,8 @@ const StoryBookContainer = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
   background-color: ${({ dark }) => (dark ? '#333' : '#fff')};
+  padding: 50px 0;
 `;
 
 const StoryBookItem = styled.div`
