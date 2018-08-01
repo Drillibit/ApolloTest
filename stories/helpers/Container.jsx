@@ -9,6 +9,7 @@ const StoryBookContainer = styled.div`
   justify-content: center;
   margin-top: 50px;
   background-color: ${({ dark }) => (dark ? '#333' : '#fff')};
+  padding: 50px 0;
 `;
 
 const StoryBookItem = styled.div`
