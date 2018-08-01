@@ -6,11 +6,13 @@ import { action } from '@storybook/addon-actions';
 // отключить filmList когда будет бекэнд
 import { filmsList } from '../../src/components/Search/testFilmList';
 
-
+import { Container } from '../helpers/Container';
 import { Search } from '../../src/components/UIKit/Search';
 
 const stories = storiesOf('UIKit/Search', module);
 
 stories.addWithJSX('Search', () => (
-  <Search filmsList={filmsList} onChange={action('onChange')} />
+  <Container>
+    <Search filmsList={filmsList} onChange={action('onChange')} />
+  </Container>
 ));
