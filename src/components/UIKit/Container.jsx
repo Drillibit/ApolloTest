@@ -16,11 +16,9 @@ const StoryBookItem = styled.div`
 
 export const Container = ({ children }) => (
   <StoryBookContainer>
-    {
-      React.Children.map(children, (child, index) => (
-        <StoryBookItem key={index}>{child}</StoryBookItem>
-      ))
-    }
+    {React.Children.map(children, child => (
+      <StoryBookItem >{child}</StoryBookItem>
+    ))}
   </StoryBookContainer>
 );
 
