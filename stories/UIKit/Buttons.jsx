@@ -1,11 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Button } from '../../src/components/UIKit/Button';
-
-const Icon = ({ icon }) => <FontAwesomeIcon icon={icon === 'heart-fillout' ? ['far', 'heart'] : icon} />;
+import { Icon } from '../../src/components/UIKit/Icon';
 
 const stories = storiesOf('UIKit/Buttons', module);
 
@@ -17,7 +15,7 @@ stories.addWithJSX('basic', () => (
       onClick={action('click')
       }
     >
-      <Icon icon="heart" />В избранном
+      <Icon icon="heart-fill" />В избранном
     </Button>
 
     <Button
@@ -33,7 +31,7 @@ stories.addWithJSX('basic', () => (
       btnSize="middle"
       onClick={action('click')}
     >
-      <Icon />Войти
+      Войти
     </Button>
 
     <Button
@@ -46,7 +44,7 @@ stories.addWithJSX('basic', () => (
     <Button
       onClick={action('click')}
     >
-      <Icon icon="heart-fillout" />Избранное
+      <Icon icon="heart" />Избранное
     </Button>
 
     <Button
@@ -62,7 +60,7 @@ stories.addWithJSX('basic', () => (
       btnSize="small"
       onClick={action('click')}
     >
-      <Icon icon="heart-fillout" />В избранное
+      <Icon icon="heart" />В избранное
     </Button>
 
     <Button
@@ -70,7 +68,7 @@ stories.addWithJSX('basic', () => (
       btnSize="small"
       onClick={action('click')}
     >
-      <Icon icon="heart-fillout" />В избранное
+      <Icon icon="heart" />В избранное
     </Button>
   </React.Fragment>
 ));
