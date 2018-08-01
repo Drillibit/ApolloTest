@@ -19,7 +19,7 @@ const InputStyled = styled.input`
   letter-spacing: normal;
   color: #494c62;
   font-family: 'Source Sans Pro';
-  outline:none;
+  outline: none;
 `;
 
 const UlStyled = styled.ul`
@@ -56,10 +56,8 @@ const A = styled.a`
   text-decoration: none;
 `;
 
-
-// в гугле реализовано через ul > li
 export const Search = ({ filmsList, onChange }) => (
-  <form>
+  <form onSubmit={e => e.preventDefault()}>
     <InputStyled
       maxLength={37}
       type="text"
