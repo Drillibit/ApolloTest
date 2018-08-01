@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import { Container } from '../../src/components/UIKit/Container';
+import { Container } from '../helpers/Container';
 
 const stories = storiesOf('UIKit/Container', module);
 
