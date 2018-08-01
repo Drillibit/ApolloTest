@@ -5,10 +5,6 @@ import { injectGlobal } from 'styled-components';
 injectGlobal`
 
   /* reset.css v2.0 */
-
-  body {
-    box-sizing: border-box;
-  }
   
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -70,12 +66,11 @@ injectGlobal`
 
   *, *:before, *:after {
     box-sizing: inherit;
-    font-family: 'Source Sans Pro', sans-serif;
   }  
 
   body {
-    background-color: #ddd;
     -webkit-font-smoothing: antialiased;
+    font-family: 'Source Sans Pro', sans-serif;
   }
 `;
 
