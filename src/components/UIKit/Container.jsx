@@ -8,13 +8,11 @@ const StoryBookContainer = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #333;
 `;
 
 const StoryBookItem = styled.div`
   margin: 4px 6px;
 `;
-
 
 export const Container = ({ children }) => (
   <StoryBookContainer>
