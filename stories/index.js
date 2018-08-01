@@ -1,5 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHeart, faChevronDown, faChevronLeft, faCheck, faSearch, faPlay, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faChevronUp, faChevronDown, faChevronLeft, faCheck, faSearch, faPlay, faStar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartFill } from '@fortawesome/free-regular-svg-icons';
 import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
@@ -8,6 +8,7 @@ import '../src/components/injectGlobalStyles';
 
 library.add(
   faHeart,
+  faChevronUp,
   faChevronDown,
   faChevronLeft,
   faCheck,

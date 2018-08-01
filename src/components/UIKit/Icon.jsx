@@ -3,24 +3,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
 export const Icon = ({ icon }) => {
-  const f = (name) => {
-    switch (name) {
-      case 'heart-fill':
-        return ['fas', 'heart'];
-      case 'heart':
-        return ['far', 'heart'];
-      case 'facebook':
-        return ['fab', 'facebook-f'];
-      case 'twitter':
-        return ['fab', 'twitter'];
-      case 'google-plus':
-        return ['fab', 'google-plus-g'];
-      default:
-        return name;
-    }
+  const iconMap = {
+    'heart-fill': ['fas', 'heart'],
+    'heart': ['far', 'heart'],
+    'chevron-left': ['fas', 'chevron-left'],
+    'chevron-down': ['fas', 'chevron-down'],
+    'chevron-up': ['fas', 'chevron-up'],
+    'search': ['fas', 'search'],
+    'check': ['fas', 'check'],
+    'play': ['fas', 'play'],
+    'star': ['fas', 'star'],
+    'facebook': ['fab', 'facebook-f'],
+    'twitter': ['fab', 'twitter'],
+    'google-plus': ['fab', 'google-plus-g'],
   };
 
-  return <FontAwesomeIcon icon={f(icon)} />;
+  return <FontAwesomeIcon icon={iconMap[icon]} />;
 };
 
 Icon.propTypes = {
