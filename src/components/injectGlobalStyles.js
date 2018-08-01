@@ -1,12 +1,10 @@
 import { injectGlobal } from 'styled-components';
 
+/* eslint-disable */
+
 injectGlobal`
 
   /* reset.css v2.0 */
-
-  body {
-    box-sizing: border-box;
-  }
   
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -34,7 +32,8 @@ injectGlobal`
     display: block;
   }
   body {
-    line-height: 1;
+    line-height: 1.15;
+    font-size: 16px;
   }
   ol, ul {
     list-style: none;
@@ -59,6 +58,8 @@ injectGlobal`
 
   /* Custom global styles */
 
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900&subset=cyrillic');
+
   html {
     box-sizing: border-box;
   }
@@ -66,4 +67,11 @@ injectGlobal`
   *, *:before, *:after {
     box-sizing: inherit;
   }  
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
 `;
+
+/* eslint-enable */
