@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 // сделаем импорт из Typography
 import { H3 } from './Typography';
+import { Icon } from './Icon';
 
 
 const QuoteStyled = styled.div`
@@ -25,11 +26,13 @@ const Shape = styled.div`
   vertical-align: top;
   background-color: red;
   margin-right: 16.5px; 
+  color: #ffffff;
+  background-color: black;
 `;
 
 export const Quote = ({ tagline }) => (
   <div>
-    <Shape>Shape</Shape>
+    <Shape><Icon icon="quote" /></Shape>
     <QuoteStyled>
       <H3>{tagline}</H3>
     </QuoteStyled>
