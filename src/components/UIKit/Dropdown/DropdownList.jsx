@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import check from './check.svg';
+import { Icon } from '../Icon';
 
 const DropdownContent = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ const DropGroup = styled.div`
   align-items: center;
 `;
 
-const Checked = styled.img`
+const Checked = styled(Icon)`
   width: 14px;
   height: 14px;
   visibility: ${({ active }) => !active && 'hidden'};
@@ -54,7 +54,7 @@ export const DropdownList = ({ options, handleChange, activeOption }) => (
   <DropdownContent>
     {options.map(({ value, id }) => (
       <DropGroup key={id}>
-        <Checked src={check} active={id === activeOption.id} />
+        <Checked icon="check" active={id === activeOption.id} />
         <DropdownBtn onClick={handleChange} value={id}>
           {value}
         </DropdownBtn>
