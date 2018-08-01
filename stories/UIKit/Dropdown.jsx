@@ -5,19 +5,19 @@ import PropTypes from 'prop-types';
 import { Container } from '../helpers/Container';
 import { Dropdown } from '../../src/components/UIKit/Dropdown';
 
-
 const stories = storiesOf('UIKit/Dropdowns', module);
 
-class CustomComponentManager extends Component {
+const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }];
+
+class DropdownWrapper extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired
   };
   state = {
     isOpen: false,
     activeOption: { id: 1, value: 'По дате выхода' },
-    options: [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }]
+    options: optionsData
   }
-
 
   handleChange = (e) => {
     const { options } = this.state;
@@ -41,11 +41,10 @@ class CustomComponentManager extends Component {
     });
   };
 
-
   render() {
-    const customComponent = Children.only(this.props.children);
+    const dropdown = Children.only(this.props.children);
 
-    return cloneElement(customComponent, {
+    return cloneElement(dropdown, {
       handleChange: this.handleChange,
       options: this.state.options,
       activeOption: this.state.activeOption,
@@ -57,12 +56,12 @@ class CustomComponentManager extends Component {
 }
 
 stories.addWithJSX(
-  'Ваш компонент',
+  'Dropdown component',
   () => (
     <Container>
-      <CustomComponentManager>
+      <DropdownWrapper>
         <Dropdown />
-      </CustomComponentManager>
+      </DropdownWrapper>
     </Container>
   )
 );

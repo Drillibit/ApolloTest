@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from '../Icon';
 
-const DropdownContent = styled.div`
+const StyledDropdownContent = styled.div`
   display: flex;
   border-radius: 2px;
   flex-direction: column;
@@ -16,19 +16,18 @@ const DropdownContent = styled.div`
   position: absolute;
 `;
 
-const DropGroup = styled.div`
+const StyledDropGroup = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const Checked = styled(Icon)`
+const StyledChecked = styled(Icon)`
   width: 14px;
   height: 14px;
   visibility: ${({ active }) => !active && 'hidden'};
 `;
 
-
-const DropdownBtn = styled.button`
+const StyledDropdownBtn = styled.button`
   white-space:nowrap;
   border: none;
   color: #494c62;
@@ -51,17 +50,17 @@ const DropdownBtn = styled.button`
 `;
 
 export const DropdownList = ({ options, handleChange, activeOption }) => (
-  <DropdownContent>
+  <StyledDropdownContent>
     {options.map(({ value, id }) => (
-      <DropGroup key={id}>
-        <Checked icon="check" active={id === activeOption.id} />
-        <DropdownBtn onClick={handleChange} value={id}>
+      <StyledDropGroup key={id}>
+        <StyledChecked icon="check" active={id === activeOption.id} />
+        <StyledDropdownBtn onClick={handleChange} value={id}>
           {value}
-        </DropdownBtn>
-      </DropGroup>
+        </StyledDropdownBtn>
+      </StyledDropGroup>
       )
     )}
-  </DropdownContent>
+  </StyledDropdownContent>
 );
 
 DropdownList.propTypes = {

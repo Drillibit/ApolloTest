@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 import PropTypes from 'prop-types';
+
 import { Icon } from '../Icon';
 import { DropdownList } from './DropdownList';
 
-
-const DropdownContainer = styled.div`
+const StyledDropdownContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -16,14 +16,14 @@ const DropdownContainer = styled.div`
   position: relative;
 `;
 
-const DropdownButton = styled.button`
+const StyledDropdownButton = styled.button`
   border: none;
   font-size: 14px;
   outline: none;
   color: #80818a;
 `;
 
-const ButtonContainer = styled.div`
+const StyledButtonContainer = styled.div`
   display: flex;
   height: 20px;
 `;
@@ -36,21 +36,18 @@ const StyledDropdownArrow = styled(Icon)`
 
 export const Dropdown = ({
   handleChange, activeOption, options, isOpen, showDropdown, closeDropdown
-}) => {
-  const renderContent = () => (
-    <RootClose onRootClose={closeDropdown}>
-      <DropdownList handleChange={handleChange} activeOption={activeOption} options={options} />
-    </RootClose>
-  );
-  return (
-    <DropdownContainer>
-      <ButtonContainer>
-        <DropdownButton onClick={showDropdown}>{activeOption.value} <StyledDropdownArrow icon="chevron-down" active={isOpen} /></DropdownButton>
-      </ButtonContainer>
-      {isOpen && renderContent()}
-    </DropdownContainer>
-  );
-};
+}) => (
+  <StyledDropdownContainer>
+    <StyledButtonContainer>
+      <StyledDropdownButton onClick={showDropdown}>{activeOption.value} <StyledDropdownArrow icon="chevron-down" active={isOpen} /></StyledDropdownButton>
+    </StyledButtonContainer>
+    {isOpen && (
+      <RootClose onRootClose={closeDropdown}>
+        <DropdownList handleChange={handleChange} activeOption={activeOption} options={options} />
+      </RootClose>
+    )}
+  </StyledDropdownContainer>
+);
 
 Dropdown.propTypes = {
   handleChange: PropTypes.func,
