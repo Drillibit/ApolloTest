@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import RootClose from 'react-overlays/lib/RootCloseWrapper';
+import PropTypes from 'prop-types';
+
 import angle from './angle.svg';
 import { DropdownList } from './DropdownList';
 
@@ -30,37 +33,42 @@ const DropdownArrow = styled.img`
 `;
 
 export class Dropdown extends Component {
-    state = {
-      showDropdown: false
-    };
-    handleDropDown = () => {
-      this.setState({
-        showDropdown: !this.state.showDropdown
-      });
-    };
 
     renderContent = () => {
-      const { showDropdown } = this.state;
-      const { btnClick, options, activeOption } = this.props;
-      if (showDropdown) {
-        return (
-          <DropdownList btnClick={btnClick} activeOption={activeOption} options={options} />
-        );
-      }
+      const {
+        handleChange,
+        options,
+        activeOption,
+        closeDropdown
+      } = this.props;
+      return (
+        <RootClose onRootClose={closeDropdown}>
+          <DropdownList handleChange={handleChange} activeOption={activeOption} options={options} />
+        </RootClose>
+      );
     };
 
     render() {
-      const { activeOption, activeOptionText } = this.props;
-      const { showDropdown } = this.state;
-      console.log(activeOption);
+      const { activeOption, isOpen, showDropdown } = this.props;
       return (
         <DropdownContainer>
           <ButtonContainer>
-            <DropdownButton onClick={this.handleDropDown}>{activeOptionText}</DropdownButton>
-            <DropdownArrow alt="dropdown-arrow" src={angle} active={showDropdown} />
-          </ButtonContainer>           
-          {this.renderContent()}
+            <DropdownButton onClick={showDropdown}>{activeOption.value}</DropdownButton>
+            <DropdownArrow onClick={showDropdown} alt="dropdown-arrow" src={angle} active={isOpen} />
+          </ButtonContainer>
+          {isOpen && this.renderContent()}
         </DropdownContainer>
       );
     }
 }
+
+Dropdown.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  closeDropdown: PropTypes.func.isRequired,
+  showDropdown: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  activeOption: PropTypes.objectOf(PropTypes.oneOfType(
+    [PropTypes.string, PropTypes.number]
+  )).isRequired
+};

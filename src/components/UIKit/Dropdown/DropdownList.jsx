@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import check from './check.svg';
 
 const DropdownContent = styled.div`
@@ -28,19 +29,6 @@ const Checked = styled.img`
   visibility: ${({ active }) => !active && 'hidden'};
 `;
 
-const TextBtn = styled.p`
-  white-space:nowrap;
-  margin: 0;
-  padding: 0;
-  border: 1px solid transparent;
-  display: inline-block;
-  padding-bottom: 4px;
-  transition: all ease .2s;
-  &:hover {
-    border-bottom: 1px solid;
-    color: #ff0079;
-  }
-`;
 
 const DropdownBtn = styled.button`
   white-space:nowrap;
@@ -64,25 +52,26 @@ const DropdownBtn = styled.button`
   }
 `;
 
-export const DropdownList = ({ options, btnClick, activeOption }) => (
+export const DropdownList = ({ options, handleChange, activeOption }) => (
   <DropdownContent>
-    {options.map(({ value, id }) => {
-      console.log(activeOption);
-      return (
-        <DropGroup key={id}>
-          <Checked src={check} active={id === activeOption} />
-          <DropdownBtn onClick={btnClick} value={id}>
-            {value}
-          </DropdownBtn>
-        </DropGroup>
-      );
-    })}
+    {options.map(({ value, id }) => (
+      <DropGroup key={id}>
+        <Checked src={check} active={id === activeOption.id} />
+        <DropdownBtn onClick={handleChange} value={id}>
+          {value}
+        </DropdownBtn>
+      </DropGroup>
+      )
+    )}
   </DropdownContent>
 );
 
 DropdownList.propTypes = {
   options: PropTypes.arrayOf(PropTypes.object),
-  btnClick: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
+  activeOption: PropTypes.objectOf(PropTypes.oneOfType(
+    [PropTypes.string, PropTypes.number]
+  )).isRequired
 };
 
 DropdownList.defaultProps = {

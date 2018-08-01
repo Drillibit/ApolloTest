@@ -9,38 +9,45 @@ const stories = storiesOf('UIKit/Dropdowns', module);
 
 class CustomComponentManager extends Component {
   state = {
-    activeOption: 1,
+    isOpen: false,
+    activeOption: { id: 1, value: 'По дате выхода' },
     options: [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }]
   }
 
 
   handleChange = (e) => {
-    const picked = e.target.value;
-
+    const { options } = this.state;
+    const picked = parseInt(e.target.value, 10);
+    const res = options.find(({ id }) => picked === id);
     this.setState({
-      activeOption: picked,
+      activeOption: res,
+      isOpen: false
     });
   };
 
-  activeOptionText = () => {
-    const activeText = this.state.options.map((option) => {
-      console.log(option.id )
-      if (option.id === this.state.activeOption) {
-        return option.value;
-      }
+  closeDropdown = () => {
+    this.setState({
+      isOpen: false
     });
+  }
 
-    return activeText;
+  showDropdown = () => {
+    this.setState({
+      isOpen: true
+    });
   };
+
 
   render() {
     const customComponent = Children.only(this.props.children);
 
     return cloneElement(customComponent, {
-      btnClick: this.handleChange,
+      handleChange: this.handleChange,
       options: this.state.options,
-      activeOption: this.state.activeOptionText,
-      activeOptionText: this.activeOptionText()
+      activeOption: this.state.activeOption,
+      isOpen: this.state.isOpen,
+      showDropdown: this.showDropdown,
+      closeDropdown: this.closeDropdown
     });
   }
 }
