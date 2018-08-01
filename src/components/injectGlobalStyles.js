@@ -62,6 +62,8 @@ injectGlobal`
 
   /* Custom global styles */
 
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900&subset=cyrillic');
+
   html {
     box-sizing: border-box;
   }
@@ -70,6 +72,11 @@ injectGlobal`
     box-sizing: inherit;
     font-family: 'Source Sans Pro', sans-serif;
   }  
+
+  body {
+    background-color: #ddd;
+    -webkit-font-smoothing: antialiased;
+  }
 `;
 
 /* eslint-enable */

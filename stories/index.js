@@ -1,4 +1,4 @@
-import './UIKit/Buttons';
+import './UIKit/Container';
 import './UIKit/Preloaders';
 import '../src/components/injectGlobalStyles';
 import './UIKit/Typography/HeadingTags';
