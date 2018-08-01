@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import check from './check.svg';
 
 const DropdownContent = styled.div`
   display: flex;
@@ -10,9 +11,9 @@ const DropdownContent = styled.div`
   padding-right: 24px;
   box-shadow: 0 12px 75px 2px rgba(0, 0, 0, 0.41), 0 2px 9px 1px rgba(0, 0, 0, 0.28);
   padding-left: 16px;
-  position: fixed;
-  margin-top: 23px;
-  margin-left: -35px;
+  top: 23px;
+  right: 32px;
+  position: absolute;
 `;
 
 const DropGroup = styled.div`
