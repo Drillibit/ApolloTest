@@ -6,8 +6,25 @@
 // When you add this file, we won't add the default configurations which is similar
 // to "React Create App". This only has babel loader to load JavaScript.
 
+const path = require('path');
+
 module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        loader: 'file-loader',
+      }
+    ],
+  },
   resolve: {
-    extensions: ['.js', '.jsx', '.json']
+    extensions: ['.js', '.jsx', '.json'],
+    alias: {
+      $UIKit: path.resolve(__dirname, '../src/components/UIKit'),
+      $components: path.resolve(__dirname, '../src/components'),
+      $containers: path.resolve(__dirname, '../src/containers'),
+      $redux: path.resolve(__dirname, '../src/redux'),
+      $assets: path.resolve(__dirname, '../src/assets'),
+    }
   }
 };
