@@ -1,9 +1,9 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHeart, faChevronDown, faChevronLeft, faCheck, faSearch, faPlay, faStar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartFill } from '@fortawesome/free-regular-svg-icons';
-import { faFacebook, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-import './UIKit/Buttons';
+import './UIKit/Icons';
 import '../src/components/injectGlobalStyles';
 
 library.add(
@@ -13,9 +13,9 @@ library.add(
   faCheck,
   faSearch,
   faPlay,
-  faHeartFill,
   faStar,
-  faFacebook,
-  faGoogle,
+  faHeartFill,
+  faFacebookF,
   faTwitter,
+  faGooglePlusG,
 );
