@@ -8,14 +8,15 @@ const StoryBookContainer = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  background-color: ${({ dark }) => (dark ? '#333' : '#fff')};
 `;
 
 const StoryBookItem = styled.div`
   margin: 4px 6px;
 `;
 
-export const Container = ({ children }) => (
-  <StoryBookContainer>
+export const Container = ({ children, dark }) => (
+  <StoryBookContainer dark={dark}>
     {React.Children.map(children, child => (
       <StoryBookItem >{child}</StoryBookItem>
     ))}
@@ -24,5 +25,9 @@ export const Container = ({ children }) => (
 
 Container.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
+  dark: PropTypes.bool,
 };
 
+Container.defaultProps = {
+  dark: false,
+};
