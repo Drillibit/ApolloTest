@@ -1,12 +1,8 @@
 import React from 'react';
-//import { func, objectOf } from 'prop-types';
+import { func, string, arrayOf, object } from 'prop-types';
 import styled from 'styled-components';
-//import { target } from '../../../node_modules/glamor';
-//import { TestScheduler } from 'rx';
 
-const searchPhrase = 'Найти по названию, жанру, актеру';
 
-/*
 const InputStyled = styled.input`
   width: 400px;
   height: 64px;
@@ -31,8 +27,8 @@ const UlStyled = styled.ul`
   width: 500px;
   border-radius: 2px;
   background-color: #ffffff;
-  box-shadow: 0 12px 75px 2px rgba(0, 0, 0, 0.41), 0 2px 9px 1px rgba(0, 0, 0, 0.28);
   font-family: 'Source Sans Pro';
+  box-shadow: 0 12px 75px 2px rgba(0, 0, 0, 0.41), 0 2px 9px 1px rgba(0, 0, 0, 0.28);
 `;
 
 const LiStyled = styled.li`
@@ -54,7 +50,7 @@ const LiStyled = styled.li`
   list-style-type: none;
   font-family: 'Source Sans Pro';
 `;
-*/
+
 const A = styled.a`
   text-decoration: none;
   cursor: pointer;
@@ -64,92 +60,33 @@ const A = styled.a`
   };
 `;
 
-export const Search = ({ searchFilm }) => {
-  // console.log(filmsList, 'filmsList');
-  // console.log(searchFilm, 'filtered');
-  let input = [];
-  return (
-    <div>
-      <input
-        maxLength={37}
-        type="text"
-        placeholder={searchPhrase}
-        onChange={e => input = searchFilm(e.target.value)}
-      />
-      <ul>
-        {
-          input.map(film => <li key={film.id}>{film.title}</li>)
-        }
-      </ul>
-    </div>
-  );
-};
 
-/*
-export class Search extends React.Component {
-  constructor(props) {
-    super(props);
+const searchPhrase = 'Найти по названию, жанру, актеру';
 
-    this.state = {
-      input: '',
-      list: []
-    };
-  }
-
-  dataSearch = e => {
-    const value = e.target.value.toLowerCase();
-    let filter = this.props.filmsList.filter(film => {
-      return film.title.toLowerCase().includes(value);
-    })
-    if (!value) { filter = [] }
-    this.setState({
-      input: value,
-      list: filter
-     })
-    console.log(value, 'value');
-    return 0;
-  }
-
-  render() {
-    console.log(this.props, 'props');
-    console.log(this.state, 'state');
-    return (
-      <div>
-        <input onChange={this.dataSearch} />
-        <ul>
-        {
-          this.state.list.map(lis => <li key={lis.value}><A href="">{lis.title}</A></li>)
-        }
-        </ul>
-      </div>
-    );
-  }
-}
-*/
-/*
-export const Search = ({ filmsList, onChange }) => (
-  <form onSubmit={e => e.preventDefault()}>
+export const Search = ({ onChange, value, result }) => (
+  <div>
     <InputStyled
-      maxLength={37}
       type="text"
       placeholder={searchPhrase}
       onChange={onChange}
+      value={value}
     />
     <UlStyled>
       {
-        filmsList.map(film => <LiStyled key={film.id}><A href="">{film.title}</A></LiStyled>)
+        result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)
       }
     </UlStyled>
-  </form>
+  </div>
 );
-*/
-/*
+
 Search.propTypes = {
   onChange: func,
-  filmsList: objectOf().isRequired
+  value: string,
+  result: arrayOf(object)
 };
 
 Search.defaultProps = {
   onChange: f => f,
+  value: '',
+  result: []
 };
-*/
