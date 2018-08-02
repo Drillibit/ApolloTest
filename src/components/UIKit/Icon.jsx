@@ -2,11 +2,14 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
-export const Icon = ({ icon }) => {
+export const Icon = ({ icon, ...props }) => {
+  /* eslint-disable */
+
   const iconMap = {
     'heart-fill': ['fas', 'heart'],
     'heart': ['far', 'heart'],
     'chevron-left': ['fas', 'chevron-left'],
+    'chevron-right': ['fas', 'chevron-right'],
     'chevron-down': ['fas', 'chevron-down'],
     'chevron-up': ['fas', 'chevron-up'],
     'search': ['fas', 'search'],
@@ -20,7 +23,9 @@ export const Icon = ({ icon }) => {
     'star': ['far', 'star'],
   };
 
-  return <FontAwesomeIcon icon={iconMap[icon]} />;
+  /* eslint-enable */
+
+  return <FontAwesomeIcon icon={iconMap[icon]} {...props} />;
 };
 
 Icon.propTypes = {

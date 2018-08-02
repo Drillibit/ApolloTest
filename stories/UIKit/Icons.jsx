@@ -41,6 +41,9 @@ stories.addWithJSX('basic', () => (
       <Icon icon="chevron-up" /><div>chevron-up</div>
     </IconWrapper>
     <IconWrapper>
+      <Icon icon="chevron-right" /><div>chevron-right</div>
+    </IconWrapper>
+    <IconWrapper>
       <Icon icon="check" /><div>check</div>
     </IconWrapper>
     <IconWrapper>
