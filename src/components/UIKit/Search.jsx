@@ -1,7 +1,6 @@
 import React from 'react';
 import { func, string, arrayOf, object } from 'prop-types';
-import styled from 'styled-components';
-
+import styled, { css } from 'styled-components';
 
 const InputStyled = styled.input`
   width: 400px;
