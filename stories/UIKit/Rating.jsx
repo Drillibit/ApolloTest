@@ -12,7 +12,7 @@ class RaitngWrapper extends Component {
     children: PropTypes.node.isRequired
   };
   state = {
-    rating: '77'
+    rating: '1'
   }
 
   handleChange = (e) => {
@@ -26,12 +26,7 @@ class RaitngWrapper extends Component {
     const rating = Children.only(this.props.children);
 
     return cloneElement(rating, {
-      handleChange: this.handleChange,
-      options: this.state.options,
-      activeOption: this.state.activeOption,
-      isOpen: this.state.isOpen,
-      showDropdown: this.showDropdown,
-      closeDropdown: this.closeDropdown
+      rating: this.state.rating
     });
   }
 }
