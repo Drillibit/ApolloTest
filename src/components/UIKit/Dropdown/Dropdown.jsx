@@ -30,7 +30,6 @@ const StyledButtonContainer = styled.div`
 
 const StyledDropdownArrow = styled(Icon)`
   width: 10px;
-  transform: ${({ active }) => active && 'rotate(-180deg)'};
   transition: all ease-in .3s;
 `;
 
@@ -39,7 +38,7 @@ export const Dropdown = ({
 }) => (
   <StyledDropdownContainer>
     <StyledButtonContainer>
-      <StyledDropdownButton onClick={showDropdown}>{activeOption.value} <StyledDropdownArrow icon="chevron-down" active={isOpen} /></StyledDropdownButton>
+      <StyledDropdownButton onClick={showDropdown}>{activeOption.value} <StyledDropdownArrow icon="chevron-down" rotation={isOpen && 180} /></StyledDropdownButton>
     </StyledButtonContainer>
     {isOpen && (
       <RootClose onRootClose={closeDropdown}>
