@@ -1,9 +1,12 @@
 import React from 'react';
-import { func, objectOf } from 'prop-types';
+//import { func, objectOf } from 'prop-types';
 import styled from 'styled-components';
+//import { target } from '../../../node_modules/glamor';
+//import { TestScheduler } from 'rx';
 
 const searchPhrase = 'Найти по названию, жанру, актеру';
 
+/*
 const InputStyled = styled.input`
   width: 400px;
   height: 64px;
@@ -51,11 +54,79 @@ const LiStyled = styled.li`
   list-style-type: none;
   font-family: 'Source Sans Pro';
 `;
-
+*/
 const A = styled.a`
   text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    color: #ff0079;
+    text-decoration: underline;
+  };
 `;
 
+export const Search = ({ searchFilm }) => {
+  // console.log(filmsList, 'filmsList');
+  // console.log(searchFilm, 'filtered');
+  let input = [];
+  return (
+    <div>
+      <input
+        maxLength={37}
+        type="text"
+        placeholder={searchPhrase}
+        onChange={e => input = searchFilm(e.target.value)}
+      />
+      <ul>
+        {
+          input.map(film => <li key={film.id}>{film.title}</li>)
+        }
+      </ul>
+    </div>
+  );
+};
+
+/*
+export class Search extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      input: '',
+      list: []
+    };
+  }
+
+  dataSearch = e => {
+    const value = e.target.value.toLowerCase();
+    let filter = this.props.filmsList.filter(film => {
+      return film.title.toLowerCase().includes(value);
+    })
+    if (!value) { filter = [] }
+    this.setState({
+      input: value,
+      list: filter
+     })
+    console.log(value, 'value');
+    return 0;
+  }
+
+  render() {
+    console.log(this.props, 'props');
+    console.log(this.state, 'state');
+    return (
+      <div>
+        <input onChange={this.dataSearch} />
+        <ul>
+        {
+          this.state.list.map(lis => <li key={lis.value}><A href="">{lis.title}</A></li>)
+        }
+        </ul>
+      </div>
+    );
+  }
+}
+*/
+/*
 export const Search = ({ filmsList, onChange }) => (
   <form onSubmit={e => e.preventDefault()}>
     <InputStyled
@@ -71,8 +142,8 @@ export const Search = ({ filmsList, onChange }) => (
     </UlStyled>
   </form>
 );
-
-
+*/
+/*
 Search.propTypes = {
   onChange: func,
   filmsList: objectOf().isRequired
@@ -81,3 +152,4 @@ Search.propTypes = {
 Search.defaultProps = {
   onChange: f => f,
 };
+*/

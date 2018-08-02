@@ -8,9 +8,7 @@ import './UIKit/Container';
 import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
-<<<<<<< HEAD
 import './UIKit/Search';
-=======
 import '../src/components/injectGlobalStyles';
 
 library.add(
@@ -28,4 +26,3 @@ library.add(
   faGooglePlusG,
   faQuoteLeft,
 );
->>>>>>> master
