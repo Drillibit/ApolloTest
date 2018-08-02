@@ -53,6 +53,9 @@ stories.addWithJSX('basic', () => (
       <Icon icon="star" /><div>star</div>
     </IconWrapper>
     <IconWrapper>
+      <Icon icon="star-fill" /><div>star-fill</div>
+    </IconWrapper>
+    <IconWrapper>
       <Icon icon="heart-fill" /><div>heart-fill</div>
     </IconWrapper>
     <IconWrapper>

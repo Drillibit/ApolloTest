@@ -12,11 +12,12 @@ export const Icon = ({ icon }) => {
     'search': ['fas', 'search'],
     'check': ['fas', 'check'],
     'play': ['fas', 'play'],
-    'star': ['fas', 'star'],
     'facebook': ['fab', 'facebook-f'],
     'twitter': ['fab', 'twitter'],
     'google-plus': ['fab', 'google-plus-g'],
     'quote': ['fas', 'quote-left'],
+    'star-fill': ['fas', 'star'],
+    'star': ['far', 'star'],
   };
 
   return <FontAwesomeIcon icon={iconMap[icon]} />;
