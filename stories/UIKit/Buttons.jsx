@@ -4,11 +4,12 @@ import { action } from '@storybook/addon-actions';
 
 import { Button } from '../../src/components/UIKit/Button';
 import { Icon } from '../../src/components/UIKit/Icon';
+import { Container } from '../helpers/Container';
 
 const stories = storiesOf('UIKit/Buttons', module);
 
 stories.addWithJSX('basic', () => (
-  <React.Fragment>
+  <Container dark>
     <Button
       btnType="transparent-white"
       btnSize="small"
@@ -70,6 +71,6 @@ stories.addWithJSX('basic', () => (
     >
       <Icon icon="heart" />В избранное
     </Button>
-  </React.Fragment>
+  </Container>
 ));
 

@@ -1,4 +1,4 @@
-const { join } = require('path');
+const path = require('path');
 
 const cssnano = require('cssnano');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -132,7 +132,7 @@ module.exports = (releaseStage) => {
 
   rules.push({
     test: /\.(jpe?g|png|gif|svg)$/,
-    include: join(__dirname, 'src/assets/img'),
+    include: path.join(__dirname, 'src/assets/img'),
     loader: 'file-loader',
     options: {
       name: isDevelopment ? 'images/[name].[ext]' : 'images/[name]-[hash].[ext]'
@@ -173,7 +173,7 @@ module.exports = (releaseStage) => {
 
   /* Output */
   const output = {
-    path: join(__dirname, 'www'),
+    path: path.join(__dirname, 'www'),
     pathinfo: isDevelopment,
     publicPath: '/',
     filename: isDevelopment ? '[name].js' : '[name]-[chunkhash].js'
@@ -245,7 +245,14 @@ module.exports = (releaseStage) => {
 
   /* Resolve */
   const resolve = {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    alias: {
+      $UIKit: path.resolve(__dirname, 'src/components/UIKit'),
+      $components: path.resolve(__dirname, 'src/components'),
+      $containers: path.resolve(__dirname, 'src/containers'),
+      $redux: path.resolve(__dirname, 'src/redux'),
+      $assets: path.resolve(__dirname, 'src/assets'),
+    }
   };
 
   /* Export */

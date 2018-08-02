@@ -5,7 +5,6 @@ import PropTypes, { func } from 'prop-types';
 const buttonDefault = css`
   position: relative;
   border-radius: 5px;
-  margin: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   -webkit-appearance: none;
