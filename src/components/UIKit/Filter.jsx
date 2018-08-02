@@ -3,15 +3,84 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Icon } from './Icon';
-import { target } from '../../../node_modules/glamor';
 
-const FilterWrapper = styled.div``;
-const FilterTitle = styled.div`
+const FilterWrapper = styled.div`
+  position: relative;
+`;
+
+const FilterTitle = styled.button`
   cursor: pointer;
+  color: #80818a;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  height: 47px;
+  padding: 11px 23px;
+  line-height: 1;
+  font-size: 20px;
+  vertical-align: middle;
+
+  &.svg-inline--fa {
+    font-size: 14px;
+  }
 `;
 
 const StyledFilterList = styled.div`
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  transition: height 0.3s ease;
+  position: absolute;
+  top: 47px;
+  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+  width: 392px;
+  height: ${({ isOpen }) => (isOpen ? '320px' : '0px')};
+  padding: 11px 23px;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: #fff;
+`;
+
+const StyledButton = styled.button`
+  height: 40px;
+  margin-right: 5px;
+  color: #494c62;
+  font-size: 20px;
+  background-color: #fff;
+  padding: 0;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  span {
+    position: relative;
+
+    &:before, &:after {
+      content: '';
+      display: block;
+      width: 0px;
+      height: 1px;
+      position: absolute;
+      background-color: #ff0079;
+      bottom: -8px;
+      transition: width 0.3s ease;
+    }
+
+    &:before {
+      left: 50%;
+    }
+
+    &:after {
+      right: 50%;
+    }
+
+    &:hover {
+      color: #ff0079;
+
+      &:before, &:after {
+        width: 50%;
+      }
+    }
+  }
 `;
 
 const FilterList = (props) => {
@@ -36,7 +105,7 @@ const FilterList = (props) => {
     <StyledFilterList isOpen={props.isOpen}>
       {
         list.map(item => (
-          <button key={item.id} onClick={props.handleClickFilterItem} value={item.name}>{item.name}</button>
+          <StyledButton key={item.id}><span onClick={props.handleClickFilterItem}>{item.name}</span></StyledButton>
         ))
       }
     </StyledFilterList>
@@ -62,7 +131,7 @@ export class Filter extends Component {
   handleClickFilterItem = (e) => {
     this.setState({
       isOpen: false,
-      currentFilter: e.target.value,
+      currentFilter: e.target.innerHTML,
     });
   }
 
@@ -86,7 +155,6 @@ Filter.propTypes = {
 
 Filter.defaultProps = {
   isOpen: false,
-  handleClickTittle: f,
   currentFilter: '',
 };
 
