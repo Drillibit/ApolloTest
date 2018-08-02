@@ -12,7 +12,7 @@ const buttonDefault = css`
   outline: none;
   line-height: 1;
 
-  &>.svg-inline--fa {
+  &> svg {
     margin-right: 10px;
   }
 
@@ -63,6 +63,11 @@ const transparentStyles = css`
   &:hover {
     color: #ff0079;
     border-color: #ff0079;
+
+    &:disabled {
+      color: #fff;
+      border-color: #fff;
+    }
   }
 `;
 
@@ -72,6 +77,13 @@ const typeTransparentWhiteStyles = css`
 
 const typeTransparentDarkStyles = css`
   ${transparentStyles};
+
+  &:hover {
+    &:disabled {
+      color: #494c62;
+      border-color: #494c62;
+    }
+  }
 
   border-color: #494c62;
   color: #494c62;
@@ -83,7 +95,7 @@ const sizeSmallStyles = css`
   font-size: 16px;
   font-weight: normal;
 
-  &>.svg-inline--fa {
+  &> svg {
     margin-right: 8px;
   }
   

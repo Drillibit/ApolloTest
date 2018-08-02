@@ -71,6 +71,76 @@ stories.addWithJSX('basic', () => (
     >
       <Icon icon="heart" />В избранное
     </Button>
+
+    <Button
+      disabled
+      btnType="transparent-white"
+      btnSize="small"
+      onClick={action('click')
+      }
+    >
+      <Icon icon="heart-fill" />В избранном
+    </Button>
+
+    <Button
+      disabled
+      btnType="primary"
+      btnSize="middle"
+      onClick={action('click')}
+    >
+      <Icon icon="play" />Смотреть трейлер
+    </Button>
+
+    <Button
+      disabled
+      btnType="primary"
+      btnSize="middle"
+      onClick={action('click')}
+    >
+      Войти
+    </Button>
+
+    <Button
+      disabled
+      btnType="primary"
+      btnSize="big"
+      onClick={action('click')}
+    >Подробнее
+    </Button>
+
+    <Button
+      disabled
+      onClick={action('click')}
+    >
+      <Icon icon="heart" />Избранное
+    </Button>
+
+    <Button
+      disabled
+      btnType="transparent-white"
+      btnSize="small"
+      onClick={action('click')}
+    >
+      <Icon icon="chevron-left" />Назад
+    </Button>
+
+    <Button
+      disabled
+      btnType="transparent-white"
+      btnSize="small"
+      onClick={action('click')}
+    >
+      <Icon icon="heart" />В избранное
+    </Button>
+
+    <Button
+      disabled
+      btnType="transparent-dark"
+      btnSize="small"
+      onClick={action('click')}
+    >
+      <Icon icon="heart" />В избранное
+    </Button>
   </Container>
 ));
 
