@@ -19,9 +19,11 @@ const FilterTitle = styled.button`
   line-height: 1;
   font-size: 20px;
   vertical-align: middle;
+  ${'' /* box-shadow: 0 12px 50px 10px rgba(0, 0, 0, 0.41); */}
 
-  &.svg-inline--fa {
+  &> svg{
     font-size: 14px;
+    margin-left: 5px;
   }
 `;
 
@@ -36,6 +38,7 @@ const StyledFilterList = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   background-color: #fff;
+  box-shadow: 0 0 75px rgba(0, 0, 0, 0.41);
 `;
 
 const StyledButton = styled.button`
