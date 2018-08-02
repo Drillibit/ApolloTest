@@ -24,6 +24,7 @@ const FilterTitle = styled.button`
   &> svg{
     font-size: 14px;
     margin-left: 5px;
+    transition: all 0.3s ease;
   }
 `;
 
@@ -144,7 +145,7 @@ export class Filter extends Component {
     return (
       <FilterWrapper>
         <FilterTitle onClick={this.handleClickTittle}>
-          Жанр <Icon icon={this.state.isOpen ? 'chevron-up' : 'chevron-down'} />
+          Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? '180' : ''} />
         </FilterTitle>
         <FilterList isOpen={this.state.isOpen} handleClickFilterItem={this.handleClickFilterItem} />
       </FilterWrapper>
