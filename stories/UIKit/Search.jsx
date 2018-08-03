@@ -5,6 +5,7 @@ import { Container } from '../helpers/Container';
 import { Search } from '../../src/components/UIKit/Search';
 import { filmsList } from '../helpers/testFilmsList';
 
+
 const stories = storiesOf('UIKit/Search', module);
 
 class SearchWrapComponent extends Component {
@@ -15,13 +16,13 @@ class SearchWrapComponent extends Component {
 
   handleChange = (e) => {
     this.setState({ value: e.target.value }, () => this.filterFilm());
-  }
+  };
 
   filterFilm = () => {
     const { value } = this.state;
-    const text = value.toLowerCase();
+    const text = value.toLowerCase().trim();
     const filter = filmsList.filter(item => item.title.toLowerCase().includes(text));
-    this.setState({ result: value ? filter : [] });
+    this.setState({ result: text ? filter : [] });
   };
 
   render() {
