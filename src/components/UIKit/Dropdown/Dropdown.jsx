@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 import PropTypes from 'prop-types';
 
+import { colors } from '../../helpers/colors';
 import { Icon } from '../Icon';
 import { DropdownList } from './DropdownList';
 
@@ -20,7 +21,7 @@ const StyledDropdownButton = styled.button`
   border: none;
   font-size: 14px;
   outline: none;
-  color: #80818a;
+  color: ${colors.grey300};
 `;
 
 const StyledButtonContainer = styled.div`

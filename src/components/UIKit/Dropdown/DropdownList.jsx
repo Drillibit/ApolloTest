@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import { colors } from '../../helpers/colors';
 import { Icon } from '../Icon';
 
 const StyledDropdownContent = styled.div`
@@ -30,7 +32,7 @@ const StyledChecked = styled(Icon)`
 const StyledDropdownBtn = styled.button`
   white-space:nowrap;
   border: none;
-  color: #494c62;
+  color: ${colors.grey500};
   font-size: 20px;
   margin-top: 10px;
   margin-bottom: 8px;
@@ -45,7 +47,7 @@ const StyledDropdownBtn = styled.button`
   outline: none;
   &:hover {
     border-bottom: 1px solid;
-    color: #ff0079;
+    color: ${colors.purple};
   }
 `;
 
