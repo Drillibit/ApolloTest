@@ -20,19 +20,6 @@ const FilterTitle = styled.button`
   padding: 11px 23px;
   line-height: 1;
   font-size: 20px;
-  ${'' /* z-index: 4; */}
-
-  ${'' /* &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.41);
-  } */}
 
   &> svg{
     font-size: 14px;
@@ -52,19 +39,6 @@ const StyledFilterList = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   background-color: #fff;
-  ${'' /* z-index: 4; */}
-  
-  ${'' /* &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.41);
-  } */}
 `;
 
 const StyledButton = styled.button`
