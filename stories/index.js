@@ -8,6 +8,7 @@ import './UIKit/Container';
 import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
+import './UIKit/Preview';
 import '../src/components/injectGlobalStyles';
 
 library.add(
