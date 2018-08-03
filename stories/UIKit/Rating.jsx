@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/react';
-import React, { Children, Component, cloneElement } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { Container } from '../helpers/Container';
@@ -7,35 +7,47 @@ import { Rating } from '../../src/components/UIKit/Rating';
 
 const stories = storiesOf('UIKit/Rating', module);
 
-class RaitngWrapper extends Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired
-  };
-  state = {
-    voteAverage: 6.7,
-    voteCount: 4.546,
-    size: 'lg'
-  }
+const propsOne = {
+  voteAverage: 6.7,
+  voteCount: 4.546,
+  size: 'lg'
+};
 
-  render() {
-    const rating = Children.only(this.props.children);
+const propsTwo = {
+  voteAverage: 8.4,
+  voteCount: 2.523,
+  size: 'lg'
+};
 
-    return cloneElement(rating, {
-      voteAverage: this.state.voteAverage,
-      voteCount: this.state.voteCount,
-      size: this.state.size
-    });
-  }
-}
+const propsOneMd = {
+  voteAverage: 6.7,
+  voteCount: 4.546,
+  size: 'md'
+};
 
-stories.addWithJSX(
-  'Rating component',
-  () => (
+const propsTwoMd = {
+  voteAverage: 8.4,
+  voteCount: 2.523,
+  size: 'md'
+};
+
+const propsThreeMd = {
+  voteAverage: 2.8,
+  voteCount: 11.121,
+  size: 'md'
+};
+
+
+stories.addWithJSX('main', () => (
+  <Fragment>
     <Container dark>
-      <RaitngWrapper>
-        <Rating />
-      </RaitngWrapper>
+      <Rating {...propsOne} />
+      <Rating {...propsTwo} />
     </Container>
-  )
-);
-
+    <Container>
+      <Rating {...propsOneMd} />
+      <Rating {...propsTwoMd} />
+      <Rating {...propsThreeMd} />
+    </Container>
+  </Fragment>
+));

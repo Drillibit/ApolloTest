@@ -2,26 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
+import { SmallText } from './Typography';
+import { colors } from '../helpers/colors';
 import { Icon } from './Icon';
 
-// Colors
-const lightOne = css`
-  color: #fff;
-`;
-
-const lightTwo = css`
-  opacity: 0.87;
-  color: #fff;
-`;
-
-const dark = css`
-  color: #949494;
-`;
-
-const mainStarColor = css`
-  color: #ff0079;
-`;
-//
 const StyledRatingContainer = styled.div`
   min-width: 27px;
   font-size: 24.5px;
@@ -33,7 +17,7 @@ const StyledRatingContainer = styled.div`
 `;
 
 const StyledRatingTop = styled.div`
- ${mainStarColor}
+  color: ${colors.purple};
   padding: 0;
   position: absolute;
   z-index: 1;
@@ -44,7 +28,7 @@ const StyledRatingTop = styled.div`
 `;
 
 const StyledIcon = styled(Icon)`
-   ${mainStarColor}
+   color: ${colors.purple};
 `;
 
 const StyledRatingBottom = StyledRatingTop.extend`
@@ -53,7 +37,7 @@ const StyledRatingBottom = StyledRatingTop.extend`
 `;
 
 const GenericStar = styled(Icon)`
- ${mainStarColor}
+  color: ${colors.purple};
   font-size: 25px;
   margin: 0 4px;
 `;
@@ -65,7 +49,7 @@ const StyledRaitngMainLg = css`
 const StyledRaitngMain = styled.div`
   display: flex;
   align-items: center;
-  transform: scale(0.6);
+  transform: scale(0.9);
   ${({ size }) => (size === 'lg' ? StyledRaitngMainLg : '')}
 `;
 
@@ -73,38 +57,28 @@ const StyledVoteCountLg = css`
   width: 86px;
   height: 18px;
   font-size: 14px;
-  ${lightTwo}
+  opacity: .86;
+  color: #fff;
 `;
 
 const StyledVoteCount = styled.span`
   font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
   margin-left: 16px;
-  ${dark}
+  color: ${colors.grey200};
   ${({ size }) => (size === 'lg' ? StyledVoteCountLg : '')}
 `;
 
-const StyledRateHeader = styled.h3`
-  font-size: 14px;
-  line-height: 1.14;
+const StyledRateHeader = SmallText.extend`
   margin-right: 8px;
-  letter-spacing: normal;
-  ${lightOne}
+  color: #fff;
 `;
 
 const StyledRateNumber = styled.span`
   font-size: 20px;
   font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
   line-height: 1.2;
-  letter-spacing: normal;
   margin-left: 2px;
-  ${lightOne};
+  color: #fff;
 `;
 
 const StyledRate = styled.div`
