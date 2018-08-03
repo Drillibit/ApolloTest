@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { colors } from '../../helpers/colors';
 import { Icon } from '../Icon';
 
 const SocialWrapper = styled.div`
@@ -20,15 +21,15 @@ const SocialLink = styled.a`
 `;
 
 const FacebookLink = SocialLink.extend`
-  background-color: #3b5998;
+  background-color: ${colors.blue};
 `;
 
 const GoogleLink = SocialLink.extend`
-  background-color: #dd4b39;
+  background-color: ${colors.red};
 `;
 
 const TwitterLink = SocialLink.extend`
-  background-color: #55acee;
+  background-color: ${colors.cyan};
 `;
 
 const StyledImage = styled(Icon)`

@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import { colors } from '../../helpers/colors';
+import { Text, H3 } from '../Typography';
 import { Icon } from '../Icon';
 import { SocialContainer } from './SocialContainer';
 
@@ -29,38 +31,31 @@ const ModalContainer = styled.div`
   position: relative;
 `;
 
-const ModalHeader = styled.h3`
+const ModalHeader = H3.extend`
   width: 116px;
   height: 24px;
   font-size: 20px;
   font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
   margin: 0 auto;
   line-height: 1.2;
-  letter-spacing: normal;
-  color: #494c62;
+  color: ${colors.grey500};
   text-align: center;
 `;
 
-const ModalText = styled.p`
+const ModalText = Text.extend`
   width: 90%;
   height: 24px;
-  font-size: 17px;
   font-weight: 300;
-  font-style: normal;
-  font-stretch: normal;
   text-align: center;
   margin: 0 auto;
   margin-top: 24px;
   line-height: 1.2;
-  letter-spacing: normal;
-  color: #494c62;
+  color: ${colors.grey500};
 `;
 const CloseSign = styled(Icon)`
   display: inline;
   margin: 10px 10px 0 0;
-  color: #494c62;
+  color: ${colors.grey500};
 `;
 
 const CloseContainer = styled.div`
