@@ -126,13 +126,19 @@ export class Filter extends Component {
     };
   }
 
-  handleClickTittle = (e) => {
+  handleOpen= (e) => {
     e.preventDefault();
 
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: true,
     });
   };
+  
+  handleClose = () => {
+    this.setState({
+      isOpen: false,
+    });
+  }
 
   handleClickFilterItem = (e) => {
     this.setState({
@@ -141,24 +147,18 @@ export class Filter extends Component {
     });
   }
 
-  handleClose = () => {
-    this.setState({
-      isOpen: false,
-    });
-  }
-
   render() {
     console.log(this.state);
 
     return (
       <FilterWrapper isOpen={this.state.isOpen}>
-        <RootClose onRootClose={this.handleClose}>
-          <FilterTitle onClick={this.handleClickTittle}>
-            Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : ''} />
-          </FilterTitle>
-          
+        <FilterTitle onClick={this.handleOpen}>
+          Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : ''} />
+        </FilterTitle>
+        {this.state.isOpen && 
+        (<RootClose onRootClose={this.handleClose}>
           <FilterList isOpen={this.state.isOpen} handleClickFilterItem={this.handleClickFilterItem} />
-        </RootClose>
+        </RootClose>)}
       </FilterWrapper>
     );
   }
