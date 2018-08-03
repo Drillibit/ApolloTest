@@ -73,6 +73,9 @@ stories.addWithJSX('basic', () => (
     <IconWrapper>
       <Icon icon="quote" /><div>quote</div>
     </IconWrapper>
+    <IconWrapper>
+      <Icon icon="close" /><div>close</div>
+    </IconWrapper>
   </Container>
 ));
 
