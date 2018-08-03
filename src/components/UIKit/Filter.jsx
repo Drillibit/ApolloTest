@@ -6,20 +6,33 @@ import { Icon } from './Icon';
 
 const FilterWrapper = styled.div`
   position: relative;
+  filter: ${({ isOpen }) => (isOpen ? 'drop-shadow(0 0 50px rgba(0,0,0, 0.2))' : 'none')};
 `;
 
 const FilterTitle = styled.button`
+  position: relative;
   cursor: pointer;
   color: #80818a;
   border: none;
-  background-color: transparent;
+  background-color: #fff;
   outline: none;
   height: 47px;
   padding: 11px 23px;
   line-height: 1;
   font-size: 20px;
-  vertical-align: middle;
-  ${'' /* box-shadow: 0 12px 50px 10px rgba(0, 0, 0, 0.41); */}
+  ${'' /* z-index: 4; */}
+
+  ${'' /* &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.41);
+  } */}
 
   &> svg{
     font-size: 14px;
@@ -29,17 +42,29 @@ const FilterTitle = styled.button`
 `;
 
 const StyledFilterList = styled.div`
-  transition: height 0.3s ease;
   position: absolute;
   top: 47px;
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   width: 392px;
+  height: 0;
   height: ${({ isOpen }) => (isOpen ? '320px' : '0px')};
   padding: 11px 23px;
   flex-wrap: wrap;
   flex-direction: column;
   background-color: #fff;
-  box-shadow: 0 0 75px rgba(0, 0, 0, 0.41);
+  ${'' /* z-index: 4; */}
+  
+  ${'' /* &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.41);
+  } */}
 `;
 
 const StyledButton = styled.button`
@@ -126,7 +151,9 @@ export class Filter extends Component {
     };
   }
 
-  handleClickTittle = () => {
+  handleClickTittle = (e) => {
+    e.preventDefault();
+
     this.setState({
       isOpen: !this.state.isOpen
     });
@@ -143,9 +170,9 @@ export class Filter extends Component {
     console.log(this.state);
 
     return (
-      <FilterWrapper>
+      <FilterWrapper isOpen={this.state.isOpen}>
         <FilterTitle onClick={this.handleClickTittle}>
-          Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? '180' : ''} />
+          Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : ''} />
         </FilterTitle>
         <FilterList isOpen={this.state.isOpen} handleClickFilterItem={this.handleClickFilterItem} />
       </FilterWrapper>
