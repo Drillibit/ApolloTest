@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import './UIKit/Buttons';
-import './UIKit/ModalRegister';
-import './UIKit/ButtonTest';
-=======
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHeart, faChevronUp, faChevronDown, faChevronLeft, faCheck, faSearch, faPlay, faStar, faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartFill } from '@fortawesome/free-regular-svg-icons';
+import { faHeart, faChevronUp, faChevronDown, faChevronLeft, faChevronRight, faCheck, faSearch, faPlay, faStar as faStarFill, faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartFill, faStar } from '@fortawesome/free-regular-svg-icons';
 import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 import './UIKit/Icons';
@@ -14,20 +9,22 @@ import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
 import '../src/components/injectGlobalStyles';
+import './UIKit/ModalRegister';
 
 library.add(
   faHeart,
   faChevronUp,
   faChevronDown,
   faChevronLeft,
+  faChevronRight,
   faCheck,
   faSearch,
   faPlay,
-  faStar,
   faHeartFill,
   faFacebookF,
   faTwitter,
   faGooglePlusG,
   faQuoteLeft,
+  faStarFill,
+  faStar,
 );
->>>>>>> master

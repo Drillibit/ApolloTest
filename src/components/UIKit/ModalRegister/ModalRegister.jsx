@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-// import { SocialContainer } from './SocialContainer';
+import { Icon } from '../Icon';
+import { SocialContainer } from './SocialContainer';
 
 const ModalOverlay = styled.div`
   margin: 0 auto;
@@ -18,8 +19,6 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContainer = styled.div`
-  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600&subset=cyrillic');
-  font-family: 'Source Sans Pro', sans-serif;
   width: 412px;
   height: 240px;
   border-radius: 2px;
@@ -42,9 +41,7 @@ const ModalHeader = styled.h3`
   line-height: 1.2;
   letter-spacing: normal;
   color: #494c62;
-  -webkit-font-smoothing: antialiased;
 `;
-
 
 const ModalText = styled.p`
   width: 90%;
@@ -60,7 +57,7 @@ const ModalText = styled.p`
   letter-spacing: normal;
   color: #494c62;
 `;
-const CloseSign = styled.img`
+const CloseSign = styled(Icon)`
   display: inline;
   margin: 10px 10px 0 0;
 `;
@@ -73,12 +70,12 @@ const CloseContainer = styled.div`
 export const ModalRegister = ({ onClick }) => (
   <Fragment>
     <ModalContainer>
-      {/* <CloseContainer>
-        <CloseSign src={close} onClick={onClick} />
-      </CloseContainer> */}
+      <CloseContainer>
+        <CloseSign icon="close" onClick={onClick} />
+      </CloseContainer>
       <ModalHeader>Регистрация</ModalHeader>
       <ModalText>Используйте любую соцсеть для регистрации</ModalText>
-      {/* <SocialContainer /> */}
+      <SocialContainer />
     </ModalContainer>
     <ModalOverlay onClick={onClick} />
   </Fragment>
