@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import RootClose from 'react-overlays/lib/RootCloseWrapper';
 
 import { Icon } from './Icon';
 
