@@ -12,29 +12,26 @@ class RaitngWrapper extends Component {
     children: PropTypes.node.isRequired
   };
   state = {
-    rating: '1'
+    voteAverage: 6.7,
+    voteCount: 4.546,
+    size: 'lg'
   }
-
-  handleChange = (e) => {
-    const val = e.target.value;
-    this.setState({
-      rating: val,
-    });
-  };
 
   render() {
     const rating = Children.only(this.props.children);
 
     return cloneElement(rating, {
-      rating: this.state.rating
+      voteAverage: this.state.voteAverage,
+      voteCount: this.state.voteCount,
+      size: this.state.size
     });
   }
 }
 
 stories.addWithJSX(
-  'Dropdown component',
+  'Rating component',
   () => (
-    <Container>
+    <Container dark>
       <RaitngWrapper>
         <Rating />
       </RaitngWrapper>
