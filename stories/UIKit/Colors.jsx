@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { colors } from '../helpers/colors';
+import { colors } from '$components/helpers/colors';
 
 const StyledColorsWrapper = styled.div`
   display: flex;
