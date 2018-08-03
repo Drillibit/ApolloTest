@@ -7,7 +7,7 @@ import { Icon } from './Icon';
 
 const FilterWrapper = styled.div`
   position: relative;
-  filter: ${({ isOpen }) => (isOpen ? 'drop-shadow(0 0 50px rgba(0,0,0, 0.2))' : 'none')};
+  filter: ${({ isOpen }) => (isOpen ? 'drop-shadow(0 0 40px rgba(0,0,0, 0.3))' : 'none')};
 `;
 
 const FilterTitle = styled.button`
