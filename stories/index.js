@@ -4,6 +4,7 @@ import { faHeart as faHeartFill, faStar } from '@fortawesome/free-regular-svg-ic
 import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 import './UIKit/Icons';
+import './UIKit/Buttons';
 import './UIKit/Container';
 import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
