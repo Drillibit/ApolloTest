@@ -63,7 +63,7 @@ const StyledVoteCountLg = css`
 
 const StyledVoteCount = styled.span`
   font-size: 12px;
-  margin-left: 16px;
+  margin-left: 10px;
   color: ${colors.grey200};
   ${({ size }) => (size === 'lg' ? StyledVoteCountLg : '')}
 `;
@@ -76,7 +76,6 @@ const StyledRateHeader = SmallText.extend`
 const StyledRateNumber = styled.span`
   font-size: 20px;
   font-weight: 600;
-  line-height: 1.2;
   margin-left: 2px;
   color: #fff;
 `;
@@ -86,6 +85,7 @@ const StyledRate = styled.div`
   align-items: baseline;
   margin-right: 10px;
 `;
+
 const rateConvert = (rate) => {
   const num = parseFloat(rate) / 2;
   const restNum = num % 1;
@@ -102,6 +102,7 @@ export const Rating = ({ voteAverage, voteCount, size }) => {
   const {
     stars, singleStar, rate, emptyStars
   } = rateConvert(voteAverage);
+
   return (
     <StyledRaitngMain size={size}>
       {size === 'lg' && (
@@ -109,9 +110,9 @@ export const Rating = ({ voteAverage, voteCount, size }) => {
         <StyledRateHeader>Рейтинг</StyledRateHeader>
         <StyledRateNumber>{rate}</StyledRateNumber>
       </StyledRate>)}
-      {stars.map((_val, index) => (
+      {stars.map((_, index) => (
         <GenericStar icon="star-fill" key={index} />
-          ))}
+      ))}
       {singleStar > 0 && (
         <StyledRatingContainer>
           <StyledRatingTop>
@@ -121,8 +122,8 @@ export const Rating = ({ voteAverage, voteCount, size }) => {
             <StyledIcon icon="star-fill" />
           </StyledRatingBottom>
         </StyledRatingContainer>
-        )}
-      {size === 'lg' && emptyStars.map((_val, index) => (
+      )}
+      {size === 'lg' && emptyStars.map((_, index) => (
         <GenericStar icon="star" key={index} />
       ))}
       <StyledVoteCount size={size} >{voteCount} отзывов</StyledVoteCount>
