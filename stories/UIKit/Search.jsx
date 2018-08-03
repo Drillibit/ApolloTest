@@ -44,7 +44,7 @@ SearchWrapComponent.defaultProps = {
 };
 
 stories.addWithJSX('Search', () => (
-  <Container>
+  <Container dark>
     <SearchWrapComponent>
       <Search />
     </SearchWrapComponent>
