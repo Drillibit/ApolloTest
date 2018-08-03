@@ -1,6 +1,5 @@
 import { storiesOf } from '@storybook/react';
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 
 import { Container } from '../helpers/Container';
 import { Rating } from '../../src/components/UIKit/Rating';
