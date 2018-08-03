@@ -1,19 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Icon } from '../Icon';
+
 const SocialWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 77%;
-  margin: 20px auto 0 auto;
+  width: 74%;
+  margin: 27px auto 0 auto;
 `;
 
 const SocialLink = styled.a`
-    width: 59px;
-    height: 59px;
+    width: 64px;
+    height: 64px;
     text-align: center;
     text-decoration: none;
     border-radius: 50%;
+    font-size: 25px;
 `;
 
 const FacebookLink = SocialLink.extend`
@@ -28,22 +31,23 @@ const TwitterLink = SocialLink.extend`
   background-color: #55acee;
 `;
 
-const StyledImage = styled.img`
+const StyledImage = styled(Icon)`
     width: 60%;
     height: 60%;
     margin-top: 20%;
+    color: #fff;
 `;
 
 export const SocialContainer = () => (
   <SocialWrapper>
-    <TwitterLink>
-      <StyledImage alt="twitter" src="/" />
+    <TwitterLink href="/#">
+      <StyledImage icon="twitter" />
     </TwitterLink>
-    <FacebookLink>
-      <StyledImage alt="facebook" src="/" />
+    <FacebookLink href="/#">
+      <StyledImage icon="facebook" />
     </FacebookLink>
-    <GoogleLink>
-      <StyledImage alt="google" src="/" />
+    <GoogleLink href="/#">
+      <StyledImage icon="google-plus" />
     </GoogleLink>
   </SocialWrapper>
 );

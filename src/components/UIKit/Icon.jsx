@@ -21,6 +21,7 @@ export const Icon = ({ icon, ...props }) => {
     'quote': ['fas', 'quote-left'],
     'star-fill': ['fas', 'star'],
     'star': ['far', 'star'],
+    'close': ['fas', 'times']
   };
 
   /* eslint-enable */

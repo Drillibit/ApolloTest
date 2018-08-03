@@ -37,10 +37,10 @@ const ModalHeader = styled.h3`
   font-style: normal;
   font-stretch: normal;
   margin: 0 auto;
-  padding-top: 21px;
   line-height: 1.2;
   letter-spacing: normal;
   color: #494c62;
+  text-align: center;
 `;
 
 const ModalText = styled.p`
@@ -60,11 +60,13 @@ const ModalText = styled.p`
 const CloseSign = styled(Icon)`
   display: inline;
   margin: 10px 10px 0 0;
+  color: #494c62;
 `;
 
 const CloseContainer = styled.div`
   display: flex;
   width: 100%;
+  font-size: 21px;
   justify-content: flex-end;
 `;
 export const ModalRegister = ({ onClick }) => (
@@ -73,7 +75,7 @@ export const ModalRegister = ({ onClick }) => (
       <CloseContainer>
         <CloseSign icon="close" onClick={onClick} />
       </CloseContainer>
-      <ModalHeader>Регистрация</ModalHeader>
+      <ModalHeader>Войти</ModalHeader>
       <ModalText>Используйте любую соцсеть для регистрации</ModalText>
       <SocialContainer />
     </ModalContainer>
