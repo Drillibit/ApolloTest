@@ -10,6 +10,7 @@ import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
 import '../src/components/injectGlobalStyles';
 import './UIKit/Dropdown';
+import './UIKit/Colors';
 
 library.add(
   faHeart,
