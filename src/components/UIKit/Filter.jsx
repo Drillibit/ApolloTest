@@ -52,12 +52,12 @@ const StyledButton = styled.button`
   border: none;
   outline: none;
   text-align: left;
-  cursor: pointer;
   transition: color 0.3s ease;
 
   span {
     position: relative;
-
+    cursor: pointer;
+    
     &:before, &:after {
       content: '';
       display: block;
@@ -133,7 +133,7 @@ export class Filter extends Component {
       isOpen: true,
     });
   };
-  
+
   handleClose = () => {
     this.setState({
       isOpen: false,
