@@ -155,8 +155,8 @@ export class Filter extends Component {
         <FilterTitle onClick={this.handleOpen}>
           Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : ''} />
         </FilterTitle>
-        {this.state.isOpen && 
-        (<RootClose onRootClose={this.handleClose}>
+        {this.state.isOpen && (
+        <RootClose onRootClose={this.handleClose}>
           <FilterList isOpen={this.state.isOpen} handleClickFilterItem={this.handleClickFilterItem} />
         </RootClose>)}
       </FilterWrapper>
@@ -166,6 +166,7 @@ export class Filter extends Component {
 
 Filter.propTypes = {
   currentFilter: PropTypes.string,
+  isOpen: PropTypes.bool,
 };
 
 Filter.defaultProps = {
