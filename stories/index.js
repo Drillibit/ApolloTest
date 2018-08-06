@@ -8,7 +8,7 @@ import './UIKit/Container';
 import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
-import '../src/components/injectGlobalStyles';
+import '../src/components/helpers/injectGlobalStyles';
 import './UIKit/Rating';
 import './UIKit/Colors';
 
