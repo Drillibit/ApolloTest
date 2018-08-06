@@ -14,30 +14,15 @@ class DropdownWrapper extends Component {
     children: PropTypes.node.isRequired
   };
   state = {
-    isOpen: false,
     activeOption: { id: 1, value: 'По дате выхода' },
     options: optionsData
   }
 
-  handleChange = (e) => {
+  handleChange = (picked) => {
     const { options } = this.state;
-    const picked = parseInt(e.target.value, 10);
     const res = options.find(({ id }) => picked === id);
     this.setState({
-      activeOption: res,
-      isOpen: false
-    });
-  };
-
-  closeDropdown = () => {
-    this.setState({
-      isOpen: false
-    });
-  }
-
-  showDropdown = () => {
-    this.setState({
-      isOpen: true
+      activeOption: res
     });
   };
 
@@ -47,10 +32,7 @@ class DropdownWrapper extends Component {
     return cloneElement(dropdown, {
       handleChange: this.handleChange,
       options: this.state.options,
-      activeOption: this.state.activeOption,
-      isOpen: this.state.isOpen,
-      showDropdown: this.showDropdown,
-      closeDropdown: this.closeDropdown
+      activeOption: this.state.activeOption
     });
   }
 }

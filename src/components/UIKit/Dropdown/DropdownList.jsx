@@ -26,6 +26,7 @@ const StyledDropGroup = styled.div`
 const StyledChecked = styled(Icon)`
   width: 14px;
   height: 14px;
+  margin-right: 4px;
   visibility: ${({ active }) => !active && 'hidden'};
 `;
 
@@ -38,7 +39,7 @@ const StyledDropdownBtn = styled.button`
   margin-bottom: 8px;
   border: 1px solid transparent;
   text-align: left;
-  padding-left: 3px;
+  padding: 0;
   cursor: pointer;
   border: 1px solid transparent;
   display: inline-block;
@@ -51,12 +52,12 @@ const StyledDropdownBtn = styled.button`
   }
 `;
 
-export const DropdownList = ({ options, handleChange, activeOption }) => (
+export const DropdownList = ({ options, closeDropdown, activeOption }) => (
   <StyledDropdownContent>
     {options.map(({ value, id }) => (
       <StyledDropGroup key={id}>
         <StyledChecked icon="check" active={id === activeOption.id} />
-        <StyledDropdownBtn onClick={handleChange} value={id}>
+        <StyledDropdownBtn onClick={closeDropdown} value={id}>
           {value}
         </StyledDropdownBtn>
       </StyledDropGroup>
@@ -67,7 +68,7 @@ export const DropdownList = ({ options, handleChange, activeOption }) => (
 
 DropdownList.propTypes = {
   options: PropTypes.arrayOf(PropTypes.object),
-  handleChange: PropTypes.func.isRequired,
+  closeDropdown: PropTypes.func.isRequired,
   activeOption: PropTypes.objectOf(PropTypes.oneOfType(
     [PropTypes.string, PropTypes.number]
   )).isRequired
