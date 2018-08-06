@@ -15,7 +15,8 @@ class PreviewWrapper extends Component {
     voteAverage: 5,
     voteCount: 4.546,
     size: 'md',
-    image: ''
+    image: '',
+    description: 'Фильм рассказывает о приключениях писателя Ньюта Скамандера в Нью-Йоркском секретном обществе волшебниоков'
   }
 
   render() {
@@ -24,7 +25,8 @@ class PreviewWrapper extends Component {
     return cloneElement(preview, {
       voteAverage: this.state.voteAverage,
       voteCount: this.state.voteCount,
-      size: this.state.size
+      size: this.state.size,
+      description: this.state.description
     });
   }
 }
