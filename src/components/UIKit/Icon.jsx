@@ -44,7 +44,10 @@ export const Icon = ({
   /* eslint-enable */
 
   return (
-    <StyledIcon size={size in sizes ? sizes[size] : size} color={color in colors ? colors[color] : color}>
+    <StyledIcon
+      size={size in sizes ? sizes[size] : size}
+      color={color in colors ? colors[color] : color}
+    >
       <FontAwesomeIcon icon={iconMap[icon]} {...props} />
     </StyledIcon>
   );
