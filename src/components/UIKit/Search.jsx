@@ -1,18 +1,44 @@
 import React from 'react';
 import { func, string, arrayOf, object } from 'prop-types';
 import styled from 'styled-components';
+import search from '../../assets/img/search-icon.svg';
 
+
+const SearchStyled = styled.div`
+  vertical-align: middle;
+  width: 441px;
+  height: 64px;
+`;
+
+const StyledIcon = styled.img`
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+  display: inline-block;
+`;
 
 const InputStyled = styled.input`
-  width: 400px;
-  height: 64px;
-  padding: 16px 24px;
+  vertical-align: middle;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
   border-radius: 5px;
+  border: none;
   box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.1);
   font-size: 20px;
   line-height: 1.6;
-  color: #494c62;
+  background-color: black;
   outline: none;
+    -webkit-transition: all .55s ease;
+    -moz-transition: all .55s ease;
+    -ms-transition: all .55s ease;
+    -o-transition: all .55s ease;
+  transition: all .55s ease;
+  :focus, :active, :hover {
+    background-color: #494c62;
+    height: 64px;
+    width: 400px;
+  }
 `;
 
 const UlStyled = styled.ul`
@@ -50,7 +76,8 @@ const A = styled.a`
 const searchPhrase = 'Найти по названию, жанру, актеру';
 
 export const Search = ({ onChange, value, result }) => (
-  <div>
+  <SearchStyled>
+    <StyledIcon src={search} />
     <InputStyled
       type="text"
       placeholder={searchPhrase}
@@ -64,7 +91,7 @@ export const Search = ({ onChange, value, result }) => (
         }
       </UlStyled>
     )}
-  </div>
+  </SearchStyled>
 );
 
 Search.propTypes = {
