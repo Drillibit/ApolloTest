@@ -130,7 +130,7 @@ export class Preview extends PureComponent {
     inOpenState: false
   };
   handleDisplay = () => {
-    setTimeout(
+    this.timeOut = setTimeout(
       () => {
         this.setState({
           inOpenState: true
@@ -143,6 +143,7 @@ export class Preview extends PureComponent {
     this.setState({
       inOpenState: false
     });
+    clearTimeout(this.timeOut);
   }
   render() {
     const { inOpenState } = this.state;
