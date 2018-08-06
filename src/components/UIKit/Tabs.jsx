@@ -14,29 +14,25 @@ const StyledTabPane = styled.div`
 const StyledTabPaneTitle = styled.div`
   text-align: center;
   font-size: 20px;
-  line-height: 40px; 
+  line-height: 40px;
+  cursor: pointer; 
 `;
 
 const StyledTabPaneContent = styled.div`
 
 `;
 
-const TabPane = ({
+export const TabPane = ({
   tabName,
-  children,
   handleChangeTab,
-  id
+  id,
+  children,
 }) => {
-  console.log(id);
-
   return (
     <StyledTabPane>
-      <StyledTabPaneTitle onClick={() => handleChangeTab(id)}>
+      <StyledTabPaneTitle onClick={() => handleChangeTab(id, children)}>
         {tabName}
       </StyledTabPaneTitle>
-      <StyledTabPaneContent>
-        {children}
-      </StyledTabPaneContent>
     </StyledTabPane>
   );
 };
@@ -44,25 +40,37 @@ const TabPane = ({
 export class Tabs extends Component {
   state = {
     activeTab: 0,
+    ch: this.props.children[0].props.children,
   };
-
-  handleChangeTab = (id) => {
+  
+  handleChangeTab = (id, children) => {
     this.setState({
       activeTab: id,
+      ch: children,
     });
   };
 
+  handleChangeContent = (children) => {
+    this.setState({
+      ch: children,
+    });
+  }
+  
   render() {
-    console.log(this.state.activeTab);
+    const { children } = this.props;
+    console.log(this.state.ch);
+
     return (
-      <StyledTabs>
-        <TabPane tabName="Сейчас в кино" handleChangeTab={this.handleChangeTab} id={0}>
-          bla bla
-        </TabPane>
-        <TabPane tabName="Топ 100" handleChangeTab={this.handleChangeTab} id={1}>
-          bla bla
-        </TabPane>
-      </StyledTabs>
+      <div>
+        <StyledTabs>
+          {React.Children.map(children, (child, id) => {
+            return <TabPane tabName={child.props.tabName} handleChangeTab={this.handleChangeTab} id={id}>{child.props.children}</TabPane>;
+          })}
+        </StyledTabs>
+        <div>
+          {this.state.ch}
+        </div>
+      </div>
     );
   }
 }
