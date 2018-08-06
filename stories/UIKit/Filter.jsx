@@ -8,6 +8,6 @@ const stories = storiesOf('UIKit/Filter', module);
 
 stories.addWithJSX('main', () => (
   <Container>
-    <Filter>Загрузка</Filter>
+    <Filter />
   </Container>
 ));
