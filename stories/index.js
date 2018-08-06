@@ -11,6 +11,7 @@ import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
 import '../src/components/injectGlobalStyles';
 import './UIKit/Colors';
+import './UIKit/Tabs';
 
 library.add(
   faHeart,
