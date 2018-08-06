@@ -11,6 +11,7 @@ import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
 import './UIKit/Preview';
 import '../src/components/injectGlobalStyles';
+import './UIKit/Rating';
 import './UIKit/Colors';
 
 library.add(
