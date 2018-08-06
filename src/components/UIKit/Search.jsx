@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, string, arrayOf, object } from 'prop-types';
+import { func, string, arrayOf, object, bool } from 'prop-types';
 import styled from 'styled-components';
 
 import { colors } from '../../components/helpers/colors';
@@ -7,13 +7,13 @@ import { SearchIcon } from '../../assets/img/search-icon';
 
 const SearchStyled = styled.div`
   position: relative;
-  width: ${({ isOpen }) => isOpen ? '400px' : '60px'};
+  width: ${({ isOpen }) => (isOpen ? '400px' : '60px')};
   height: 56px;
   padding: 12px;
   transition: width .35s ease, background .35s ease;
-  background: ${({ isOpen }) => isOpen ? 'white' : 'transparent'};
+  background: ${({ isOpen }) => (isOpen ? 'white' : 'transparent')};
   border-radius: 5px;
-  box-shadow: ${({ isOpen }) => isOpen ? '0 2px 7px 0 rgba(0, 0, 0, 0.1)' : 'none'};
+  box-shadow: ${({ isOpen }) => (isOpen ? '0 2px 7px 0 rgba(0, 0, 0, 0.1)' : 'none')};
 `;
 
 const StyledIconButton = styled.button`
@@ -52,28 +52,24 @@ const InputStyled = styled.input`
 
 const UlStyled = styled.ul`
   background-color: #ffffff;
+  margin: 0;
   padding: 0;
-  margin: 2px;
   width: 500px;
   border-radius: 2px;
   box-shadow: 0 12px 75px 2px rgba(0, 0, 0, 0.41), 0 2px 9px 1px rgba(0, 0, 0, 0.28);
 `;
 
 const LiStyled = styled.li`
-  &:hover a {
-    color: #ff0079;
-    text-decoration: underline;
-  };
-  margin: 5px 0;
-  padding-left: 24px;
-  height: 25px;
+  margin: 2px;
+  padding: 16px 0 16px 24px;
+  min-height: 25px;
   font-size: 20px;
-  color: #494c62;
   list-style-type: none;
 `;
 
 const A = styled.a`
   text-decoration: none;
+  color: #494c62;
   cursor: pointer;
   &:hover {
     color: #ff0079;
@@ -83,17 +79,21 @@ const A = styled.a`
 
 const searchPhrase = 'Найти по названию, жанру, актеру';
 
-export const Search = ({ isOpen, onClick, onChange, value, result }) => (
-  <SearchStyled isOpen={isOpen}>
-    <StyledIconButton onClick={onClick}>
-      <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
-    </StyledIconButton>
-    <InputStyled
-      type="text"
-      placeholder={searchPhrase}
-      onChange={onChange}
-      value={value}
-    />
+export const Search = ({
+  isOpen, onClick, onChange, value, result
+}) => (
+  <div>
+    <SearchStyled isOpen={isOpen}>
+      <StyledIconButton onClick={onClick}>
+        <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
+      </StyledIconButton>
+      <InputStyled
+        type="text"
+        placeholder={searchPhrase}
+        onChange={onChange}
+        value={value}
+      />
+    </SearchStyled>
     {(!result.length) || (
       <UlStyled>
         {
@@ -101,17 +101,21 @@ export const Search = ({ isOpen, onClick, onChange, value, result }) => (
         }
       </UlStyled>
     )}
-  </SearchStyled>
+  </div>
 );
 
 Search.propTypes = {
   onChange: func,
+  onClick: func,
   value: string,
+  isOpen: bool,
   result: arrayOf(object)
 };
 
 Search.defaultProps = {
   onChange: f => f,
+  onClick: f => f,
+  isOpen: false,
   value: '',
   result: []
 };
