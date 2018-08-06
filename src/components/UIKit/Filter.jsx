@@ -5,6 +5,8 @@ import RootClose from 'react-overlays/lib/RootCloseWrapper';
 
 import { Icon } from './Icon';
 
+/* eslint-disable */
+
 const FilterWrapper = styled.div`
   position: relative;
   filter: ${({ isOpen }) => (isOpen ? 'drop-shadow(0 0 40px rgba(0,0,0, 0.3))' : 'none')};
@@ -87,50 +89,19 @@ const StyledButton = styled.button`
   }
 `;
 
-const FilterList = (props) => {
-  const list = [
-    { id: 356, name: 'Мультфильм' },
-    { id: 357, name: 'Комедия' },
-    { id: 358, name: 'Боевик' },
-    { id: 359, name: 'Приключения' },
-    { id: 360, name: 'Фантастика' },
-    { id: 361, name: 'Мелодрама' },
-    { id: 362, name: 'Ужасы' },
-    { id: 363, name: 'Детектив' },
-    { id: 364, name: 'Спорт' },
-    { id: 365, name: 'Документальное' },
-    { id: 366, name: 'Триллер' },
-    { id: 367, name: 'Семейное кино' },
-    { id: 368, name: 'Драма' },
-    { id: 369, name: 'Арт-Хаус' },
-  ];
-
-  return (
-    <StyledFilterList isOpen={props.isOpen}>
-      {
-        list.map(item => (
-          <StyledButton key={item.id}><span onClick={props.handleClickFilterItem}>{item.name}</span></StyledButton>
-        ))
-      }
-    </StyledFilterList>
-  );
-};
-
 export class Filter extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isOpen: false,
-      currentFilter: '',
+      currentFilter: this.props.list[0].name,
     };
   }
 
-  handleOpen= (e) => {
-    e.preventDefault();
-
+  handleToggle = () => {
     this.setState({
-      isOpen: true,
+      isOpen: !this.state.isOpen,
     });
   };
 
@@ -138,28 +109,33 @@ export class Filter extends Component {
     this.setState({
       isOpen: false,
     });
-  }
+  };
 
-  handleClickFilterItem = (e) => {
+  handleClickFilterItem = (id) => (e) => {
     this.setState({
       isOpen: false,
       currentFilter: e.target.innerHTML,
     });
-  }
+
+    this.props.onChange(id);
+  };
 
   render() {
     console.log(this.state);
 
     return (
-      <FilterWrapper isOpen={this.state.isOpen}>
-        <FilterTitle onClick={this.handleOpen}>
-          Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : ''} />
-        </FilterTitle>
-        {this.state.isOpen && (
-        <RootClose onRootClose={this.handleClose}>
-          <FilterList isOpen={this.state.isOpen} handleClickFilterItem={this.handleClickFilterItem} />
-        </RootClose>)}
-      </FilterWrapper>
+      <RootClose onRootClose={this.state.isOpen ? this.handleClose : ''}>
+        <FilterWrapper isOpen={this.state.isOpen}>
+          <FilterTitle onClick={this.handleToggle}>
+            Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : ''} />
+          </FilterTitle>
+          <StyledFilterList isOpen={this.state.isOpen}>
+            {this.props.list.map(item => (
+              <StyledButton key={item.id}><span onClick={this.handleClickFilterItem(item.id)}>{item.name}</span></StyledButton>
+            ))}
+          </StyledFilterList>
+        </FilterWrapper>
+      </RootClose>
     );
   }
 }
