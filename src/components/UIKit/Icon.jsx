@@ -54,7 +54,13 @@ export const Icon = ({
 };
 
 Icon.propTypes = {
-  icon: PropTypes.string.isRequired,
-  size: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
+  icon: PropTypes.string,
+  size: PropTypes.string,
+  color: PropTypes.string,
+};
+
+Icon.defaultProps = {
+  icon: '',
+  size: '',
+  color: '',
 };
