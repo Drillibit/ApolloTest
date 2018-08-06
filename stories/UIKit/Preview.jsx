@@ -14,7 +14,7 @@ class PreviewWrapper extends Component {
   state = {
     voteAverage: 5,
     voteCount: 4.546,
-    size: 'lg',
+    size: 'md',
     image: ''
   }
 
