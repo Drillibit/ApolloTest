@@ -1,44 +1,53 @@
 import React from 'react';
 import { func, string, arrayOf, object } from 'prop-types';
 import styled from 'styled-components';
-import search from '../../assets/img/search-icon.svg';
 
+import { colors } from '../../components/helpers/colors';
+import { SearchIcon } from '../../assets/img/search-icon';
 
 const SearchStyled = styled.div`
-  vertical-align: middle;
-  width: 441px;
-  height: 64px;
+  position: relative;
+  width: ${({ isOpen }) => isOpen ? '400px' : '60px'};
+  height: 56px;
+  padding: 12px;
+  transition: width .35s ease, background .35s ease;
+  background: ${({ isOpen }) => isOpen ? 'white' : 'transparent'};
+  border-radius: 5px;
+  box-shadow: ${({ isOpen }) => isOpen ? '0 2px 7px 0 rgba(0, 0, 0, 0.1)' : 'none'};
 `;
 
-const StyledIcon = styled.img`
+const StyledIconButton = styled.button`
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 10px;
   width: 40px;
   height: 40px;
-  vertical-align: middle;
-  display: inline-block;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  transform: translateY(-50%);
+`;
+
+const StyledIcon = styled(SearchIcon)`
+  display: block;
+  width: 100%;
 `;
 
 const InputStyled = styled.input`
-  vertical-align: middle;
   display: inline-block;
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-  border: none;
-  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.1);
+  width: 100%;
+  padding: 0 0 0 60px;
   font-size: 20px;
   line-height: 1.6;
-  background-color: black;
+  vertical-align: middle;
+  background-color: transparent;
+  border: none;
   outline: none;
-    -webkit-transition: all .55s ease;
-    -moz-transition: all .55s ease;
-    -ms-transition: all .55s ease;
-    -o-transition: all .55s ease;
-  transition: all .55s ease;
-  :focus, :active, :hover {
-    background-color: #494c62;
-    height: 64px;
-    width: 400px;
-  }
 `;
 
 const UlStyled = styled.ul`
@@ -72,12 +81,13 @@ const A = styled.a`
   };
 `;
 
-
 const searchPhrase = 'Найти по названию, жанру, актеру';
 
-export const Search = ({ onChange, value, result }) => (
-  <SearchStyled>
-    <StyledIcon src={search} />
+export const Search = ({ isOpen, onClick, onChange, value, result }) => (
+  <SearchStyled isOpen={isOpen}>
+    <StyledIconButton onClick={onClick}>
+      <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
+    </StyledIconButton>
     <InputStyled
       type="text"
       placeholder={searchPhrase}

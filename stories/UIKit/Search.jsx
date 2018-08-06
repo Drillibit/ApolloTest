@@ -1,6 +1,8 @@
 import React, { Children, Component, cloneElement } from 'react';
 import { object } from 'prop-types';
 import { storiesOf } from '@storybook/react';
+import styled from 'styled-components';
+
 import { Container } from '../helpers/Container';
 import { Search } from '../../src/components/UIKit/Search';
 import { filmsList } from '../helpers/testFilmsList';
@@ -8,14 +10,24 @@ import { filmsList } from '../helpers/testFilmsList';
 
 const stories = storiesOf('UIKit/Search', module);
 
+const StyledContainer = styled(Container)`
+  justify-content: flex-end;
+`;
+
 class SearchWrapComponent extends Component {
   state = {
     value: '',
     result: [],
+    isOpen: false,
   };
 
   handleChange = (e) => {
     this.setState({ value: e.target.value }, () => this.filterFilm());
+  };
+
+  handleClick = () => {
+    console.log('click');
+    this.setState(state => ({ ...state, isOpen: !state.isOpen }));
   };
 
   filterFilm = () => {
@@ -30,8 +42,10 @@ class SearchWrapComponent extends Component {
 
     return cloneElement(searchComponent, {
       onChange: this.handleChange,
+      onClick: this.handleClick,
       value: this.state.value,
-      result: this.state.result
+      isOpen: this.state.isOpen,
+      result: this.state.result,
     });
   }
 }
@@ -45,9 +59,9 @@ SearchWrapComponent.defaultProps = {
 };
 
 stories.addWithJSX('Search', () => (
-  <Container dark>
+  <StyledContainer dark>
     <SearchWrapComponent>
       <Search />
     </SearchWrapComponent>
-  </Container>
+  </StyledContainer>
 ));
