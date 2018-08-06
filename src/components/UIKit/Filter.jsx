@@ -124,10 +124,10 @@ export class Filter extends Component {
     console.log(this.state);
 
     return (
-      <RootClose onRootClose={this.state.isOpen ? this.handleClose : ''}>
+      <RootClose onRootClose={this.state.isOpen ? this.handleClose : null}>
         <FilterWrapper isOpen={this.state.isOpen}>
           <FilterTitle onClick={this.handleToggle}>
-            Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : ''} />
+            Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : null} />
           </FilterTitle>
           <StyledFilterList isOpen={this.state.isOpen}>
             {this.props.list.map(item => (
