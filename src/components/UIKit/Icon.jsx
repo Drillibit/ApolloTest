@@ -1,8 +1,13 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-export const Icon = ({ icon, ...props }) => {
+import { colors } from '$components/helpers/colors';
+
+export const Icon = ({
+  icon, size, color, ...props
+}) => {
   /* eslint-disable */
 
   const iconMap = {
@@ -21,13 +26,35 @@ export const Icon = ({ icon, ...props }) => {
     'quote': ['fas', 'quote-left'],
     'star-fill': ['fas', 'star'],
     'star': ['far', 'star'],
+    'close': ['fas', 'times',],
   };
+
+  const sizes = {
+    'sm': '16px',
+    'md': '24px',
+    'lg': '36px',
+    'xl': '46px',
+  }
+
+  const StyledIcon = styled.i`
+    font-size: ${({ size }) => size};
+    color: ${({ color }) => color};
+  `;
 
   /* eslint-enable */
 
-  return <FontAwesomeIcon icon={iconMap[icon]} {...props} />;
+  return (
+    <StyledIcon
+      size={size in sizes ? sizes[size] : size}
+      color={color in colors ? colors[color] : color}
+    >
+      <FontAwesomeIcon icon={iconMap[icon]} {...props} />
+    </StyledIcon>
+  );
 };
 
 Icon.propTypes = {
   icon: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
 };
