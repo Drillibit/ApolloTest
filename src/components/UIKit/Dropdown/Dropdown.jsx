@@ -31,6 +31,7 @@ const StyledButtonContainer = styled.div`
 
 const StyledDropdownArrow = styled(Icon)`
   width: 10px;
+  margin-left: 7px;
   transition: all ease-in .3s;
 `;
 
