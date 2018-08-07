@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { func, string, arrayOf, object, bool } from 'prop-types';
 import styled from 'styled-components';
 
@@ -77,30 +77,63 @@ const A = styled.a`
 `;
 
 const searchPhrase = 'Найти по названию, жанру, актеру';
+/*
+export class Search extends PureComponent {
+  state = {
+
+  }
+
+
+  render() {
+    const { isOpen, onClick, onChange, value, result } = this.props;
+    return (
+      <div>
+        <SearchStyled isOpen={isOpen}>
+          <StyledIconButton onClick={onClick}>
+            <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
+          </StyledIconButton>
+          <InputStyled
+            type="text"
+            placeholder={searchPhrase}
+            onChange={onChange}
+            value={value}
+          />
+        </SearchStyled>
+        {(!result.length) || (
+          <UlStyled>
+            {
+              result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)
+            }
+          </UlStyled>
+        )}
+      </div>
+    );
+  }
+}
+*/
 
 export const Search = ({
   isOpen, onClick, onChange, value, result
 }) => (
-  <div>
-    <SearchStyled isOpen={isOpen}>
-      <StyledIconButton onClick={onClick}>
-        <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
-      </StyledIconButton>
-      <InputStyled
-        type="text"
-        placeholder={searchPhrase}
-        onChange={onChange}
-        value={value}
-      />
-    </SearchStyled>
-    {(!result.length) || (
-      <UlStyled>
-        {
-          result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)
-        }
-      </UlStyled>
-    )}
-  </div>
+  <SearchStyled isOpen={isOpen}>
+    <StyledIconButton onClick={onClick}>
+      <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
+    </StyledIconButton>
+    <InputStyled
+      type="text"
+      placeholder={searchPhrase}
+      onChange={onChange}
+      value={value}
+    />
+    {(!isOpen && result.length)
+      ? null
+      : (
+        <UlStyled>
+          {result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)}
+        </UlStyled>
+        )
+    }
+  </SearchStyled>
 );
 
 Search.propTypes = {

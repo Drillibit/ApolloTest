@@ -26,7 +26,6 @@ class SearchWrapComponent extends Component {
   };
 
   handleClick = () => {
-    console.log('click');
     this.setState(state => ({ ...state, isOpen: !state.isOpen }));
   };
 
@@ -38,6 +37,7 @@ class SearchWrapComponent extends Component {
   };
 
   render() {
+    console.log(this.state.isOpen, 'open');
     const searchComponent = Children.only(this.props.children);
 
     return cloneElement(searchComponent, {
