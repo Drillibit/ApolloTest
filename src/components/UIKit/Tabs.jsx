@@ -48,6 +48,8 @@ const StyledTabPaneTitle = styled.div`
   font-size: 20px;
   line-height: 40px;
   cursor: pointer;
+  transition: color 0.5s ease;
+  color: ${({ active }) => (active ? colors.purple : colors.grey300)};
   ${({ active }) => (active ? underline : '')};
 `;
 
