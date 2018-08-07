@@ -25,7 +25,7 @@ const list = [
 ];
 
 stories.addWithJSX('main', () => (
-  <Tabs>
+  <Tabs onChange={action('onChange')}>
     <TabPane tabName="Сейчас в кино">
       {'bla bla bla 1'}
     </TabPane>

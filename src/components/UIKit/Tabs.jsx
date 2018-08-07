@@ -84,6 +84,8 @@ export class Tabs extends Component {
         ch: children,
       });
     }
+
+    this.props.onChange(id);
   };
 
   handleChangeContent = (children) => {
