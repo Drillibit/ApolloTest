@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
 
-import bg from './tmp/tempbg.png';
 import { H3, SmallText } from './Typography';
 import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
@@ -27,7 +27,7 @@ const StyledPreviewContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   transition: all ease .3s;
-  ${({ open }) => (open === true ? StyledPreviewContainerOpen : '')}
+  ${({ open }) => (open ? StyledPreviewContainerOpen : '')}
 `;
 
 const StyledHeaderClose = css`
@@ -41,31 +41,40 @@ const StyledHeader = H3.extend`
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 16px 12px 2px 12px;
-  transition: all ease .3s;
-  ${({ open }) => (open === true ? StyledHeaderClose : '')}
+  transition: transform ease .3s;
+  ${({ open }) => (open ? StyledHeaderClose : '')}
   display: ${setTimeout(() => 'none', 1000)};
 `;
 
+const BgAnimation = keyframes`
+  0% {height: 70%},
+  25% {height: 65%},
+  50% {height: 60%},
+  75% {height: 55%},
+  100% {height: 50%}
+`;
 const BgKeeperMove = css`
-  height: 50%;
   transform: translateY(-10%);
+  animation: ${BgAnimation} .3s ease-in;
 `;
 
 const BgKeeper = styled.img`
   width: 100%;
   height: 70%;
   border-radius: 0 0 2px 2px;
-  transition: all ease .4s;
-  ${({ open }) => (open === true ? BgKeeperMove : '')}
+  transition: all ease-in-out .4s;
+  ${({ open }) => (open ? BgKeeperMove : '')}
 `;
 
 const RatingMove = css`
   transform: translateX(600px);
 `;
+
 const RatingContainer = styled.div`
-  transition: all ease .3s;
-  ${({ open }) => (open === true ? RatingMove : '')}
+  transition: transform ease .3s;
+  ${({ open }) => (open ? RatingMove : '')}
 `;
+
 const StyledInfoContainerMove = css`
   min-height: 256px;
   display: flex;
@@ -81,7 +90,7 @@ const StyledInfoContainer = styled.div`
   transition: height .3s linear;
   overflow: hidden;
   min-width: 412px;
-  ${({ open }) => (open === true ? StyledInfoContainerMove : '')}
+  ${({ open }) => (open ? StyledInfoContainerMove : '')}
 `;
 
 const StyledHeaderInfo = H3.extend`
@@ -126,6 +135,37 @@ const ButtonContainer = styled.div`
 `;
 
 export class Preview extends PureComponent {
+  static propTypes = {
+    description: PropTypes.string,
+    title: PropTypes.string,
+    bg: PropTypes.string,
+    year: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
+    duration: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
+    pg: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
+    genre: PropTypes.string, 
+    cast: PropTypes.string
+  };
+
+  static defaultProps = {
+    description: '',
+    title: '',
+    bg: '',
+    duration: '',
+    year: '',
+    pg: '',
+    genre: '',
+    cast: ''
+  };
+
   state = {
     inOpenState: false
   };
@@ -147,32 +187,34 @@ export class Preview extends PureComponent {
   }
   render() {
     const { inOpenState } = this.state;
-    const { description } = this.props;
+    const {
+      description, title, bg, year, duration, pg, genre, cast
+    } = this.props;
     return (
       <StyledPreviewContainer
         onMouseEnter={this.handleDisplay}
         onMouseLeave={this.handleHide}
         open={inOpenState}
       >
-        <StyledHeader open={inOpenState}>Фантастические твари и где они обитают</StyledHeader>
+        <StyledHeader open={inOpenState}>{title}</StyledHeader>
         <RatingContainer open={inOpenState}>
           <Rating {...this.props} />
         </RatingContainer>
         <BgKeeper src={bg} alt="bg" open={inOpenState} />
         <StyledInfoContainer open={inOpenState}>
-          <StyledHeaderInfo>Фантастические твари и где они обитают</StyledHeaderInfo>
+          <StyledHeaderInfo>{title}</StyledHeaderInfo>
           <StyledDigitContainer>
-            <StyledSmallInfo>2017</StyledSmallInfo>
-            <StyledSmallInfo>133 мин</StyledSmallInfo>
-            <StyledSmallInfo>12+</StyledSmallInfo>
+            <StyledSmallInfo>{year}</StyledSmallInfo>
+            <StyledSmallInfo>{duration} мин</StyledSmallInfo>
+            <StyledSmallInfo>{pg}</StyledSmallInfo>
           </StyledDigitContainer>
           <StyledDetails>
             <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
-            <StyledDetailsText>Фантастика, Приключения, Семейное кино</StyledDetailsText>
+            <StyledDetailsText>{genre}</StyledDetailsText>
           </StyledDetails>
           <StyledDetails>
             <StyledDetailsHeader>В ролях:</StyledDetailsHeader>
-            <StyledDetailsText>Эдди Редмэйн, Кэтрин Уотерстон, Элисон Судол, Колин Фаррелл, Эзра Миллер, Джемма Чан</StyledDetailsText>
+            <StyledDetailsText>{cast}</StyledDetailsText>
           </StyledDetails>
           <StyledDetails>
             <StyledParagraph>
