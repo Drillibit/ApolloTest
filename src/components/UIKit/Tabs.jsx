@@ -66,9 +66,11 @@ export const TabPane = ({
   active,
 }) => {
   const jsx = tabName instanceof Object;
-  return <StyledTabPaneTitle jsx={jsx} active={active} onClick={() => handleChangeTab(id, children, tabName)}>
-    {tabName}
-  </StyledTabPaneTitle>
+  return (
+    <StyledTabPaneTitle jsx={jsx} active={active} onClick={() => handleChangeTab(id, children, tabName)}>
+      {tabName}
+    </StyledTabPaneTitle>
+  );
 };
 
 export class Tabs extends Component {
@@ -121,9 +123,9 @@ export class Tabs extends Component {
 }
 
 TabPane.propTypes = {
-  tabName: PropTypes.string,
+  tabName: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
   id: PropTypes.number,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
   handleChangeTab: func,
   active: PropTypes.bool,
 };
@@ -133,6 +135,7 @@ TabPane.defaultProps = {
   tabName: '',
   id: 0,
   handleChangeTab: f => f,
+  children: '',
 };
 
 Tabs.propTypes = {
