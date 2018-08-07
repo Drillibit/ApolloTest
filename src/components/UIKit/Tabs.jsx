@@ -47,10 +47,11 @@ const StyledTabPaneTitle = styled.div`
   text-align: center;
   font-size: 20px;
   line-height: 40px;
+  height: 40px;
   cursor: pointer;
   transition: color 0.5s ease;
   color: ${({ active }) => (active ? colors.purple : colors.grey300)};
-  ${({ active }) => (active ? underline : '')};
+  ${({ active, jsx }) => (active && !jsx ? underline : '')};
 `;
 
 const StyledTabPaneContent = styled.div`
@@ -63,11 +64,12 @@ export const TabPane = ({
   id,
   children,
   active,
-}) => (
-  <StyledTabPaneTitle active={active} onClick={() => handleChangeTab(id, children)}>
+}) => {
+  const jsx = tabName instanceof Object;
+  return <StyledTabPaneTitle jsx={jsx} active={active} onClick={() => handleChangeTab(id, children, tabName)}>
     {tabName}
   </StyledTabPaneTitle>
-);
+};
 
 export class Tabs extends Component {
   state = {
@@ -75,11 +77,13 @@ export class Tabs extends Component {
     ch: this.props.children[0].props.children,
   };
 
-  handleChangeTab = (id, children) => {
-    this.setState({
-      activeTab: id,
-      ch: children,
-    });
+  handleChangeTab = (id, children, tabName) => {
+    if (!(tabName instanceof Object)){
+      this.setState({
+        activeTab: id,
+        ch: children,
+      });
+    }
   };
 
   handleChangeContent = (children) => {

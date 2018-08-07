@@ -10,6 +10,7 @@ import { Icon } from './Icon';
 const FilterWrapper = styled.div`
   position: relative;
   filter: ${({ isOpen }) => (isOpen ? 'drop-shadow(0 0 40px rgba(0,0,0, 0.3))' : 'none')};
+  text-align: center;
 `;
 
 const FilterTitle = styled.button`
@@ -19,12 +20,12 @@ const FilterTitle = styled.button`
   border: none;
   background-color: #fff;
   outline: none;
-  height: 47px;
-  padding: 11px 23px;
+  height: 40px;
+  padding: 10px 23px;
   line-height: 1;
   font-size: 20px;
 
-  &> svg{
+  &> i{
     font-size: 14px;
     margin-left: 5px;
     transition: all 0.3s ease;
@@ -33,7 +34,8 @@ const FilterTitle = styled.button`
 
 const StyledFilterList = styled.div`
   position: absolute;
-  top: 47px;
+  top: 40px;
+  left: 40px;
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   width: 392px;
   height: 0;
@@ -121,7 +123,7 @@ export class Filter extends Component {
   };
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <RootClose onRootClose={this.state.isOpen ? this.handleClose : null}>
