@@ -27,7 +27,7 @@ const StyledChecked = styled(Icon)`
   width: 14px;
   height: 14px;
   margin-right: 4px;
-  visibility: ${({ active }) => !active && 'hidden'};
+  visibility: ${({ active }) => active !== 'true' && 'hidden'};
 `;
 
 const StyledDropdownBtn = styled.button`
@@ -56,7 +56,7 @@ export const DropdownList = ({ options, closeDropdown, activeOption }) => (
   <StyledDropdownContent>
     {options.map(({ value, id }) => (
       <StyledDropGroup key={id}>
-        <StyledChecked icon="check" active={id === activeOption.id} />
+        <StyledChecked icon="check" active={(id === activeOption.id).toString()} />
         <StyledDropdownBtn onClick={closeDropdown} value={id}>
           {value}
         </StyledDropdownBtn>
