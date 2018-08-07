@@ -113,9 +113,9 @@ export class Search extends PureComponent {
 */
 
 export const Search = ({
-  isOpen, onClick, onChange, value, result
+  isOpen, onClick, onChange, value, result, onClose
 }) => (
-  <SearchStyled isOpen={isOpen}>
+  <SearchStyled isOpen={isOpen} onClick={onClose}>
     <StyledIconButton onClick={onClick}>
       <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
     </StyledIconButton>
@@ -133,6 +133,11 @@ export const Search = ({
         </UlStyled>
         )
     }
+
+    <input ref={ 
+      node => { console.log(node,' node')}
+    }
+    />
   </SearchStyled>
 );
 

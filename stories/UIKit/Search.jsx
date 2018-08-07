@@ -19,7 +19,16 @@ class SearchWrapComponent extends Component {
     value: '',
     result: [],
     isOpen: false,
+    wrapperRef: ''
   };
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleCloseList);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleCloseList);
+  }
 
   handleChange = (e) => {
     this.setState({ value: e.target.value }, () => this.filterFilm());
@@ -28,6 +37,10 @@ class SearchWrapComponent extends Component {
   handleClick = () => {
     this.setState(state => ({ ...state, isOpen: !state.isOpen }));
   };
+
+  handleCloseList = (e) => {
+    console.log(e, 'e');
+  }
 
   filterFilm = () => {
     const { value } = this.state;
@@ -43,6 +56,7 @@ class SearchWrapComponent extends Component {
     return cloneElement(searchComponent, {
       onChange: this.handleChange,
       onClick: this.handleClick,
+      onClose: this.handleCloseList,
       value: this.state.value,
       isOpen: this.state.isOpen,
       result: this.state.result,
