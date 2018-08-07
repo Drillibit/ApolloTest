@@ -52,7 +52,7 @@ const InputStyled = styled.input`
 
 const UlStyled = styled.ul`
   background-color: #ffffff;
-  margin: 0;
+  margin: 10px 0 0 0;
   padding: 0;
   width: 500px;
   border-radius: 2px;
@@ -60,8 +60,7 @@ const UlStyled = styled.ul`
 `;
 
 const LiStyled = styled.li`
-  margin: 2px;
-  padding: 16px 0 16px 24px;
+  padding: 11px 0 11px 24px;
   min-height: 25px;
   font-size: 20px;
   list-style-type: none;
