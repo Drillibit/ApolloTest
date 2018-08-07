@@ -1,30 +1,33 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 
 import { Icon } from './Icon';
 
-/* eslint-disable */
-
-const FilterWrapper = styled.div`
+const StyledFilterWrapper = styled.div`
   position: relative;
   filter: ${({ isOpen }) => (isOpen ? 'drop-shadow(0 0 40px rgba(0,0,0, 0.3))' : 'none')};
+  text-align: center;
 `;
 
-const FilterTitle = styled.button`
+const StyledFilterTitle = styled.div`
   position: relative;
+  display: inline-block;
+`;
+
+const StyledFilterButton = styled.button`
   cursor: pointer;
   color: #80818a;
   border: none;
-  background-color: #fff;
   outline: none;
-  height: 47px;
-  padding: 11px 23px;
+  height: 40px;
+  padding: 10px 23px;
   line-height: 1;
   font-size: 20px;
+  background-color: #fff;
 
-  &> svg{
+  &> i{
     font-size: 14px;
     margin-left: 5px;
     transition: all 0.3s ease;
@@ -33,7 +36,8 @@ const FilterTitle = styled.button`
 
 const StyledFilterList = styled.div`
   position: absolute;
-  top: 47px;
+  top: 40px;
+  left: 0;
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   width: 392px;
   height: 0;
@@ -44,7 +48,8 @@ const StyledFilterList = styled.div`
   background-color: #fff;
 `;
 
-const StyledButton = styled.button`
+const StyledListButton = styled.button`
+  position: relative;
   height: 40px;
   margin-right: 5px;
   color: #494c62;
@@ -55,49 +60,44 @@ const StyledButton = styled.button`
   outline: none;
   text-align: left;
   transition: color 0.3s ease;
+`;
 
-  span {
-    position: relative;
-    cursor: pointer;
-    
+const StyledListButtonText = styled.span`
+  position: relative;
+  cursor: pointer;
+  
+  &:before, &:after {
+    content: '';
+    display: block;
+    width: 0px;
+    height: 1px;
+    position: absolute;
+    background-color: #ff0079;
+    bottom: -8px;
+    transition: width 0.3s ease;
+  }
+
+  &:before {
+    left: 50%;
+  }
+
+  &:after {
+    right: 50%;
+  }
+
+  &:hover {
+    color: #ff0079;
+
     &:before, &:after {
-      content: '';
-      display: block;
-      width: 0px;
-      height: 1px;
-      position: absolute;
-      background-color: #ff0079;
-      bottom: -8px;
-      transition: width 0.3s ease;
-    }
-
-    &:before {
-      left: 50%;
-    }
-
-    &:after {
-      right: 50%;
-    }
-
-    &:hover {
-      color: #ff0079;
-
-      &:before, &:after {
-        width: 50%;
-      }
+      width: 50%;
     }
   }
 `;
 
 export class Filter extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isOpen: false,
-      currentFilter: this.props.list[0].name,
-    };
-  }
+  state = {
+    isOpen: false,
+  };
 
   handleToggle = () => {
     this.setState({
@@ -111,42 +111,48 @@ export class Filter extends Component {
     });
   };
 
-  handleClickFilterItem = (id) => (e) => {
-    this.setState({
-      isOpen: false,
-      currentFilter: e.target.innerHTML,
-    });
+  handleClickFilterItem = (id) => {
+    this.handleToggle();
 
     this.props.onChange(id);
   };
 
   render() {
-    console.log(this.state);
-
     return (
       <RootClose onRootClose={this.state.isOpen ? this.handleClose : null}>
-        <FilterWrapper isOpen={this.state.isOpen}>
-          <FilterTitle onClick={this.handleToggle}>
-            Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : null} />
-          </FilterTitle>
-          <StyledFilterList isOpen={this.state.isOpen}>
-            {this.props.list.map(item => (
-              <StyledButton key={item.id}><span onClick={this.handleClickFilterItem(item.id)}>{item.name}</span></StyledButton>
-            ))}
-          </StyledFilterList>
-        </FilterWrapper>
+        <StyledFilterWrapper isOpen={this.state.isOpen}>
+          <StyledFilterTitle>
+            <StyledFilterButton onClick={this.handleToggle}>
+              Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : null} />
+            </StyledFilterButton>
+
+            <StyledFilterList isOpen={this.state.isOpen}>
+              {this.props.list.map(item => (
+                <StyledListButton key={item.id}>
+                  <StyledListButtonText
+                    onClick={() => this.handleClickFilterItem(item.id)}
+                  >
+                    {item.name}
+                  </StyledListButtonText>
+                </StyledListButton>
+              ))}
+            </StyledFilterList>
+          </StyledFilterTitle>
+        </StyledFilterWrapper>
       </RootClose>
     );
   }
 }
 
 Filter.propTypes = {
-  currentFilter: PropTypes.string,
   isOpen: PropTypes.bool,
+  list: PropTypes.arrayOf(PropTypes.object),
+  onChange: func,
 };
 
 Filter.defaultProps = {
   isOpen: false,
-  currentFilter: '',
+  list: [{}],
+  onChange: f => f,
 };
 
