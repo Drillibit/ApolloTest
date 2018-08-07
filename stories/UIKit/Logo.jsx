@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import { colors } from '$components/helpers/colors';
-import { Logo } from '../../src/components/UIKit/Logo';
+import { Logo } from '$components/UIKit/Logo';
 import { Container } from '../helpers/Container';
 
 
