@@ -169,6 +169,7 @@ export class Preview extends PureComponent {
   state = {
     inOpenState: false
   };
+
   handleDisplay = () => {
     this.timeOut = setTimeout(
       () => {
@@ -185,11 +186,13 @@ export class Preview extends PureComponent {
     });
     clearTimeout(this.timeOut);
   }
+
   render() {
     const { inOpenState } = this.state;
     const {
       description, title, bg, year, duration, pg, genre, cast
     } = this.props;
+
     return (
       <StyledPreviewContainer
         onMouseEnter={this.handleDisplay}

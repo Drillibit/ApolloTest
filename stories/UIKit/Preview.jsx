@@ -12,6 +12,7 @@ class PreviewWrapper extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired
   };
+
   state = {
     voteAverage: 5,
     voteCount: 4.546,
