@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { func, string, arrayOf, object, bool } from 'prop-types';
 import styled from 'styled-components';
+import RootClose from 'react-overlays/lib/RootCloseWrapper';
 
 import { colors } from '../../components/helpers/colors';
 import { SearchIcon } from '../../assets/img/search-icon';
@@ -50,9 +51,10 @@ const InputStyled = styled.input`
   outline: none;
 `;
 
+
 const UlStyled = styled.ul`
   background-color: #ffffff;
-  margin: 10px 0 0 0;
+  margin: 20px 0 0 -11px;
   padding: 0;
   width: 500px;
   border-radius: 2px;
@@ -77,68 +79,31 @@ const A = styled.a`
 `;
 
 const searchPhrase = 'Найти по названию, жанру, актеру';
-/*
-export class Search extends PureComponent {
-  state = {
-
-  }
-
-
-  render() {
-    const { isOpen, onClick, onChange, value, result } = this.props;
-    return (
-      <div>
-        <SearchStyled isOpen={isOpen}>
-          <StyledIconButton onClick={onClick}>
-            <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
-          </StyledIconButton>
-          <InputStyled
-            type="text"
-            placeholder={searchPhrase}
-            onChange={onChange}
-            value={value}
-          />
-        </SearchStyled>
-        {(!result.length) || (
-          <UlStyled>
-            {
-              result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)
-            }
-          </UlStyled>
-        )}
-      </div>
-    );
-  }
-}
-*/
 
 export const Search = ({
-  isOpen, onClick, onChange, value, result, onClose
+  isOpen, onClick, onChange, value, result
 }) => (
-  <SearchStyled isOpen={isOpen} onClick={onClose}>
-    <StyledIconButton onClick={onClick}>
-      <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
-    </StyledIconButton>
-    <InputStyled
-      type="text"
-      placeholder={searchPhrase}
-      onChange={onChange}
-      value={value}
-    />
-    {(!isOpen && result.length)
-      ? null
-      : (
-        <UlStyled>
-          {result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)}
-        </UlStyled>
-        )
-    }
-
-    <input ref={ 
-      node => { console.log(node,' node')}
-    }
-    />
-  </SearchStyled>
+  <RootClose onRootClose={onClick}>
+    <SearchStyled isOpen={isOpen}>
+      <StyledIconButton onClick={onClick}>
+        <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
+      </StyledIconButton>
+      <InputStyled
+        type="text"
+        placeholder={searchPhrase}
+        onChange={onChange}
+        value={value}
+      />
+      {(!isOpen && result.length)
+        ? null
+        : (
+          <UlStyled>
+            {result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)}
+          </UlStyled>
+          )
+      }
+    </SearchStyled>
+  </RootClose>
 );
 
 Search.propTypes = {
