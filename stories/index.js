@@ -9,7 +9,6 @@ import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
 import './UIKit/Preview';
-import '../src/components/injectGlobalStyles';
 import './UIKit/Dropdown';
 import '../src/components/helpers/injectGlobalStyles';
 import './UIKit/Rating';
