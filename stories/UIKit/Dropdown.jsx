@@ -1,5 +1,6 @@
-import { storiesOf } from '@storybook/react';
 import React, { Children, Component, cloneElement } from 'react';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import PropTypes from 'prop-types';
 
 import { Container } from '../helpers/Container';
@@ -13,6 +14,7 @@ class DropdownWrapper extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired
   };
+
   state = {
     activeOption: { id: 1, value: 'По дате выхода' },
     options: optionsData
@@ -24,6 +26,7 @@ class DropdownWrapper extends Component {
     this.setState({
       activeOption: res
     });
+    action('handleChange')(picked);
   };
 
   render() {

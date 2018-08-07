@@ -85,7 +85,7 @@ export class Dropdown extends PureComponent {
         <StyledButtonContainer>
           <StyledDropdownButton onClick={this.handleClick}>
             {activeOption.value}
-            <StyledDropdownArrow icon="chevron-down" rotation={isOpen ? 180 : 0} />
+            <StyledDropdownArrow icon="chevron-down" rotation={isOpen ? 180 : null} />
           </StyledDropdownButton>
         </StyledButtonContainer>
         {isOpen && (
