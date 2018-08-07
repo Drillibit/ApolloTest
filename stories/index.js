@@ -13,6 +13,7 @@ import './UIKit/Dropdown';
 import '../src/components/helpers/injectGlobalStyles';
 import './UIKit/Rating';
 import './UIKit/Colors';
+import './UIKit/Logo';
 import './UIKit/Buttons';
 
 library.add(
