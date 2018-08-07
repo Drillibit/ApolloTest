@@ -221,7 +221,7 @@ export class Preview extends PureComponent {
           </StyledDetails>
           <StyledDetails>
             <StyledParagraph>
-              {description.slice(0, 90)}...
+              {description.length > 90 ? `${description.slice(0, 90)}...` : description}
             </StyledParagraph>
           </StyledDetails>
           <ButtonContainer>
