@@ -55,14 +55,17 @@ const BgAnimation = keyframes`
 `;
 const BgKeeperMove = css`
   transform: translateY(-10%);
+  min-height: 250px;
   animation: ${BgAnimation} .3s ease-in;
 `;
 
-const BgKeeper = styled.img`
+const BgKeeper = styled.div`
   width: 100%;
   height: 70%;
   border-radius: 0 0 2px 2px;
   transition: all ease-in-out .4s;
+  background-image: url('${({ bg }) => bg}');
+  background-size: cover;
   ${({ open }) => (open ? BgKeeperMove : '')}
 `;
 
@@ -76,7 +79,7 @@ const RatingContainer = styled.div`
 `;
 
 const StyledInfoContainerMove = css`
-  min-height: 256px;
+  max-height: 256px;
   display: flex;
   flex-direction: column;
 `;
@@ -90,6 +93,7 @@ const StyledInfoContainer = styled.div`
   transition: height .3s linear;
   overflow: hidden;
   min-width: 412px;
+  padding-bottom: 4px;
   ${({ open }) => (open ? StyledInfoContainerMove : '')}
 `;
 
@@ -151,7 +155,7 @@ export class Preview extends PureComponent {
       PropTypes.string,
       PropTypes.number
     ]),
-    genre: PropTypes.string, 
+    genre: PropTypes.string,
     cast: PropTypes.string
   };
 
@@ -190,7 +194,7 @@ export class Preview extends PureComponent {
   render() {
     const { inOpenState } = this.state;
     const {
-      description, title, bg, year, duration, pg, genre, cast
+      description, title, year, bg, duration, pg, genre, cast
     } = this.props;
 
     return (
@@ -203,22 +207,24 @@ export class Preview extends PureComponent {
         <RatingContainer open={inOpenState}>
           <Rating {...this.props} />
         </RatingContainer>
-        <BgKeeper src={bg} alt="bg" open={inOpenState} />
+        <BgKeeper open={inOpenState} bg={bg} />
         <StyledInfoContainer open={inOpenState}>
           <StyledHeaderInfo>{title}</StyledHeaderInfo>
           <StyledDigitContainer>
             <StyledSmallInfo>{year}</StyledSmallInfo>
-            <StyledSmallInfo>{duration} мин</StyledSmallInfo>
+            <StyledSmallInfo>{duration} {duration && 'мин'}</StyledSmallInfo>
             <StyledSmallInfo>{pg}</StyledSmallInfo>
           </StyledDigitContainer>
+          {genre && (
           <StyledDetails>
             <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
             <StyledDetailsText>{genre}</StyledDetailsText>
-          </StyledDetails>
+          </StyledDetails>)}
+          {cast && (
           <StyledDetails>
             <StyledDetailsHeader>В ролях:</StyledDetailsHeader>
             <StyledDetailsText>{cast}</StyledDetailsText>
-          </StyledDetails>
+          </StyledDetails>)}
           <StyledDetails>
             <StyledParagraph>
               {description.length > 90 ? `${description.slice(0, 90)}...` : description}
