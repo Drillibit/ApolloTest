@@ -5,8 +5,12 @@ import PropTypes from 'prop-types';
 import { H3, SmallText } from './Typography';
 import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
-import { Button } from './Button';
+import { Button, StyledButton } from './Button';
 import { Icon } from './Icon';
+
+const StyledCustomBtn = styled(StyledButton)`
+  padding: 4px 43px; 
+`;
 
 const StyledPreviewContainerOpen = css`
   width: 412px;
@@ -55,13 +59,14 @@ const BgAnimation = keyframes`
 `;
 const BgKeeperMove = css`
   transform: translateY(-10%);
+  min-height: 50%;
   min-height: 250px;
   animation: ${BgAnimation} .3s ease-in;
 `;
 
 const BgKeeper = styled.div`
   width: 100%;
-  height: 70%;
+  flex: 2;
   border-radius: 0 0 2px 2px;
   transition: all ease-in-out .4s;
   background-image: url('${({ bg }) => bg}');
@@ -85,15 +90,12 @@ const StyledInfoContainerMove = css`
 `;
 
 const StyledInfoContainer = styled.div`
-  max-height: 0;
   display: none;
-  transform: all ease .3s;
+  transform: all ease .3s; 
   padding: 0 16px 14px 16px;
-  transform: translateY(-24px);
   transition: height .3s linear;
   overflow: hidden;
   min-width: 412px;
-  padding-bottom: 4px;
   ${({ open }) => (open ? StyledInfoContainerMove : '')}
 `;
 
@@ -127,14 +129,14 @@ const StyledDetailsHeader = StyledSmallInfo.extend`
 `;
 
 const StyledParagraph = StyledDetailsText.extend`
-  text-overflow: ellipsis;
   max-height: 38px;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  align-items: center;
+  width: 98%;
   margin: 0 auto;
 `;
 
@@ -238,13 +240,12 @@ export class Preview extends PureComponent {
             >
               <Icon icon="heart" />Избранное
             </Button>
-            <Button
+            <StyledCustomBtn
               btnType="primary"
-              btnSize="small"
               onClick={this.handleHide}
             >
               Подробнее
-            </Button>
+            </StyledCustomBtn>
           </ButtonContainer>
         </StyledInfoContainer>
       </StyledPreviewContainer>

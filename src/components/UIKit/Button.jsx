@@ -122,7 +122,7 @@ const shadowStyles = css`
   box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.5);
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   ${buttonDefault}
 
   ${(props) => {
