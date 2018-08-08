@@ -3,7 +3,8 @@ import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import { object } from 'prop-types';
 import { filmsList } from '../helpers/testFilmsList';
-import bg from '../assets/tmp/mask.png';
+import bg from '../assets/img/mask.png';
+
 import { MainHeader } from '../../src/components/UIKit/MainHeader';
 
 const StyledContainer = styled.div`

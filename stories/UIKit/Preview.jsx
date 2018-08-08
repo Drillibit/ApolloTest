@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { Container } from '../helpers/Container';
 import { Preview } from '../../src/components/UIKit/Preview';
-import bg from '../assets/tmp/tmpbg.png';
+import bg from '../assets/img/tmpbg.png';
 
 const stories = storiesOf('UIKit/Preview', module);
 
