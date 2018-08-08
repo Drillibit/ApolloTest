@@ -27,7 +27,7 @@ const StyledFilterButton = styled.button`
   font-size: 20px;
   background-color: #fff;
 
-  &> i{
+  &> i {
     font-size: 14px;
     margin-left: 5px;
     transition: all 0.3s ease;
