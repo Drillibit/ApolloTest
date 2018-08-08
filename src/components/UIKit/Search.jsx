@@ -94,14 +94,11 @@ export const Search = ({
         onChange={onChange}
         value={value}
       />
-      {(!isOpen && result.length)
-        ? null
-        : (
-          <UlStyled>
-            {result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)}
-          </UlStyled>
-          )
-      }
+      {(isOpen && result.length > 0) && (
+        <UlStyled>
+          {result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)}
+        </UlStyled>
+      )}
     </SearchStyled>
   </RootClose>
 );
