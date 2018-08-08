@@ -1,8 +1,9 @@
 import React from 'react';
-// import { string } from 'prop-types';
+import { oneOfType, node, arrayOf } from 'prop-types';
 import styled from 'styled-components';
 
 import { Logo } from './Logo';
+import { colors } from '../helpers/colors';
 
 const FooterStyled = styled.footer`
   color: #babbc3;
@@ -16,9 +17,13 @@ const FooterStyled = styled.footer`
   width: 100%;
 `;
 
-export const Footer = () => (
+export const Footer = ({ children }) => (
   <FooterStyled>
-    <Logo />
-    {console.log(this)}
+    <Logo color={colors.grey500} />
+    {children}
   </FooterStyled>
 );
+
+Footer.propTypes = {
+  children: oneOfType([node, arrayOf(node)]).isRequired
+};
