@@ -12,7 +12,7 @@ const buttonDefault = css`
   outline: none;
   line-height: 1;
 
-  &> svg {
+  &> i {
     margin-right: 10px;
   }
 
@@ -95,7 +95,7 @@ const sizeSmallStyles = css`
   font-size: 16px;
   font-weight: normal;
 
-  &> svg {
+  &> i {
     margin-right: 8px;
   }
   

@@ -8,11 +8,14 @@ import './UIKit/Container';
 import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
+import './UIKit/Preview';
 import './UIKit/Dropdown';
 import '../src/components/helpers/injectGlobalStyles';
 import './UIKit/Search';
 import './UIKit/Rating';
 import './UIKit/Colors';
+import './UIKit/Logo';
+import './UIKit/Buttons';
 
 library.add(
   faHeart,

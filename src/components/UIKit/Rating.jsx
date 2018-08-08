@@ -42,15 +42,9 @@ const GenericStar = styled(Icon)`
   margin: 0 4px;
 `;
 
-const StyledRaitngMainLg = css`
-  transform: scale(1);
-`;
-
 const StyledRaitngMain = styled.div`
   display: flex;
   align-items: center;
-  transform: scale(0.9);
-  ${({ size }) => (size === 'lg' ? StyledRaitngMainLg : '')}
 `;
 
 const StyledVoteCountLg = css`
@@ -86,6 +80,15 @@ const StyledRate = styled.div`
   margin-right: 10px;
 `;
 
+const StyledStarContainerLg = css`
+  transform: scale(1);
+`;
+
+const StyledStarContainer = styled.div`
+  display: flex;
+  transform: scale(0.7);
+  ${({ size }) => (size === 'lg' ? StyledStarContainerLg : '')}
+`;
 const rateConvert = (rate) => {
   const num = parseFloat(rate) / 2;
   const restNum = num % 1;
@@ -104,16 +107,17 @@ export const Rating = ({ voteAverage, voteCount, size }) => {
   } = rateConvert(voteAverage);
 
   return (
-    <StyledRaitngMain size={size}>
-      {size === 'lg' && (
-      <StyledRate>
-        <StyledRateHeader>Рейтинг</StyledRateHeader>
-        <StyledRateNumber>{rate}</StyledRateNumber>
-      </StyledRate>)}
-      {stars.map((_, index) => (
-        <GenericStar icon="star-fill" key={index} />
+    <StyledRaitngMain>
+      <StyledStarContainer size={size}>
+        {size === 'lg' && (
+        <StyledRate>
+          <StyledRateHeader>Рейтинг</StyledRateHeader>
+          <StyledRateNumber>{rate}</StyledRateNumber>
+        </StyledRate>)}
+        {stars.map((_, index) => (
+          <GenericStar icon="star-fill" key={index} />
       ))}
-      {singleStar > 0 && (
+        {singleStar > 0 && (
         <StyledRatingContainer>
           <StyledRatingTop>
             <Icon icon="star" />
@@ -123,6 +127,7 @@ export const Rating = ({ voteAverage, voteCount, size }) => {
           </StyledRatingBottom>
         </StyledRatingContainer>
       )}
+      </StyledStarContainer>
       {size === 'lg' && emptyStars.map((_, index) => (
         <GenericStar icon="star" key={index} />
       ))}

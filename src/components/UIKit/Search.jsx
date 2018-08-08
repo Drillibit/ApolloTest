@@ -81,9 +81,9 @@ const A = styled.a`
 const searchPhrase = 'Найти по названию, жанру, актеру';
 
 export const Search = ({
-  isOpen, onClick, onChange, value, result
+  isOpen, onClick, onChange, value, result, onClose
 }) => (
-  <RootClose onRootClose={onClick}>
+  <RootClose onRootClose={onClose}>
     <SearchStyled isOpen={isOpen}>
       <StyledIconButton onClick={onClick}>
         <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
@@ -97,8 +97,8 @@ export const Search = ({
       {(isOpen && result.length > 0) && (
         <UlStyled>
           {result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)}
-        </UlStyled>
-      )}
+        </UlStyled>)
+      }
     </SearchStyled>
   </RootClose>
 );
@@ -106,6 +106,7 @@ export const Search = ({
 Search.propTypes = {
   onChange: func,
   onClick: func,
+  onClose: func,
   value: string,
   isOpen: bool,
   result: arrayOf(object)
@@ -114,6 +115,7 @@ Search.propTypes = {
 Search.defaultProps = {
   onChange: f => f,
   onClick: f => f,
+  onClose: f => f,
   isOpen: false,
   value: '',
   result: []
