@@ -30,6 +30,9 @@ class SearchWrapComponent extends Component {
     this.setState(state => ({ ...state, isOpen: !state.isOpen }));
   };
 
+  handleClose = () => {
+    this.setState(state => ({ ...state, isOpen: false }));
+  };
 
   filterFilm = () => {
     const { value } = this.state;
@@ -44,7 +47,7 @@ class SearchWrapComponent extends Component {
     return cloneElement(searchComponent, {
       onChange: this.handleChange,
       onClick: this.handleClick,
-      onClose: this.handleCloseList,
+      onClose: this.handleClose,
       value: this.state.value,
       isOpen: this.state.isOpen,
       result: this.state.result,
