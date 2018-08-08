@@ -13,5 +13,8 @@
     ],
     "stage-2",
     "react"
+  ],
+  "plugins": [
+    "styled-components"
   ]
 }
