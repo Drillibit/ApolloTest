@@ -43,6 +43,10 @@ function createBabelOptions({ hot = false, optimize = false, react = false } = {
     }
   }
 
+  if (!optimize) {
+    plugins.push('styled-components');
+  }
+
   return { presets, plugins };
 }
 
