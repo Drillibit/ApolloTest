@@ -27,7 +27,7 @@ const StyledFilterButton = styled.button`
   font-size: 20px;
   background-color: #fff;
 
-  &> i {
+  &> i > svg {
     font-size: 14px;
     margin-left: 5px;
     transition: all 0.3s ease;
@@ -60,37 +60,10 @@ const StyledListButton = styled.button`
   outline: none;
   text-align: left;
   transition: color 0.3s ease;
-`;
-
-const StyledListButtonText = styled.span`
-  position: relative;
   cursor: pointer;
-  
-  &:before, &:after {
-    content: '';
-    display: block;
-    width: 0px;
-    height: 1px;
-    position: absolute;
-    background-color: #ff0079;
-    bottom: -8px;
-    transition: width 0.3s ease;
-  }
-
-  &:before {
-    left: 50%;
-  }
-
-  &:after {
-    right: 50%;
-  }
 
   &:hover {
     color: #ff0079;
-
-    &:before, &:after {
-      width: 50%;
-    }
   }
 `;
 
@@ -128,12 +101,8 @@ export class Filter extends Component {
 
             <StyledFilterList isOpen={this.state.isOpen}>
               {this.props.list.map(item => (
-                <StyledListButton key={item.id}>
-                  <StyledListButtonText
-                    onClick={() => this.handleClickFilterItem(item.id)}
-                  >
-                    {item.name}
-                  </StyledListButtonText>
+                <StyledListButton key={item.id} onClick={() => this.handleClickFilterItem(item.id)}>
+                  {item.name}
                 </StyledListButton>
               ))}
             </StyledFilterList>
