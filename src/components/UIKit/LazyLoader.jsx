@@ -2,33 +2,31 @@
 import React, { Component } from 'react';
 
 import { Preloader } from '$UIKit/Preloader';
-import bg from '../../../stories/UIKit/tmp/tmpbg.png';
 
 export class LazyLoader extends Component {
-  state = {
-    isLoad: false
-  };
-
-  componentDidMout() {
-    const img = React.findDOMNode(this);
-    if (img.complete) {
-      this.handleLoad();
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      count: 0,
     }
   }
-
-  handleLoader = () => {
-    this.setState({
-      isLoad: true
-    });
+  
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  };
+  
+  handleScroll = (e) =>{
+    console.log(e);
   };
 
   render() {
-    const { isLoad } = this.state;
+    const { count } = this.state;
+    const { children } = this.props;
 
-    return(
-      <div onLoad={this.handleLoader}>
-        { isLoad ? <img src={bg} /> : <Preloader>Загрузка</Preloader>}
-        <img src={bg} /> 
+    return (
+      <div onScroll={this.handleScroll}>
+        {children}
       </div>
     );
   }
