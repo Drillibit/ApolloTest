@@ -124,8 +124,8 @@ export class Filter extends Component {
 
             <StyledFilterList isOpen={this.state.isOpen}>
               {this.props.list.map(item => (
-                <StyledListButtonWrapper>
-                  <StyledListButton key={item.id} data-id={item.id} onClick={this.handleClickFilterItem}>
+                <StyledListButtonWrapper key={item.id}>
+                  <StyledListButton data-id={item.id} onClick={this.handleClickFilterItem}>
                     {item.name}
                   </StyledListButton>
                 </StyledListButtonWrapper>
