@@ -139,14 +139,11 @@ export class Filter extends Component {
 }
 
 Filter.propTypes = {
-  isOpen: PropTypes.bool,
   list: PropTypes.arrayOf(PropTypes.object),
   onChange: func,
 };
 
 Filter.defaultProps = {
-  isOpen: false,
   list: [{}],
   onChange: f => f,
 };
-
