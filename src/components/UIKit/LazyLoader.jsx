@@ -23,12 +23,12 @@ export class LazyLoader extends Component {
     this.state = {
       isLoading: false,
       hasMore: this.props.hasMore,
-      offset: 600
     };
   }
 
   handleScroll = e => {
-    console.log(this.state.hasMore);
+    // console.log(`hasMore? : ${this.state.hasMore}`);
+    // console.log(`isLoading? : ${this.state.isLoading}`);
 
     if (this.state.hasMore) {
       if (e.target.clientHeight + e.target.scrollTop === e.target.scrollHeight) {
@@ -53,7 +53,7 @@ export class LazyLoader extends Component {
         {children}
 
         <StyledPreloaderWrapper>
-          {this.state.isLoading ? <Preloader>Загрузка</Preloader> : ''}
+          {this.state.hasMore && <Preloader>Загрузка</Preloader>}
         </StyledPreloaderWrapper>
       </StyledLazyList>
     );
