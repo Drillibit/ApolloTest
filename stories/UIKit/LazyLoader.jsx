@@ -21,7 +21,7 @@ class LazyLoaderWrapper extends Component {
   }
 
   handleLoad = () => {
-    const step = 50;
+    const step = 20;
     // console.log(`hasMore? : ${this.state.hasMore}`);
 
     if (this.state.end + step >= this.state.list.length) {

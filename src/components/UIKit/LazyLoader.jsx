@@ -26,6 +26,10 @@ export class LazyLoader extends Component {
     };
   }
 
+  static getDerivedStateFromProps({ hasMore }) {
+    return ({ hasMore: hasMore, isLoading: false, });
+  }
+
   handleScroll = e => {
     // console.log(`hasMore? : ${this.state.hasMore}`);
     // console.log(`isLoading? : ${this.state.isLoading}`);
@@ -53,7 +57,7 @@ export class LazyLoader extends Component {
         {children}
 
         <StyledPreloaderWrapper>
-          {this.state.hasMore && <Preloader>Загрузка</Preloader>}
+          {this.state.isLoading && <Preloader>Загрузка</Preloader>}
         </StyledPreloaderWrapper>
       </StyledLazyList>
     );
