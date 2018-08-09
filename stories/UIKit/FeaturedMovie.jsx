@@ -10,8 +10,6 @@ import { LargeText, H1 } from '$components/UIKit/Typography';
 import { Container } from '../helpers/Container';
 import { searchGenre } from '../helpers/genres';
 
-console.log(searchGenre([12, 14, 16]), 'func');
-
 
 const stories = storiesOf('UIKit/FeaturedMovie', module);
 
@@ -44,7 +42,7 @@ const somefilm = {
 const FeaturedMovieStyled = styled.div`
   width: 1437px;
   height: 700px;
-  background: #000 url(https://image.tmdb.org/t/p/w500/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat;
+  background: #000 url(https://image.tmdb.org/t/p/original/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -128,7 +126,9 @@ stories.addWithJSX('FeaturedMovie', () => (
           <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
           <H1>{somefilm.title}</H1>
           <GenresBlock>
-            <Genres>{searchGenre(somefilm.genre_ids).map((genre, index) => <span key={index}>{genre}&nbsp;</span>)}</Genres>
+            <Genres>{searchGenre(somefilm.genre_ids).map(
+              (genre, index) => <span key={index}>{genre}&nbsp;</span>)}
+            </Genres>
             <DurationBlock>{somefilm.timing} минуты</DurationBlock>
           </GenresBlock>
         </FilmTitleBlock>
