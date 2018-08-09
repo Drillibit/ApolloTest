@@ -16,11 +16,8 @@ import './UIKit/Rating';
 import './UIKit/Colors';
 import './UIKit/Logo';
 import './UIKit/Buttons';
-<<<<<<< HEAD
 import './UIKit/LazyLoader';
-=======
 import './UIKit/MainHeader';
->>>>>>> master
 
 library.add(
   faHeart,
