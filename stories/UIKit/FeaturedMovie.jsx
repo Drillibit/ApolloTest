@@ -8,11 +8,10 @@ import { Button } from '$components/UIKit/Button';
 import { Icon } from '$components/UIKit/Icon';
 import { LargeText, H1 } from '$components/UIKit/Typography';
 import { Container } from '../helpers/Container';
+import { searchGenre } from '../helpers/genres';
 
-/*
-  LargeText 18px bold and normal
+console.log(searchGenre([12, 14, 16]), 'func');
 
-*/ 
 
 const stories = storiesOf('UIKit/FeaturedMovie', module);
 
@@ -42,24 +41,106 @@ const somefilm = {
 };
 /* eslint-enable */
 
+const FeaturedMovieStyled = styled.div`
+  width: 1437px;
+  height: 700px;
+  background: #000 url(https://image.tmdb.org/t/p/w500/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+`;
+
+const WrapBlock = styled.div`
+  width: 1300px;
+  padding: 40px;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const FilmTitleBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #fff;
+`;
+
+const GenresBlock = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const Genres = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & span {
+    margin-right: 10px;
+  }
+`;
+
+const DurationBlock = styled.div`
+  border-left: 2px solid white;
+  opacity: 0.87;
+  border-radius: 2px;
+  padding-left: 20px;
+  margin-left: 10px;
+`;
+
+const FilmButtonsBlock = styled.div`
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+`;
+
+const RatingBlock = styled.div`
+  display: flex;
+  align-content: center;
+
+  justify-content: center;
+  
+  padding: 16px;
+  border-radius: 5px;
+  border: solid 2px rgba(255, 255, 255, 0.2);
+  background-color: rgba(73, 76, 98, 0.6);
+`;
+
+const ButtonsWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & button {
+    margin-right: 20px; 
+  }
+`;
+
+
 stories.addWithJSX('FeaturedMovie', () => (
   <Container dark>
-    <div>
-      <div>
-        <LargeText><strong>Сейчас в кино</strong></LargeText>
-        <H1>{somefilm.title}</H1>
-        <div>
-          <span>{somefilm.genre_ids.map((genre, index) => <span key={index}>{genre}&nbsp;</span>)}</span>
-          <span>{somefilm.timing} минуты</span>
-        </div>
-      </div>
-      <div>
-        <div>
-          <Button btnType="primary" btnSize="big" onClick={action('click')}>Подробнее</Button>
-          <Button btnType="transparent-white" btnSize="small" onClick={action('click')}><Icon icon="heart" />В избранное</Button>
-        </div>
-        <div><Rating voteAverage={somefilm.vote_average} voteCount={somefilm.vote_count} size="lg" /></div>
-      </div>
-    </div>
+    <FeaturedMovieStyled>
+      <WrapBlock>
+        <FilmTitleBlock>
+          <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
+          <H1>{somefilm.title}</H1>
+          <GenresBlock>
+            <Genres>{searchGenre(somefilm.genre_ids).map((genre, index) => <span key={index}>{genre}&nbsp;</span>)}</Genres>
+            <DurationBlock>{somefilm.timing} минуты</DurationBlock>
+          </GenresBlock>
+        </FilmTitleBlock>
+
+        <FilmButtonsBlock>
+          <ButtonsWrap>
+            <Button btnType="primary" btnSize="big" onClick={action('click')}>Подробнее</Button>
+            <Button btnType="transparent-white" btnSize="small" onClick={action('click')}><Icon icon="heart" />В избранное</Button>
+          </ButtonsWrap>
+          <RatingBlock><Rating voteAverage={somefilm.vote_average} voteCount={somefilm.vote_count} size="lg" /></RatingBlock>
+        </FilmButtonsBlock>
+      </WrapBlock>
+    </FeaturedMovieStyled>
   </Container>
 ));
