@@ -1,12 +1,12 @@
-import React, { PureComponent } from "react";
-import styled, { css, keyframes } from "styled-components";
-import PropTypes from "prop-types";
+import React, { PureComponent } from 'react';
+import styled, { css, keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
 
-import { H3, SmallText } from "./Typography";
-import { colors } from "../helpers/colors";
-import { Rating } from "./Rating";
-import { Button, StyledButton } from "./Button";
-import { Icon } from "./Icon";
+import { H3, SmallText } from './Typography';
+import { colors } from '../helpers/colors';
+import { Rating } from './Rating';
+import { Button, StyledButton } from './Button';
+import { Icon } from './Icon';
 
 const StyledCustomBtn = styled(StyledButton)`
   padding: 4px 43px;
@@ -41,7 +41,8 @@ const StyledPreviewContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   transition: all ease 0.3s;
-  ${({ open }) => (open ? StyledPreviewContainerOpen : "")};
+  z-index: 0;
+  ${({ open }) => (open ? StyledPreviewContainerOpen : '')};
 `;
 
 const StyledHeaderClose = css`
@@ -56,8 +57,8 @@ const StyledHeader = H3.extend`
   text-overflow: ellipsis;
   padding: 16px 12px 2px 12px;
   transition: transform ease .3s;
-  ${({ open }) => (open ? StyledHeaderClose : "")}
-  display: ${setTimeout(() => "none", 1000)};
+  ${({ open }) => (open ? StyledHeaderClose : '')}
+  display: ${setTimeout(() => 'none', 1000)};
 `;
 
 const BgAnimation = keyframes`
@@ -81,7 +82,7 @@ const BgKeeper = styled.div`
   transition: all ease-in-out .4s;
   background-image: url('${({ bg }) => bg}');
   background-size: cover;
-  ${({ open }) => (open ? BgKeeperMove : "")}
+  ${({ open }) => (open ? BgKeeperMove : '')}
 `;
 
 const RatingMove = css`
@@ -90,7 +91,7 @@ const RatingMove = css`
 
 const RatingContainer = styled.div`
   transition: transform ease 0.3s;
-  ${({ open }) => (open ? RatingMove : "")};
+  ${({ open }) => (open ? RatingMove : '')};
 `;
 
 const StyledInfoContainerMove = css`
@@ -106,7 +107,7 @@ const StyledInfoContainer = styled.div`
   transition: height 0.3s linear;
   overflow: hidden;
   min-width: 412px;
-  ${({ open }) => (open ? StyledInfoContainerMove : "")};
+  ${({ open }) => (open ? StyledInfoContainerMove : '')};
 `;
 
 const StyledHeaderInfo = H3.extend`
@@ -163,14 +164,14 @@ export class Preview extends PureComponent {
   };
 
   static defaultProps = {
-    description: "",
-    title: "",
-    bg: "",
-    duration: "",
-    year: "",
-    pg: "",
-    genre: "",
-    cast: ""
+    description: '',
+    title: '',
+    bg: '',
+    duration: '',
+    year: '',
+    pg: '',
+    genre: '',
+    cast: ''
   };
 
   state = {
@@ -222,7 +223,7 @@ export class Preview extends PureComponent {
             <StyledDigitContainer>
               <StyledSmallInfo>{year}</StyledSmallInfo>
               <StyledSmallInfo>
-                {duration} {duration && "мин"}
+                {duration} {duration && 'мин'}
               </StyledSmallInfo>
               <StyledSmallInfo>{pg}</StyledSmallInfo>
             </StyledDigitContainer>
@@ -251,7 +252,8 @@ export class Preview extends PureComponent {
                 onClick={this.handleDisplay}
                 btnSize="small"
               >
-                <Icon icon="heart" />Избранное
+                <Icon icon="heart" />
+                Избранное
               </Button>
               <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
                 Подробнее
