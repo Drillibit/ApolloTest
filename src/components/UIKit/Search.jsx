@@ -84,23 +84,23 @@ export const Search = ({
   isOpen, onClick, onChange, value, result, onClose
 }) => (
   <RootClose onRootClose={onClose}>
-    <SearchStyled isOpen={isOpen}>
-      <StyledIconButton onClick={onClick}>
-        <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
-      </StyledIconButton>
-      <InputStyled
-        type="text"
-        placeholder={searchPhrase}
-        onChange={onChange}
-        value={value}
-      />
-      {(isOpen && result.length > 0) && (
-        <UlStyled>
-          {result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)}
-        </UlStyled>)
-      }
-    </SearchStyled>
-  </RootClose>
+      <SearchStyled isOpen={isOpen}>
+        <StyledIconButton onClick={onClick}>
+          <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
+        </StyledIconButton>
+        <InputStyled
+          type="text"
+          placeholder={searchPhrase}
+          onChange={onChange}
+          value={value}
+        />
+        {(isOpen && result.length > 0) && (
+          <UlStyled>
+            {result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)}
+          </UlStyled>)
+        }
+      </SearchStyled>
+    </RootClose>
 );
 
 Search.propTypes = {
@@ -108,7 +108,7 @@ Search.propTypes = {
   onClick: func,
   onClose: func,
   value: string,
-  isOpen: bool,
+  isOpen: bool.isRequired,
   result: arrayOf(object)
 };
 
