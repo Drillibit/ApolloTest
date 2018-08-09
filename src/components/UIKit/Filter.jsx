@@ -48,6 +48,10 @@ const StyledFilterList = styled.div`
   background-color: #fff;
 `;
 
+const StyledListButtonWrapper = styled.div`
+  text-align: left;
+`;
+
 const StyledListButton = styled.button`
   position: relative;
   height: 40px;
@@ -62,8 +66,25 @@ const StyledListButton = styled.button`
   transition: color 0.3s ease;
   cursor: pointer;
 
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #ff0079;
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
   &:hover {
     color: #ff0079;
+
+    &::after {
+      opacity: 1;
+    }
   }
 `;
 
@@ -84,8 +105,10 @@ export class Filter extends Component {
     });
   };
 
-  handleClickFilterItem = (id) => {
+  handleClickFilterItem = (e) => {
     this.handleToggle();
+
+    const id = +e.target.dataset.id;
 
     this.props.onChange(id);
   };
@@ -101,9 +124,11 @@ export class Filter extends Component {
 
             <StyledFilterList isOpen={this.state.isOpen}>
               {this.props.list.map(item => (
-                <StyledListButton key={item.id} onClick={() => this.handleClickFilterItem(item.id)}>
-                  {item.name}
-                </StyledListButton>
+                <StyledListButtonWrapper>
+                  <StyledListButton key={item.id} data-id={item.id} onClick={this.handleClickFilterItem}>
+                    {item.name}
+                  </StyledListButton>
+                </StyledListButtonWrapper>
               ))}
             </StyledFilterList>
           </StyledFilterTitle>
