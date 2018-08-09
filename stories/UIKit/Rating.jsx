@@ -35,8 +35,6 @@ const propsThreeMd = {
   voteCount: 11.121,
   size: 'md'
 };
-
-
 stories.addWithJSX('main', () => (
   <Fragment>
     <Container dark>

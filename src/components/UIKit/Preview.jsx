@@ -5,18 +5,32 @@ import PropTypes from 'prop-types';
 import { H3, SmallText } from './Typography';
 import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
-import { Button } from './Button';
+import { Button, StyledButton } from './Button';
 import { Icon } from './Icon';
 
+const StyledCustomBtn = styled(StyledButton)`
+  padding: 4px 43px;
+`;
+
+const StyledParent = styled.div`
+  position: relative;
+  width: 282px;
+  height: 284px;
+`;
+
 const StyledPreviewContainerOpen = css`
+  z-index: 10;
+  right: -67px;
   width: 412px;
   height: 526px;
   border-radius: 2px;
   background-color: #ffffff;
-  box-shadow: 0 12px 75px 2px rgba(0, 0, 0, 0.41), 0 2px 9px 1px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 12px 75px 2px rgba(0, 0, 0, 0.41),
+    0 2px 9px 1px rgba(0, 0, 0, 0.28);
 `;
 
 const StyledPreviewContainer = styled.div`
+  position: absolute;
   overflow: hidden;
   width: 282px;
   height: 284px;
@@ -26,8 +40,9 @@ const StyledPreviewContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all ease .3s;
-  ${({ open }) => (open ? StyledPreviewContainerOpen : '')}
+  transition: all ease 0.3s;
+  z-index: 0;
+  ${({ open }) => (open ? StyledPreviewContainerOpen : '')};
 `;
 
 const StyledHeaderClose = css`
@@ -55,14 +70,18 @@ const BgAnimation = keyframes`
 `;
 const BgKeeperMove = css`
   transform: translateY(-10%);
-  animation: ${BgAnimation} .3s ease-in;
+  min-height: 50%;
+  min-height: 250px;
+  animation: ${BgAnimation} 0.3s ease-in;
 `;
 
-const BgKeeper = styled.img`
+const BgKeeper = styled.div`
   width: 100%;
-  height: 70%;
+  flex: 2;
   border-radius: 0 0 2px 2px;
   transition: all ease-in-out .4s;
+  background-image: url('${({ bg }) => bg}');
+  background-size: cover;
   ${({ open }) => (open ? BgKeeperMove : '')}
 `;
 
@@ -71,26 +90,25 @@ const RatingMove = css`
 `;
 
 const RatingContainer = styled.div`
-  transition: transform ease .3s;
-  ${({ open }) => (open ? RatingMove : '')}
+  transition: transform ease 0.3s;
+  margin-bottom: 11px;
+  ${({ open }) => (open ? RatingMove : '')};
 `;
 
 const StyledInfoContainerMove = css`
-  min-height: 256px;
+  max-height: 256px;
   display: flex;
   flex-direction: column;
 `;
 
 const StyledInfoContainer = styled.div`
-  max-height: 0;
   display: none;
-  transform: all ease .3s;
+  transform: all ease 0.3s;
   padding: 0 16px 14px 16px;
-  transform: translateY(-24px);
-  transition: height .3s linear;
+  transition: height 0.3s linear;
   overflow: hidden;
   min-width: 412px;
-  ${({ open }) => (open ? StyledInfoContainerMove : '')}
+  ${({ open }) => (open ? StyledInfoContainerMove : '')};
 `;
 
 const StyledHeaderInfo = H3.extend`
@@ -123,14 +141,14 @@ const StyledDetailsHeader = StyledSmallInfo.extend`
 `;
 
 const StyledParagraph = StyledDetailsText.extend`
-  text-overflow: ellipsis;
   max-height: 38px;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  align-items: center;
+  width: 100%;
   margin: 0 auto;
 `;
 
@@ -139,19 +157,10 @@ export class Preview extends PureComponent {
     description: PropTypes.string,
     title: PropTypes.string,
     bg: PropTypes.string,
-    year: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    duration: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    pg: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    genre: PropTypes.string, 
+    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    genre: PropTypes.string,
     cast: PropTypes.string
   };
 
@@ -171,77 +180,89 @@ export class Preview extends PureComponent {
   };
 
   handleDisplay = () => {
-    this.timeOut = setTimeout(
-      () => {
-        this.setState({
-          inOpenState: true
-        });
-      }, 1000
-    );
-  }
+    this.timeOut = setTimeout(() => {
+      this.setState({
+        inOpenState: true
+      });
+    }, 1000);
+  };
 
   handleHide = () => {
     this.setState({
       inOpenState: false
     });
     clearTimeout(this.timeOut);
-  }
+  };
 
   render() {
     const { inOpenState } = this.state;
     const {
-      description, title, bg, year, duration, pg, genre, cast
+      description,
+      title,
+      year,
+      bg,
+      duration,
+      pg,
+      genre,
+      cast
     } = this.props;
 
     return (
-      <StyledPreviewContainer
-        onMouseEnter={this.handleDisplay}
-        onMouseLeave={this.handleHide}
-        open={inOpenState}
-      >
-        <StyledHeader open={inOpenState}>{title}</StyledHeader>
-        <RatingContainer open={inOpenState}>
-          <Rating {...this.props} />
-        </RatingContainer>
-        <BgKeeper src={bg} alt="bg" open={inOpenState} />
-        <StyledInfoContainer open={inOpenState}>
-          <StyledHeaderInfo>{title}</StyledHeaderInfo>
-          <StyledDigitContainer>
-            <StyledSmallInfo>{year}</StyledSmallInfo>
-            <StyledSmallInfo>{duration} мин</StyledSmallInfo>
-            <StyledSmallInfo>{pg}</StyledSmallInfo>
-          </StyledDigitContainer>
-          <StyledDetails>
-            <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
-            <StyledDetailsText>{genre}</StyledDetailsText>
-          </StyledDetails>
-          <StyledDetails>
-            <StyledDetailsHeader>В ролях:</StyledDetailsHeader>
-            <StyledDetailsText>{cast}</StyledDetailsText>
-          </StyledDetails>
-          <StyledDetails>
-            <StyledParagraph>
-              {description.length > 90 ? `${description.slice(0, 90)}...` : description}
-            </StyledParagraph>
-          </StyledDetails>
-          <ButtonContainer>
-            <Button
-              btnType="transparent-dark"
-              onClick={this.handleDisplay}
-              btnSize="small"
-            >
-              <Icon icon="heart" />Избранное
-            </Button>
-            <Button
-              btnType="primary"
-              btnSize="small"
-              onClick={this.handleHide}
-            >
-              Подробнее
-            </Button>
-          </ButtonContainer>
-        </StyledInfoContainer>
-      </StyledPreviewContainer>
+      <StyledParent>
+        <StyledPreviewContainer
+          onMouseEnter={this.handleDisplay}
+          onMouseLeave={this.handleHide}
+          open={inOpenState}
+        >
+          <StyledHeader open={inOpenState}>{title}</StyledHeader>
+          <RatingContainer open={inOpenState}>
+            <Rating {...this.props} />
+          </RatingContainer>
+          <BgKeeper open={inOpenState} bg={bg} />
+          <StyledInfoContainer open={inOpenState}>
+            <StyledHeaderInfo>{title}</StyledHeaderInfo>
+            <StyledDigitContainer>
+              <StyledSmallInfo>{year}</StyledSmallInfo>
+              <StyledSmallInfo>
+                {duration} {duration && 'мин'}
+              </StyledSmallInfo>
+              <StyledSmallInfo>{pg}</StyledSmallInfo>
+            </StyledDigitContainer>
+            {genre && (
+              <StyledDetails>
+                <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
+                <StyledDetailsText>{genre}</StyledDetailsText>
+              </StyledDetails>
+            )}
+            {cast && (
+              <StyledDetails>
+                <StyledDetailsHeader>В ролях:</StyledDetailsHeader>
+                <StyledDetailsText>{cast}</StyledDetailsText>
+              </StyledDetails>
+            )}
+            <StyledDetails>
+              <StyledParagraph>
+                {description.length > 90
+                  ? `${description.slice(0, 90)}...`
+                  : description}
+              </StyledParagraph>
+            </StyledDetails>
+            <ButtonContainer>
+              <Button
+                btnType="transparent-dark"
+                onClick={this.handleDisplay}
+                btnSize="small"
+              >
+                <Icon icon="heart" />
+                Избранное
+              </Button>
+              <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
+                Подробнее
+              </StyledCustomBtn>
+            </ButtonContainer>
+          </StyledInfoContainer>
+        </StyledPreviewContainer>
+      </StyledParent>
     );
   }
 }
