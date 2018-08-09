@@ -8,6 +8,7 @@ import './UIKit/Container';
 import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
+import './UIKit/Filter';
 import './UIKit/Preview';
 import './UIKit/Dropdown';
 import '../src/components/helpers/injectGlobalStyles';
@@ -16,7 +17,11 @@ import './UIKit/Rating';
 import './UIKit/Colors';
 import './UIKit/Logo';
 import './UIKit/Buttons';
+<<<<<<< HEAD
 import './UIKit/FeaturedMovie';
+=======
+import './UIKit/MainHeader';
+>>>>>>> master
 
 library.add(
   faHeart,
