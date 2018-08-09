@@ -6,7 +6,6 @@ import { LazyLoader } from '$UIKit/LazyLoader';
 import { Container } from '../helpers/Container';
 import { Preview } from '$UIKit/Preview';
 import { filmsList } from './tmp/filmsList';
-import bg from './tmp/tmpbg.png';
 
 const stories = storiesOf('UIKit/LazyLoader', module);
 
@@ -16,11 +15,13 @@ class LazyLoaderWrapper extends Component {
 
     this.state = {
       list: filmsList,
+      hasMore: true,
+      end: 20,
     };
   }
 
-  handleScroll = (value) => {
-    this.setState({ value });
+  handleScroll = () => {
+    this.setState({ end: this.state.end + 20 });
   };
 
   render() {
@@ -28,10 +29,11 @@ class LazyLoaderWrapper extends Component {
     const { list } = this.state;
 
     return cloneElement(customComponent, {
-      onScroll: this.handleScroll,
+      handleBla: this.handleScroll,
       list: this.state.list,
+      hasMore: this.state.hasMore,
       children: <Container>
-                  {list.map(item => 
+                  {list.slice(0,this.state.end).map(item => 
                     <Preview
                       key={item.id}
                       voteAverage={item.vote_average}
@@ -45,6 +47,7 @@ class LazyLoaderWrapper extends Component {
                       pg={item.pg}
                       genre={item.genre}
                       cast={item.cast}
+                      // bound={item.getBoundingClientRect()}
                     />
                   )}
                 </Container>
