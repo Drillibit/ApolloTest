@@ -194,7 +194,7 @@ export class Preview extends PureComponent {
     clearTimeout(this.timeOut);
   };
 
-  render () {
+  render() {
     const { inOpenState } = this.state;
     const {
       description,
