@@ -8,6 +8,7 @@ import './UIKit/Container';
 import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
+import './UIKit/Filter';
 import './UIKit/Preview';
 import './UIKit/Dropdown';
 import '../src/components/helpers/injectGlobalStyles';
