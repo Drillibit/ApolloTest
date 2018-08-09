@@ -14,7 +14,7 @@ const ModalOverlay = styled.div`
   left: 0;
   top: 0;
   z-index: 1;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -25,7 +25,8 @@ const ModalContainer = styled.div`
   height: 240px;
   border-radius: 2px;
   background-color: #ffffff;
-  box-shadow: 0 12px 75px 2px rgba(0, 0, 0, 0.41), 0 2px 9px 1px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 12px 75px 2px rgba(0, 0, 0, 0.41),
+    0 2px 9px 1px rgba(0, 0, 0, 0.28);
   margin: 0 auto;
   z-index: 2;
   position: relative;
@@ -64,6 +65,7 @@ const CloseContainer = styled.div`
   font-size: 21px;
   justify-content: flex-end;
 `;
+
 export const ModalRegister = ({ onClick }) => (
   <Fragment>
     <ModalContainer>

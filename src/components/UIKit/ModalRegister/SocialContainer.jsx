@@ -12,12 +12,12 @@ const SocialWrapper = styled.div`
 `;
 
 const SocialLink = styled.a`
-    width: 64px;
-    height: 64px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 50%;
-    font-size: 25px;
+  width: 64px;
+  height: 64px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+  font-size: 25px;
 `;
 
 const FacebookLink = SocialLink.extend`
@@ -33,16 +33,16 @@ const TwitterLink = SocialLink.extend`
 `;
 
 const StyledImage = styled(Icon)`
-    width: 60%;
-    height: 60%;
-    margin-top: 20%;
-    color: #fff;
+  width: 60%;
+  height: 60%;
+  margin-top: 20%;
+  color: #fff;
 `;
 
-export const SocialContainer = () => (
+export const SocialContainer = some => (
   <SocialWrapper>
     <TwitterLink href="/#">
-      <StyledImage icon="twitter" />
+      <StyledImage icon="twitter" some={some} />
     </TwitterLink>
     <FacebookLink href="/#">
       <StyledImage icon="facebook" />
