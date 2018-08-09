@@ -31,7 +31,9 @@ const SearchWrapper = styled.div`
 
 export const MainHeader = props => (
   <StyledHeaderContainer>
-    <Logo />
+    <a href="/" target="_blank">
+      <Logo />
+    </a>
     <StyledRightGroup>
       <SearchWrapper>
         <Search {...props} />
