@@ -12,28 +12,16 @@ const StyledLazyList = styled.div`
 `;
 
 export class LazyLoader extends Component {
-  state = {
-    isLoading: false,
-  }
-
   handleScroll = (e) => {
-    const { hasMore } = this.props;
+    const { hasMore, handleLoad } = this.props;
 
-    if (hasMore) {
-      if (e.target.clientHeight + e.target.scrollTop === e.target.scrollHeight) {
-        this.setState({ isLoading: true });
-
-        setTimeout(this.props.handleLoad, 2000);
-      } else {
-        this.setState({ isLoading: false });
-      }
-    } else {
-      this.setState({ isLoading: false });
+    if (e.target.clientHeight + e.target.scrollTop === e.target.scrollHeight && hasMore) {
+      handleLoad();
     }
   };
 
   render() {
-    const { list, indexEndElement } = this.props;
+    const { list, indexEndElement, isLoading } = this.props;
 
     return (
       <StyledLazyList onScroll={this.handleScroll}>
@@ -55,9 +43,8 @@ export class LazyLoader extends Component {
             />
           ))}
         </Container>
-
         <div>
-          {this.state.isLoading && <Preloader>Загрузка</Preloader>}
+          {isLoading && <Preloader>Загрузка</Preloader>}
         </div>
       </StyledLazyList>
     );
@@ -69,11 +56,13 @@ LazyLoader.propTypes = {
   indexEndElement: PropTypes.number,
   hasMore: PropTypes.bool,
   handleLoad: func,
+  isLoading: PropTypes.bool,
 };
 
 LazyLoader.defaultProps = {
   list: [{}],
   indexEndElement: 0,
-  hasMore: false,
+  hasMore: true,
   handleLoad: f => f,
+  isLoading: false,
 };
