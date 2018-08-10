@@ -4,14 +4,23 @@ import { faHeart as faHeartFill, faStar } from '@fortawesome/free-regular-svg-ic
 import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 import './UIKit/Icons';
-import './UIKit/Buttons';
 import './UIKit/Container';
 import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
-import '../src/components/injectGlobalStyles';
 import './UIKit/ModalWrapper';
+import './UIKit/Quote';
+import './UIKit/Filter';
+import './UIKit/Preview';
+import './UIKit/Dropdown';
+import '../src/components/helpers/injectGlobalStyles';
+import './UIKit/Search';
+import './UIKit/Rating';
 import './UIKit/Colors';
+import './UIKit/Logo';
+import './UIKit/Buttons';
+import './UIKit/MainHeader';
+import './UIKit/Footer';
 
 library.add(
   faHeart,
@@ -29,5 +38,5 @@ library.add(
   faQuoteLeft,
   faStarFill,
   faStar,
-  faTimes
+  faTimes,
 );

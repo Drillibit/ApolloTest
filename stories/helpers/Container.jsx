@@ -8,15 +8,15 @@ const StoryBookContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${({ dark }) => (dark ? '#333' : '#fff')};
-  padding: 50px 0;
+  padding: 50px 20px;
 `;
 
 const StoryBookItem = styled.div`
   margin: 4px 6px;
 `;
 
-export const Container = ({ children, dark }) => (
-  <StoryBookContainer dark={dark}>
+export const Container = ({ children, dark, ...props }) => (
+  <StoryBookContainer dark={dark} {...props}>
     {React.Children.map(children, child => (
       <StoryBookItem >{child}</StoryBookItem>
     ))}

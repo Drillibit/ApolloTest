@@ -12,7 +12,7 @@ const buttonDefault = css`
   outline: none;
   line-height: 1;
 
-  &> svg {
+  &> i {
     margin-right: 10px;
   }
 
@@ -95,7 +95,7 @@ const sizeSmallStyles = css`
   font-size: 16px;
   font-weight: normal;
 
-  &> svg {
+  &> i {
     margin-right: 8px;
   }
   
@@ -122,7 +122,7 @@ const shadowStyles = css`
   box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.5);
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   ${buttonDefault}
 
   ${(props) => {
