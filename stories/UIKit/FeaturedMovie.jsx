@@ -116,7 +116,6 @@ const ButtonsWrap = styled.div`
   }
 `;
 
-
 stories.addWithJSX('FeaturedMovie', () => (
   <Container dark>
     <FeaturedMovieStyled>
