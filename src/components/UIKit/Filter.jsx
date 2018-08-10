@@ -27,7 +27,7 @@ const StyledFilterButton = styled.button`
   font-size: 20px;
   background-color: #fff;
 
-  &> i{
+  &> i > svg {
     font-size: 14px;
     margin-left: 5px;
     transition: all 0.3s ease;
@@ -48,6 +48,10 @@ const StyledFilterList = styled.div`
   background-color: #fff;
 `;
 
+const StyledListButtonWrapper = styled.div`
+  text-align: left;
+`;
+
 const StyledListButton = styled.button`
   position: relative;
   height: 40px;
@@ -60,36 +64,26 @@ const StyledListButton = styled.button`
   outline: none;
   text-align: left;
   transition: color 0.3s ease;
-`;
-
-const StyledListButtonText = styled.span`
-  position: relative;
   cursor: pointer;
-  
-  &:before, &:after {
+
+  &::after {
     content: '';
     display: block;
-    width: 0px;
+    width: 100%;
     height: 1px;
-    position: absolute;
     background-color: #ff0079;
-    bottom: -8px;
-    transition: width 0.3s ease;
-  }
-
-  &:before {
-    left: 50%;
-  }
-
-  &:after {
-    right: 50%;
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   &:hover {
     color: #ff0079;
 
-    &:before, &:after {
-      width: 50%;
+    &::after {
+      opacity: 1;
     }
   }
 `;
@@ -111,8 +105,10 @@ export class Filter extends Component {
     });
   };
 
-  handleClickFilterItem = (id) => {
+  handleClickFilterItem = (e) => {
     this.handleToggle();
+
+    const id = +e.target.dataset.id;
 
     this.props.onChange(id);
   };
@@ -128,13 +124,11 @@ export class Filter extends Component {
 
             <StyledFilterList isOpen={this.state.isOpen}>
               {this.props.list.map(item => (
-                <StyledListButton key={item.id}>
-                  <StyledListButtonText
-                    onClick={() => this.handleClickFilterItem(item.id)}
-                  >
+                <StyledListButtonWrapper key={item.id}>
+                  <StyledListButton data-id={item.id} onClick={this.handleClickFilterItem}>
                     {item.name}
-                  </StyledListButtonText>
-                </StyledListButton>
+                  </StyledListButton>
+                </StyledListButtonWrapper>
               ))}
             </StyledFilterList>
           </StyledFilterTitle>
@@ -145,14 +139,11 @@ export class Filter extends Component {
 }
 
 Filter.propTypes = {
-  isOpen: PropTypes.bool,
   list: PropTypes.arrayOf(PropTypes.object),
   onChange: func,
 };
 
 Filter.defaultProps = {
-  isOpen: false,
   list: [{}],
   onChange: f => f,
 };
-
