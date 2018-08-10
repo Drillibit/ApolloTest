@@ -83,12 +83,12 @@ export class Tabs extends Component {
     const { children } = this.props;
 
     const ch = React.Children.count(children) > 1 ?
-      React.Children.toArray(children) :
+      React.Children.toArray(children)[0] :
       React.Children.only(children);
 
     this.state = {
       activeTab: 0,
-      ch: ch[0].props.children,
+      ch: ch.props.children,
     };
   }
 
