@@ -3,68 +3,45 @@ import React, { Component, Children, cloneElement } from "react";
 import { storiesOf } from "@storybook/react";
 
 import { LazyLoader } from "$UIKit/LazyLoader";
-import { Container } from "../helpers/Container";
-import { Preview } from "$UIKit/Preview";
-import { filmsList } from "./tmp/filmsList";
+import { filmsList } from "../helpers/testFilmsList";
 
 const stories = storiesOf("UIKit/LazyLoader", module);
 
-class LazyLoaderWrapper extends Component {
-  constructor(props) {
-    super(props);
+const listLength = filmsList.length;
 
-    this.state = {
-      list: filmsList,
-      hasMore: true,
-      end: 20,
-    };
+class LazyLoaderWrapper extends Component {
+  state = {
+    hasMore: true,
+    end: 20,
   }
 
   handleLoad = () => {
-    const step = 20;
-    // console.log(`hasMore? : ${this.state.hasMore}`);
+    let newEnd = this.state.end + 20;
 
-    if (this.state.end + step >= this.state.list.length) {
-      this.setState({ hasMore: false });
+    if (newEnd > listLength) {
+      newEnd = listLength;
     }
-    else {
-      this.setState({ end: this.state.end + step });
+
+    if (newEnd === listLength) {
+      this.setState({ hasMore: false, end: newEnd });
+    } else {
+      this.setState({ hasMore: true, end: newEnd });
     }
   };
 
   render() {
     const customComponent = Children.only(this.props.children);
-    const { list } = this.state;
 
     return cloneElement(customComponent, {
-      list: this.state.list,
+      list: filmsList,
       hasMore: this.state.hasMore,
+      indexEndElement: this.state.end,
       handleLoad: this.handleLoad,
-      children: (
-        <Container>
-          {list.slice(0, this.state.end).map(item => (
-            <Preview
-              key={item.id}
-              voteAverage={item.vote_average}
-              voteCount={item.vote_count}
-              size={item.size}
-              description={item.overview}
-              title={item.title}
-              bg={item.poster}
-              year={item.release_date}
-              duration={item.duration}
-              pg={item.pg}
-              genre={item.genre}
-              cast={item.cast}
-            />
-          ))}
-        </Container>
-      )
     });
   }
 }
 
-stories.addWithJSX("ВЭРИ ЛЕЙЗИ ИЗИ ЛОАДЕР", () => (
+stories.addWithJSX("Easy loader", () => (
   <LazyLoaderWrapper>
     <LazyLoader />
   </LazyLoaderWrapper>

@@ -1,15 +1,10 @@
-/* eslint-disable */
-import React, { Component } from "react";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import PropTypes, { func } from 'prop-types';
 
-import { Preloader } from "$UIKit/Preloader";
-
-const lazy = {
-  height: '700px',
-  overflowY: 'scroll'
-}
-
-const StyledPreloaderWrapper = styled.div``;
+import { Preloader } from '$UIKit/Preloader';
+import { Preview } from '$UIKit/Preview';
+import { Container } from '../../../stories/helpers/Container';
 
 const StyledLazyList = styled.div`
   height: 700px;
@@ -17,49 +12,68 @@ const StyledLazyList = styled.div`
 `;
 
 export class LazyLoader extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isLoading: false,
-      hasMore: this.props.hasMore,
-    };
+  state = {
+    isLoading: false,
   }
 
-  static getDerivedStateFromProps({ hasMore }) {
-    return ({ hasMore: hasMore, isLoading: false, });
-  }
+  handleScroll = (e) => {
+    const { hasMore } = this.props;
 
-  handleScroll = e => {
-    // console.log(`hasMore? : ${this.state.hasMore}`);
-    // console.log(`isLoading? : ${this.state.isLoading}`);
-
-    if (this.state.hasMore) {
+    if (hasMore) {
       if (e.target.clientHeight + e.target.scrollTop === e.target.scrollHeight) {
         this.setState({ isLoading: true });
 
-        setTimeout(this.props.handleLoad, 1000);
-      }
-      else {
+        setTimeout(this.props.handleLoad, 2000);
+      } else {
         this.setState({ isLoading: false });
       }
-    }
-    else {
+    } else {
       this.setState({ isLoading: false });
     }
   };
 
   render() {
-    const { children } = this.props;
+    const { list, indexEndElement } = this.props;
 
     return (
       <StyledLazyList onScroll={this.handleScroll}>
-        {children}
+        <Container>
+          {list.slice(0, indexEndElement).map(item => (
+            <Preview
+              key={item.id}
+              voteAverage={item.vote_average}
+              voteCount={item.vote_count}
+              size={item.size}
+              description={item.overview}
+              title={item.title}
+              bg={item.poster}
+              year={item.release_date}
+              duration={item.duration}
+              pg={item.pg}
+              genre={item.genre}
+              cast={item.cast}
+            />
+          ))}
+        </Container>
 
-        <StyledPreloaderWrapper>
+        <div>
           {this.state.isLoading && <Preloader>Загрузка</Preloader>}
-        </StyledPreloaderWrapper>
+        </div>
       </StyledLazyList>
     );
   }
 }
+
+LazyLoader.propTypes = {
+  list: PropTypes.arrayOf(PropTypes.object),
+  indexEndElement: PropTypes.number,
+  hasMore: PropTypes.bool,
+  handleLoad: func,
+};
+
+LazyLoader.defaultProps = {
+  list: [{}],
+  indexEndElement: 0,
+  hasMore: false,
+  handleLoad: f => f,
+};
