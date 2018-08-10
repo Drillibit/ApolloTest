@@ -11,7 +11,7 @@
     "test": "jest",
     "build:dev": "NODE_ENV=production webpack --env dev --progress --colors",
     "build:prod": "NODE_ENV=production webpack --env production --progress --colors",
-    "storybook": "start-storybook -p 6006 -s ./stories",
+    "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "browserslist": [

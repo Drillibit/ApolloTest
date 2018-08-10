@@ -1,3 +1,0 @@
-export const FETCH_NOW_PLAYING = 'FETCH_NOW_PLAYING';
-
-export const SET_MOVIES = 'SET_MOVIES';

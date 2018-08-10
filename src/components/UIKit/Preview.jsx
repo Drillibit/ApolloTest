@@ -17,14 +17,18 @@ const StyledParent = styled.div`
   width: 282px;
   height: 284px;
 `;
+const PreviewCpntainerAnimation = keyframes`
+  from { right: 0}
+  to {right: -67px}
+`;
 
 const StyledPreviewContainerOpen = css`
   z-index: 10;
-  right: -67px;
   width: 412px;
   height: 526px;
   border-radius: 2px;
   background-color: #ffffff;
+  animation: ${PreviewCpntainerAnimation} .3s ease-in-out both;
   box-shadow: 0 12px 75px 2px rgba(0, 0, 0, 0.41),
     0 2px 9px 1px rgba(0, 0, 0, 0.28);
 `;
@@ -58,7 +62,6 @@ const StyledHeader = H3.extend`
   padding: 16px 12px 2px 12px;
   transition: transform ease .3s;
   ${({ open }) => (open ? StyledHeaderClose : '')}
-  display: ${setTimeout(() => 'none', 1000)};
 `;
 
 const BgAnimation = keyframes`
@@ -69,7 +72,7 @@ const BgAnimation = keyframes`
   100% {height: 50%}
 `;
 const BgKeeperMove = css`
-  transform: translateY(-10%);
+  transform: translateY(-36px);
   min-height: 50%;
   min-height: 250px;
   animation: ${BgAnimation} 0.3s ease-in;
@@ -86,11 +89,12 @@ const BgKeeper = styled.div`
 `;
 
 const RatingMove = css`
-  transform: translateX(600px);
+  visibility: hidden;
+  transform: translateX(600px) scaleY(0);
 `;
 
 const RatingContainer = styled.div`
-  transition: transform ease 0.3s;
+  transition: all ease 0.3s;
   margin-bottom: 11px;
   ${({ open }) => (open ? RatingMove : '')};
 `;
