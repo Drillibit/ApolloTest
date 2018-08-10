@@ -4,8 +4,6 @@ import styled, { css } from 'styled-components';
 
 import { colors } from '$components/helpers/colors';
 
-/* eslint-disable */
-
 const underline = css`
   @keyframes change-width {
     0% {
@@ -66,8 +64,13 @@ export const TabPane = ({
   active,
 }) => {
   const jsx = tabName instanceof Object;
+
   return (
-    <StyledTabPaneTitle jsx={jsx} active={active} onClick={() => handleChangeTab(id, children, tabName)}>
+    <StyledTabPaneTitle
+      jsx={jsx}
+      active={active}
+      onClick={() => handleChangeTab(id, children, tabName)}
+    >
       {tabName}
     </StyledTabPaneTitle>
   );
@@ -80,7 +83,7 @@ export class Tabs extends Component {
   };
 
   handleChangeTab = (id, children, tabName) => {
-    if (!(tabName instanceof Object)){
+    if (!(tabName instanceof Object)) {
       this.setState({
         activeTab: id,
         ch: children,
@@ -98,7 +101,6 @@ export class Tabs extends Component {
 
   render() {
     const { children } = this.props;
-    // console.log(this.state.activeTab);
 
     return (
       <div>
@@ -135,16 +137,15 @@ TabPane.defaultProps = {
   tabName: '',
   id: 0,
   handleChangeTab: f => f,
-  children: '',
+  children: PropTypes.node,
 };
 
 Tabs.propTypes = {
-  activeTab: PropTypes.number,
-  handleChangeTab: func,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
+  onChange: func,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
 };
 
 Tabs.defaultProps = {
-  activeTab: 0,
-  handleChangeTab: f => f,
+  onChange: f => f,
+  children: PropTypes.node,
 };
