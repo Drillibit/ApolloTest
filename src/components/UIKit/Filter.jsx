@@ -147,3 +147,4 @@ Filter.defaultProps = {
   list: [{}],
   onChange: f => f,
 };
+
