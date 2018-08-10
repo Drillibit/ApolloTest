@@ -50,7 +50,7 @@ export class Icon extends PureComponent {
     size: '',
     color: '',
   };
-  render() {
+  render () {
     const {
       icon, size, color, ...props
     } = this.props;
