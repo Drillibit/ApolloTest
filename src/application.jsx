@@ -1,18 +1,12 @@
-/* globals window document */
 import React from 'react';
+import { Provider } from 'react-redux';
 import { hot } from 'react-hot-loader';
 
-/**
- *  containers imports
- */
-import { FilmsListContainer } from './containers/FilmsListContainer';
-import { SearchFilmContainer } from './containers/SearchFilm';
-import { SearchContainer } from './containers/SearchContainer';
+import { store } from './redux/store';
+import { ConnectedMoviesList } from './containers/ConnectedMoviesList';
 
 export const Application = hot(module)(() => (
-  <React.Fragment>
-    <SearchContainer />
-    <SearchFilmContainer />
-    <FilmsListContainer />
-  </React.Fragment>
+  <Provider store={store}>
+    <ConnectedMoviesList />
+  </Provider>
 ));
