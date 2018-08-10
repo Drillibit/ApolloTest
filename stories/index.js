@@ -10,7 +10,7 @@ import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
 import '../src/components/injectGlobalStyles';
-import './UIKit/ModalRegister';
+import './UIKit/ModalWrapper';
 import './UIKit/Colors';
 
 library.add(
