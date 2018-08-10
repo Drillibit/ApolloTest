@@ -18,15 +18,10 @@ import './UIKit/Rating';
 import './UIKit/Colors';
 import './UIKit/Logo';
 import './UIKit/Buttons';
-<<<<<<< HEAD
 import './UIKit/FeaturedMovie';
-=======
 import './UIKit/MainHeader';
-<<<<<<< HEAD
->>>>>>> master
-=======
 import './UIKit/Footer';
->>>>>>> master
+
 
 library.add(
   faHeart,

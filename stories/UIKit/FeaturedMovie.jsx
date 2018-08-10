@@ -1,7 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import styled from 'styled-components';
 
 import { Rating } from '$components/UIKit/Rating';
 import { Button } from '$components/UIKit/Button';
@@ -87,7 +87,6 @@ const DurationBlock = styled.div`
 `;
 
 const FilmButtonsBlock = styled.div`
-
   display: flex;
   flex-direction: row;
   flex-wrap: no-wrap;
