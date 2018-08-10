@@ -22,6 +22,7 @@ export class LazyLoader extends Component {
 
   render() {
     const { list, indexEndElement, isLoading } = this.props;
+    console.log(this.props.isLoading);
 
     return (
       <StyledLazyList onScroll={this.handleScroll}>

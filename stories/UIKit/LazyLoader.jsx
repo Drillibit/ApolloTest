@@ -12,11 +12,13 @@ const listLength = filmsList.length;
 class LazyLoaderWrapper extends Component {
   state = {
     hasMore: true,
-    isLoading: true,
+    isLoading: false,
     end: 20,
   }
 
   handleLoad = () => {
+    this.setState({ isLoading: true });
+
     setTimeout(() => {
       let newEnd = this.state.end + 20;
 
@@ -25,12 +27,13 @@ class LazyLoaderWrapper extends Component {
       }
 
       if (newEnd === listLength) {
-        this.setState({ hasMore: false, end: newEnd, isLoading: false });
+        this.setState({ hasMore: false, end: newEnd });
       } else {
-        this.setState({ hasMore: true, end: newEnd, isLoading: true });
+        this.setState({ hasMore: true, end: newEnd });
       }
     }, 2000);
-    
+
+    this.setState({ isLoading: false });
   };
 
   render() {
