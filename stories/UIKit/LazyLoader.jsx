@@ -41,7 +41,7 @@ class LazyLoaderWrapper extends Component {
   }
 }
 
-stories.addWithJSX("Easy loader", () => (
+stories.addWithJSX("Lazy loader", () => (
   <LazyLoaderWrapper>
     <LazyLoader />
   </LazyLoaderWrapper>
