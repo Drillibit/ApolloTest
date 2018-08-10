@@ -2,10 +2,8 @@ import React from 'react';
 import { string } from 'prop-types';
 import styled from 'styled-components';
 
-// сделаем импорт из Typography
 import { H3 } from './Typography';
 import { Icon } from './Icon';
-
 
 const QuoteStyled = styled.div`
   display: inline-block;
@@ -24,7 +22,7 @@ const Shape = styled.div`
 
 const StyledIcon = styled(Icon)`
   font-size: 24px;
-  color: white
+  color: white;
 `;
 
 export const Quote = ({ tagline }) => (
