@@ -10,11 +10,6 @@ import { Icon } from './Icon';
 const QuoteStyled = styled.div`
   display: inline-block;
   font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  font-family: 'Source Sans Pro';
-  line-height: normal;
-  letter-spacing: normal;
   width: 500px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   color: #ffffff;
