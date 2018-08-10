@@ -8,6 +8,7 @@ import './UIKit/Container';
 import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
+import './UIKit/Quote';
 import './UIKit/Filter';
 import './UIKit/Preview';
 import './UIKit/Dropdown';
@@ -21,6 +22,10 @@ import './UIKit/Buttons';
 import './UIKit/FeaturedMovie';
 =======
 import './UIKit/MainHeader';
+<<<<<<< HEAD
+>>>>>>> master
+=======
+import './UIKit/Footer';
 >>>>>>> master
 
 library.add(
