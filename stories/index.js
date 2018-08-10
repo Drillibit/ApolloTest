@@ -17,11 +17,8 @@ import './UIKit/Rating';
 import './UIKit/Colors';
 import './UIKit/Logo';
 import './UIKit/Buttons';
-<<<<<<< HEAD
-import './UIKit/Footer';
-=======
 import './UIKit/MainHeader';
->>>>>>> master
+import './UIKit/Footer';
 
 library.add(
   faHeart,
