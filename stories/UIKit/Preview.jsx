@@ -1,58 +1,51 @@
 import { storiesOf } from '@storybook/react';
-import React, { Children, Component, cloneElement } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import { Container } from '../helpers/Container';
 import { Preview } from '../../src/components/UIKit/Preview';
-import bg from './tmp/tmpbg.png';
 
 const stories = storiesOf('UIKit/Preview', module);
 
-class PreviewWrapper extends Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired
-  };
+const propsOne = {
+  voteCount: 2079,
+  id: 351286,
+  video: false,
+  voteAverage: 6.6,
+  title: 'Jurassic World: Fallen Kingdom',
+  bg: 'https://image.tmdb.org/t/p/w500/c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg',
+  original_title: 'Jurassic World: Fallen Kingdom',
+  genre_ids: [28, 12, 878],
+  adult: false,
+  description:
+    'Several years after the demise of Jurassic World, a volcanic eruption threatens the remaining dinosaurs on the island of Isla Nublar. Claire Dearing, the former park manager and founder of the Dinosaur Protection Group, recruits Owen Grady to help prevent the extinction of the dinosaurs once again.',
+  yaer: '2018-06-06'
+};
 
-  state = {
-    voteAverage: 5,
-    voteCount: 4.546,
-    size: 'md',
-    image: bg,
-    description: 'Фильм рассказывает о приключениях писателя Ньюта Скамандера в Нью-Йоркском секретном обществе волшебниоков',
-    title: 'Фантастические твари и где они обитают',
-    year: 2017,
-    duration: 133,
-    pg: '12+',
-    genre: 'Фантастика, Приключения, Семейное кино',
-    cast: 'Эдди Редмэйн, Кэтрин Уотерстон, Элисон Судол, Колин Фаррелл, Эзра Миллер, Джемма Чан',
-  }
+const propsTwo = {
+  voteAverage: 5,
+  voteCount: 4.546,
+  size: 'md',
+  bg: 'https://image.tmdb.org/t/p/w500/80PWnSTkygi3QWWmJ3hrAwqvLnO.jpg',
+  description:
+    'Фильм рассказывает о приключениях писателя Ньюта Скамандера в Нью-Йоркском секретном обществе волшебниоков',
+  title: 'Фантастические твари и где они обитают',
+  year: 2017,
+  duration: 133,
+  pg: '12+',
+  genre: 'Фантастика, Приключения, Семейное кино',
+  cast:
+    'Эдди Редмэйн, Кэтрин Уотерстон, Элисон Судол, Колин Фаррелл, Эзра Миллер, Джемма Чан'
+};
 
-  render() {
-    const preview = Children.only(this.props.children);
-
-    return cloneElement(preview, {
-      voteAverage: this.state.voteAverage,
-      voteCount: this.state.voteCount,
-      size: this.state.size,
-      description: this.state.description,
-      title: this.state.title,
-      bg: this.state.image,
-      year: this.state.year,
-      duration: this.state.duration,
-      pg: this.state.pg,
-      genre: this.state.genre,
-      cast: this.state.cast
-    });
-  }
-}
-
-stories.addWithJSX(
-  'Preview component',
-  () => (
-    <Container>
-      <PreviewWrapper>
-        <Preview />
-      </PreviewWrapper>
-    </Container>
-  )
-);
+stories.addWithJSX('Preview component', () => (
+  <Container>
+    <Preview {...propsOne} />
+    <Preview {...propsTwo} />
+    <Preview {...propsOne} />
+    <Preview {...propsTwo} />
+    <Preview {...propsOne} />
+    <Preview {...propsTwo} />
+    <Preview {...propsOne} />
+    <Preview {...propsTwo} />
+  </Container>
+));
