@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { node, func } from 'prop-types';
 
 import { colors } from '../../helpers/colors';
 import { Text, H3 } from '../Typography';
 import { Icon } from '../Icon';
-import { SocialContainer } from './SocialContainer';
 
 const ModalOverlay = styled.div`
   margin: 0 auto;
@@ -66,20 +65,21 @@ const CloseContainer = styled.div`
   justify-content: flex-end;
 `;
 
-export const ModalRegister = ({ onClick }) => (
+export const ModalRegister = ({ onClose, children }) => (
   <Fragment>
     <ModalContainer>
       <CloseContainer>
-        <CloseSign icon="close" onClick={onClick} />
+        <CloseSign icon="close" onClick={onClose} />
       </CloseContainer>
       <ModalHeader>Войти</ModalHeader>
       <ModalText>Используйте любую соцсеть для регистрации</ModalText>
-      <SocialContainer />
+      {children}
     </ModalContainer>
-    <ModalOverlay onClick={onClick} />
+    <ModalOverlay onClick={onClose} />
   </Fragment>
 );
 
 ModalRegister.propTypes = {
-  onClick: PropTypes.func.isRequired
+  onClose: func.isRequired,
+  children: node.isRequired,
 };
