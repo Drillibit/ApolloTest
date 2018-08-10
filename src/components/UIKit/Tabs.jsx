@@ -77,10 +77,20 @@ export const TabPane = ({
 };
 
 export class Tabs extends Component {
-  state = {
-    activeTab: 0,
-    ch: this.props.children[0].props.children,
-  };
+  constructor(props) {
+    super(props);
+
+    const { children } = this.props;
+
+    const ch = React.Children.count(children) > 1 ?
+      React.Children.toArray(children) :
+      React.Children.only(children);
+
+    this.state = {
+      activeTab: 0,
+      ch: ch[0].props.children,
+    };
+  }
 
   handleChangeTab = (id, children, tabName) => {
     if (!(tabName instanceof Object)) {
@@ -133,11 +143,11 @@ TabPane.propTypes = {
 };
 
 TabPane.defaultProps = {
-  active: false,
   tabName: '',
   id: 0,
-  handleChangeTab: f => f,
   children: PropTypes.node,
+  handleChangeTab: f => f,
+  active: false,
 };
 
 Tabs.propTypes = {
