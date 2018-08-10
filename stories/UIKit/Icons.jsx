@@ -29,7 +29,7 @@ const IconWrapper = styled.div`
 stories.addWithJSX('basic', () => (
   <Container>
     <IconWrapper>
-      <Icon icon="heart" /><div>heart</div>
+      <Icon icon="heart" size="xl" color="red" /><div>heart</div>
     </IconWrapper>
     <IconWrapper>
       <Icon icon="chevron-left" /><div>chevron-left</div>
@@ -39,6 +39,9 @@ stories.addWithJSX('basic', () => (
     </IconWrapper>
     <IconWrapper>
       <Icon icon="chevron-up" /><div>chevron-up</div>
+    </IconWrapper>
+    <IconWrapper>
+      <Icon icon="chevron-right" /><div>chevron-right</div>
     </IconWrapper>
     <IconWrapper>
       <Icon icon="check" /><div>check</div>
@@ -51,6 +54,9 @@ stories.addWithJSX('basic', () => (
     </IconWrapper>
     <IconWrapper>
       <Icon icon="star" /><div>star</div>
+    </IconWrapper>
+    <IconWrapper>
+      <Icon icon="star-fill" /><div>star-fill</div>
     </IconWrapper>
     <IconWrapper>
       <Icon icon="heart-fill" /><div>heart-fill</div>
@@ -66,6 +72,9 @@ stories.addWithJSX('basic', () => (
     </IconWrapper>
     <IconWrapper>
       <Icon icon="quote" /><div>quote</div>
+    </IconWrapper>
+    <IconWrapper>
+      <Icon icon="close" /><div>close</div>
     </IconWrapper>
   </Container>
 ));
