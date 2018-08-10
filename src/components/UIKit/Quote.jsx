@@ -2,7 +2,6 @@ import React from 'react';
 import { node, arrayOf, oneOfType } from 'prop-types';
 import styled from 'styled-components';
 
-import { H3 } from './Typography';
 import { Icon } from './Icon';
 
 const QuoteStyled = styled.div`
@@ -29,7 +28,7 @@ export const Quote = ({ children }) => (
   <div>
     <Shape><StyledIcon icon="quote" /></Shape>
     <QuoteStyled>
-      <H3>{children}</H3>
+      {children}
     </QuoteStyled>
   </div>
 );
