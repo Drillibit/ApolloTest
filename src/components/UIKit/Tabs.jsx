@@ -143,7 +143,7 @@ TabPane.propTypes = {
 };
 
 TabPane.defaultProps = {
-  tabName: '',
+  tabName: PropTypes.node,
   id: 0,
   children: PropTypes.node,
   handleChangeTab: f => f,
