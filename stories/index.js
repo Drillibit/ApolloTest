@@ -18,6 +18,7 @@ import './UIKit/Colors';
 import './UIKit/Logo';
 import './UIKit/Buttons';
 import './UIKit/MainHeader';
+import './UIKit/Footer';
 
 library.add(
   faHeart,
