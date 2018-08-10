@@ -1,5 +1,5 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { node, arrayOf, oneOfType } from 'prop-types';
 import styled from 'styled-components';
 
 import { H3 } from './Typography';
@@ -25,19 +25,15 @@ const StyledIcon = styled(Icon)`
   color: white;
 `;
 
-export const Quote = ({ tagline }) => (
+export const Quote = ({ children }) => (
   <div>
     <Shape><StyledIcon icon="quote" /></Shape>
     <QuoteStyled>
-      <H3>{tagline}</H3>
+      <H3>{children}</H3>
     </QuoteStyled>
   </div>
 );
 
 Quote.propTypes = {
-  tagline: string
-};
-
-Quote.defaultProps = {
-  tagline: ''
+  children: oneOfType([node, arrayOf(node)]).isRequired
 };
