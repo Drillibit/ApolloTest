@@ -62,7 +62,6 @@ const StyledHeader = H3.extend`
   padding: 16px 12px 2px 12px;
   transition: transform ease .3s;
   ${({ open }) => (open ? StyledHeaderClose : '')}
-  display: ${setTimeout(() => 'none', 1000)};
 `;
 
 const BgAnimation = keyframes`
