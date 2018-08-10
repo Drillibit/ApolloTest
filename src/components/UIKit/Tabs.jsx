@@ -22,7 +22,7 @@ const underline = css`
     position: absolute;
     bottom: -2px;
     width: 50%;
-    animation: change-width 0.5s ease 1;
+    animation: change-width 0.25s ease 1;
   }
 
   &::before {
@@ -129,9 +129,9 @@ TabPane.propTypes = {
 };
 
 TabPane.defaultProps = {
-  tabName: PropTypes.node,
+  tabName: null,
   id: 0,
-  children: PropTypes.node,
+  children: null,
   handleChangeTab: f => f,
   active: false,
 };
@@ -143,5 +143,5 @@ Tabs.propTypes = {
 
 Tabs.defaultProps = {
   onChange: f => f,
-  children: PropTypes.node,
+  children: null,
 };
