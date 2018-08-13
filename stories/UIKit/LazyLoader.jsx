@@ -22,11 +22,7 @@ class LazyLoaderWrapper extends Component {
     clearTimeout(this.timeOut);
 
     this.timeOut = setTimeout(() => {
-      let newEnd = this.state.end + 20;
-
-      if (newEnd > listLength) {
-        newEnd = listLength;
-      }
+      const newEnd = this.state.end + 20 > listLength ? listLength : this.state.end + 20;
 
       if (newEnd === listLength) {
         this.setState({ hasMore: false, end: newEnd });
