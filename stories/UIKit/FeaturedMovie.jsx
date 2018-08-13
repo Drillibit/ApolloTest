@@ -75,7 +75,7 @@ const Genres = styled.div`
 
 const RatingStyled = styled.div`
   height: 48px;
-  @media screen and (min-width: 1060px) {
+  @media screen and (min-width: 1024px) {
     position: absolute; 
     right: 20px;
     bottom: 20px;
