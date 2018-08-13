@@ -8,7 +8,7 @@ import { Container } from '../../../stories/helpers/Container';
 
 const StyledLazyList = styled.div`
   height: 700px;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const PreloaderWrapper = styled.div`
