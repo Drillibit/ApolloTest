@@ -74,7 +74,7 @@ const RatingStyled = styled.div`
   height: 48px;
   @media screen and (min-width: 1024px) {
     position: absolute; 
-    right: 20px;
+    right: 40px;
     bottom: 20px;
   };
   margin: 10px 0 10px 0;
