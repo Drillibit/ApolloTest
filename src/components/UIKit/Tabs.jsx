@@ -22,7 +22,7 @@ const underline = css`
     position: absolute;
     bottom: -2px;
     width: 50%;
-    animation: change-width 0.5s ease 1;
+    animation: change-width 0.25s ease 1;
   }
 
   &::before {
@@ -77,40 +77,23 @@ export const TabPane = ({
 };
 
 export class Tabs extends Component {
-  constructor(props) {
-    super(props);
-
-    const { children } = this.props;
-
-    const ch = React.Children.count(children) > 1 ?
-      React.Children.toArray(children)[0] :
-      React.Children.only(children);
-
-    this.state = {
-      activeTab: 0,
-      ch: ch.props.children,
-    };
+  state = {
+    activeTab: 0,
   }
 
   handleChangeTab = (id, children, tabName) => {
     if (!(tabName instanceof Object)) {
       this.setState({
         activeTab: id,
-        ch: children,
       });
     }
 
     this.props.onChange(id);
   };
 
-  handleChangeContent = (children) => {
-    this.setState({
-      ch: children,
-    });
-  }
-
   render() {
     const { children } = this.props;
+    const { activeTab } = this.state;
 
     return (
       <div>
@@ -127,7 +110,10 @@ export class Tabs extends Component {
           ))}
         </StyledTabs>
         <StyledTabPaneContent>
-          {this.state.ch}
+          {React.Children.count(children) > 1 ?
+            children[activeTab].props.children :
+            children.props.children
+          }
         </StyledTabPaneContent>
       </div>
     );
@@ -143,9 +129,9 @@ TabPane.propTypes = {
 };
 
 TabPane.defaultProps = {
-  tabName: PropTypes.node,
+  tabName: null,
   id: 0,
-  children: PropTypes.node,
+  children: null,
   handleChangeTab: f => f,
   active: false,
 };
@@ -157,5 +143,5 @@ Tabs.propTypes = {
 
 Tabs.defaultProps = {
   onChange: f => f,
-  children: PropTypes.node,
+  children: null,
 };
