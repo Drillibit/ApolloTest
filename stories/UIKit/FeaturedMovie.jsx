@@ -39,12 +39,6 @@ const somefilm = {
   "timing": 133
 };
 
-const theme = {
-  'flexboxgrid': {
-    'outerMargin': 0,
-    'gutterWidth': 0,
-  }
-};
 /* eslint-enable */
 
 const FeaturedMovieStyled = styled.div`
@@ -59,7 +53,7 @@ const FeaturedMovieStyled = styled.div`
 `;
 
 const WrapButton = StyledButton.extend`
-  margin: 10px 40px 10px 0;
+  margin: 10px 25px 10px 0;
 `;
 
 const Timing = styled.div`
@@ -93,42 +87,40 @@ const RatingStyled = styled.div`
 stories.addWithJSX('FeaturedMovie', () => (
   <Container dark>
     <FeaturedMovieStyled>
-      <ThemeProvider theme={theme}>
-        <Grid bottom="xs">
-
-          <Row>
-            <Row start="xs">
-              <Col xs={12} sm={12} md={12} lg={12}>
-                <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
-              </Col>
-              <Col xs={12} sm={12} md={12} lg={12}><H1>{somefilm.title}</H1></Col>
-              <Col xs={12} sm={12} md={3} lg={3}>
-                <Genres>{searchGenre(somefilm.genre_ids).map(
-                  (genre, index) => <span key={index}>{genre}&nbsp;</span>)}
-                </Genres>
-              </Col>
-              <Col xs={12} sm={12} md={3} lg={3}><Timing>{somefilm.timing} минуты</Timing></Col>
-            </Row>
-
+      <Grid bottom="xs">
+        <Row>
+          <Row start="xs">
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
+            </Col>
+            <Col xs={12} sm={12} md={12} lg={12}><H1>{somefilm.title}</H1></Col>
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <Genres>{searchGenre(somefilm.genre_ids).map(
+                (genre, index) => <span key={index}>{genre}&nbsp;</span>)}
+              </Genres>
+            </Col>
+            <Col xs={12} sm={12} md={3} lg={3}><Timing>{somefilm.timing} минуты</Timing></Col>
           </Row>
 
+        </Row>
+
+
+        <Row middle="xs">
 
           <Row middle="xs">
-
-            <Row middle="xs">
-              <Col xs={12} sm={6}><WrapButton btnType="primary" btnSize="big" onClick={action('click')}>Подробнее</WrapButton></Col>
-              <Col xs={12} sm={6}><WrapButton btnType="transparent-white" btnSize="small" onClick={action('click')}><Icon icon="heart" />В избранное</WrapButton></Col>
-            </Row>
-
-            <Row middle="xs">
-              <Col xs={12} sm={12} md={12} lg={12} >
-                <RatingStyled><Rating voteAverage={somefilm.vote_average} voteCount={somefilm.vote_count} size="lg" /></RatingStyled>
-              </Col>
-            </Row>
-
+            <Col xs={12} sm={6}><WrapButton btnType="primary" btnSize="big" onClick={action('click')}>Подробнее</WrapButton></Col>
+            <Col xs={12} sm={6}><WrapButton btnType="transparent-white" btnSize="small" onClick={action('click')}><Icon icon="heart" />В избранное</WrapButton></Col>
           </Row>
-        </Grid>
-      </ThemeProvider>
+
+          <Row middle="xs">
+            <Col xs={12} sm={12} md={12} lg={12} >
+              <RatingStyled><Rating voteAverage={somefilm.vote_average} voteCount={somefilm.vote_count} size="lg" /></RatingStyled>
+            </Col>
+          </Row>
+
+        </Row>
+      </Grid>
+
     </FeaturedMovieStyled>
   </Container>
 ));
