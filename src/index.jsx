@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router';
+import { Route } from 'react-router';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createBrowserHistory } from 'history';
@@ -29,14 +29,13 @@ const store = createStore(
 
 sagaMiddleware.run(sagas);
 
+console.log(store);
+
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */ }
       <div> { /* your usual react-router v4 routing */ }
-        <Switch>
-          <Route exact path="/" render={() => <Application />} />
-          <Route render={() => (<div>Miss</div>)} />
-        </Switch>
+        <Route exact path="/" component={Application} />
       </div>
     </ConnectedRouter>
   </Provider>,
