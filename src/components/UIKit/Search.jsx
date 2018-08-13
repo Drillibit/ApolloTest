@@ -104,19 +104,19 @@ export const Search = ({
 );
 
 Search.propTypes = {
-  onChange: func,
-  onClick: func,
-  onClose: func,
-  value: string,
+  onChange: func.isRequired,
+  onClick: func.isRequired,
+  onClose: func.isRequired,
+  value: string.isRequired,
   isOpen: bool.isRequired,
   result: arrayOf(object)
 };
 
 Search.defaultProps = {
-  onChange: f => f,
-  onClick: f => f,
-  onClose: f => f,
-  isOpen: false,
-  value: '',
+  // onChange: f => f,
+  // onClick: f => f,
+  // onClose: f => f,
+  // isOpen: false,
+  // value: '',
   result: []
 };

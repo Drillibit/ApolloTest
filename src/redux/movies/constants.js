@@ -1,3 +1,11 @@
 export const FETCH_NOW_PLAYING = 'FETCH_NOW_PLAYING';
 
 export const SET_MOVIES = 'SET_MOVIES';
+
+export const FETCH_MOVIES_BY_KEYWORD = 'FETCH_MOVIES_BY_KEYWORD';
+
+export const SET_MOVIES_BY_KEYWORD = 'FIND_MOVIES_BY_KEYWORD';
+
+export const SET_ERROR = 'SET_ERROR';
+
+export const CLEAR_ERROR = 'CLEAR_ERROR';
