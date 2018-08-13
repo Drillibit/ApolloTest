@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import { App } from './redux/store';
+import { Application } from './application';
 
 
 render(
-  <App />,
+  <Application />,
   document.getElementById('root')
 );
 
