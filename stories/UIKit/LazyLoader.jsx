@@ -42,9 +42,8 @@ class LazyLoaderWrapper extends Component {
     const customComponent = Children.only(this.props.children);
 
     return cloneElement(customComponent, {
-      list: filmsList,
+      list: filmsList.slice(0, this.state.end),
       hasMore: this.state.hasMore,
-      indexEndElement: this.state.end,
       handleLoad: this.handleLoad,
       isLoading: this.state.isLoading,
     });

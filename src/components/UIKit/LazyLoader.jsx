@@ -30,7 +30,6 @@ export class LazyLoader extends Component {
   render() {
     const {
       list,
-      indexEndElement,
       isLoading,
       hasMore
     } = this.props;
@@ -38,7 +37,7 @@ export class LazyLoader extends Component {
     return (
       <StyledLazyList onScroll={this.handleScroll}>
         <Container>
-          {list.slice(0, indexEndElement).map(item => (
+          {list.map(item => (
             <Preview
               key={item.id}
               voteAverage={item.vote_average}
