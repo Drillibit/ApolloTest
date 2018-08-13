@@ -29,7 +29,7 @@ const somefilm = {
   "genre_ids": [
     28,
     12,
-    878
+    36,
   ],
   "backdrop_path": "/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg",
   "adult": false,
@@ -70,7 +70,10 @@ const Timing = styled.div`
 `;
 
 const Genres = styled.div`
-  word-spacing: 10px;
+  & span {
+    word-spacing: 10px;
+    word-wrap: break-word;
+  }
 `;
 
 const RatingStyled = styled.div`
