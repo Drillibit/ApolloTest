@@ -7,8 +7,6 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { reducers } from './reducers';
 import { rootSaga } from './rootSaga';
 
-import '../components/helpers/injectGlobalStyles';
-
 export const history = createBrowserHistory();
 
 const sagaMiddleware = createSagaMiddleware();
