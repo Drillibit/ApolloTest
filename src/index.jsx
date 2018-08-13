@@ -8,9 +8,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createBrowserHistory } from 'history';
 import { connectRouter, routerMiddleware, ConnectedRouter } from 'connected-react-router';
 
-import { films } from './redux/reducers/reducers';
-import { initialState } from './redux/reducers/initialState';
-import { filmsSaga } from './redux/sagas';
+import { films } from './redux/reducers';
+import { initState } from './redux/movies/reducer';
+import { filmsSaga } from './redux/movies/sagas';
 import { Application } from './application';
 import './components/helpers/injectGlobalStyles';
 
@@ -20,7 +20,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   connectRouter(history)(films), // new root reducer with router state
-  initialState,
+  initState,
   composeWithDevTools(
     applyMiddleware(
       routerMiddleware(history), // for dispatching history actions

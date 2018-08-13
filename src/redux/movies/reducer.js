@@ -1,7 +1,7 @@
 import { createReducer } from '../../services/createReducer';
 import * as TYPES from './constants';
 
-const initState = {
+export const initState = {
   list: [],
   listById: {},
 };
