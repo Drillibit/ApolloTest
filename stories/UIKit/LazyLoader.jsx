@@ -19,6 +19,8 @@ class LazyLoaderWrapper extends Component {
   handleLoad = () => {
     this.setState({ isLoading: true });
 
+    clearTimeout(this.timeOut);
+
     this.timeOut = setTimeout(() => {
       let newEnd = this.state.end + 20;
 
