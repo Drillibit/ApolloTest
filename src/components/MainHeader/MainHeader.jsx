@@ -12,19 +12,19 @@ const StyledContainer = styled.div`
 
 export class HeaderParent extends Component {
   static propTypes = {
-    fetchMoviesByKeyword: func.isRequired
+    fetchMoviesByKeyword: func.isRequired,
+    clearSearch: func.isRequired
   }
 
   state = {
     value: '',
-    result: [],
     isOpen: false,
   };
 
 
   handleChange = (e) => {
     const { fetchMoviesByKeyword } = this.props;
-    fetchMoviesByKeyword(e.target.value);
+    if (e.target.value.length > 0) { fetchMoviesByKeyword(e.target.value); }
     this.setState({ value: e.target.value });
   };
 
@@ -33,15 +33,10 @@ export class HeaderParent extends Component {
   };
 
   handleClose = () => {
-    this.setState(state => ({ ...state, isOpen: false }));
+    const { clearSearch } = this.props;
+    clearSearch();
+    this.setState(() => ({ isOpen: false }));
   };
-
-  // filterFilm = () => {
-  //   const { value } = this.state;
-  //   const text = value.toLowerCase().trim();
-  //   const filter = filmsList.filter(item => item.title.toLowerCase().includes(text));
-  //   this.setState({ result: text ? filter : [] });
-  // };
 
   render() {
     return (

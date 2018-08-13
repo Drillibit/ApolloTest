@@ -1,1 +1,1 @@
-export const getMoviesByKeyWord = state => state.movies;
+export const getMoviesByKeyword = state => state.movies.searchResults;

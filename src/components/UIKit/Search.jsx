@@ -96,7 +96,7 @@ export const Search = ({
         />
         {(isOpen && result.length > 0) && (
           <UlStyled>
-            {result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)}
+            {result.map(item => <LiStyled key={item.id}><A href="">{item.name}</A></LiStyled>)}
           </UlStyled>)
         }
       </SearchStyled>

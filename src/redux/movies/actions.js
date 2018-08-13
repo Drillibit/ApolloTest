@@ -27,3 +27,7 @@ export const setError = error => ({
 export const clearError = () => ({
   type: TYPES.CLEAR_ERROR,
 });
+
+export const clearSearch = () => ({
+  type: TYPES.CLEAR_SEARCH,
+});

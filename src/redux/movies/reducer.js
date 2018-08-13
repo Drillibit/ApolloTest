@@ -29,9 +29,15 @@ const clearError = state => ({
   error: ''
 });
 
+const clearSearch = state => ({
+  ...state,
+  searchResults: []
+});
+
 const handlers = {
   [TYPES.SET_MOVIES]: setMovies,
   [TYPES.SET_MOVIES_BY_KEYWORD]: setMovieByKeyword,
+  [TYPES.CLEAR_SEARCH]: clearSearch,
   [TYPES.CLEAR_ERROR]: clearError,
   [TYPES.SET_ERROR]: setError,
 };
