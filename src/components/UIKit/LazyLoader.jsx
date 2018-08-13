@@ -64,7 +64,6 @@ export class LazyLoader extends Component {
 
 LazyLoader.propTypes = {
   list: PropTypes.arrayOf(PropTypes.object),
-  indexEndElement: PropTypes.number,
   hasMore: PropTypes.bool,
   handleLoad: func,
   isLoading: PropTypes.bool,
@@ -72,7 +71,6 @@ LazyLoader.propTypes = {
 
 LazyLoader.defaultProps = {
   list: [{}],
-  indexEndElement: 0,
   hasMore: true,
   handleLoad: f => f,
   isLoading: false,
