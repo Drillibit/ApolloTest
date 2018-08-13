@@ -19,7 +19,7 @@ class LazyLoaderWrapper extends Component {
   handleLoad = () => {
     this.setState({ isLoading: true });
 
-    setTimeout(() => {
+    this.timeOut = setTimeout(() => {
       let newEnd = this.state.end + 20;
 
       if (newEnd > listLength) {
@@ -31,9 +31,9 @@ class LazyLoaderWrapper extends Component {
       } else {
         this.setState({ hasMore: true, end: newEnd });
       }
-    }, 2000);
+      this.setState({ isLoading: false });
 
-    this.setState({ isLoading: false });
+    }, 2000);
   };
 
   render() {

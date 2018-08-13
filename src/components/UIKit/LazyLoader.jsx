@@ -11,18 +11,24 @@ const StyledLazyList = styled.div`
   overflow-y: scroll;
 `;
 
+const PreloaderWrapper = styled.div`
+  height: ${({ isLoading }) => (isLoading ? '170px' : '0')};
+`;
+
 export class LazyLoader extends Component {
   handleScroll = (e) => {
-    const { hasMore, handleLoad } = this.props;
+    const { hasMore, isLoading, handleLoad } = this.props;
 
-    if (e.target.clientHeight + e.target.scrollTop === e.target.scrollHeight && hasMore) {
+    if (e.target.clientHeight + e.target.scrollTop === e.target.scrollHeight
+      && hasMore
+      && !isLoading
+    ) {
       handleLoad();
     }
   };
 
   render() {
     const { list, indexEndElement, isLoading } = this.props;
-    console.log(this.props.isLoading);
 
     return (
       <StyledLazyList onScroll={this.handleScroll}>
@@ -44,9 +50,9 @@ export class LazyLoader extends Component {
             />
           ))}
         </Container>
-        <div>
+        <PreloaderWrapper isLoading={isLoading}>
           {isLoading && <Preloader>Загрузка</Preloader>}
-        </div>
+        </PreloaderWrapper>
       </StyledLazyList>
     );
   }
