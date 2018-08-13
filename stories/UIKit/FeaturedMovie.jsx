@@ -85,42 +85,34 @@ const RatingStyled = styled.div`
 `;
 
 stories.addWithJSX('FeaturedMovie', () => (
-  <Container dark>
-    <FeaturedMovieStyled>
-      <Grid bottom="xs">
-        <Row>
-          <Row start="xs">
-            <Col xs={12} sm={12} md={12} lg={12}>
-              <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
-            </Col>
-            <Col xs={12} sm={12} md={12} lg={12}><H1>{somefilm.title}</H1></Col>
-            <Col xs={12} sm={12} md={3} lg={3}>
-              <Genres>{searchGenre(somefilm.genre_ids).map(
-                (genre, index) => <span key={index}>{genre}&nbsp;</span>)}
-              </Genres>
-            </Col>
-            <Col xs={12} sm={12} md={3} lg={3}><Timing>{somefilm.timing} минуты</Timing></Col>
-          </Row>
-
+  <FeaturedMovieStyled>
+    <Grid bottom="xs">
+      <Row>
+        <Row start="xs">
+          <Col xs={12} sm={12} md={12} lg={12}>
+            <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
+          </Col>
+          <Col xs={12} sm={12} md={12} lg={12}><H1>{somefilm.title}</H1></Col>
+          <Col xs={12} sm={12} md={3} lg={3}>
+            <Genres>{searchGenre(somefilm.genre_ids).map(
+              (genre, index) => <span key={index}>{genre}&nbsp;</span>)}
+            </Genres>
+          </Col>
+          <Col xs={12} sm={12} md={3} lg={3}><Timing>{somefilm.timing} минуты</Timing></Col>
         </Row>
+      </Row>
 
-
+      <Row middle="xs">
         <Row middle="xs">
-
-          <Row middle="xs">
-            <Col xs={12} sm={6}><WrapButton btnType="primary" btnSize="big" onClick={action('click')}>Подробнее</WrapButton></Col>
-            <Col xs={12} sm={6}><WrapButton btnType="transparent-white" btnSize="small" onClick={action('click')}><Icon icon="heart" />В избранное</WrapButton></Col>
-          </Row>
-
-          <Row middle="xs">
-            <Col xs={12} sm={12} md={12} lg={12} >
-              <RatingStyled><Rating voteAverage={somefilm.vote_average} voteCount={somefilm.vote_count} size="lg" /></RatingStyled>
-            </Col>
-          </Row>
-
+          <Col xs={12} sm={6}><WrapButton btnType="primary" btnSize="big" onClick={action('click')}>Подробнее</WrapButton></Col>
+          <Col xs={12} sm={6}><WrapButton btnType="transparent-white" btnSize="small" onClick={action('click')}><Icon icon="heart" />В избранное</WrapButton></Col>
         </Row>
-      </Grid>
-
-    </FeaturedMovieStyled>
-  </Container>
+        <Row middle="xs">
+          <Col xs={12} sm={12} md={12} lg={12} >
+            <RatingStyled><Rating voteAverage={somefilm.vote_average} voteCount={somefilm.vote_count} size="lg" /></RatingStyled>
+          </Col>
+        </Row>
+      </Row>
+    </Grid>
+  </FeaturedMovieStyled>
 ));
