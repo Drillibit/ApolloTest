@@ -33,7 +33,7 @@ const stories = storiesOf('UIKit/FeaturedMovie', module);
 
 const somefilm = {
   "adult": false,
-  "backdrop_path": "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
+  "backdrop_path": "/55Vfc1beLn3pJF4Lw83TRKHenK6.jpg",
   "belongs_to_collection": null,
   "budget": 63000000,
   "genres": [

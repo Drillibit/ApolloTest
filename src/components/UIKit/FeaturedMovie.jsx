@@ -18,7 +18,7 @@ const FeaturedMovieStyled = styled.div`
 
   @media (max-width: 560px) {
     min-height: 400px;
-    background: #000 url(https://image.tmdb.org/t/p/w780/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat center;
+    background: #000 url(https://image.tmdb.org/t/p/w780/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg) no-repeat center;
     margin: 0;
   };
   background-size: cover;
