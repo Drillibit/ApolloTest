@@ -12,10 +12,10 @@ export const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = createStore(
-  connectRouter(history)(reducers), // new root reducer with router state
+  connectRouter(history)(reducers),
   composeWithDevTools(
     applyMiddleware(
-      routerMiddleware(history), // for dispatching history actions
+      routerMiddleware(history),
       sagaMiddleware
     ),
   ),
