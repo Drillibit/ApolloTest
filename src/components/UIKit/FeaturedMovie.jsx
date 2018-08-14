@@ -2,6 +2,7 @@ import React from 'react';
 import { func, objectOf } from 'prop-types';
 import styled from 'styled-components';
 
+import { CONFIG } from '../../services/api';
 import { StyledButton } from './Button';
 import { Rating } from './Rating';
 import { StyledGrid, StyledRow, StyledCol } from '../helpers/grid';
@@ -12,12 +13,9 @@ const FeaturedMovieStyled = styled.div`
   position: relative;
   min-height: 700px;
   background: #000 url(
-    ${ ({ film }) => 'https://image.tmdb.org/t/p/original' + film.backdrop_path }
-
+    ${({ film }) => CONFIG.IMAGES.ORIGINAL + film.backdrop_path}
   ) no-repeat center;
 
-
-  // background: #000 url(https://image.tmdb.org/t/p/original/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg) no-repeat center;
   @media (max-width: 560px) {
     min-height: 400px;
     background: #000 url(https://image.tmdb.org/t/p/w780/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat center;
@@ -73,7 +71,7 @@ const RatingStyled = styled(Rating)`
 `;
 
 export const FeaturedMovie = ({ film, onClick }) => (
-  <FeaturedMovieStyled>
+  <FeaturedMovieStyled film={film}>
     <StyledGrid>
       <StyledRow>
         <StyledCol xs={12}>
