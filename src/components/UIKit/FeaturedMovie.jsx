@@ -15,12 +15,6 @@ const FeaturedMovieStyled = styled.div`
   background: #000 url(
     ${({ film }) => CONFIG.IMAGES.ORIGINAL + film.backdrop_path}
   ) no-repeat center;
-
-  @media (max-width: 560px) {
-    min-height: 400px;
-    background: #000 url(https://image.tmdb.org/t/p/w780/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg) no-repeat center;
-    margin: 0;
-  };
   background-size: cover;
   padding: 20px;
   align-items: flex-end;
