@@ -6,14 +6,12 @@ import { Main } from '$components/UIKit/Main';
 import { Footer } from '$components/UIKit/Footer';
 import { SmallText } from '$components/UIKit/Typography';
 
-
 const stories = storiesOf('UIKit/Main', module);
 const text = '2018, Все права защищены';
 
 const Header = () => (
   <div>Header</div>
 );
-
 
 /* Styles for sticky footer */
 const StyledContent = styled.div`

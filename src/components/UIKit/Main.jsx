@@ -14,7 +14,6 @@ export const Main = ({ children }) => (
   </StyledMain>
 );
 
-
 Main.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
 };
