@@ -20,24 +20,11 @@ const FeaturedMovieStyled = styled.div`
 `;
 
 const FeatureGradient = styled.div`
-background-image:
-linear-gradient(to bottom, 
-  rgba(0, 0, 0, 0), 
-  rgba(0, 0, 0, 0.01) 7%, 
-  rgba(0, 0, 0, 0.03) 13%, 
-  rgba(0, 0, 0, 0.07) 18%, 
-  rgba(0, 0, 0, 0.11) 24%, 
-  rgba(0, 0, 0, 0.17) 29%, 
-  rgba(0, 0, 0, 0.23) 34%, 
-  rgba(0, 0, 0, 0.3) 39%, 
-  rgba(0, 0, 0, 0.38) 45%, 
-  rgba(0, 0, 0, 0.45) 51%, 
-  rgba(0, 0, 0, 0.53) 59%, 
-  rgba(0, 0, 0, 0.6) 67%, 
-  rgba(0, 0, 0, 0.68) 76%, 
-  rgba(0, 0, 0, 0.74) 87%, 
-  rgba(0, 0, 0, 0.8)
-);
+  background-image:
+  linear-gradient(to bottom, 
+    rgba(0, 0, 0, 0.03) 13%,
+    rgba(0, 0, 0, 0.8)
+  );
   position: absolute;
   width: 100%;
   height: 100%;
