@@ -1,5 +1,5 @@
-import React from 'react';
-import { func, string, arrayOf, object, bool } from 'prop-types';
+import React, { PureComponent } from 'react';
+import { func, string, arrayOf, object } from 'prop-types';
 import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 
@@ -51,7 +51,6 @@ const InputStyled = styled.input`
   outline: none;
 `;
 
-
 const UlStyled = styled.ul`
   background-color: #ffffff;
   margin: 20px 0 0 -11px;
@@ -80,43 +79,61 @@ const A = styled.a`
 
 const searchPhrase = 'Найти по названию, жанру, актеру';
 
-export const Search = ({
-  isOpen, onClick, onChange, value, result, onClose
-}) => (
-  <RootClose onRootClose={onClose}>
-      <SearchStyled isOpen={isOpen}>
-        <StyledIconButton onClick={onClick}>
-          <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
-        </StyledIconButton>
-        <InputStyled
-          type="text"
-          placeholder={searchPhrase}
-          onChange={onChange}
-          value={value}
-        />
-        {(isOpen && result.length > 0) && (
-          <UlStyled>
-            {result.map(item => <LiStyled key={item.id}><A href="">{item.name}</A></LiStyled>)}
-          </UlStyled>)
-        }
-      </SearchStyled>
-    </RootClose>
-);
+
+export class Search extends PureComponent {
+  state = {
+    isOpen: false
+  }
+
+  onClose = () => {
+    this.setState({
+      isOpen: false
+    });
+  }
+
+  toggleOpen = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    const {
+      onChange, value, result
+    } = this.props;
+
+    const { isOpen } = this.state;
+
+    return (
+      <RootClose onRootClose={this.onClose}>
+        <SearchStyled isOpen={isOpen}>
+          <StyledIconButton onClick={this.toggleOpen}>
+            <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
+          </StyledIconButton>
+          <InputStyled
+            type="text"
+            placeholder={searchPhrase}
+            onChange={onChange}
+            value={value}
+          />
+          {(isOpen && result.length > 0) && (
+            <UlStyled>
+              {result.map(item => <LiStyled key={item.id}><A href="">{item.name}</A></LiStyled>)}
+            </UlStyled>)
+          }
+        </SearchStyled>
+      </RootClose>
+    );
+  }
+}
 
 Search.propTypes = {
-  onChange: func.isRequired,
-  onClick: func.isRequired,
-  onClose: func.isRequired,
-  value: string.isRequired,
-  isOpen: bool.isRequired,
+  onChange: func,
+  value: string,
   result: arrayOf(object)
 };
 
 Search.defaultProps = {
-  // onChange: f => f,
-  // onClick: f => f,
-  // onClose: f => f,
-  // isOpen: false,
-  // value: '',
+  onChange: f => f,
+  value: '',
   result: []
 };
