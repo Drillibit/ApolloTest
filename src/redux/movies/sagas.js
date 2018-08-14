@@ -11,17 +11,17 @@ function* fetchNowPlaying() {
   }
 }
 
-function* fetchMoviesByKeyword({ payload }) {
+function* searchMovies({ payload }) {
   try {
     const { data } = yield call(requestMovieByKeywords, payload);
     yield put(clearError());
     yield put(setSearchResults(data.results));
   } catch (error) {
-    yield put(setError(error.response.statusText));
+    yield put(setError(error.toString()));
   }
 }
 
 export function* sagas() {
-  yield takeLatest(CONSTANTS.SEARCH_MOVIES, fetchMoviesByKeyword);
+  yield takeLatest(CONSTANTS.SEARCH_MOVIES, searchMovies);
   yield takeLatest(CONSTANTS.FETCH_NOW_PLAYING, fetchNowPlaying);
 }

@@ -17,6 +17,7 @@ export class Header extends Component {
   handleChange = (e) => {
     const { value } = e.target;
     const { searchMovies } = this.props;
+    clearTimeout(this.timeOut);
     this.timeOut = setTimeout(() => {
       if (value.length > 0) {
         searchMovies(value);
@@ -33,7 +34,6 @@ export class Header extends Component {
   handleClose = () => {
     const { clearSearch } = this.props;
     clearSearch();
-    clearTimeout(this.timeOut);
     this.setState(() => ({
       isOpen: false,
       value: ''

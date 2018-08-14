@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { getSearchResults } from '../redux/selectors';
+import { getSearchResults } from '../redux/movies/selectors';
 import { searchMovies, clearSearch } from '../redux/movies/actions';
 import { Header } from '../components/Header';
 
