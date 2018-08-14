@@ -42,11 +42,11 @@ const somefilm = {
 const FeaturedMovieStyled = styled.div`
   position: relative;
   min-height: 700px;
-  background: #000 url(https://image.tmdb.org/t/p/original/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat 100% 100%;
+  background: #000 url(https://image.tmdb.org/t/p/original/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat center;
   
   @media (max-width: 560px) {
     min-height: 400px;
-    background: #000 url(https://image.tmdb.org/t/p/w780/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat 100% 100%;
+    background: #000 url(https://image.tmdb.org/t/p/w780/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat center;
     margin: 0;
   };
   background-size: cover;
@@ -77,7 +77,16 @@ const Genres = styled.div`
   }
 `;
 
-const RatingStyled = styled.div`
+const StyledRatingWrapper = styled.div`
+  display: flex;
+
+  @media (min-width: 1024px) {
+    justify-content: flex-end;
+  }
+`;
+
+const RatingStyled = styled(Rating)`
+  display: inline-flex;
   margin: 10px 0 10px 0;
   padding: 10px;
   border-radius: 5px;
@@ -99,14 +108,14 @@ stories.addWithJSX('FeaturedMovie', () => (
         </StyledCol>
       </StyledRow>
       <StyledRow alignItems="center" margin="20px 0 0 0">
-        <StyledCol xs={12} md={6} lg={7} padding="0">
+        <StyledCol xs={12} md={6} padding="0">
           <WrapButton btnType="primary" btnSize="big" onClick={action('click')}>Подробнее</WrapButton>
           <WrapButton btnType="transparent-white" btnSize="small" onClick={action('click')}><Icon icon="heart" />В избранное</WrapButton>
         </StyledCol>
-        <StyledCol xs={12} md={6} lg={4} padding="0" flexBasis="0" lgOffset={1}>
-          <RatingStyled>
-            <Rating voteAverage={somefilm.vote_average} voteCount={somefilm.vote_count} size="lg" />
-          </RatingStyled>
+        <StyledCol xs={12} md={6} padding="0" marginLeft="auto">
+          <StyledRatingWrapper>
+            <RatingStyled voteAverage={somefilm.vote_average} voteCount={somefilm.vote_count} size="lg" />
+          </StyledRatingWrapper>
         </StyledCol>
       </StyledRow>
     </StyledGrid>
