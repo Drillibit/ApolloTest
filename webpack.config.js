@@ -256,6 +256,7 @@ module.exports = (releaseStage) => {
       $containers: path.resolve(__dirname, 'src/containers'),
       $redux: path.resolve(__dirname, 'src/redux'),
       $assets: path.resolve(__dirname, 'src/assets'),
+      $helpers: path.resolve(__dirname, 'src/components/helpers'),
     }
   };
 
