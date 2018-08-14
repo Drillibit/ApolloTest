@@ -8,7 +8,7 @@ import { Search } from '../../src/components/UIKit/Search';
 import { filmsList } from '../helpers/testFilmsList';
 
 
-const stories = storiesOf('UIKit/Search', module);
+const stories = storiesOf('UIKit', module);
 
 const StyledContainer = styled(Container)`
   justify-content: flex-end;

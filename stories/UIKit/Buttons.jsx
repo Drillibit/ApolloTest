@@ -6,9 +6,9 @@ import { Button } from '../../src/components/UIKit/Button';
 import { Icon } from '../../src/components/UIKit/Icon';
 import { Container } from '../helpers/Container';
 
-const stories = storiesOf('UIKit/Buttons', module);
+const stories = storiesOf('UIKit', module);
 
-stories.addWithJSX('basic', () => (
+stories.addWithJSX('Buttons', () => (
   <Container dark>
     <Button
       btnType="transparent-white"

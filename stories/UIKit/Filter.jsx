@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { Filter } from '../../src/components/UIKit/Filter';
 import { Container } from '../helpers/Container';
 
-const stories = storiesOf('UIKit/Filter', module);
+const stories = storiesOf('UIKit', module);
 
 const list = [
   { id: 356, name: 'Мультфильм' },
@@ -24,7 +24,7 @@ const list = [
   { id: 369, name: 'Арт-Хаус' },
 ];
 
-stories.addWithJSX('main', () => (
+stories.addWithJSX('Filter', () => (
   <Container>
     <Filter list={list} onChange={action('onChange')} />
   </Container>

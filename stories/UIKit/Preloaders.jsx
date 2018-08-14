@@ -3,8 +3,8 @@ import { storiesOf } from '@storybook/react';
 
 import { Preloader } from '../../src/components/UIKit/Preloader';
 
-const stories = storiesOf('UIKit/Preloaders', module);
+const stories = storiesOf('UIKit', module);
 
-stories.addWithJSX('main', () => (
+stories.addWithJSX('Preloaders', () => (
   <Preloader>Загрузка</Preloader>
 ));

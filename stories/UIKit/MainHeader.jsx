@@ -12,7 +12,7 @@ const StyledContainer = styled.div`
   background-image: url(${bg});
 `;
 
-const stories = storiesOf('UIKit/MainHeader', module);
+const stories = storiesOf('UIKit', module);
 
 class SearchWrapComponent extends Component {
   state = {
@@ -63,7 +63,7 @@ SearchWrapComponent.defaultProps = {
   children: {}
 };
 
-stories.addWithJSX('main', () => (
+stories.addWithJSX('MainHeader', () => (
   <StyledContainer>
     <SearchWrapComponent>
       <MainHeader />
