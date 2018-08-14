@@ -1,17 +1,15 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-import { Main } from '$components/UIKit/Main';
 import { Footer } from '$components/UIKit/Footer';
 import { SmallText } from '$components/UIKit/Typography';
 
-const stories = storiesOf('UIKit/Main', module);
-const text = '2018, Все права защищены';
-
-const Header = () => (
-  <div>Header</div>
-);
+const StyledMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
 
 /* Styles for sticky footer */
 const StyledContent = styled.div`
@@ -19,16 +17,28 @@ const StyledContent = styled.div`
   flex: 1;
 `;
 
+const Header = () => (
+  <div>Header</div>
+);
+
 const Content = () => (
   <StyledContent>Content</StyledContent>
 );
 
-stories.addWithJSX('Main', () => (
-  <Main>
+const text = '2018, Все права защищены';
+
+export const Main = () => (
+  <StyledMain>
     <Header />
     <Content />
     <Footer>
       <SmallText>{text}</SmallText>
     </Footer>
-  </Main>
-));
+  </StyledMain>
+);
+
+Main.propTypes = {
+};
+
+Main.defaultProps = {
+};
