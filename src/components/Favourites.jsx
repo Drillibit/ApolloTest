@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func, object, objectOf, arrayOf, number } from 'prop-types';
+import { func, object, objectOf, number } from 'prop-types';
 
 import { Container } from '../../stories/helpers/Container';
 import { Preview } from './UIKit/Preview';
@@ -19,8 +19,6 @@ export class Favourites extends Component {
         favorList.push(key);
       }
     });
-
-    console.log(listById);
 
     return (
       <Container>
