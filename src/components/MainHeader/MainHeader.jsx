@@ -23,8 +23,11 @@ export class HeaderParent extends Component {
 
 
   handleChange = (e) => {
+    const { value } = e.target;
     const { fetchMoviesByKeyword } = this.props;
-    if (e.target.value.length > 0) { fetchMoviesByKeyword(e.target.value); }
+    if (value.length > 0) {
+      fetchMoviesByKeyword(value);
+    }
     this.setState({ value: e.target.value });
   };
 
@@ -35,7 +38,10 @@ export class HeaderParent extends Component {
   handleClose = () => {
     const { clearSearch } = this.props;
     clearSearch();
-    this.setState(() => ({ isOpen: false }));
+    this.setState(() => ({
+      isOpen: false,
+      value: ''
+    }));
   };
 
   render() {
