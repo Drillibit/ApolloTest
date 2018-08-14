@@ -11,7 +11,7 @@ const StyledMain = styled.div`
   min-height: 100vh;
 `;
 
-/* Styles for sticky footer */
+// Styles for sticky footer
 const StyledContent = styled.div`
   display: flex;
   flex: 1;
@@ -25,14 +25,12 @@ const Content = () => (
   <StyledContent>Content</StyledContent>
 );
 
-const text = '2018, Все права защищены';
-
 export const Main = () => (
   <StyledMain>
     <Header />
     <Content />
     <Footer>
-      <SmallText>{text}</SmallText>
+      <SmallText>2018, Все права защищены</SmallText>
     </Footer>
   </StyledMain>
 );
