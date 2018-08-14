@@ -35,12 +35,11 @@ const keyframes = css`
 `;
 
 const RectWrapper = styled.div`
-  height: 50px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
-  margin-bottom: 28px;
+  padding-top: 50px;
 `;
 
 const MsgWrapper = styled.div`
@@ -52,6 +51,7 @@ const MsgWrapper = styled.div`
   font-weight: 600;
   line-height: normal;
   text-indent: 10px;
+  margin-top: 25px;
 `;
 
 const Rectangle = styled.div`
