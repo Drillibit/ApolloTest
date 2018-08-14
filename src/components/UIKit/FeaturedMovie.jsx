@@ -16,14 +16,40 @@ const FeaturedMovieStyled = styled.div`
     ${({ film }) => CONFIG.IMAGES.ORIGINAL + film.backdrop_path}
   ) no-repeat center;
   background-size: cover;
-  padding: 20px;
+  
+`;
+
+const FeatureGradient = styled.div`
+background-image:
+linear-gradient(to bottom, 
+  rgba(0, 0, 0, 0), 
+  rgba(0, 0, 0, 0.01) 7%, 
+  rgba(0, 0, 0, 0.03) 13%, 
+  rgba(0, 0, 0, 0.07) 18%, 
+  rgba(0, 0, 0, 0.11) 24%, 
+  rgba(0, 0, 0, 0.17) 29%, 
+  rgba(0, 0, 0, 0.23) 34%, 
+  rgba(0, 0, 0, 0.3) 39%, 
+  rgba(0, 0, 0, 0.38) 45%, 
+  rgba(0, 0, 0, 0.45) 51%, 
+  rgba(0, 0, 0, 0.53) 59%, 
+  rgba(0, 0, 0, 0.6) 67%, 
+  rgba(0, 0, 0, 0.68) 76%, 
+  rgba(0, 0, 0, 0.74) 87%, 
+  rgba(0, 0, 0, 0.8)
+);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   align-items: flex-end;
   display: flex;
   color: #fff;
 `;
 
 const WrapButtonBlock = styled.div`
-  margin: 10px 0 0 0;
+  margin: 20px 0 0 0;
 `;
 
 const ButtonStyledWrap = styled(StyledButton)`
@@ -66,33 +92,35 @@ const RatingStyled = styled(Rating)`
 
 export const FeaturedMovie = ({ film, onClick }) => (
   <FeaturedMovieStyled film={film}>
-    <StyledGrid>
-      <StyledRow>
-        <StyledCol xs={12}>
-          <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
-          <H1>{film.title}</H1>
-          <Genres>
-            {
-              film.genres.map(genre => <span key={genre.id}>{genre.name}&nbsp;</span>)
-            }
-          </Genres>
-          <Timing>Продолжительность: {film.runtime}</Timing>
-        </StyledCol>
-      </StyledRow>
-      <StyledRow alignItems="center" margin="20px 0 0 0">
-        <StyledCol xs={12} md={6} padding="0">
-          <WrapButtonBlock>
-            <ButtonStyledWrap btnType="primary" btnSize="big" onClick={onClick}>Подробнее</ButtonStyledWrap>
-            <ButtonStyledWrap btnType="transparent-white" btnSize="small" onClick={onClick}><Icon icon="heart" />В избранное</ButtonStyledWrap>
-          </WrapButtonBlock>
-        </StyledCol>
-        <StyledCol xs={12} md={6} padding="0" marginLeft="auto">
-          <StyledRatingWrapper>
-            <RatingStyled voteAverage={film.vote_average} voteCount={film.vote_count} size="lg" />
-          </StyledRatingWrapper>
-        </StyledCol>
-      </StyledRow>
-    </StyledGrid>
+    <FeatureGradient>
+      <StyledGrid>
+        <StyledRow>
+          <StyledCol xs={12}>
+            <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
+            <H1>{film.title}</H1>
+            <Genres>
+              {
+                film.genres.map(genre => <span key={genre.id}>{genre.name}&nbsp;</span>)
+              }
+            </Genres>
+            <Timing>{film.runtime} мин.</Timing>
+          </StyledCol>
+        </StyledRow>
+        <StyledRow alignItems="center" margin="20px 0 20px 0">
+          <StyledCol xs={12} md={6} padding="0">
+            <WrapButtonBlock>
+              <ButtonStyledWrap btnType="primary" btnSize="big" onClick={onClick}>Подробнее</ButtonStyledWrap>
+              <ButtonStyledWrap btnType="transparent-white" btnSize="small" onClick={onClick}><Icon icon="heart" />В избранное</ButtonStyledWrap>
+            </WrapButtonBlock>
+          </StyledCol>
+          <StyledCol xs={12} md={6} padding="0" marginLeft="auto">
+            <StyledRatingWrapper>
+              <RatingStyled voteAverage={film.vote_average} voteCount={film.vote_count} size="lg" />
+            </StyledRatingWrapper>
+          </StyledCol>
+        </StyledRow>
+      </StyledGrid>
+    </FeatureGradient>
   </FeaturedMovieStyled>
 );
 
