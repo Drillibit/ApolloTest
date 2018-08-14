@@ -11,7 +11,13 @@ import { Icon } from './Icon';
 const FeaturedMovieStyled = styled.div`
   position: relative;
   min-height: 700px;
-  background: #000 url(https://image.tmdb.org/t/p/original/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat center;
+  background: #000 url(
+    ${ ({ film }) => 'https://image.tmdb.org/t/p/original' + film.backdrop_path }
+
+  ) no-repeat center;
+
+
+  // background: #000 url(https://image.tmdb.org/t/p/original/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg) no-repeat center;
   @media (max-width: 560px) {
     min-height: 400px;
     background: #000 url(https://image.tmdb.org/t/p/w780/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat center;
@@ -66,17 +72,19 @@ const RatingStyled = styled(Rating)`
   background-color: rgba(73, 76, 98, 0.6);
 `;
 
-export const FeaturedMovie = ({ film, search, onClick }) => (
+export const FeaturedMovie = ({ film, onClick }) => (
   <FeaturedMovieStyled>
     <StyledGrid>
       <StyledRow>
         <StyledCol xs={12}>
           <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
           <H1>{film.title}</H1>
-          <Genres>{search(film.genre_ids).map(
-            genre => <span key={genre}>{genre}&nbsp;</span>)}
+          <Genres>
+            {
+              film.genres.map(genre => <span key={genre.id}>{genre.name}&nbsp;</span>)
+            }
           </Genres>
-          <Timing>{film.timing} минуты</Timing>
+          <Timing>Продолжительность: {film.runtime}</Timing>
         </StyledCol>
       </StyledRow>
       <StyledRow alignItems="center" margin="20px 0 0 0">
@@ -98,12 +106,10 @@ export const FeaturedMovie = ({ film, search, onClick }) => (
 
 FeaturedMovie.propTypes = {
   film: objectOf(),
-  search: func,
   onClick: func
 };
 
 FeaturedMovie.defaultProps = {
   film: {},
-  search: f => f,
   onClick: f => f
 };
