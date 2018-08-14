@@ -81,8 +81,17 @@ const searchPhrase = 'Найти по названию, жанру, актеру
 
 
 export class Search extends PureComponent {
-  state = {
-    isOpen: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false
+    };
+
+    this.textInput = React.createRef();
+  }
+
+  componentDidUpdate() {
+    this.textInput.current.focus();
   }
 
   onClose = () => {
@@ -92,8 +101,9 @@ export class Search extends PureComponent {
   }
 
   toggleOpen = () => {
+    const { isOpen } = this.state;
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !isOpen
     });
   }
   render() {
@@ -111,6 +121,7 @@ export class Search extends PureComponent {
           </StyledIconButton>
           <InputStyled
             type="text"
+            innerRef={this.textInput}
             placeholder={searchPhrase}
             onChange={onChange}
             value={value}
