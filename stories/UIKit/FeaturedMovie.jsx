@@ -15,7 +15,7 @@ const stories = storiesOf('UIKit/FeaturedMovie', module);
 /* eslint-disable */
 const somefilm = {
   "api": '4493befd452f5d5eeea5c9d2de1306a8',
-  "vote_count": 2079,
+  "vote_count": 2079888,
   "id": 351286,
   "video": false,
   "vote_average": 6.6,
@@ -42,7 +42,13 @@ const somefilm = {
 const FeaturedMovieStyled = styled.div`
   position: relative;
   min-height: 700px;
-  background: #000 url(https://image.tmdb.org/t/p/original/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat center center;
+  background: #000 url(https://image.tmdb.org/t/p/original/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat 100% 100%;
+  
+  @media (max-width: 560px) {
+    min-height: 400px;
+    background: #000 url(https://image.tmdb.org/t/p/w780/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat 100% 100%;
+    margin: 0;
+  };
   background-size: cover;
   padding: 20px;
   align-items: flex-end;
@@ -82,7 +88,7 @@ const RatingStyled = styled.div`
 stories.addWithJSX('FeaturedMovie', () => (
   <FeaturedMovieStyled>
     <StyledGrid>
-      <StyledRow >
+      <StyledRow>
         <StyledCol xs={12}>
           <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
           <H1>{somefilm.title}</H1>
@@ -92,12 +98,12 @@ stories.addWithJSX('FeaturedMovie', () => (
           <Timing>{somefilm.timing} минуты</Timing>
         </StyledCol>
       </StyledRow>
-      <StyledRow alignItems="center" margin="20px 0 0 0" >
+      <StyledRow alignItems="center" margin="20px 0 0 0">
         <StyledCol xs={12} md={6} lg={7} padding="0">
           <WrapButton btnType="primary" btnSize="big" onClick={action('click')}>Подробнее</WrapButton>
           <WrapButton btnType="transparent-white" btnSize="small" onClick={action('click')}><Icon icon="heart" />В избранное</WrapButton>
         </StyledCol>
-        <StyledCol xs={12} md={6} lg={5} marginLeft="auto">
+        <StyledCol xs={12} md={6} lg={4} padding="0" flexBasis="0" lgOffset={1}>
           <RatingStyled>
             <Rating voteAverage={somefilm.vote_average} voteCount={somefilm.vote_count} size="lg" />
           </RatingStyled>

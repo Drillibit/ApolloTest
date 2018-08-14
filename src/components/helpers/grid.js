@@ -25,4 +25,7 @@ export const StyledCol = styled(Col)`
   ${({ padding }) => padding && css`
   padding: ${padding};
   `}
+  ${({ flexBasis }) => flexBasis && css`
+  flex-basis: ${flexBasis};
+  `}
 `;
