@@ -2,9 +2,9 @@ export const FETCH_NOW_PLAYING = 'FETCH_NOW_PLAYING';
 
 export const SET_MOVIES = 'SET_MOVIES';
 
-export const FETCH_SEARCH_MOVIES = 'FETCH_SEARCH_MOVIES';
+export const SEARCH_MOVIES = 'SEARCH_MOVIES';
 
-export const SET_SEARCH_RESULT = 'SET_SEARCH_RESULT';
+export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
 
 export const SET_ERROR = 'SET_ERROR';
 

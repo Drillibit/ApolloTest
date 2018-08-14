@@ -3,9 +3,9 @@ import { func } from 'prop-types';
 
 import { MainHeader } from './UIKit/MainHeader';
 
-export class HeaderParent extends Component {
+export class Header extends Component {
   static propTypes = {
-    fetchMoviesByKeyword: func.isRequired,
+    searchMovies: func.isRequired,
     clearSearch: func.isRequired
   }
 
@@ -14,13 +14,12 @@ export class HeaderParent extends Component {
     isOpen: false,
   };
 
-
   handleChange = (e) => {
     const { value } = e.target;
-    const { fetchMoviesByKeyword } = this.props;
+    const { searchMovies } = this.props;
     this.timeOut = setTimeout(() => {
       if (value.length > 0) {
-        fetchMoviesByKeyword(value);
+        searchMovies(value);
       }
     }, 500);
 

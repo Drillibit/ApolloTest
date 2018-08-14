@@ -1,17 +1,17 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { getMoviesByKeyword } from '../redux/selectors';
-import { fetchMoviesByKeyword, clearSearch } from '../redux/movies/actions';
-import { HeaderParent } from '../components/MainHeader';
+import { getSearchResults } from '../redux/selectors';
+import { searchMovies, clearSearch } from '../redux/movies/actions';
+import { Header } from '../components/Header';
 
 const mapStateToProps = state => ({
-  result: getMoviesByKeyword(state)
+  result: getSearchResults(state)
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchMoviesByKeyword,
+  searchMovies,
   clearSearch
 }, dispatch);
 
-export const ConnectedHeader = connect(mapStateToProps, mapDispatchToProps)(HeaderParent);
+export const ConnectedHeader = connect(mapStateToProps, mapDispatchToProps)(Header);

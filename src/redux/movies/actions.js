@@ -9,13 +9,13 @@ export const fetchNowPlaying = () => ({
   type: TYPES.FETCH_NOW_PLAYING,
 });
 
-export const fetchMoviesByKeyword = req => ({
-  type: TYPES.FETCH_SEARCH_MOVIES,
+export const searchMovies = req => ({
+  type: TYPES.SEARCH_MOVIES,
   payload: req
 });
 
-export const setMoviesByKeyword = searchResults => ({
-  type: TYPES.SET_SEARCH_RESULT,
+export const setSearchResults = searchResults => ({
+  type: TYPES.SET_SEARCH_RESULTS,
   payload: { searchResults }
 });
 
