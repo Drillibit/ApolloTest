@@ -2,9 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
+import { Container } from '$helpers/Container';
 import { Button } from '../../src/components/UIKit/Button';
 import { Icon } from '../../src/components/UIKit/Icon';
-import { Container } from '$helpers/Container';
 
 const stories = storiesOf('UIKit', module);
 

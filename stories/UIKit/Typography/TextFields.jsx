@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import { Text, SmallText, LargeText } from '../../../src/components/UIKit/Typography';
 import { Container } from '$helpers/Container';
+import { Text, SmallText, LargeText } from '../../../src/components/UIKit/Typography';
 
 const stories = storiesOf('UIKit/Typography', module);
 

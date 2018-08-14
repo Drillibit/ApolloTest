@@ -2,8 +2,8 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 
-import { Icon } from '../../src/components/UIKit/Icon';
 import { Container } from '$helpers/Container';
+import { Icon } from '../../src/components/UIKit/Icon';
 
 const stories = storiesOf('UIKit', module);
 
