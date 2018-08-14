@@ -4,6 +4,9 @@ import * as TYPES from './constants';
 const initState = {
   list: [],
   listById: {},
+  favourites: {
+    351286: true, 363088: true, 353081: true, 299536: true, 260513: true, 442249: true,
+  },
 };
 
 const setMovies = (state, { list }) => ({

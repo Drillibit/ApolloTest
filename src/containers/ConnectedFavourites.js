@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { fetchNowPlaying } from '../redux/movies/actions';
-import { MoviesList } from '../components/MoviesList';
+import { Favourites } from '../components/Favourites';
 
 const mapStateToProps = ({ movies }) => ({
   list: movies.list,
@@ -14,4 +14,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   fetchNowPlaying
 }, dispatch);
 
-export const ConnectedMoviesList = connect(mapStateToProps, mapDispatchToProps)(MoviesList);
+export const ConnectedFavourites = connect(mapStateToProps, mapDispatchToProps)(Favourites);
