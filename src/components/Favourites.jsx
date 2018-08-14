@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func, object, objectOf, number } from 'prop-types';
+import { func, object, objectOf, boolean } from 'prop-types';
 
 import { Container } from '../../stories/helpers/Container';
 import { Preview } from './UIKit/Preview';
@@ -12,17 +12,9 @@ export class Favourites extends Component {
   render() {
     const { listById, favourites } = this.props;
 
-    const favorList = [];
-
-    Object.keys(favourites).forEach((key) => {
-      if (favourites[key]) {
-        favorList.push(key);
-      }
-    });
-
     return (
       <Container>
-        {favorList.map(id => (
+        {favourites.map(id => (
           listById[id] && <Preview
             key={listById[id].id}
             voteAverage={listById[id].vote_average}
@@ -46,7 +38,7 @@ export class Favourites extends Component {
 Favourites.propTypes = {
   listById: objectOf(object),
   fetchNowPlaying: func,
-  favourites: objectOf(number),
+  favourites: objectOf(boolean),
 };
 
 Favourites.defaultProps = {
