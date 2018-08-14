@@ -61,19 +61,22 @@ const UlStyled = styled.ul`
 `;
 
 const LiStyled = styled.li`
-  padding: 11px 0 11px 24px;
+  padding: 7px 0 11px 24px;
   min-height: 25px;
   font-size: 20px;
   list-style-type: none;
 `;
 
-const A = styled.a`
+const TmpStyled = styled.a` 
   text-decoration: none;
-  color: #494c62;
-  cursor: pointer;
-  &:hover {
-    color: #ff0079;
-    text-decoration: underline;
+`;
+
+const StyledText = styled.span`
+  color: ${colors.grey500};
+  padding-bottom: 4px;
+  ${TmpStyled}:hover & {
+    color: ${colors.purple};
+    border-bottom: ${colors.purple} 2px solid;
   };
 `;
 
@@ -128,7 +131,10 @@ export class Search extends PureComponent {
           />
           {(isOpen && result.length > 0) && (
             <UlStyled>
-              {result.map(item => <LiStyled key={item.id}><A href="">{item.name}</A></LiStyled>)}
+              {result.map(({ name, id }) => (
+                <TmpStyled key={id} href={`/movie/${id}`}>
+                  <LiStyled><StyledText>{name}</StyledText></LiStyled>
+                </TmpStyled>))}
             </UlStyled>)
           }
         </SearchStyled>
