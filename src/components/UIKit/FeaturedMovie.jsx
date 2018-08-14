@@ -13,7 +13,7 @@ const FeaturedMovieStyled = styled.div`
   position: relative;
   min-height: 700px;
   background: #000 url(
-    ${({ film }) => CONFIG.IMAGES.ORIGINAL + film.backdrop_path}
+    ${({ film }) => `${CONFIG.IMAGE_BASE}/original/${film.backdrop_path}`}
   ) no-repeat center;
   background-size: cover;
   padding: 20px;
@@ -72,9 +72,9 @@ export const FeaturedMovie = ({ film, onClick }) => (
           <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
           <H1>{film.title}</H1>
           <Genres>
-            {
-              film.genres.map(genre => <span key={genre.id}>{genre.name}&nbsp;</span>)
-            }
+            {film.genres.map(genre =>
+              <span key={genre.id}>{genre.name}&nbsp;</span>
+            )}
           </Genres>
           <Timing>Продолжительность: {film.runtime}</Timing>
         </StyledCol>

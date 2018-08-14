@@ -4,9 +4,7 @@ export const CONFIG = {
   BASE_URL: 'https://api.themoviedb.org',
   KEY: '4493befd452f5d5eeea5c9d2de1306a8',
   VERSION: 3,
-  IMAGES: {
-    ORIGINAL: 'https://image.tmdb.org/t/p/original',
-  },
+  IMAGE_BASE: 'https://image.tmdb.org/t/p',
 };
 
 export const api = axios.create({
