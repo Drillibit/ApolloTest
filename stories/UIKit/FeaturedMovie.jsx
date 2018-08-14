@@ -41,7 +41,7 @@ const somefilm = {
 
 const FeaturedMovieStyled = styled.div`
   position: relative;
-  min-height:700px;
+  min-height: 700px;
   background: #000 url(https://image.tmdb.org/t/p/original/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg) no-repeat center center;
   background-size: cover;
   padding: 20px;
@@ -51,7 +51,7 @@ const FeaturedMovieStyled = styled.div`
 `;
 
 const WrapButton = StyledButton.extend`
-  margin: 10px 25px 10px 0;
+  margin-right: 10px;
 `;
 
 const Timing = styled.div`
@@ -59,7 +59,7 @@ const Timing = styled.div`
   border-left: 2px solid white;
   opacity: 0.87;
   border-radius: 2px;
-  padding-left: 20px;
+  padding-left: 10px;
 `;
 
 const Genres = styled.div`
@@ -72,7 +72,6 @@ const Genres = styled.div`
 `;
 
 const RatingStyled = styled.div`
-  height: 48px;
   margin: 10px 0 10px 0;
   padding: 10px;
   border-radius: 5px;
@@ -83,7 +82,7 @@ const RatingStyled = styled.div`
 stories.addWithJSX('FeaturedMovie', () => (
   <FeaturedMovieStyled>
     <StyledGrid>
-      <StyledRow>
+      <StyledRow >
         <StyledCol xs={12}>
           <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
           <H1>{somefilm.title}</H1>
@@ -93,8 +92,8 @@ stories.addWithJSX('FeaturedMovie', () => (
           <Timing>{somefilm.timing} минуты</Timing>
         </StyledCol>
       </StyledRow>
-      <StyledRow>
-        <StyledCol xs={12} md={6} lg={7}>
+      <StyledRow alignItems="center" margin="20px 0 0 0" >
+        <StyledCol xs={12} md={6} lg={7} padding="0">
           <WrapButton btnType="primary" btnSize="big" onClick={action('click')}>Подробнее</WrapButton>
           <WrapButton btnType="transparent-white" btnSize="small" onClick={action('click')}><Icon icon="heart" />В избранное</WrapButton>
         </StyledCol>

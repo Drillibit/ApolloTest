@@ -34,6 +34,5 @@ export const searchGenre = (genresArr) => {
   for (let i = 0, value = genresArr.length; i < value; i += 1) {
     genres.filter(item => (item.id === genresArr[i]) && counter.push(item.name));
   }
-  console.log(counter);
   return counter;
 };
