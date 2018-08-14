@@ -46,14 +46,12 @@ export class Favourites extends Component {
 }
 
 Favourites.propTypes = {
-  list: arrayOf(number),
   listById: objectOf(object),
   fetchNowPlaying: func,
-  favourites: object,
+  favourites: objectOf(number),
 };
 
 Favourites.defaultProps = {
-  list: [],
   listById: {},
   fetchNowPlaying: f => f,
   favourites: {},
