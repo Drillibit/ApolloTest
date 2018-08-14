@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func, object, objectOf, boolean } from 'prop-types';
+import { func, object, objectOf, arrayOf, string } from 'prop-types';
 
 import { Container } from '../../stories/helpers/Container';
 import { Preview } from './UIKit/Preview';
@@ -38,11 +38,11 @@ export class Favourites extends Component {
 Favourites.propTypes = {
   listById: objectOf(object),
   fetchNowPlaying: func,
-  favourites: objectOf(boolean),
+  favourites: arrayOf(string),
 };
 
 Favourites.defaultProps = {
   listById: {},
   fetchNowPlaying: f => f,
-  favourites: {},
+  favourites: [],
 };
