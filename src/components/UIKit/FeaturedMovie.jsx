@@ -13,7 +13,7 @@ const FeaturedMovieStyled = styled.div`
   position: relative;
   min-height: 700px;
   background: #000 url(
-    ${({ film }) => CONFIG.IMAGES.ORIGINAL + film.backdrop_path}
+    ${({ film }) => `${CONFIG.IMAGE_BASE}/original/${film.backdrop_path}`}
   ) no-repeat center;
   background-size: cover;
   
