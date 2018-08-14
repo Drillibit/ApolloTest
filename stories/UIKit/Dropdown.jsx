@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import PropTypes from 'prop-types';
 
-import { Container } from '../helpers/Container';
+import { Container } from '$helpers/Container';
 import { Dropdown } from '../../src/components/UIKit/Dropdown';
 
 const stories = storiesOf('UIKit', module);

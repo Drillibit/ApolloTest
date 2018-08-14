@@ -4,7 +4,7 @@ import PropTypes, { func } from 'prop-types';
 
 import { Preloader } from '$UIKit/Preloader';
 import { Preview } from '$UIKit/Preview';
-import { Container } from '../../../stories/helpers/Container';
+import { Container } from '$helpers/Container';
 
 const StyledLazyList = styled.div`
   height: 700px;

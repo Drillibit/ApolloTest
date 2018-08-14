@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import { Filter } from '../../src/components/UIKit/Filter';
-import { Container } from '../helpers/Container';
+import { Container } from '$helpers/Container';
 
 const stories = storiesOf('UIKit', module);
 
