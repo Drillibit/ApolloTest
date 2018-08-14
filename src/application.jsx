@@ -10,6 +10,7 @@ import { faHeart as faHeartFill, faStar } from '@fortawesome/free-regular-svg-ic
 import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 import { store, history } from './redux/store';
+import { Main } from './components/Main';
 import { ConnectedFavourites } from './containers/ConnectedFavourites';
 import './components/helpers/injectGlobalStyles';
 
@@ -17,6 +18,7 @@ export const Application = hot(module)(() => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
+        <Route exact path="/" component={Main} />
         <Route exact path="/favourites" component={ConnectedFavourites} />
       </Switch>
     </ConnectedRouter>
