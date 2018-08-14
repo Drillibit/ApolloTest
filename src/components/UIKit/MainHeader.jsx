@@ -10,8 +10,8 @@ const StyledHeaderContainer = styled.div`
     height: 109px;
     justify-content: space-between;
     align-items: center;
-    padding: 0 98px 0 130px;
-    background-image: linear-gradient{to bottom,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0) 100%);
+    padding: 0 98px 0 133px;
+    background-image: linear-gradient( to bottom,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0) 100%);
 `;
 
 const StyledRightGroup = styled.div`

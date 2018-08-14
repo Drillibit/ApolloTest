@@ -22,6 +22,6 @@ function* fetchMoviesByKeyword({ payload }) {
 }
 
 export function* sagas() {
-  yield takeLatest(CONSTANTS.FETCH_MOVIES_BY_KEYWORD, fetchMoviesByKeyword);
+  yield takeLatest(CONSTANTS.FETCH_SEARCH_MOVIES, fetchMoviesByKeyword);
   yield takeLatest(CONSTANTS.FETCH_NOW_PLAYING, fetchNowPlaying);
 }

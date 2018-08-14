@@ -10,12 +10,12 @@ export const fetchNowPlaying = () => ({
 });
 
 export const fetchMoviesByKeyword = req => ({
-  type: TYPES.FETCH_MOVIES_BY_KEYWORD,
+  type: TYPES.FETCH_SEARCH_MOVIES,
   payload: req
 });
 
 export const setMoviesByKeyword = searchResults => ({
-  type: TYPES.SET_MOVIES_BY_KEYWORD,
+  type: TYPES.SET_SEARCH_RESULT,
   payload: { searchResults }
 });
 

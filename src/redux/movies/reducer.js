@@ -14,7 +14,7 @@ const setMovies = (state, { list }) => ({
   listById: list.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {})
 });
 
-const setMovieByKeyword = (state, { searchResults }) => ({
+const setMoviesByKeyword = (state, { searchResults }) => ({
   ...state,
   searchResults
 });
@@ -36,7 +36,7 @@ const clearSearch = state => ({
 
 const handlers = {
   [TYPES.SET_MOVIES]: setMovies,
-  [TYPES.SET_MOVIES_BY_KEYWORD]: setMovieByKeyword,
+  [TYPES.SET_SEARCH_RESULT]: setMoviesByKeyword,
   [TYPES.CLEAR_SEARCH]: clearSearch,
   [TYPES.CLEAR_ERROR]: clearError,
   [TYPES.SET_ERROR]: setError,

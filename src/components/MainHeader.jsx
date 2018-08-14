@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { func } from 'prop-types';
 
-import bg from '../../assets/img/mask.png';
-import { MainHeader } from '../UIKit/MainHeader';
-
-const StyledContainer = styled.div`
-  height: 500px;
-  background-image: url(${bg});
-`;
+import { MainHeader } from './UIKit/MainHeader';
 
 export class HeaderParent extends Component {
   static propTypes = {
@@ -25,9 +18,12 @@ export class HeaderParent extends Component {
   handleChange = (e) => {
     const { value } = e.target;
     const { fetchMoviesByKeyword } = this.props;
-    if (value.length > 0) {
-      fetchMoviesByKeyword(value);
-    }
+    this.timeOut = setTimeout(() => {
+      if (value.length > 0) {
+        fetchMoviesByKeyword(value);
+      }
+    }, 500);
+
     this.setState({ value: e.target.value });
   };
 
@@ -38,6 +34,7 @@ export class HeaderParent extends Component {
   handleClose = () => {
     const { clearSearch } = this.props;
     clearSearch();
+    clearTimeout(this.timeOut);
     this.setState(() => ({
       isOpen: false,
       value: ''
@@ -46,15 +43,13 @@ export class HeaderParent extends Component {
 
   render() {
     return (
-      <StyledContainer>
-        <MainHeader
-          onChange={this.handleChange}
-          onClick={this.handleClick}
-          onClose={this.handleClose}
-          {...this.props}
-          {...this.state}
-        />
-      </StyledContainer>
+      <MainHeader
+        onChange={this.handleChange}
+        onClick={this.handleClick}
+        onClose={this.handleClose}
+        {...this.props}
+        {...this.state}
+      />
     );
   }
 }
