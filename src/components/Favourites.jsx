@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import { func, object, objectOf, arrayOf, number, boolean } from 'prop-types';
+import { func, object, objectOf, arrayOf, number } from 'prop-types';
 
 import { Container } from '../../stories/helpers/Container';
-import { filmsList } from '../../stories/helpers/testFilmsList';
 import { Preview } from './UIKit/Preview';
 
 export class Favourites extends Component {
@@ -12,10 +10,9 @@ export class Favourites extends Component {
   }
 
   render() {
-    const { list, listById, favourites } = this.props;
+    const { listById, favourites } = this.props;
 
     const favorList = [];
-    const list1 = filmsList.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {});
 
     Object.keys(favourites).forEach((key) => {
       if (favourites[key]) {
@@ -23,22 +20,24 @@ export class Favourites extends Component {
       }
     });
 
+    console.log(listById);
+
     return (
       <Container>
-        {favorList.map(item => (
-          <Preview
-            key={list1[item].id}
-            voteAverage={list1[item].vote_average}
-            voteCount={list1[item].vote_count}
-            size={list1[item].size}
-            description={list1[item].overview}
-            title={list1[item].title}
-            bg={list1[item].poster}
-            year={list1[item].release_date}
-            duration={list1[item].duration}
-            pg={list1[item].pg}
-            genre={list1[item].genre}
-            cast={list1[item].cast}
+        {favorList.map(id => (
+          listById[id] && <Preview
+            key={listById[id].id}
+            voteAverage={listById[id].vote_average}
+            voteCount={listById[id].vote_count}
+            size={listById[id].size}
+            description={listById[id].overview}
+            title={listById[id].title}
+            bg={listById[id].poster}
+            year={listById[id].release_date}
+            duration={listById[id].duration}
+            pg={listById[id].pg}
+            genre={listById[id].genre}
+            cast={listById[id].cast}
           />
         ))}
       </Container>
