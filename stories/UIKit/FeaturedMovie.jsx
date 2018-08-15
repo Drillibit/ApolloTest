@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 
 import { FeaturedMovie } from '$components/UIKit/FeaturedMovie';
 
-const stories = storiesOf('UIKit/FeaturedMovie', module);
+const stories = storiesOf('UIKit', module);
 
 /* eslint-disable */
 

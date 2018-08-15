@@ -2,10 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 
-import { Icon } from '../../src/components/UIKit/Icon';
 import { Container } from '../helpers/Container';
+import { Icon } from '../../src/components/UIKit/Icon';
 
-const stories = storiesOf('UIKit/Icons', module);
+const stories = storiesOf('UIKit', module);
 
 const IconWrapper = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-stories.addWithJSX('basic', () => (
+stories.addWithJSX('Icons', () => (
   <Container>
     <IconWrapper>
       <Icon icon="heart" size="xl" color="red" /><div>heart</div>

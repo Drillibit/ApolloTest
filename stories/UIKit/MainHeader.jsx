@@ -1,18 +1,18 @@
 import React, { Children, Component, cloneElement } from 'react';
-import { object } from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
-
-import { Container } from '../helpers/Container';
-import { Search } from '../../src/components/UIKit/Search';
+import { object } from 'prop-types';
 import { filmsList } from '../helpers/testFilmsList';
+import bg from '../assets/img/mask.png';
 
+import { MainHeader } from '../../src/components/UIKit/MainHeader';
+
+const StyledContainer = styled.div`
+  height: 500px;
+  background-image: url(${bg});
+`;
 
 const stories = storiesOf('UIKit', module);
-
-const StyledContainer = styled(Container)`
-  justify-content: flex-end;
-`;
 
 class SearchWrapComponent extends Component {
   state = {
@@ -63,10 +63,10 @@ SearchWrapComponent.defaultProps = {
   children: {}
 };
 
-stories.addWithJSX('Search', () => (
-  <StyledContainer dark>
+stories.addWithJSX('MainHeader', () => (
+  <StyledContainer>
     <SearchWrapComponent>
-      <Search />
+      <MainHeader />
     </SearchWrapComponent>
   </StyledContainer>
 ));

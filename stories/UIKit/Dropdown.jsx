@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Container } from '../helpers/Container';
 import { Dropdown } from '../../src/components/UIKit/Dropdown';
 
-const stories = storiesOf('UIKit/Dropdowns', module);
+const stories = storiesOf('UIKit', module);
 
 const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }];
 
@@ -40,14 +40,11 @@ class DropdownWrapper extends Component {
   }
 }
 
-stories.addWithJSX(
-  'Dropdown component',
-  () => (
-    <Container>
-      <DropdownWrapper>
-        <Dropdown />
-      </DropdownWrapper>
-    </Container>
-  )
-);
+stories.addWithJSX('Dropdown', () => (
+  <Container>
+    <DropdownWrapper>
+      <Dropdown />
+    </DropdownWrapper>
+  </Container>
+));
 
