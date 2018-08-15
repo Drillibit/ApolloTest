@@ -36,12 +36,12 @@ export const Header = () => (
   <StyledHeaderContainer>
     <StyledGrid>
       <StyledRow middle="xs">
-        <StyledCol xs={12} md={6}>
+        <StyledCol xs={12} md={4} lg={6}>
         <Link to="/">
           <Logo />
         </Link>
         </StyledCol>
-        <StyledCol marginLeft="auto" xs={12} md={6}>
+        <StyledCol marginLeft="auto" xs={12} md={8} lg={6}>
           <StyledRightGroup>
             <SearchWrapper>
               <SearchContainer />
