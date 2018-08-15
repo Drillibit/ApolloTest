@@ -28,9 +28,8 @@ export class Favourites extends Component {
           <StyledCol xs={12}>
             <FavouritesWrapper>
               {favourites.map(id => (byId[id] &&
-                <StyledFavourite>
+                <StyledFavourite key={byId[id].id}>
                   <Preview
-                    key={byId[id].id}
                     voteAverage={byId[id].vote_average}
                     voteCount={byId[id].vote_count}
                     size={byId[id].size}
