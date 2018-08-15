@@ -23,4 +23,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   toggleFavourites
 }, dispatch);
 
-export const ConnectedFavourites = connect(mapStateToProps, mapDispatchToProps)(Preview);
+export const ConnectedPreview = connect(mapStateToProps, mapDispatchToProps)(Preview);

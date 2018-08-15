@@ -210,6 +210,8 @@ export class Preview extends PureComponent {
       toggleFavourite,
     } = this.props;
 
+    console.log(this.props);
+
     return (
       <StyledParent>
         <StyledPreviewContainer
