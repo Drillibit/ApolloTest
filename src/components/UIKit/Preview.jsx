@@ -6,7 +6,6 @@ import { H3, SmallText } from './Typography';
 import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
 import { Button, StyledButton } from './Button';
-import { Icon } from './Icon';
 import { FavouriteButton } from '../FavouriteButton';
 
 const StyledCustomBtn = styled(StyledButton)`
