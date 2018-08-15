@@ -9,6 +9,7 @@ import { Filter } from './UIKit/Filter';
 import { Dropdown } from './UIKit/Dropdown';
 import { Preview } from './UIKit/Preview';
 import { Preloader } from './UIKit/Preloader';
+import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 
 /* eslint-disable */
 
@@ -121,20 +122,31 @@ const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, va
 export const FrontPage = () => (
   <div>
     <FeaturedMovie film={somefilm} />
+    <StyledGrid>
+      <StyledRow>
+        <StyledCol>
+          <Tabs>
+            <TabPane tabName="Сейчас в кино">
+              <Preview />
+            </TabPane>
+            <TabPane tabName="Топ 100">
+              <Preview />
+              <Preview />
+              <Preview />
+            </TabPane>
+            <TabPane tabName={<Filter list={list} />} />
+            <TabPane tabName={<Dropdown options={optionsData} />} />
+          </Tabs>
+      </StyledCol>
+    </StyledRow>
 
-    <Tabs>
-      <TabPane tabName="Сейчас в кино">
-        <Preview />
-      </TabPane>
-      <TabPane tabName="Топ 100">
-        <Preview />
-      </TabPane>
-      <TabPane tabName={<Filter list={list} />} />
-      <TabPane tabName={<Dropdown options={optionsData} />} />
-    </Tabs>
-
-<Preloader />
-  </div>
+    <StyledRow center="xs">
+      <StyledCol>
+        <Preloader />
+      </StyledCol>
+    </StyledRow>
+  </StyledGrid>
+</div>
 );
 
 // FrontPage.propTypes = {
