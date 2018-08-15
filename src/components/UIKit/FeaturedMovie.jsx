@@ -80,7 +80,6 @@ const RatingStyled = styled(Rating)`
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   background-color: rgba(73, 76, 98, 0.2);
-  
 `;
 
 const StyledLargeText = styled(LargeText)`
