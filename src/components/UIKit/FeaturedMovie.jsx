@@ -20,11 +20,22 @@ const FeaturedMovieStyled = styled.div`
 `;
 
 const FeatureGradient = styled.div`
-  background-image:
-  linear-gradient(to bottom, 
-    rgba(0, 0, 0, 0.03) 13%,
-    rgba(0, 0, 0, 0.8)
-  );
+  background: 
+    -moz-linear-gradient(top, 
+      rgba(0, 0, 0, 0.03) 13%,
+      rgba(0, 0, 0, 0.8)
+    );
+  background: 
+    -webkit-linear-gradient(top, 
+      rgba(0, 0, 0, 0.03) 13%,
+      rgba(0, 0, 0, 0.8)
+    );
+  background:
+    linear-gradient(to bottom, 
+      rgba(0, 0, 0, 0.03) 13%,
+      rgba(0, 0, 0, 0.8)
+    );
+  
   position: absolute;
   width: 100%;
   height: 100%;
@@ -36,11 +47,13 @@ const FeatureGradient = styled.div`
 `;
 
 const WrapButtonBlock = styled.div`
-  margin: 20px 0 0 0;
+  margin: 0 0 0 0;
+  display: flex;
+  align-items: center;
 `;
 
 const ButtonStyledWrap = styled(StyledButton)`
-  margin: 0 20px 20px 0; 
+  margin-right: 20px; 
 `;
 
 const Timing = styled.div`
@@ -77,23 +90,27 @@ const RatingStyled = styled(Rating)`
   background-color: rgba(73, 76, 98, 0.6);
 `;
 
+const StyledLargeText = styled(LargeText)`
+  font-weight: bold;
+`;
+
 export const FeaturedMovie = ({ film, onClick }) => (
   <FeaturedMovieStyled film={film}>
     <FeatureGradient>
       <StyledGrid>
         <StyledRow>
           <StyledCol xs={12}>
-            <LargeText><strong>СЕЙЧАС В КИНО</strong></LargeText>
+            <StyledLargeText>СЕЙЧАС В КИНО</StyledLargeText>
             <H1>{film.title}</H1>
             <Genres>
-              {
-                film.genres.map(genre => <span key={genre.id}>{genre.name}&nbsp;</span>)
-              }
+              {film.genres.map(genre =>
+                <span key={genre.id}>{genre.name}&nbsp;</span>
+              )}
             </Genres>
             <Timing>{film.runtime} мин.</Timing>
           </StyledCol>
         </StyledRow>
-        <StyledRow alignItems="center" margin="20px 0 20px 0">
+        <StyledRow alignItems="center" margin="10px 0 40px 0">
           <StyledCol xs={12} md={6} padding="0">
             <WrapButtonBlock>
               <ButtonStyledWrap btnType="primary" btnSize="big" onClick={onClick}>Подробнее</ButtonStyledWrap>
