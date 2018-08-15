@@ -36,8 +36,8 @@ class SearchController extends Component {
         onChange={this.handleChange}
         onClick={this.handleClick}
         onClose={this.handleClose}
-        {...this.props}
         value={this.state.value}
+        {...this.props}
       />
     );
   }
