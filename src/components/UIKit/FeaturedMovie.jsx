@@ -20,16 +20,6 @@ const FeaturedMovieStyled = styled.div`
 `;
 
 const FeatureGradient = styled.div`
-  background: 
-    -moz-linear-gradient(top, 
-      rgba(0, 0, 0, 0.03) 13%,
-      rgba(0, 0, 0, 0.8)
-    );
-  background: 
-    -webkit-linear-gradient(top, 
-      rgba(0, 0, 0, 0.03) 13%,
-      rgba(0, 0, 0, 0.8)
-    );
   background:
     linear-gradient(to bottom, 
       rgba(0, 0, 0, 0.03) 13%,
@@ -87,7 +77,10 @@ const RatingStyled = styled(Rating)`
   padding: 10px;
   border-radius: 5px;
   border: solid 2px rgba(255, 255, 255, 0.2);
-  background-color: rgba(73, 76, 98, 0.6);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  background-color: rgba(73, 76, 98, 0.2);
+  
 `;
 
 const StyledLargeText = styled(LargeText)`
