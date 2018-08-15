@@ -48,7 +48,6 @@ const StyledRaitngMain = styled.div`
 `;
 
 const StyledVoteCountLg = css`
-  width: 86px;
   height: 18px;
   font-size: 14px;
   opacity: .86;
@@ -101,13 +100,15 @@ const rateConvert = (rate) => {
   };
 };
 
-export const Rating = ({ voteAverage, voteCount, size }) => {
+export const Rating = ({
+  className, voteAverage, voteCount, size
+}) => {
   const {
     stars, singleStar, rate, emptyStars
   } = rateConvert(voteAverage);
 
   return (
-    <StyledRaitngMain>
+    <StyledRaitngMain className={className}>
       <StyledStarContainer size={size}>
         {size === 'lg' && (
         <StyledRate>
@@ -139,11 +140,13 @@ export const Rating = ({ voteAverage, voteCount, size }) => {
 Rating.propTypes = {
   size: PropTypes.string,
   voteCount: PropTypes.number,
-  voteAverage: PropTypes.number
+  voteAverage: PropTypes.number,
+  className: PropTypes.string,
 };
 
 Rating.defaultProps = {
   size: 'md',
   voteAverage: 0,
-  voteCount: 0
+  voteCount: 0,
+  className: '',
 };
