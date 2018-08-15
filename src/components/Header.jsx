@@ -7,6 +7,9 @@ import { SearchContainer } from '../containers/SearchContainer';
 
 const StyledHeaderContainer = styled.div`
     display: flex;
+    position: fixed;
+    min-width: 100%;
+    z-index: 1000;
     height: 109px;
     justify-content: space-between;
     align-items: center;
