@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { func, object, objectOf, arrayOf, string } from 'prop-types';
 
-import { Container } from '$helpers/Container';
+import { StyledGrid, StyledRow, StyledCol } from '$helpers/grid';
 import { Preview } from './UIKit/Preview';
+
+const FavouritesWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const StyledFavourite = styled.div`
+  margin: 10px;
+`;
 
 export class Favourites extends Component {
   componentDidMount() {
@@ -10,39 +20,47 @@ export class Favourites extends Component {
   }
 
   render() {
-    const { listById, favourites } = this.props;
+    const { byId, favourites } = this.props;
 
     return (
-      <Container>
-        {favourites.map(id => (
-          listById[id] && <Preview
-            key={listById[id].id}
-            voteAverage={listById[id].vote_average}
-            voteCount={listById[id].vote_count}
-            size={listById[id].size}
-            description={listById[id].overview}
-            title={listById[id].title}
-            bg={listById[id].poster}
-            year={listById[id].release_date}
-            duration={listById[id].duration}
-            pg={listById[id].pg}
-            genre={listById[id].genre}
-            cast={listById[id].cast}
-          />
-        ))}
-      </Container>
+      <StyledGrid>
+        <StyledRow>
+          <StyledCol xs={12}>
+            <FavouritesWrapper>
+              {favourites.map(id => (byId[id] &&
+                <StyledFavourite>
+                  <Preview
+                    key={byId[id].id}
+                    voteAverage={byId[id].vote_average}
+                    voteCount={byId[id].vote_count}
+                    size={byId[id].size}
+                    description={byId[id].overview}
+                    title={byId[id].title}
+                    bg={byId[id].poster}
+                    year={byId[id].release_date}
+                    duration={byId[id].duration}
+                    pg={byId[id].pg}
+                    genre={byId[id].genre}
+                    cast={byId[id].cast}
+                  />
+                </StyledFavourite>
+              ))}
+            </FavouritesWrapper>
+          </StyledCol>
+        </StyledRow>
+      </StyledGrid>
     );
   }
 }
 
 Favourites.propTypes = {
-  listById: objectOf(object),
+  byId: objectOf(object),
   fetchNowPlaying: func,
   favourites: arrayOf(string),
 };
 
 Favourites.defaultProps = {
-  listById: {},
+  byId: {},
   fetchNowPlaying: f => f,
   favourites: [],
 };

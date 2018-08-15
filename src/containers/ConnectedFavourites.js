@@ -6,7 +6,7 @@ import { Favourites } from '../components/Favourites';
 import { getFavouritesMovies } from '../redux/movies/selectors';
 
 const mapStateToProps = ({ movies }) => ({
-  listById: movies.listById,
+  byId: movies.byId,
   favourites: getFavouritesMovies(movies.favourites),
 });
 
