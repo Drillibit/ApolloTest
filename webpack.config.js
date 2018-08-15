@@ -135,7 +135,7 @@ module.exports = (releaseStage) => {
   });
 
   rules.push({
-    test: /\.(jpe?g|png|gif|svg)$/,
+    test: /\.(jpe?g|png|gif|svg|ico)$/,
     include: path.join(__dirname, 'src/assets/img'),
     loader: 'file-loader',
     options: {

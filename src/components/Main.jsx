@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { Footer } from '$components/UIKit/Footer';
 import { SmallText } from '$components/UIKit/Typography';
+import { Header } from './Header';
 
 const StyledMain = styled.div`
   display: flex;
@@ -16,10 +17,6 @@ const StyledContent = styled.div`
   display: flex;
   flex: 1;
 `;
-
-const Header = () => (
-  <div>Header</div>
-);
 
 const Content = () => (
   <StyledContent>Content</StyledContent>
