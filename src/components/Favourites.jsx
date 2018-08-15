@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { func, object, objectOf, arrayOf, string } from 'prop-types';
 
-import { Container } from '../../stories/helpers/Container';
+import { Container } from '$helpers/Container';
 import { Preview } from './UIKit/Preview';
 
 export class Favourites extends Component {
