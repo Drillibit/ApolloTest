@@ -45,9 +45,9 @@ export class Dropdown extends PureComponent {
   };
 
   static defaultProps = {
-    handleChange: null,
+    handleChange: f => f,
     options: [],
-    activeOption: null
+    activeOption: {}
   };
 
   state = {

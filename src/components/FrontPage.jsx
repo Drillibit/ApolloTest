@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 // libs
 import { FeaturedMovie } from './UIKit/FeaturedMovie';
-import { TabPane } from './UIKit/Tabs';
+import { Tabs, TabPane } from './UIKit/Tabs';
+import { Filter } from './UIKit/Filter';
 import { Dropdown } from './UIKit/Dropdown';
 import { Preview } from './UIKit/Preview';
 import { Preloader } from './UIKit/Preloader';
@@ -96,19 +97,43 @@ const somefilm = {
   "vote_average": 7.8,
   "vote_count": 3439
 }
+
+const list = [
+  { id: 356, name: 'Мультфильм' },
+  { id: 357, name: 'Комедия' },
+  { id: 358, name: 'Боевик' },
+  { id: 359, name: 'Приключения' },
+  { id: 360, name: 'Фантастика' },
+  { id: 361, name: 'Мелодрама' },
+  { id: 362, name: 'Ужасы' },
+  { id: 363, name: 'Детектив' },
+  { id: 364, name: 'Спорт' },
+  { id: 365, name: 'Документальное' },
+  { id: 366, name: 'Триллер' },
+  { id: 367, name: 'Семейное кино' },
+  { id: 368, name: 'Драма' },
+  { id: 369, name: 'Арт-Хаус' },
+];
+
+const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }];
 /* eslint-enable */
 
 export const FrontPage = () => (
   <div>
     <FeaturedMovie film={somefilm} />
-    <div>
-      <TabPane>
-      {console.log(somefilm)}
-        <Dropdown />
+
+    <Tabs>
+      <TabPane tabName="Сейчас в кино">
+        <Preview />
       </TabPane>
-      <Preview />
-      <Preloader />
-    </div>
+      <TabPane tabName="Топ 100">
+        <Preview />
+      </TabPane>
+      <TabPane tabName={<Filter list={list} />} />
+      <TabPane tabName={<Dropdown options={optionsData} />} />
+    </Tabs>
+
+<Preloader />
   </div>
 );
 
