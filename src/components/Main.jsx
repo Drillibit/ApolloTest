@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import { Footer } from '$components/UIKit/Footer';
 import { SmallText } from '$components/UIKit/Typography';
-import { Header } from './Header';
 
 const StyledMain = styled.div`
   display: flex;
@@ -24,7 +23,6 @@ const Content = () => (
 
 export const Main = () => (
   <StyledMain>
-    <Header />
     <Content />
     <Footer>
       <SmallText>2018, Все права защищены</SmallText>
