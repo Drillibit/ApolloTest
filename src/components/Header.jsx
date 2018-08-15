@@ -1,19 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { Logo } from './UIKit/Logo';
 import { Button, StyledButton } from './UIKit/Button';
 import { SearchContainer } from '../containers/SearchContainer';
+import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 
 const StyledHeaderContainer = styled.div`
-    display: flex;
     position: fixed;
+    display: flex;
+    align-items: center;
     min-width: 100%;
     z-index: 1000;
     height: 109px;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 98px 0 133px;
     background-image: linear-gradient( to bottom,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0) 100%);
 `;
 
@@ -29,21 +29,29 @@ const StyledRightGroup = styled.div`
 `;
 
 const SearchWrapper = styled.div`
-  margin-right: 30px;
+  margin: 0 20px 0 auto;
 `;
 
 export const Header = () => (
   <StyledHeaderContainer>
-    <a href="/" target="_blank">
-      <Logo />
-    </a>
-    <StyledRightGroup>
-      <SearchWrapper>
-        <SearchContainer />
-      </SearchWrapper>
-      <Button btnType="primary">
-        Войти
-      </Button>
-    </StyledRightGroup>
+    <StyledGrid>
+      <StyledRow middle="xs">
+        <StyledCol xs={12} md={6}>
+        <Link to="/">
+          <Logo />
+        </Link>
+        </StyledCol>
+        <StyledCol marginLeft="auto" xs={12} md={6}>
+          <StyledRightGroup>
+            <SearchWrapper>
+              <SearchContainer />
+            </SearchWrapper>
+            <Button btnType="primary">
+              Войти
+            </Button>
+          </StyledRightGroup>
+        </StyledCol>
+      </StyledRow>
+    </StyledGrid>
   </StyledHeaderContainer>
 );
