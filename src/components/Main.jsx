@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Footer } from '$components/UIKit/Footer';
 import { SmallText } from '$components/UIKit/Typography';
 import { Header } from './Header';
+import { FrontPage } from './FrontPage.jsx';
 
 const StyledMain = styled.div`
   display: flex;
@@ -19,13 +20,14 @@ const StyledContent = styled.div`
 `;
 
 const Content = () => (
-  <StyledContent>Content</StyledContent>
+  <StyledContent/ >
 );
 
 export const Main = () => (
   <StyledMain>
     <Header />
-    <Content />
+    
+    <FrontPage />
     <Footer>
       <SmallText>2018, Все права защищены</SmallText>
     </Footer>
