@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Logo } from './Logo';
-import { Button, StyledButton } from './Button';
-import { Search } from './Search';
+import { Logo } from './UIKit/Logo';
+import { Button, StyledButton } from './UIKit/Button';
+import { SearchContainer } from '../containers/SearchContainer';
 
 const StyledHeaderContainer = styled.div`
     display: flex;
     height: 109px;
     justify-content: space-between;
     align-items: center;
-    padding: 0 98px 0 130px;
-    background-image: linear-gradient(to bottom,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0) 100%);
+    padding: 0 98px 0 133px;
+    background-image: linear-gradient( to bottom,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0) 100%);
 `;
 
 const StyledRightGroup = styled.div`
@@ -29,14 +29,14 @@ const SearchWrapper = styled.div`
   margin-right: 30px;
 `;
 
-export const MainHeader = props => (
+export const Header = () => (
   <StyledHeaderContainer>
     <a href="/" target="_blank">
       <Logo />
     </a>
     <StyledRightGroup>
       <SearchWrapper>
-        <Search {...props} />
+        <SearchContainer />
       </SearchWrapper>
       <Button btnType="primary">
         Войти
