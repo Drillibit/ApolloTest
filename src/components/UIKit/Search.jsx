@@ -1,5 +1,6 @@
-import React from 'react';
-import { func, string, arrayOf, object, bool } from 'prop-types';
+import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
+import { func, string, arrayOf, object } from 'prop-types';
 import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 
@@ -51,7 +52,6 @@ const InputStyled = styled.input`
   outline: none;
 `;
 
-
 const UlStyled = styled.ul`
   background-color: #ffffff;
   margin: 20px 0 0 -11px;
@@ -62,61 +62,108 @@ const UlStyled = styled.ul`
 `;
 
 const LiStyled = styled.li`
-  padding: 11px 0 11px 24px;
+  padding: 7px 0 11px 24px;
   min-height: 25px;
   font-size: 20px;
   list-style-type: none;
 `;
 
-const A = styled.a`
+const TmpStyled = styled(Link)` 
   text-decoration: none;
-  color: #494c62;
-  cursor: pointer;
-  &:hover {
-    color: #ff0079;
-    text-decoration: underline;
+`;
+
+const StyledText = styled.span`
+  color: ${colors.grey500};
+  padding-bottom: 4px;
+  ${TmpStyled}:hover & {
+    color: ${colors.purple};
+    border-bottom: ${colors.purple} 2px solid;
   };
 `;
 
 const searchPhrase = 'Найти по названию, жанру, актеру';
 
-export const Search = ({
-  isOpen, onClick, onChange, value, result, onClose
-}) => (
-  <RootClose onRootClose={onClose}>
-      <SearchStyled isOpen={isOpen}>
-        <StyledIconButton onClick={onClick}>
-          <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
-        </StyledIconButton>
-        <InputStyled
-          type="text"
-          placeholder={searchPhrase}
-          onChange={onChange}
-          value={value}
-        />
-        {(isOpen && result.length > 0) && (
-          <UlStyled>
-            {result.map(item => <LiStyled key={item.id}><A href="">{item.title}</A></LiStyled>)}
-          </UlStyled>)
-        }
-      </SearchStyled>
-    </RootClose>
-);
+
+export class Search extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false
+    };
+
+    this.textInput = React.createRef();
+  }
+
+  componentDidUpdate() {
+    this.textInput.current.focus();
+  }
+
+  onClose = () => {
+    const { clearSearch } = this.props;
+    clearSearch();
+    this.setState({
+      isOpen: false
+    });
+  }
+
+  toggleOpen = () => {
+    const { isOpen } = this.state;
+    this.setState({
+      isOpen: !isOpen
+    });
+  }
+
+  handleOnBlur = () => {
+    const { clearSearch } = this.props;
+    this.props.onChange({ target: { value: '' } });
+    clearSearch();
+  }
+
+  render() {
+    const {
+      onChange, value, result
+    } = this.props;
+
+    const { isOpen } = this.state;
+
+    return (
+      <RootClose onRootClose={this.onClose}>
+        <SearchStyled isOpen={isOpen}>
+          <StyledIconButton onClick={this.toggleOpen}>
+            <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
+          </StyledIconButton>
+          <InputStyled
+            type="text"
+            innerRef={this.textInput}
+            placeholder={searchPhrase}
+            onChange={onChange}
+            onBlur={this.handleOnBlur}
+            value={value}
+          />
+          {(isOpen && result.length > 0) && (
+            <UlStyled>
+              {result.map(({ name, id }) => (
+                <TmpStyled key={id} to={`/movie/${id}`}>
+                  <LiStyled><StyledText>{name}</StyledText></LiStyled>
+                </TmpStyled>))}
+            </UlStyled>)
+          }
+        </SearchStyled>
+      </RootClose>
+    );
+  }
+}
 
 Search.propTypes = {
   onChange: func,
-  onClick: func,
-  onClose: func,
   value: string,
-  isOpen: bool.isRequired,
+  clearSearch: func,
   result: arrayOf(object)
 };
 
 Search.defaultProps = {
   onChange: f => f,
-  onClick: f => f,
-  onClose: f => f,
-  isOpen: false,
+  clearSearch: f => f,
   value: '',
   result: []
 };
