@@ -20,8 +20,10 @@ import './UIKit/Colors';
 import './UIKit/Tabs';
 import './UIKit/Logo';
 import './UIKit/Buttons';
+import './UIKit/FeaturedMovie';
 import './UIKit/LazyLoader';
 import './UIKit/Footer';
+
 
 library.add(
   faHeart,

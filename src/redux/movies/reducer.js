@@ -3,18 +3,18 @@ import * as TYPES from './constants';
 
 const initState = {
   error: '',
-  list: [],
-  listById: {},
+  sorted: [],
+  byId: {},
+  searchResults: [],
   favourites: {
     351286: true, 363088: true, 353081: true, 299536: true, 260513: true, 442249: true,
   },
-  searchResults: [],
 };
 
 const setMovies = (state, { list }) => ({
   ...state,
-  list: list.map(item => item.id),
-  listById: list.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {})
+  sorted: list.map(item => item.id),
+  byId: list.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {})
 });
 
 const setSearchResults = (state, { searchResults }) => ({
