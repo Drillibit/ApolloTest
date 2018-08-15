@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import React, { Fragment } from 'react';
 
-import { Container } from '$helpers/Container';
+import { Container } from '../helpers/Container';
 import { Rating } from '../../src/components/UIKit/Rating';
 
 const stories = storiesOf('UIKit', module);

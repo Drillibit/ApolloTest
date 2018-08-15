@@ -1,10 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import { Container } from '$helpers/Container';
+import { Container } from '../../../stories/helpers/Container';
 import { H1, H2, H3 } from '../../../src/components/UIKit/Typography';
 
-const stories = storiesOf('UIKit/Typography', module);
+const stories = storiesOf('UIKit', module);
 
 stories
   .add('Headings', () => (

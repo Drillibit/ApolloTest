@@ -3,7 +3,7 @@ import { object } from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 
-import { Container } from '$helpers/Container';
+import { Container } from '../helpers/Container';
 import { Search } from '../../src/components/UIKit/Search';
 import { filmsList } from '../helpers/testFilmsList';
 

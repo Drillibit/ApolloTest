@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import { Container } from '$helpers/Container';
 import { H3 } from '$components/UIKit/Typography';
+import { Container } from '../helpers/Container';
 import { Quote } from '../../src/components/UIKit/Quote';
 
 
