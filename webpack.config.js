@@ -135,7 +135,7 @@ module.exports = (releaseStage) => {
   });
 
   rules.push({
-    test: /\.(jpe?g|png|gif|svg)$/,
+    test: /\.(jpe?g|png|gif|svg|ico)$/,
     include: path.join(__dirname, 'src/assets/img'),
     loader: 'file-loader',
     options: {
@@ -256,6 +256,7 @@ module.exports = (releaseStage) => {
       $containers: path.resolve(__dirname, 'src/containers'),
       $redux: path.resolve(__dirname, 'src/redux'),
       $assets: path.resolve(__dirname, 'src/assets'),
+      $helpers: path.resolve(__dirname, 'src/components/helpers'),
     }
   };
 

@@ -8,15 +8,22 @@ import './UIKit/Container';
 import './UIKit/Preloaders';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
+import './UIKit/ModalWrapper';
+import './UIKit/Quote';
+import './UIKit/Filter';
 import './UIKit/Preview';
 import './UIKit/Dropdown';
 import '../src/components/helpers/injectGlobalStyles';
 import './UIKit/Search';
 import './UIKit/Rating';
 import './UIKit/Colors';
+import './UIKit/Tabs';
 import './UIKit/Logo';
 import './UIKit/Buttons';
-import './UIKit/MainHeader';
+import './UIKit/FeaturedMovie';
+import './UIKit/LazyLoader';
+import './UIKit/Footer';
+
 
 library.add(
   faHeart,
