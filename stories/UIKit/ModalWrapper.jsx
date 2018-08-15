@@ -29,8 +29,8 @@ class ModalWRapper extends Component {
   }
 }
 
-storiesOf('UIKit/Modal', module)
-  .add('click test', () => (
+storiesOf('UIKit', module)
+  .add('ModalWrapper', () => (
 
     <ModalWRapper />
   ));

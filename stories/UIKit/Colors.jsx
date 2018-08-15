@@ -43,9 +43,9 @@ const Color = ({ color, children }) => (
   </StyledColorWrapper>
 );
 
-const stories = storiesOf('UIKit/Colors', module);
+const stories = storiesOf('UIKit', module);
 
-stories.addWithJSX('main', () => (
+stories.addWithJSX('Colors', () => (
   <StyledColorsWrapper>
     {Object.keys(colors).map(color => <Color color={colors[color]} key={color}>{color}</Color>)}
   </StyledColorsWrapper>

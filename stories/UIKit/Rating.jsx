@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { Container } from '../helpers/Container';
 import { Rating } from '../../src/components/UIKit/Rating';
 
-const stories = storiesOf('UIKit/Rating', module);
+const stories = storiesOf('UIKit', module);
 
 const propsOne = {
   voteAverage: 6.7,
@@ -35,7 +35,7 @@ const propsThreeMd = {
   voteCount: 11.121,
   size: 'md'
 };
-stories.addWithJSX('main', () => (
+stories.addWithJSX('Rating', () => (
   <Fragment>
     <Container dark>
       <Rating {...propsOne} />
