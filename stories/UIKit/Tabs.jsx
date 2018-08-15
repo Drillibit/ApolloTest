@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { Tabs, TabPane } from '../../src/components/UIKit/Tabs';
 import { Filter } from '../../src/components/UIKit/Filter';
 
-const stories = storiesOf('UIKit/Tabs', module);
+const stories = storiesOf('UIKit', module);
 
 const list = [
   { id: 356, name: 'Мультфильм' },
@@ -24,7 +24,7 @@ const list = [
   { id: 369, name: 'Арт-Хаус' },
 ];
 
-stories.addWithJSX('main', () => (
+stories.addWithJSX('Tabs', () => (
   <Tabs onChange={action('onChange')}>
     <TabPane tabName="Сейчас в кино">
       {'bla bla bla 1'}

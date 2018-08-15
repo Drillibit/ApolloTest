@@ -1,33 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { Route, Switch } from 'react-router';
 
-import { Footer } from '$components/UIKit/Footer';
-import { SmallText } from '$components/UIKit/Typography';
-
-const StyledMain = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
-// Styles for sticky footer
-const StyledContent = styled.div`
-  display: flex;
-  flex: 1;
-`;
-
-const Content = () => (
-  <StyledContent>Content</StyledContent>
-);
+import { Content } from './Content';
+import { Header } from './Header';
+import { MoviePage } from './MoviePage';
+import { Footer } from './UIKit/Footer';
+import { SmallText } from './UIKit/Typography';
 
 export const Main = () => (
-  <StyledMain>
-    <Content />
+  <Fragment>
+    <Header />
+    <Switch>
+      <Route exact path="/" component={Content} />
+      <Route path="/movie/:id" component={MoviePage} />
+    </Switch>
     <Footer>
       <SmallText>2018, Все права защищены</SmallText>
     </Footer>
-  </StyledMain>
+  </Fragment>
 );
 
 Main.propTypes = {

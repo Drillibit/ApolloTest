@@ -6,7 +6,7 @@ import { Logo } from '$components/UIKit/Logo';
 import { Container } from '../helpers/Container';
 
 
-const stories = storiesOf('UIKit/Logo', module);
+const stories = storiesOf('UIKit', module);
 
 stories
   .addWithJSX('Logo', () => (

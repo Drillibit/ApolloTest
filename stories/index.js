@@ -3,26 +3,25 @@ import { faHeart, faChevronUp, faChevronDown, faChevronLeft, faChevronRight, faC
 import { faHeart as faHeartFill, faStar } from '@fortawesome/free-regular-svg-icons';
 import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-import './UIKit/Icons';
-import './UIKit/Container';
-import './UIKit/Preloaders';
+import './UIKit/Colors';
 import './UIKit/Typography/HeadingTags';
 import './UIKit/Typography/TextFields';
-import './UIKit/ModalWrapper';
-import './UIKit/Quote';
-import './UIKit/Filter';
-import './UIKit/Preview';
-import './UIKit/Dropdown';
-import '../src/components/helpers/injectGlobalStyles';
-import './UIKit/Search';
-import './UIKit/Rating';
-import './UIKit/Colors';
-import './UIKit/Tabs';
-import './UIKit/Logo';
+import './UIKit/Icons';
 import './UIKit/Buttons';
+import './UIKit/Quote';
+import './UIKit/Preloaders';
+import './UIKit/Logo';
+import './UIKit/Filter';
+import './UIKit/Dropdown';
+import './UIKit/Tabs';
+import './UIKit/Preview';
+import './UIKit/Rating';
+import './UIKit/Search';
+import './UIKit/ModalWrapper';
 import './UIKit/FeaturedMovie';
 import './UIKit/LazyLoader';
 import './UIKit/Footer';
+import '../src/components/helpers/injectGlobalStyles';
 
 
 library.add(

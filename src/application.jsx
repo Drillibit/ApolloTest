@@ -1,7 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { hot } from 'react-hot-loader';
-import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHeart, faChevronUp, faChevronDown, faChevronLeft, faChevronRight, faCheck, faSearch, faPlay, faStar as faStarFill, faQuoteLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -10,20 +9,13 @@ import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-
 
 import { store, history } from './redux/store';
 import { Main } from './components/Main';
-import { Header } from './components/Header';
-import { MoviePage } from './components/MoviePage';
+
 import './components/helpers/injectGlobalStyles';
 
 export const Application = hot(module)(() => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Main} />
-          <Route path="/movie/:id" component={MoviePage} />
-        </Switch>
-      </div>
+      <Main />
     </ConnectedRouter>
   </Provider>
 ));

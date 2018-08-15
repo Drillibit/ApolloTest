@@ -5,7 +5,7 @@ import { storiesOf } from "@storybook/react";
 import { LazyLoader } from "$UIKit/LazyLoader";
 import { filmsList } from "../helpers/testFilmsList";
 
-const stories = storiesOf("UIKit/LazyLoader", module);
+const stories = storiesOf("UIKit", module);
 
 const listLength = filmsList.length;
 
@@ -46,7 +46,7 @@ class LazyLoaderWrapper extends Component {
   }
 }
 
-stories.addWithJSX("Lazy loader", () => (
+stories.addWithJSX("LazyLoader", () => (
   <LazyLoaderWrapper>
     <LazyLoader />
   </LazyLoaderWrapper>
