@@ -1,54 +1,46 @@
-import React, { Component } from 'react';
-import { func } from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
 
-import { MainHeader } from './UIKit/MainHeader';
+import { Logo } from './UIKit/Logo';
+import { Button, StyledButton } from './UIKit/Button';
+import { SearchContainer } from '../containers/SearchContainer';
 
-export class Header extends Component {
-  static propTypes = {
-    searchMovies: func.isRequired,
-    clearSearch: func.isRequired
+const StyledHeaderContainer = styled.div`
+    display: flex;
+    height: 109px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 98px 0 133px;
+    background-image: linear-gradient( to bottom,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0) 100%);
+`;
+
+const StyledRightGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 200px;
+
+  ${StyledButton} {
+    padding: 0 36px;
   }
+`;
 
-  state = {
-    value: '',
-    isOpen: false,
-  };
+const SearchWrapper = styled.div`
+  margin-right: 30px;
+`;
 
-  handleChange = (e) => {
-    const { value } = e.target;
-    const { searchMovies } = this.props;
-    clearTimeout(this.timeOut);
-    this.timeOut = setTimeout(() => {
-      if (value.length > 0) {
-        searchMovies(value);
-      }
-    }, 500);
-
-    this.setState({ value: e.target.value });
-  };
-
-  handleClick = () => {
-    this.setState(state => ({ ...state, isOpen: !state.isOpen }));
-  };
-
-  handleClose = () => {
-    const { clearSearch } = this.props;
-    clearSearch();
-    this.setState(() => ({
-      isOpen: false,
-      value: ''
-    }));
-  };
-
-  render() {
-    return (
-      <MainHeader
-        onChange={this.handleChange}
-        onClick={this.handleClick}
-        onClose={this.handleClose}
-        {...this.props}
-        {...this.state}
-      />
-    );
-  }
-}
+export const Header = () => (
+  <StyledHeaderContainer>
+    <a href="/" target="_blank">
+      <Logo />
+    </a>
+    <StyledRightGroup>
+      <SearchWrapper>
+        <SearchContainer />
+      </SearchWrapper>
+      <Button btnType="primary">
+        Войти
+      </Button>
+    </StyledRightGroup>
+  </StyledHeaderContainer>
+);

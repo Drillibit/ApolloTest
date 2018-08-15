@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import { func, string, arrayOf, object } from 'prop-types';
 import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
@@ -67,7 +68,7 @@ const LiStyled = styled.li`
   list-style-type: none;
 `;
 
-const TmpStyled = styled.a` 
+const TmpStyled = styled(Link)` 
   text-decoration: none;
 `;
 
@@ -98,6 +99,8 @@ export class Search extends PureComponent {
   }
 
   onClose = () => {
+    const { clearSearch } = this.props;
+    clearSearch();
     this.setState({
       isOpen: false
     });
@@ -109,6 +112,11 @@ export class Search extends PureComponent {
       isOpen: !isOpen
     });
   }
+
+  handleOnBlur = () => {
+    this.props.onChange({ target: { value: '' } });
+  }
+
   render() {
     const {
       onChange, value, result
@@ -127,12 +135,13 @@ export class Search extends PureComponent {
             innerRef={this.textInput}
             placeholder={searchPhrase}
             onChange={onChange}
+            onBlur={this.handleOnBlur}
             value={value}
           />
           {(isOpen && result.length > 0) && (
             <UlStyled>
               {result.map(({ name, id }) => (
-                <TmpStyled key={id} href={`/movie/${id}`}>
+                <TmpStyled key={id} to={`/movie/${id}`}>
                   <LiStyled><StyledText>{name}</StyledText></LiStyled>
                 </TmpStyled>))}
             </UlStyled>)
@@ -146,11 +155,13 @@ export class Search extends PureComponent {
 Search.propTypes = {
   onChange: func,
   value: string,
+  clearSearch: func,
   result: arrayOf(object)
 };
 
 Search.defaultProps = {
   onChange: f => f,
+  clearSearch: f => f,
   value: '',
   result: []
 };
