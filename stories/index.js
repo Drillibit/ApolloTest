@@ -21,7 +21,6 @@ import './UIKit/Tabs';
 import './UIKit/Logo';
 import './UIKit/Buttons';
 import './UIKit/FeaturedMovie';
-import './UIKit/MainHeader';
 import './UIKit/LazyLoader';
 import './UIKit/Footer';
 
