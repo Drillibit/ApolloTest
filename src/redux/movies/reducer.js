@@ -34,10 +34,16 @@ const clearSearch = state => ({
   searchResults: []
 });
 
+const setMovieById = state => ({
+  ...state,
+  movieById: {}
+});
+
 const handlers = {
   [TYPES.SET_MOVIES]: setMovies,
   [TYPES.SET_SEARCH_RESULTS]: setSearchResults,
   [TYPES.CLEAR_SEARCH]: clearSearch,
+  [TYPES.SET_MOVIE_BY_ID]: setMovieById,
   [TYPES.CLEAR_ERROR]: clearError,
   [TYPES.SET_ERROR]: setError,
 };

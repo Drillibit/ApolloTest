@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router';
 
 import { Content } from './Content';
 import { Header } from './Header';
-import { MoviePage } from './MoviePage';
+import { MoviePageContainer } from '../containers/MoviePageContainer';
 import { Footer } from './UIKit/Footer';
 import { SmallText } from './UIKit/Typography';
 
@@ -13,7 +13,7 @@ export const Main = () => (
     <Header />
     <Switch>
       <Route exact path="/" component={Content} />
-      <Route path="/movie/:id" component={MoviePage} />
+      <Route path="/movie/:id" component={MoviePageContainer} />
     </Switch>
     <Footer>
       <SmallText>2018, Все права защищены</SmallText>

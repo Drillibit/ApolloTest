@@ -116,7 +116,7 @@ export class Search extends PureComponent {
 
   render() {
     const {
-      onChange, value, result
+      onChange, value, result,
     } = this.props;
 
     const { isOpen } = this.state;

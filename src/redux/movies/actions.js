@@ -24,6 +24,16 @@ export const setError = error => ({
   payload: { error }
 });
 
+export const searchById = id => ({
+  type: TYPES.SEARCH_BY_ID,
+  payload: { id }
+});
+
+export const setMovieById = movie => ({
+  type: TYPES.SET_MOVIE_BY_ID,
+  payloda: { movie }
+});
+
 export const clearError = () => ({
   type: TYPES.CLEAR_ERROR,
 });
