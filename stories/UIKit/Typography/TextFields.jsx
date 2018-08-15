@@ -7,7 +7,7 @@ import { Text, SmallText, LargeText } from '../../../src/components/UIKit/Typogr
 const stories = storiesOf('UIKit/Typography', module);
 
 stories
-  .add('Texts', () => (
+  .add('Paragraphs', () => (
     <Container>
       <div>
         <LargeText>{'<LargeText>'} 18px: Silver mist suffused the deck of the ship.</LargeText>
