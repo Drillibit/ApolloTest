@@ -11,6 +11,7 @@ import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-
 import { store, history } from './redux/store';
 import { Main } from './components/Main';
 import { Header } from './components/Header';
+import { MoviePage } from './components/MoviePage';
 import './components/helpers/injectGlobalStyles';
 
 export const Application = hot(module)(() => (
@@ -20,6 +21,7 @@ export const Application = hot(module)(() => (
         <Header />
         <Switch>
           <Route exact path="/" component={Main} />
+          <Route path="/movie/:id" component={MoviePage} />
         </Switch>
       </div>
     </ConnectedRouter>
