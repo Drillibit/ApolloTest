@@ -114,7 +114,9 @@ export class Search extends PureComponent {
   }
 
   handleOnBlur = () => {
+    const { clearSearch } = this.props;
     this.props.onChange({ target: { value: '' } });
+    clearSearch();
   }
 
   render() {

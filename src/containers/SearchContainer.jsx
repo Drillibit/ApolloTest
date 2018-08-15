@@ -15,7 +15,6 @@ class SearchController extends Component {
 
   state = {
     value: '',
-    isOpen: false,
   };
 
   handleChange = (e) => {
@@ -38,7 +37,7 @@ class SearchController extends Component {
         onClick={this.handleClick}
         onClose={this.handleClose}
         {...this.props}
-        {...this.state}
+        value={this.state.value}
       />
     );
   }
