@@ -207,6 +207,7 @@ export class Preview extends PureComponent {
       genre,
       cast,
       isFavourite,
+      toggleFavourite,
     } = this.props;
 
     return (
@@ -253,7 +254,7 @@ export class Preview extends PureComponent {
               <FavouriteButton
                 btnType="transparent-dark"
                 isFavourite={isFavourite}
-                // onClick={this.handleDisplay}
+                onClick={toggleFavourite}
               />
               <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
                 Подробнее
