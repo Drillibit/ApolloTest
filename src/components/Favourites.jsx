@@ -41,6 +41,7 @@ export class Favourites extends Component {
                     pg={byId[id].pg}
                     genre={byId[id].genre}
                     cast={byId[id].cast}
+                    isFavourite
                   />
                 </StyledFavourite>
               ))}

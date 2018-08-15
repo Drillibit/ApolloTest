@@ -7,6 +7,7 @@ import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
 import { Button, StyledButton } from './Button';
 import { Icon } from './Icon';
+import { FavouriteButton } from '../FavouriteButton';
 
 const StyledCustomBtn = styled(StyledButton)`
   padding: 4px 43px;
@@ -204,7 +205,8 @@ export class Preview extends PureComponent {
       duration,
       pg,
       genre,
-      cast
+      cast,
+      isFavourite,
     } = this.props;
 
     return (
@@ -248,14 +250,11 @@ export class Preview extends PureComponent {
               </StyledParagraph>
             </StyledDetails>
             <ButtonContainer>
-              <Button
+              <FavouriteButton
                 btnType="transparent-dark"
-                onClick={this.handleDisplay}
-                btnSize="small"
-              >
-                <Icon icon="heart" />
-                Избранное
-              </Button>
+                isFavourite={isFavourite}
+                // onClick={this.handleDisplay}
+              />
               <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
                 Подробнее
               </StyledCustomBtn>
