@@ -21,9 +21,7 @@ import './UIKit/Tabs';
 import './UIKit/Logo';
 import './UIKit/Buttons';
 import './UIKit/LazyLoader';
-import './UIKit/MainHeader';
 import './UIKit/Footer';
-import './UIKit/Main';
 
 library.add(
   faHeart,
