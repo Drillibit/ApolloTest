@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router';
-import { ConnectedRouter } from 'connected-react-router';
 
 import { Footer } from '$components/UIKit/Footer';
 import { SmallText } from '$components/UIKit/Typography';
@@ -20,16 +19,14 @@ const StyledContent = styled.div`
   flex: 1;
 `;
 
-const Content = () => (
-  <StyledContent>Content</StyledContent>
-);
-
-export const Main = props => (
+export const Main = () => (
   <StyledMain>
     <Header />
-    <Content>
-      {props.children}
-    </Content>
+    <StyledContent>
+      <Switch>
+        <Route path="/favourites" component={ConnectedFavourites} />
+      </Switch>
+    </StyledContent>
     <Footer>
       <SmallText>2018, Все права защищены</SmallText>
     </Footer>

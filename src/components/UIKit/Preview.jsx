@@ -21,7 +21,7 @@ const StyledParent = styled.div`
 const StyledPreviewContainerOpen = css`
   z-index: 10;
   right: -67px;
-  width: 412px;
+  width: 430px;
   height: 526px;
   border-radius: 2px;
   background-color: #ffffff;

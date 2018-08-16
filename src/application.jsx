@@ -16,9 +16,9 @@ import './components/helpers/injectGlobalStyles';
 export const Application = hot(module)(() => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Route path="/" component={Main}>
+      <Main>
         <Route path="favourites" component={ConnectedFavourites} />
-      </Route>
+      </Main>
     </ConnectedRouter>
   </Provider>
 ));
