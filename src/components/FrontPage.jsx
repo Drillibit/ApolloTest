@@ -120,24 +120,30 @@ const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, va
 /* eslint-enable */
 
 const StyledPreview = styled.div`
-  margin-left: -20px;
+  
+  margin: -20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 `;
 
-
-// при выполнении метода fetchNowPlaying приходят id фильмов
-// при выполнении строки запроса приходит json ответ с полной инфой о фильмах
 export const FrontPage = props => (
   <div>{console.log(props, 'this')}
+  
     <FeaturedMovie film={somefilm} />
     <button onClick={() => props.fetchNowPlaying()}>Click</button>
     <StyledGrid>
       <StyledRow>
-        <StyledCol xs={12}>
+        <StyledCol xs={12} >
           <Tabs>
-            <TabPane tabName="Сейчас в кино">
-              <StyledPreview><Preview /></StyledPreview>
+            <TabPane tabName="Сейчас в кино" onClick={() => props.fetchNowPlaying()}>
+            <StyledPreview>
+              {props.result.map(item =>
+                <Preview {...item} />
+              )}
+              </StyledPreview>
             </TabPane>
-
             <TabPane tabName="Топ 100" >
               <StyledPreview>
                 <Preview />
@@ -145,11 +151,10 @@ export const FrontPage = props => (
             </TabPane>
 
             <TabPane tabName={<Filter list={list} />} />
-            <TabPane tabName={<Dropdown options={optionsData} />} />
+            <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
           </Tabs>
         </StyledCol>
       </StyledRow>
-
       <StyledRow center="xs">
         <StyledCol>
           <Preloader />

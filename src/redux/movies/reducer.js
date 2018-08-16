@@ -6,12 +6,14 @@ const initState = {
   sorted: [],
   byId: {},
   searchResults: [],
+  byList: [{}]
 };
 
 const setMovies = (state, { list }) => ({
   ...state,
   sorted: list.map(item => item.id),
-  byId: list.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {})
+  byId: list.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {}),
+  byList: list
 });
 
 const setSearchResults = (state, { searchResults }) => ({
