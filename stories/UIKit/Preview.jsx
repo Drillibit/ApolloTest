@@ -4,7 +4,7 @@ import React from 'react';
 import { Container } from '../helpers/Container';
 import { Preview } from '../../src/components/UIKit/Preview';
 
-const stories = storiesOf('UIKit/Preview', module);
+const stories = storiesOf('UIKit', module);
 
 const propsOne = {
   voteCount: 2079,
@@ -37,7 +37,7 @@ const propsTwo = {
     'Эдди Редмэйн, Кэтрин Уотерстон, Элисон Судол, Колин Фаррелл, Эзра Миллер, Джемма Чан'
 };
 
-stories.addWithJSX('Preview component', () => (
+stories.addWithJSX('Preview', () => (
   <Container>
     <Preview {...propsOne} />
     <Preview {...propsTwo} />

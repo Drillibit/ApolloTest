@@ -1,13 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import { Text, SmallText, LargeText } from '../../../src/components/UIKit/Typography';
 import { Container } from '../../helpers/Container';
+import { Text, SmallText, LargeText } from '../../../src/components/UIKit/Typography';
 
-const stories = storiesOf('UIKit/Typography', module);
+const stories = storiesOf('UIKit', module);
 
 stories
-  .add('Texts', () => (
+  .add('Paragraphs', () => (
     <Container>
       <div>
         <LargeText>{'<LargeText>'} 18px: Silver mist suffused the deck of the ship.</LargeText>
