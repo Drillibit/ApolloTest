@@ -1,6 +1,8 @@
 export const movieFieldsMap = {
   vote_average: 'voteAverage',
   vote_count: 'voteCount',
+  overview: 'decription',
+  release_date: 'year',
 };
 
 export const remapMovieFields = movie =>

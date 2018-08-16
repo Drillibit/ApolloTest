@@ -21,7 +21,7 @@ export class Favourites extends Component {
 
   render() {
     const { byId, favourites } = this.props;
-
+    console.log(byId);
     return (
       <StyledGrid>
         <StyledRow>
