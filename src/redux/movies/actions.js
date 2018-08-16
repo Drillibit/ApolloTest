@@ -32,7 +32,7 @@ export const clearSearch = () => ({
   type: TYPES.CLEAR_SEARCH,
 });
 
-export const toggleFavourites = id => ({
+export const toggleFavourite = id => ({
   type: TYPES.TOGGLE_FAVOURITE,
-  id,
+  payload: { id },
 });

@@ -197,6 +197,7 @@ export class Preview extends PureComponent {
   render() {
     const { inOpenState } = this.state;
     const {
+      id,
       description,
       title,
       year,
@@ -208,8 +209,6 @@ export class Preview extends PureComponent {
       isFavourite,
       toggleFavourite,
     } = this.props;
-
-    console.log(this.props);
 
     return (
       <StyledParent>
@@ -255,7 +254,7 @@ export class Preview extends PureComponent {
               <FavouriteButton
                 btnType="transparent-dark"
                 isFavourite={isFavourite}
-                onClick={toggleFavourite}
+                toggleFavourite={() => toggleFavourite(id)}
               />
               <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
                 Подробнее

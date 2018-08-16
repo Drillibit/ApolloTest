@@ -11,7 +11,7 @@ const mapStateToProps = ({ movies }) => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchNowPlaying
+  fetchNowPlaying,
 }, dispatch);
 
 export const ConnectedFavourites = connect(mapStateToProps, mapDispatchToProps)(Favourites);

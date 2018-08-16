@@ -22,8 +22,6 @@ export class Favourites extends Component {
   render() {
     const { byId, favourites } = this.props;
 
-    console.log(byId);
-
     return (
       <StyledGrid>
         <StyledRow>
@@ -32,6 +30,7 @@ export class Favourites extends Component {
               {favourites.map(id => (byId[id] &&
                 <StyledFavourite key={byId[id].id}>
                   <ConnectedPreview
+                    id={byId[id].id}
                     voteAverage={byId[id].vote_average}
                     voteCount={byId[id].vote_count}
                     size={byId[id].size}
