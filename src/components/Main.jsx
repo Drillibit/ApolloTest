@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { Route, Switch } from 'react-router';
+import { ConnectedRouter } from 'connected-react-router';
 
 import { Footer } from '$components/UIKit/Footer';
 import { SmallText } from '$components/UIKit/Typography';
 import { Header } from './Header';
+import { ConnectedFavourites } from '../containers/ConnectedFavourites';
 
 const StyledMain = styled.div`
   display: flex;
@@ -22,18 +24,14 @@ const Content = () => (
   <StyledContent>Content</StyledContent>
 );
 
-export const Main = () => (
+export const Main = props => (
   <StyledMain>
     <Header />
-    <Content />
+    <Content>
+      {props.children}
+    </Content>
     <Footer>
       <SmallText>2018, Все права защищены</SmallText>
     </Footer>
   </StyledMain>
 );
-
-Main.propTypes = {
-};
-
-Main.defaultProps = {
-};
