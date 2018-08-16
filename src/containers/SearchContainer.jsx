@@ -7,6 +7,8 @@ import { getSearchResults } from '../redux/movies/selectors';
 import * as actions from '../redux/movies/actions';
 import { Search } from '../components/UIKit/Search';
 
+import { fetchGenres } from '../redux/genres/actions';
+
 class SearchController extends Component {
   static propTypes = {
     searchMovies: func.isRequired,
@@ -16,6 +18,10 @@ class SearchController extends Component {
   state = {
     value: '',
   };
+
+  componentDidMount() {
+    this.props.fetchGenres();
+  }
 
   handleChange = (e) => {
     const { value } = e.target;
@@ -31,6 +37,8 @@ class SearchController extends Component {
   };
 
   render() {
+    console.log(this.props.genres);
+    
     return (
       <Search
         onChange={this.handleChange}
@@ -44,11 +52,13 @@ class SearchController extends Component {
 }
 
 const mapStateToProps = state => ({
-  result: getSearchResults(state)
+  result: getSearchResults(state),
+  genres: state.genres,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  ...actions
+  ...actions,
+  fetchGenres
 }, dispatch);
 
 

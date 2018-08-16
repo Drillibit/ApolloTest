@@ -12,5 +12,5 @@ function* fetchGenres() {
 }
 
 export function* sagas() {
-  yield takeLatest(CONSTANTS.FETCH_NOW_PLAYING, fetchGenres);
+  yield takeLatest(CONSTANTS.FETCH_GENRES, fetchGenres);
 }

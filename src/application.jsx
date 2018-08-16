@@ -11,11 +11,12 @@ import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-
 import { store, history } from './redux/store';
 import { Main } from './components/Main';
 import './components/helpers/injectGlobalStyles';
+import { SearchContainer } from './containers/SearchContainer';
 
 export const Application = hot(module)(() => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Route exact path="/" component={Main} />
+      <Route exact path="/" component={SearchContainer} />
     </ConnectedRouter>
   </Provider>
 ));
