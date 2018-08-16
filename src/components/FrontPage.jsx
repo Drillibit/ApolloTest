@@ -124,7 +124,7 @@ const StyledPreview = styled.div`
 `;
 
 
-export const FrontPage = ( props ) => (
+export const FrontPage = props => (
   <div>{console.log(props, 'this')}
     <FeaturedMovie film={somefilm} />
     <button onClick={() => props.fetchNowPlaying()}>Click</button>
@@ -137,26 +137,26 @@ export const FrontPage = ( props ) => (
               
             </TabPane>
             <TabPane tabName="Топ 100" >
-            <StyledPreview>
-              <Preview />
-              <Preview />
-              <Preview />
+              <StyledPreview>
+                <Preview />
+                <Preview />
+                <Preview />
               </StyledPreview>
             </TabPane>
             <TabPane tabName={<Filter list={list} />} />
             <TabPane tabName={<Dropdown options={optionsData} />} />
           </Tabs>
-      </StyledCol>
-    </StyledRow>
-                
-    <StyledRow center="xs">
-      <StyledCol>
-      
-        <Preloader />
-      </StyledCol>
-    </StyledRow>
-  </StyledGrid>
-</div>                      
+        </StyledCol>
+      </StyledRow>
+
+      <StyledRow center="xs">
+        <StyledCol>
+
+          <Preloader />
+        </StyledCol>
+      </StyledRow>
+    </StyledGrid>
+  </div>
 );
 // FrontPage.propTypes = {
 //   films: objectOf
