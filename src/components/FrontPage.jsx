@@ -123,11 +123,9 @@ const StyledPreview = styled.div`
   margin-left: -20px;
 `;
 
-const TabPaneStyled = styled(TabPane)`
-  color: black;
-  top: 100px;
-`;
 
+// при выполнении метода fetchNowPlaying приходят id фильмов
+// при выполнении строки запроса приходит json ответ с полной инфой о фильмах
 export const FrontPage = props => (
   <div>{console.log(props, 'this')}
     <FeaturedMovie film={somefilm} />
@@ -154,7 +152,6 @@ export const FrontPage = props => (
 
       <StyledRow center="xs">
         <StyledCol>
-
           <Preloader />
         </StyledCol>
       </StyledRow>
