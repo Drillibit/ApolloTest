@@ -119,35 +119,35 @@ const list = [
 const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }];
 /* eslint-enable */
 
-const StyledPreview = styled.div`
-  
-  margin: -20px;
+const PreviewStyled = styled.div`
+  margin: auto -20px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
+
 
 export const FrontPage = props => (
   <div>{console.log(props, 'this')}
   
     <FeaturedMovie film={somefilm} />
     <button onClick={() => props.fetchNowPlaying()}>Click</button>
-    <StyledGrid>
-      <StyledRow>
-        <StyledCol xs={12} >
+    <StyledGrid >
+      <StyledRow >
+        <StyledCol xs={12}>
           <Tabs>
-            <TabPane tabName="Сейчас в кино" onClick={() => props.fetchNowPlaying()}>
-            <StyledPreview>
+            <TabPane tabName="Сейчас в кино" onClick={() => props.fetchNowPlaying()} >
+            <PreviewStyled>
               {props.result.map(item =>
                 <Preview {...item} />
               )}
-              </StyledPreview>
+              </PreviewStyled>
             </TabPane>
             <TabPane tabName="Топ 100" >
-              <StyledPreview>
+              <PreviewStyled>
                 <Preview />
-              </StyledPreview>
+              </PreviewStyled>
             </TabPane>
 
             <TabPane tabName={<Filter list={list} />} />
