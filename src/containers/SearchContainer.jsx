@@ -19,10 +19,6 @@ class SearchController extends Component {
     value: '',
   };
 
-  componentDidMount() {
-    this.props.fetchGenres();
-  }
-
   handleChange = (e) => {
     const { value } = e.target;
     const { searchMovies } = this.props;
@@ -37,8 +33,6 @@ class SearchController extends Component {
   };
 
   render() {
-    console.log(this.props.genres);
-    
     return (
       <Search
         onChange={this.handleChange}
