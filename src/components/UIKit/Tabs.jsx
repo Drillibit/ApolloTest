@@ -49,6 +49,7 @@ const StyledTabPaneTitle = styled.div`
   cursor: pointer;
   transition: color 0.5s ease;
   color: ${({ active }) => (active ? colors.purple : colors.grey300)};
+  margin-left: ${({ marginLeft }) => (marginLeft ? 'auto' : 0)};
   ${({ active, jsx }) => (active && !jsx ? underline : '')};
 `;
 
@@ -60,8 +61,8 @@ export const TabPane = ({
   tabName,
   handleChangeTab,
   id,
-  children,
   active,
+  marginLeft,
 }) => {
   const jsx = tabName instanceof Object;
 
@@ -69,7 +70,8 @@ export const TabPane = ({
     <StyledTabPaneTitle
       jsx={jsx}
       active={active}
-      onClick={() => handleChangeTab(id, children, tabName)}
+      marginLeft={marginLeft}
+      onClick={() => handleChangeTab(id, tabName)}
     >
       {tabName}
     </StyledTabPaneTitle>
@@ -81,7 +83,7 @@ export class Tabs extends Component {
     activeTab: 0,
   }
 
-  handleChangeTab = (id, children, tabName) => {
+  handleChangeTab = (id, tabName) => {
     if (!(tabName instanceof Object)) {
       this.setState({
         activeTab: id,
@@ -101,6 +103,7 @@ export class Tabs extends Component {
           {React.Children.map(children, (child, id) => (
             <TabPane
               tabName={child.props.tabName}
+              marginLeft={child.props.marginLeft}
               handleChangeTab={this.handleChangeTab}
               active={this.state.activeTab === id}
               id={id}
@@ -123,17 +126,17 @@ export class Tabs extends Component {
 TabPane.propTypes = {
   tabName: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
   id: PropTypes.number,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
   handleChangeTab: func,
   active: PropTypes.bool,
+  marginLeft: PropTypes.string,
 };
 
 TabPane.defaultProps = {
   tabName: null,
   id: 0,
-  children: null,
   handleChangeTab: f => f,
   active: false,
+  marginLeft: '',
 };
 
 Tabs.propTypes = {

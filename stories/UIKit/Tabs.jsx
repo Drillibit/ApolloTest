@@ -32,6 +32,6 @@ stories.addWithJSX('Tabs', () => (
     <TabPane tabName="Топ 100">
       {'bla bla bla 2'}
     </TabPane>
-    <TabPane tabName={<Filter list={list} onChange={action('onChange')} />} />
+    <TabPane tabName={<Filter list={list} onChange={action('onChange')} />} marginLeft="auto" />
   </Tabs>
 ));
