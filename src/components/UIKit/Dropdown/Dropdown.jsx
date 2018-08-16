@@ -25,6 +25,7 @@ const StyledDropdownButton = styled.button`
 `;
 
 const StyledButtonContainer = styled.div`
+  padding: 10px 23px;
   display: flex;
   height: 20px;
 `;
@@ -84,7 +85,7 @@ export class Dropdown extends PureComponent {
       <StyledDropdownContainer>
         <StyledButtonContainer>
           <StyledDropdownButton onClick={this.handleClick}>
-            {activeOption.value}
+            {activeOption.value || 'Не выбранно'}
             <StyledDropdownArrow icon="chevron-down" rotation={isOpen ? 180 : null} />
           </StyledDropdownButton>
         </StyledButtonContainer>
