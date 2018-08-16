@@ -123,6 +123,10 @@ const StyledPreview = styled.div`
   margin-left: -20px;
 `;
 
+const TabPaneStyled = styled(TabPane)`
+  color: black;
+  top: 100px;
+`;
 
 export const FrontPage = props => (
   <div>{console.log(props, 'this')}
@@ -130,19 +134,18 @@ export const FrontPage = props => (
     <button onClick={() => props.fetchNowPlaying()}>Click</button>
     <StyledGrid>
       <StyledRow>
-        <StyledCol>
+        <StyledCol xs={12}>
           <Tabs>
             <TabPane tabName="Сейчас в кино">
               <StyledPreview><Preview /></StyledPreview>
-              
             </TabPane>
+
             <TabPane tabName="Топ 100" >
               <StyledPreview>
                 <Preview />
-                <Preview />
-                <Preview />
               </StyledPreview>
             </TabPane>
+
             <TabPane tabName={<Filter list={list} />} />
             <TabPane tabName={<Dropdown options={optionsData} />} />
           </Tabs>

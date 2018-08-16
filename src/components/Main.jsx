@@ -20,7 +20,7 @@ const StyledContent = styled.div`
 `;
 
 const Content = () => (
-  <StyledContent/ >
+  <StyledContent />
 );
 
 export const Main = () => (
