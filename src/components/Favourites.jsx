@@ -21,28 +21,16 @@ export class Favourites extends Component {
 
   render() {
     const { byId, favourites } = this.props;
-
+    console.log(byId)
     return (
       <StyledGrid>
         <StyledRow>
           <StyledCol xs={12}>
             <FavouritesWrapper>
               {favourites.map(id => (byId[id] &&
-                <StyledFavourite key={byId[id].id}>
+                <StyledFavourite key={id}>
                   <ConnectedPreview
                     id={byId[id].id}
-                    voteAverage={byId[id].vote_average}
-                    voteCount={byId[id].vote_count}
-                    size={byId[id].size}
-                    description={byId[id].overview}
-                    title={byId[id].title}
-                    bg={byId[id].poster}
-                    year={byId[id].release_date}
-                    duration={byId[id].duration}
-                    pg={byId[id].pg}
-                    genre={byId[id].genre}
-                    cast={byId[id].cast}
-                    isFavourite
                   />
                 </StyledFavourite>
               ))}
