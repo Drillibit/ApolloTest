@@ -8,6 +8,7 @@ import { Icon } from './Icon';
 const StyledFilterWrapper = styled.div`
   position: relative;
   filter: ${({ isOpen }) => (isOpen ? 'drop-shadow(0 0 40px rgba(0,0,0, 0.3))' : 'none')};
+  z-index: ${({ isOpen }) => (isOpen ? '100' : 'initial')};
   text-align: center;
 `;
 
