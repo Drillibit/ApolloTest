@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { H3, SmallText } from './Typography';
 import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
-import { Button, StyledButton } from './Button';
+import { StyledButton } from './Button';
 import { FavouriteButton } from '../FavouriteButton';
 
 const StyledCustomBtn = styled(StyledButton)`
