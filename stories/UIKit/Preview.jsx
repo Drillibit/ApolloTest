@@ -18,7 +18,7 @@ const propsOne = {
   adult: false,
   description:
     'Several years after the demise of Jurassic World, a volcanic eruption threatens the remaining dinosaurs on the island of Isla Nublar. Claire Dearing, the former park manager and founder of the Dinosaur Protection Group, recruits Owen Grady to help prevent the extinction of the dinosaurs once again.',
-  yaer: '2018-06-06'
+  year: '2018-06-06',
 };
 
 const propsTwo = {
@@ -34,7 +34,7 @@ const propsTwo = {
   pg: '12+',
   genre: 'Фантастика, Приключения, Семейное кино',
   cast:
-    'Эдди Редмэйн, Кэтрин Уотерстон, Элисон Судол, Колин Фаррелл, Эзра Миллер, Джемма Чан'
+    'Эдди Редмэйн, Кэтрин Уотерстон, Элисон Судол, Колин Фаррелл, Эзра Миллер, Джемма Чан',
 };
 
 stories.addWithJSX('Preview', () => (

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 
 import { H3, SmallText } from './Typography';
 import { colors } from '../helpers/colors';
@@ -154,6 +154,7 @@ const ButtonContainer = styled.div`
 
 export class Preview extends PureComponent {
   static propTypes = {
+    id: PropTypes.number,
     description: PropTypes.string,
     title: PropTypes.string,
     bg: PropTypes.string,
@@ -161,10 +162,13 @@ export class Preview extends PureComponent {
     duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     genre: PropTypes.string,
-    cast: PropTypes.string
+    cast: PropTypes.string,
+    isFavourite: PropTypes.bool,
+    toggleFavourite: func,
   };
 
   static defaultProps = {
+    id: 0,
     description: '',
     title: '',
     bg: '',
@@ -172,7 +176,9 @@ export class Preview extends PureComponent {
     year: '',
     pg: '',
     genre: '',
-    cast: ''
+    cast: '',
+    isFavourite: false,
+    toggleFavourite: f => f,
   };
 
   state = {
