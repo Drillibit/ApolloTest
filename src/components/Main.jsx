@@ -17,11 +17,19 @@ const StyledMain = styled.div`
 const StyledContent = styled.div`
   display: flex;
   flex: 1;
+  padding-bottom: 80px;
+`;
+
+// Mockup header
+const StyledHeaderWrapper = styled.div`
+  padding-bottom: 150px;
 `;
 
 export const Main = () => (
   <StyledMain>
-    <Header />
+    <StyledHeaderWrapper>
+      <Header />
+    </StyledHeaderWrapper>
     <StyledContent>
       <Switch>
         <Route path="/favourites" component={ConnectedFavourites} />

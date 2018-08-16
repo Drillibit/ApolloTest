@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { func, object, objectOf, arrayOf, string } from 'prop-types';
 
 import { StyledGrid, StyledRow, StyledCol } from '$helpers/grid';
+import { H1 } from '$UIKit/Typography';
 import { ConnectedPreview } from '../containers/ConnectedPreview';
 
 const FavouritesWrapper = styled.div`
@@ -26,6 +27,7 @@ export class Favourites extends Component {
       <StyledGrid>
         <StyledRow>
           <StyledCol xs={12}>
+            <H1>Your favourite movies</H1>
             <FavouritesWrapper>
               {favourites.map(id => (byId[id] &&
                 <StyledFavourite key={id}>
