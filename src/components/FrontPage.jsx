@@ -119,36 +119,45 @@ const list = [
 const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }];
 /* eslint-enable */
 
-export const FrontPage = () => (
-  <div>
+const StyledPreview = styled.div`
+  margin-left: -20px;
+`;
+
+
+export const FrontPage = ( props ) => (
+  <div>{console.log(props, 'this')}
     <FeaturedMovie film={somefilm} />
+    <button onClick={() => props.fetchNowPlaying()}>Click</button>
     <StyledGrid>
       <StyledRow>
         <StyledCol>
           <Tabs>
             <TabPane tabName="Сейчас в кино">
-              <Preview />
+              <StyledPreview><Preview /></StyledPreview>
+              
             </TabPane>
-            <TabPane tabName="Топ 100">
+            <TabPane tabName="Топ 100" >
+            <StyledPreview>
               <Preview />
               <Preview />
               <Preview />
+              </StyledPreview>
             </TabPane>
             <TabPane tabName={<Filter list={list} />} />
             <TabPane tabName={<Dropdown options={optionsData} />} />
           </Tabs>
       </StyledCol>
     </StyledRow>
-
+                
     <StyledRow center="xs">
       <StyledCol>
+      
         <Preloader />
       </StyledCol>
     </StyledRow>
   </StyledGrid>
-</div>
+</div>                      
 );
-
 // FrontPage.propTypes = {
 //   films: objectOf
 // };
