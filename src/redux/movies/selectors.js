@@ -16,11 +16,11 @@ export const getSimilar = state =>
       vote_average,
       vote_count
     }) => ({
-      bg: backdrop_path,
+      bg: `https://image.tmdb.org/t/p/original${backdrop_path}`,
       description: overview,
       year: release_date,
-      voteCount: vote_average,
-      voteAverage: vote_count,
+      voteAverage: vote_average,
+      voteCount: vote_count,
       id,
       title
     })

@@ -22,10 +22,22 @@ import { Quote } from './UIKit/Quote';
 import { Preloader } from '../components/UIKit/Preloader';
 import { Preview } from '../components/UIKit/Preview';
 
+const StyledCustomRow = styled(StyledRow)`
+  margin-bottom: 50px;
+`;
+
+const StyledSimilar = styled.div`
+  display: flex;
+  margin: 5px 0 80px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
 const StyledBottom = styled.div`
   display: flex;
   margin: 25px;
 `;
+
 const StyledSmallInfo = styled.span`
   color: ${colors.grey200};
   margin-right: 10px;
@@ -91,14 +103,23 @@ const StyledRightGroup = styled.div`
 `;
 
 const RatingStyled = styled(Rating)`
+  position: relative;
   display: inline-flex;
   margin: 10px 0 10px 0;
   padding: 10px;
   border-radius: 5px;
   border: solid 2px rgba(255, 255, 255, 0.2);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  background-color: rgba(73, 76, 98, 0.2);
+  background-color: transparent;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: blur(5px);
+    padding: 10px;
+    border-radius: 5px;
+  }
 `;
 
 const StyledBgKeeper = styled.div`
@@ -234,7 +255,7 @@ export class MoviePage extends Component {
         </StyledBgKeeper>
         <StyledBottom>
           <StyledGrid>
-            <StyledRow>
+            <StyledCustomRow>
               <StyledCol xs={12} md={6}>
                 <StyledDetails>
                   <StyledDetailsHeader>
@@ -273,11 +294,16 @@ export class MoviePage extends Component {
                   </StyledDetailsText>
                 </StyledDetails>
               </StyledCol>
-            </StyledRow>
+            </StyledCustomRow>
             <StyledRow>
               <StyledCol md={12}>
-                {similar.length > 0 &&
-                  similar.map(movie => <Preview key={movie.id} {...movie} />)}
+                <StyledDetailsHeader>
+                  <LargeText>Похожие</LargeText>
+                </StyledDetailsHeader>
+                <StyledSimilar>
+                  {similar.length > 0 &&
+                    similar.map(movie => <Preview key={movie.id} {...movie} />)}
+                </StyledSimilar>
               </StyledCol>
             </StyledRow>
           </StyledGrid>
