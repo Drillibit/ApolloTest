@@ -2,11 +2,11 @@ import * as TYPES from './constants';
 
 export const setMovies = list => ({
   type: TYPES.SET_MOVIES,
-  payload: { list },
+  payload: { list }
 });
 
 export const fetchNowPlaying = () => ({
-  type: TYPES.FETCH_NOW_PLAYING,
+  type: TYPES.FETCH_NOW_PLAYING
 });
 
 export const searchMovies = req => ({
@@ -17,11 +17,6 @@ export const searchMovies = req => ({
 export const setSearchResults = searchResults => ({
   type: TYPES.SET_SEARCH_RESULTS,
   payload: { searchResults }
-});
-
-export const setError = error => ({
-  type: TYPES.SET_ERROR,
-  payload: { error }
 });
 
 export const searchById = id => ({
@@ -39,10 +34,20 @@ export const setMovieVideo = video => ({
   payload: { video }
 });
 
+export const setSimilarMovies = similar => ({
+  type: TYPES.SET_SIMILAR_MOVIES,
+  payload: { similar }
+});
+
+export const setError = error => ({
+  type: TYPES.SET_ERROR,
+  payload: { error }
+});
+
 export const clearError = () => ({
-  type: TYPES.CLEAR_ERROR,
+  type: TYPES.CLEAR_ERROR
 });
 
 export const clearSearch = () => ({
-  type: TYPES.CLEAR_SEARCH,
+  type: TYPES.CLEAR_SEARCH
 });

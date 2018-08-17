@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { func, shape, string, number, array } from 'prop-types';
+import {
+  func,
+  shape,
+  string,
+  number,
+  array,
+  arrayOf,
+  object
+} from 'prop-types';
 
 import { colors } from './helpers/colors';
 import { H1, H2, SmallText, LargeText } from './UIKit/Typography';
@@ -12,6 +20,7 @@ import { Icon } from './UIKit/Icon';
 import { Rating } from './UIKit/Rating';
 import { Quote } from './UIKit/Quote';
 import { Preloader } from '../components/UIKit/Preloader';
+import { Preview } from '../components/UIKit/Preview';
 
 const StyledBottom = styled.div`
   display: flex;
@@ -44,6 +53,7 @@ const StyledHeadersGroup = styled.div`
   display: flex;
   flex-direction: column;
   color: #fff;
+  margin-bottom: 24px;
 `;
 
 const StyledLeftGroup = styled.div`
@@ -53,10 +63,13 @@ const StyledLeftGroup = styled.div`
   justify-content: center;
 `;
 
+const StyledLink = styled(Link)`
+  margin-right: 40px;
+`;
 const StyledBtnGroup = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding-right: 200px;
+  justify-content: flex-start;
+  margin: 117px 0 40px;
 `;
 
 const StyledQuoteContainer = styled.div`
@@ -67,6 +80,7 @@ const StyledQuoteContainer = styled.div`
 const StyledRatingWrapper = styled.div`
   display: flex;
   margin-bottom: 32px;
+  margin-left: 43px;
 `;
 
 const StyledRightGroup = styled.div`
@@ -90,8 +104,12 @@ const RatingStyled = styled(Rating)`
 const StyledBgKeeper = styled.div`
   min-height: 638px;
   width: 100%;
-  background-image: url('${({ bg }) => `https://image.tmdb.org/t/p/original${bg}`}');
-  background-size: cover;
+  background-image: 
+        linear-gradient(325deg, transparent, #130621 81%), 
+        linear-gradient(206deg, transparent, #130621 81%),
+    url('${({ bg }) => `https://image.tmdb.org/t/p/original${bg}`}');
+  background-size: 100% 100%,100% 100% , cover;
+  background-repeat: no-repeat;
 `;
 
 const StyledContainer = styled.div`
@@ -103,6 +121,7 @@ export class MoviePage extends Component {
   static propTypes = {
     searchById: func.isRequired,
     video: string,
+    similar: arrayOf(object),
     movie: shape({
       poster_path: string,
       genres: array,
@@ -112,9 +131,9 @@ export class MoviePage extends Component {
       tagline: string,
       vote_average: number,
       vote_count: number,
-      original_title: string,
+      original_title: string
     })
-  }
+  };
 
   static defaultProps = {
     movie: {
@@ -125,10 +144,11 @@ export class MoviePage extends Component {
       original_title: '',
       release_date: '',
       vote_average: 0,
-      vote_count: 0,
+      vote_count: 0
     },
-    video: '/'
-  }
+    video: '/',
+    similar: []
+  };
   componentDidMount() {
     const { searchById } = this.props;
     searchById(this.props.match.params.id);
@@ -144,6 +164,7 @@ export class MoviePage extends Component {
   render() {
     const {
       poster_path,
+      backdrop_path,
       genres,
       id,
       title,
@@ -154,8 +175,10 @@ export class MoviePage extends Component {
       tagline,
       production_countries,
       runtime,
-      overview,
+      overview
     } = this.props.movie;
+
+    const { similar } = this.props;
 
     if (typeof this.props.movie.id !== 'number') {
       return <Preloader>Загрузка</Preloader>;
@@ -163,24 +186,19 @@ export class MoviePage extends Component {
 
     return (
       <StyledContainer>
-        <StyledBgKeeper bg={poster_path}>
+        <StyledBgKeeper bg={backdrop_path}>
           <StyledGrid>
             <StyledRow>
               <StyledCol xs={12} md={6}>
                 <StyledLeftGroup>
                   <StyledBtnGroup>
-                    <Link to="/">
-                      <Button
-                        btnType="transparent-white"
-                        btnSize="small"
-                      >
-                        <Icon icon="chevron-left" />Назад
+                    <StyledLink to="/">
+                      <Button btnType="transparent-white" btnSize="small">
+                        <Icon icon="chevron-left" />
+                        Назад
                       </Button>
-                    </Link>
-                    <Button
-                      btnType="transparent-white"
-                      btnSize="small"
-                    >
+                    </StyledLink>
+                    <Button btnType="transparent-white" btnSize="small">
                       <Icon icon="heart" />В избранное
                     </Button>
                   </StyledBtnGroup>
@@ -203,11 +221,15 @@ export class MoviePage extends Component {
                     )}
                   </StyledQuoteContainer>
                   <StyledRatingWrapper>
-                    <RatingStyled voteAverage={vote_average} voteCount={vote_count} size="lg" />
+                    <RatingStyled
+                      voteAverage={vote_average}
+                      voteCount={vote_count}
+                      size="lg"
+                    />
                   </StyledRatingWrapper>
                 </StyledRightGroup>
               </StyledCol>
-            </StyledRow>  
+            </StyledRow>
           </StyledGrid>
         </StyledBgKeeper>
         <StyledBottom>
@@ -215,23 +237,47 @@ export class MoviePage extends Component {
             <StyledRow>
               <StyledCol xs={12} md={6}>
                 <StyledDetails>
-                  <StyledDetailsHeader><LargeText>Страна:</LargeText></StyledDetailsHeader>
-                  <StyledDetailsText><LargeText>{production_countries.map(gen => gen.name)}</LargeText></StyledDetailsText>
+                  <StyledDetailsHeader>
+                    <LargeText>Страна:</LargeText>
+                  </StyledDetailsHeader>
+                  <StyledDetailsText>
+                    <LargeText>
+                      {production_countries.map(gen => gen.name)}
+                    </LargeText>
+                  </StyledDetailsText>
                 </StyledDetails>
                 <StyledDetails>
-                  <StyledDetailsHeader><LargeText>Жанр:</LargeText></StyledDetailsHeader>
-                  <StyledDetailsText><LargeText>{genres.map(gen => gen.name)}</LargeText></StyledDetailsText>
+                  <StyledDetailsHeader>
+                    <LargeText>Жанр:</LargeText>
+                  </StyledDetailsHeader>
+                  <StyledDetailsText>
+                    <LargeText>{genres.map(gen => gen.name)}</LargeText>
+                  </StyledDetailsText>
                 </StyledDetails>
                 <StyledDetails>
-                  <StyledDetailsHeader><LargeText>Время:</LargeText></StyledDetailsHeader>
-                  <StyledDetailsText><LargeText>{runtime} мин</LargeText></StyledDetailsText>
+                  <StyledDetailsHeader>
+                    <LargeText>Время:</LargeText>
+                  </StyledDetailsHeader>
+                  <StyledDetailsText>
+                    <LargeText>{runtime} мин</LargeText>
+                  </StyledDetailsText>
                 </StyledDetails>
               </StyledCol>
               <StyledCol xs={12} md={6}>
                 <StyledDetails>
-                  <StyledDetailsHeader><LargeText>Описание:</LargeText></StyledDetailsHeader>
-                  <StyledDetailsText><LargeText>{overview}</LargeText></StyledDetailsText>
+                  <StyledDetailsHeader>
+                    <LargeText>Описание:</LargeText>
+                  </StyledDetailsHeader>
+                  <StyledDetailsText>
+                    <LargeText>{overview}</LargeText>
+                  </StyledDetailsText>
                 </StyledDetails>
+              </StyledCol>
+            </StyledRow>
+            <StyledRow>
+              <StyledCol md={12}>
+                {similar.length > 0 &&
+                  similar.map(movie => <Preview key={movie.id} {...movie} />)}
               </StyledCol>
             </StyledRow>
           </StyledGrid>

@@ -17,3 +17,5 @@ export const SEARCH_BY_ID = 'SEARCH_BY_ID';
 export const SET_MOVIE_BY_ID = 'SET_MOVIE_BY_ID';
 
 export const SET_MOVIE_VIDEO = 'SET_MOVIE_VIDEO';
+
+export const SET_SIMILAR_MOVIES = 'SET_SIMILAR_MOVIES';

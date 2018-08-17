@@ -6,7 +6,8 @@ const initState = {
   sorted: [],
   movie: {},
   video: '',
-  searchResults: [],
+  similar: [],
+  searchResults: []
 };
 
 const setMovies = (state, { list }) => ({
@@ -45,14 +46,20 @@ const setMovieVideo = (state, { video }) => ({
   video
 });
 
+const setSimilarMovies = (state, { similar }) => ({
+  ...state,
+  similar
+});
+
 const handlers = {
   [TYPES.SET_MOVIES]: setMovies,
   [TYPES.SET_SEARCH_RESULTS]: setSearchResults,
   [TYPES.CLEAR_SEARCH]: clearSearch,
   [TYPES.SET_MOVIE_BY_ID]: setMovieById,
   [TYPES.SET_MOVIE_VIDEO]: setMovieVideo,
+  [TYPES.SET_SIMILAR_MOVIES]: setSimilarMovies,
   [TYPES.CLEAR_ERROR]: clearError,
-  [TYPES.SET_ERROR]: setError,
+  [TYPES.SET_ERROR]: setError
 };
 
 export const reducer = createReducer(initState, handlers);
