@@ -149,8 +149,8 @@ export const FrontPage = props => (
 
     <FeaturedMovie film={somefilm} />
     <button onClick={() => props.fetchNowPlaying()}>Click</button>
-    <StyledGrid >
-      <StyledRow >
+    <StyledGrid>
+      <StyledRow>
         <StyledCol xs={12}>
           <Tabs>
             <TabPane tabName="Сейчас в кино" onClick={() => props.fetchNowPlaying()} >
@@ -163,7 +163,7 @@ export const FrontPage = props => (
                     bg={`${BACKDROP_PATH + item.backdrop_path}`}
                     year={item.release_date}
                     duration={'123'}
-                    pg={item.adult && "12+"}
+                    pg={item.adult ? "18+" : "6+"}
                     genre={item.genre_ids}
                     description={item.overview}
                     {...item} 
