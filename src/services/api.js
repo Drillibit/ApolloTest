@@ -8,7 +8,6 @@ export const CONFIG = {
   KEY: '4493befd452f5d5eeea5c9d2de1306a8',
   VERSION: 3,
   IMAGE_BASE: 'https://image.tmdb.org/t/p',
-  PAGE: 2
 };
 
 export const api = axios.create({
@@ -16,6 +15,6 @@ export const api = axios.create({
   timeout: 1000,
   params: {
     api_key: CONFIG.KEY,
-    page: CONFIG.PAGE
+    page: ''
   },
 });

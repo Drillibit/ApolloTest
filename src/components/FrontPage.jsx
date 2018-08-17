@@ -175,7 +175,7 @@ export class FrontPage extends Component {
     console.log(this.props, 'this');
     const { fetchNowPlaying, fetchTop100, result } = this.props;
     return (
-      <FrontPageStyled onScroll={e => console.log(this.onScrollList(e))}>
+      <FrontPageStyled onScroll={this.onScrollList}>
         <FeaturedMovie film={somefilm} />
         <StyledGrid >
           <StyledRow>
