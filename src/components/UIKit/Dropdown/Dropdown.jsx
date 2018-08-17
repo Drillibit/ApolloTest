@@ -15,6 +15,7 @@ const StyledDropdownContainer = styled.div`
   border-radius: 2px;
   background-color: #fff;
   position: relative;
+  z-index: 1;
 `;
 
 const StyledDropdownButton = styled.button`

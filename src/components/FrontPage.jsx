@@ -171,7 +171,8 @@ export class FrontPage extends Component {
                       <Preview
                         key={item.id}
                         title={item.title}
-
+                        voteAverage={item.vote_average}
+                        voteCount={item.vote_count}
                         bg={`${BACKDROP_PATH + item.backdrop_path}`}
                         year={item.release_date}
                         duration={'123'}
@@ -183,14 +184,15 @@ export class FrontPage extends Component {
                     )}
                   </PreviewStyled>
                 </TabPane>
-                
+
                 <TabPane tabName="Топ 100" onClick={() => fetchTop100()}>
                 <PreviewStyled>
                 {result.length > 0 && result.map(item =>
                   <Preview
                     key={item.id}
                     title={item.title}
-
+                    voteAverage={item.vote_average}
+                    voteCount={item.vote_count}
                     bg={`${BACKDROP_PATH + item.backdrop_path}`}
                     year={item.release_date}
                     duration={'123'}
