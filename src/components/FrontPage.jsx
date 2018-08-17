@@ -159,8 +159,7 @@ export const FrontPage = props => (
                   <Preview
                     key={item.id}
                     title={item.title}
-                    voteAverage={item.vote_average}
-                    voteCount={item.vote_count}
+
                     bg={`${BACKDROP_PATH + item.backdrop_path}`}
                     year={item.release_date}
                     duration={'123'}
