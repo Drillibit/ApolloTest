@@ -5,7 +5,7 @@ const initState = {
   error: '',
   sorted: [],
   movie: {},
-  video: {},
+  video: '',
   searchResults: [],
 };
 

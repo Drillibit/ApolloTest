@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { kframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { func, shape, string, number, array } from 'prop-types';
 
@@ -82,6 +82,7 @@ const StyledLink = styled(Link)`
 export class MoviePage extends Component {
   static propTypes = {
     searchById: func.isRequired,
+    video: string,
     movie: shape({
       poster_path: string,
       genres: array,
@@ -104,8 +105,9 @@ export class MoviePage extends Component {
       original_title: '',
       release_date: '',
       vote_average: 0,
-      vote_count: 0
-    }
+      vote_count: 0,
+    },
+    video: '/'
   }
   componentDidMount() {
     const { searchById } = this.props;
@@ -133,7 +135,7 @@ export class MoviePage extends Component {
     } = this.props.movie;
 
     if (typeof this.props.movie.id !== 'number') {
-      return <Preloader />;
+      return <Preloader>Загрузка</Preloader>;
     }
 
     return (
@@ -144,17 +146,17 @@ export class MoviePage extends Component {
               <StyledCol xs={12} md={6}>
                 <StyledLeftGroup>
                   <StyledBtnGroup>
+                    <Link to="/">
+                      <Button
+                        btnType="transparent-white"
+                        btnSize="small"
+                      >
+                        <Icon icon="chevron-left" />Назад
+                      </Button>
+                    </Link>
                     <Button
                       btnType="transparent-white"
                       btnSize="small"
-                    // onClick={}
-                    >
-                      <Icon icon="chevron-left" />Назад
-                    </Button>
-                    <Button
-                      btnType="transparent-white"
-                      btnSize="small"
-                      // onClick={action('click')}
                     >
                       <Icon icon="heart" />В избранное
                     </Button>
@@ -164,22 +166,32 @@ export class MoviePage extends Component {
                     <SmallText>{original_title}</SmallText>
                   </StyledHeadersGroup>
                   <StyledPlayerWrapper>
-                    <MoviePlayer />
+                    <MoviePlayer link={this.props.video} image={poster_path} />
                   </StyledPlayerWrapper>
                 </StyledLeftGroup>
               </StyledCol>
               <StyledCol xs={12} md={6}>
                 <StyledRightGroup>
                   <StyledQuoteContainer>
-                    <Quote>
-                      <H2>{tagline}</H2>
-                    </Quote>
+                    {tagline && (
+                      <Quote>
+                        <H2>{tagline}</H2>
+                      </Quote>
+                    )}
                   </StyledQuoteContainer>
                   <StyledRatingWrapper>
                     <RatingStyled voteAverage={vote_average} voteCount={vote_count} size="lg" />
                   </StyledRatingWrapper>
                 </StyledRightGroup>
               </StyledCol>
+            </StyledRow>
+            <StyledRow>
+              <StyledCol>
+                
+              </StyledCol> 
+              <StyledCol>
+                    
+              </StyledCol> 
             </StyledRow>
           </StyledGrid>
         </StyledBgKeeper>

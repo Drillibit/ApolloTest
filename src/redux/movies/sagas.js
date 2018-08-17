@@ -1,4 +1,4 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { put, call, takeLatest, takeEvery } from 'redux-saga/effects';
 
 import * as CONSTANTS from './constants';
 import { setMovies, setSearchResults, setMovieById, setMovieVideo, setError, clearError } from './actions';
@@ -26,8 +26,9 @@ function* searchById({ payload }) {
     const { data } = yield call(requestMovieById, payload.id);
     yield put(clearError());
     yield put(setMovieById(data));
-    const { dataVid } = yield call(requestMovieVideos, payload.id);
-    yield put(setMovieVideo(dataVid));
+    const dataVid = yield call(requestMovieVideos, payload.id);
+    const validVid = dataVid.data.results.length > 0 ? dataVid.data.results[0].key : '2Z4m4lnjxkY';
+    yield put(setMovieVideo(validVid));
   } catch (error) {
     yield put(setError(error.toString()));
   }
@@ -35,6 +36,6 @@ function* searchById({ payload }) {
 
 export function* sagas() {
   yield takeLatest(CONSTANTS.SEARCH_MOVIES, searchMovies);
-  yield takeLatest(CONSTANTS.SEARCH_BY_ID, searchById);
+  yield takeEvery(CONSTANTS.SEARCH_BY_ID, searchById);
   yield takeLatest(CONSTANTS.FETCH_NOW_PLAYING, fetchNowPlaying);
 }
