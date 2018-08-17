@@ -119,7 +119,7 @@ const list = [
 ];
 
 const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }];
-/* eslint-enable */
+
 
 const PreviewStyled = styled.div`
   margin: auto -20px;
@@ -127,6 +127,12 @@ const PreviewStyled = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+`;
+
+const FrontPageStyled = styled.div`
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 800px;
 `;
 
 /*
@@ -145,39 +151,50 @@ const PreviewStyled = styled.div`
 const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
 
 export class FrontPage extends Component {
-  constructor(props) {
-    super(props)
+  componentDidMount() {
+    this.props.fetchNowPlaying();
   }
 
-  componentDidMount() {
-    this.props.fetchNowPlaying()
+  randomFilm = (min, max) => {
+    let rand =  min + Math.random() * (max + 1 - min);
+    rand = Math.floor(rand);
+    console.log(rand, 'rand');
+    return rand;
+  };
+
+  onScrollList = e => {
+    const scrollbottom = e.target.scrollTop + e.target.offsetHeight == e.target.scrollHeight;
+    console.log(scrollbottom, 'bot');
+    // Если пользователь добрался до конца страницы scrollbottom = true
+    if (scrollbottom) {
+      this.props.fetchNowPlaying()
+    }
   }
 
   render() {
     console.log(this.props, 'this');
     const { fetchNowPlaying, fetchTop100, result } = this.props;
     return (
-      <div>
+      <FrontPageStyled onScroll={e => console.log(this.onScrollList(e))}>
         <FeaturedMovie film={somefilm} />
-        <StyledGrid>
+        <StyledGrid >
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) ? fetchNowPlaying() : fetchTop100()}>
                 <TabPane tabName="Сейчас в кино" onClick={() => fetchTop100()}>
                   <PreviewStyled>
                     {result.length > 0 && result.map(item =>
-                      <Preview
+                      <Preview 
                         key={item.id}
                         title={item.title}
                         voteAverage={item.vote_average}
                         voteCount={item.vote_count}
                         bg={`${BACKDROP_PATH + item.backdrop_path}`}
-                        year={item.release_date}
+                        year={item.release_date} 
                         duration={'123'}
-                        pg={item.adult ? "18+" : "6+"}
+                        pg={item.adult ? "18+" : "12+"}
                         genre={item.genre_ids}
-                        description={item.overview}
-                        {...item} 
+                        description={item.overview} {...item}
                       />
                     )}
                   </PreviewStyled>
@@ -209,15 +226,18 @@ export class FrontPage extends Component {
             </StyledCol>
             <StyledCol>
                   {/* const { hasMore, isLoading, handleLoad } = this.props;}*/}
-
+              
+              {/*isLoading && <Preloader>Загрузка</Preloader>*/}
             </StyledCol>
           </StyledRow>
         </StyledGrid>
-      </div>
+      </FrontPageStyled>
 
     );
   }
 }
+
+/* eslint-enable */
 // FrontPage.propTypes = {
 //   films: objectOf
 // };
