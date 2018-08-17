@@ -5,6 +5,7 @@ const initState = {
   error: '',
   sorted: [],
   movie: {},
+  video: {},
   searchResults: [],
 };
 
@@ -39,11 +40,17 @@ const setMovieById = (state, { movie }) => ({
   movie
 });
 
+const setMovieVideo = (state, { video }) => ({
+  ...state,
+  video
+});
+
 const handlers = {
   [TYPES.SET_MOVIES]: setMovies,
   [TYPES.SET_SEARCH_RESULTS]: setSearchResults,
   [TYPES.CLEAR_SEARCH]: clearSearch,
   [TYPES.SET_MOVIE_BY_ID]: setMovieById,
+  [TYPES.SET_MOVIE_VIDEO]: setMovieVideo,
   [TYPES.CLEAR_ERROR]: clearError,
   [TYPES.SET_ERROR]: setError,
 };

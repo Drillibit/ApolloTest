@@ -3,12 +3,63 @@ import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { func, shape, string, number, array } from 'prop-types';
 
+import { H1, H2, SmallText } from './UIKit/Typography';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 import { MoviePlayer } from './MoviePlayer';
-import { StyledButton } from './UIKit/Button';
+import { Button } from './UIKit/Button';
+import { Icon } from './UIKit/Icon';
 import { Rating } from './UIKit/Rating';
 import { Quote } from './UIKit/Quote';
 import { Preloader } from '../components/UIKit/Preloader';
+
+const StyledPlayerWrapper = styled.div`
+  display: flex;
+`;
+const StyledHeadersGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+`;
+const StyledLeftGroup = styled.div`
+  height: 638px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const StyledBtnGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-right: 200px;
+`;
+
+const StyledQuoteContainer = styled.div`
+  display: flex;
+  margin-bottom: 60px;
+`;
+
+const StyledRatingWrapper = styled.div`
+  display: flex;
+  margin-bottom: 32px;
+`;
+
+const StyledRightGroup = styled.div`
+  height: 638px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`;
+
+const RatingStyled = styled(Rating)`
+  display: inline-flex;
+  margin: 10px 0 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 2px rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  background-color: rgba(73, 76, 98, 0.2);
+`;
 
 const StyledBgKeeper = styled.div`
   min-height: 638px;
@@ -18,7 +69,6 @@ const StyledBgKeeper = styled.div`
 `;
 
 const StyledContainer = styled.div`
-  min-height: 87vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,7 +90,8 @@ export class MoviePage extends Component {
       release_date: string,
       tagline: string,
       vote_average: number,
-      vote_count: number
+      vote_count: number,
+      original_title: string,
     })
   }
 
@@ -50,6 +101,7 @@ export class MoviePage extends Component {
       genres: [],
       id: 0,
       title: '',
+      original_title: '',
       release_date: '',
       vote_average: 0,
       vote_count: 0
@@ -69,14 +121,15 @@ export class MoviePage extends Component {
 
   render() {
     const {
-      poster_path, 
-      genres, 
-      id, 
-      title, 
-      release_date, 
-      vote_average, 
+      poster_path,
+      genres,
+      id,
+      title,
+      original_title,
+      release_date,
+      vote_average,
       vote_count,
-      tagline 
+      tagline
     } = this.props.movie;
 
     if (typeof this.props.movie.id !== 'number') {
@@ -89,13 +142,43 @@ export class MoviePage extends Component {
           <StyledGrid>
             <StyledRow>
               <StyledCol xs={12} md={6}>
-                <p>Empty</p>
+                <StyledLeftGroup>
+                  <StyledBtnGroup>
+                    <Button
+                      btnType="transparent-white"
+                      btnSize="small"
+                    // onClick={}
+                    >
+                      <Icon icon="chevron-left" />Назад
+                    </Button>
+                    <Button
+                      btnType="transparent-white"
+                      btnSize="small"
+                      // onClick={action('click')}
+                    >
+                      <Icon icon="heart" />В избранное
+                    </Button>
+                  </StyledBtnGroup>
+                  <StyledHeadersGroup>
+                    <H1>{title}</H1>
+                    <SmallText>{original_title}</SmallText>
+                  </StyledHeadersGroup>
+                  <StyledPlayerWrapper>
+                    <MoviePlayer />
+                  </StyledPlayerWrapper>
+                </StyledLeftGroup>
               </StyledCol>
               <StyledCol xs={12} md={6}>
-                <Quote>
-                  {tagline}
-                </Quote>
-                <Rating voteAverage={vote_average} voteCount={vote_count} size="lg" />
+                <StyledRightGroup>
+                  <StyledQuoteContainer>
+                    <Quote>
+                      <H2>{tagline}</H2>
+                    </Quote>
+                  </StyledQuoteContainer>
+                  <StyledRatingWrapper>
+                    <RatingStyled voteAverage={vote_average} voteCount={vote_count} size="lg" />
+                  </StyledRatingWrapper>
+                </StyledRightGroup>
               </StyledCol>
             </StyledRow>
           </StyledGrid>

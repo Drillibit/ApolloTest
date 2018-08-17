@@ -34,6 +34,11 @@ export const setMovieById = movie => ({
   payload: { movie }
 });
 
+export const setMovieVideo = video => ({
+  type: TYPES.SET_MOVIE_VIDEO,
+  payload: { video }
+});
+
 export const clearError = () => ({
   type: TYPES.CLEAR_ERROR,
 });

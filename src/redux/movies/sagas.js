@@ -1,8 +1,8 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 
 import * as CONSTANTS from './constants';
-import { setMovies, setSearchResults, setMovieById, setError, clearError } from './actions';
-import { requestNowPlayingMovies, requestMovieByKeywords, requestMovieById } from './requests';
+import { setMovies, setSearchResults, setMovieById, setMovieVideo, setError, clearError } from './actions';
+import { requestNowPlayingMovies, requestMovieByKeywords, requestMovieById, requestMovieVideos } from './requests';
 
 function* fetchNowPlaying() {
   const { data } = yield call(requestNowPlayingMovies);
@@ -26,6 +26,8 @@ function* searchById({ payload }) {
     const { data } = yield call(requestMovieById, payload.id);
     yield put(clearError());
     yield put(setMovieById(data));
+    const { dataVid } = yield call(requestMovieVideos, payload.id);
+    yield put(setMovieVideo(dataVid));
   } catch (error) {
     yield put(setError(error.toString()));
   }
