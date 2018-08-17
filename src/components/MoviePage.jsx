@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import styled, { kframes } from 'styled-components';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { func, shape, string, number, array } from 'prop-types';
 
-import { H1, H2, SmallText } from './UIKit/Typography';
+import { colors } from './helpers/colors';
+import { H1, H2, SmallText, LargeText } from './UIKit/Typography';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 import { MoviePlayer } from './MoviePlayer';
 import { Button } from './UIKit/Button';
@@ -12,14 +13,39 @@ import { Rating } from './UIKit/Rating';
 import { Quote } from './UIKit/Quote';
 import { Preloader } from '../components/UIKit/Preloader';
 
+const StyledBottom = styled.div`
+  display: flex;
+  margin: 25px;
+`;
+const StyledSmallInfo = styled.span`
+  color: ${colors.grey200};
+  margin-right: 10px;
+`;
+
+const StyledDetails = styled.div`
+  display: flex;
+  margin: 7px 0;
+  align-items: baseline;
+`;
+
+const StyledDetailsText = SmallText.extend`
+  color: ${colors.grey500};
+`;
+
+const StyledDetailsHeader = StyledSmallInfo.extend`
+  min-width: 90px;
+`;
+
 const StyledPlayerWrapper = styled.div`
   display: flex;
 `;
+
 const StyledHeadersGroup = styled.div`
   display: flex;
   flex-direction: column;
   color: #fff;
 `;
+
 const StyledLeftGroup = styled.div`
   height: 638px;
   display: flex;
@@ -70,13 +96,7 @@ const StyledBgKeeper = styled.div`
 
 const StyledContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StyledLink = styled(Link)`
-  color: red;
-  text-decoration: none;
+  flex-direction: column;
 `;
 
 export class MoviePage extends Component {
@@ -131,7 +151,10 @@ export class MoviePage extends Component {
       release_date,
       vote_average,
       vote_count,
-      tagline
+      tagline,
+      production_countries,
+      runtime,
+      overview,
     } = this.props.movie;
 
     if (typeof this.props.movie.id !== 'number') {
@@ -184,17 +207,35 @@ export class MoviePage extends Component {
                   </StyledRatingWrapper>
                 </StyledRightGroup>
               </StyledCol>
-            </StyledRow>
-            <StyledRow>
-              <StyledCol>
-                
-              </StyledCol> 
-              <StyledCol>
-                    
-              </StyledCol> 
-            </StyledRow>
+            </StyledRow>  
           </StyledGrid>
         </StyledBgKeeper>
+        <StyledBottom>
+          <StyledGrid>
+            <StyledRow>
+              <StyledCol xs={12} md={6}>
+                <StyledDetails>
+                  <StyledDetailsHeader><LargeText>Страна:</LargeText></StyledDetailsHeader>
+                  <StyledDetailsText><LargeText>{production_countries.map(gen => gen.name)}</LargeText></StyledDetailsText>
+                </StyledDetails>
+                <StyledDetails>
+                  <StyledDetailsHeader><LargeText>Жанр:</LargeText></StyledDetailsHeader>
+                  <StyledDetailsText><LargeText>{genres.map(gen => gen.name)}</LargeText></StyledDetailsText>
+                </StyledDetails>
+                <StyledDetails>
+                  <StyledDetailsHeader><LargeText>Время:</LargeText></StyledDetailsHeader>
+                  <StyledDetailsText><LargeText>{runtime} мин</LargeText></StyledDetailsText>
+                </StyledDetails>
+              </StyledCol>
+              <StyledCol xs={12} md={6}>
+                <StyledDetails>
+                  <StyledDetailsHeader><LargeText>Описание:</LargeText></StyledDetailsHeader>
+                  <StyledDetailsText><LargeText>{overview}</LargeText></StyledDetailsText>
+                </StyledDetails>
+              </StyledCol>
+            </StyledRow>
+          </StyledGrid>
+        </StyledBottom>
       </StyledContainer>
     );
   }
