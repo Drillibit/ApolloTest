@@ -6,7 +6,7 @@ const initState = {
   sorted: [],
   byId: {},
   searchResults: [],
-  byList: [{}]
+  byList: []
 };
 
 const setMovies = (state, { list }) => ({

@@ -10,6 +10,8 @@ import { Dropdown } from './UIKit/Dropdown';
 import { Preview } from './UIKit/Preview';
 import { Preloader } from './UIKit/Preloader';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
+import { LazyLoader } from './UIKit/LazyLoader';
+import { CONFIG } from '../services/api';
 
 /* eslint-disable */
 
@@ -127,10 +129,24 @@ const PreviewStyled = styled.div`
   justify-content: space-between;
 `;
 
+/*
+  description: PropTypes.string,
+    title: PropTypes.string,
+    bg: PropTypes.string,
+    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    genre: PropTypes.string,
+    cast: PropTypes.string
+
+    ${({ film }) => `${CONFIG.IMAGE_BASE}/original/${film.backdrop_path}`}
+*/
+
+const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
 
 export const FrontPage = props => (
   <div>{console.log(props, 'this')}
-  
+
     <FeaturedMovie film={somefilm} />
     <button onClick={() => props.fetchNowPlaying()}>Click</button>
     <StyledGrid >
@@ -138,10 +154,22 @@ export const FrontPage = props => (
         <StyledCol xs={12}>
           <Tabs>
             <TabPane tabName="Сейчас в кино" onClick={() => props.fetchNowPlaying()} >
-            <PreviewStyled>
-              {props.result.map(item =>
-                <Preview {...item} />
-              )}
+              <PreviewStyled>
+                {props.result.length > 0 && props.result.map(item =>
+                  <Preview
+                    key={item.id}
+                    title={item.title}
+                    voteAverage={item.vote_average}
+                    voteCount={item.vote_count}
+                    bg={`${BACKDROP_PATH + item.backdrop_path}`}
+                    year={item.release_date}
+                    duration={'123'}
+                    pg={item.adult && "12+"}
+                    genre={item.genre_ids}
+                    description={item.overview}
+                    {...item} 
+                  />
+                )}
               </PreviewStyled>
             </TabPane>
             <TabPane tabName="Топ 100" >
@@ -154,10 +182,9 @@ export const FrontPage = props => (
             <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
           </Tabs>
         </StyledCol>
-      </StyledRow>
-      <StyledRow center="xs">
         <StyledCol>
-          <Preloader />
+              {/* const { hasMore, isLoading, handleLoad } = this.props;}*/}
+
         </StyledCol>
       </StyledRow>
     </StyledGrid>

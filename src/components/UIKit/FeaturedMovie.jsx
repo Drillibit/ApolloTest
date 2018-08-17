@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, objectOf } from 'prop-types';
+import { func, objectOf, any } from 'prop-types';
 import styled from 'styled-components';
 
 import { CONFIG } from '../../services/api';
@@ -121,7 +121,7 @@ export const FeaturedMovie = ({ film, onClick }) => (
 );
 
 FeaturedMovie.propTypes = {
-  film: objectOf(),
+  film: objectOf(any),
   onClick: func
 };
 
