@@ -167,7 +167,7 @@ export class FrontPage extends Component {
     console.log(scrollbottom, 'bot');
     // Если пользователь добрался до конца страницы scrollbottom = true
     if (scrollbottom) {
-      this.props.fetchNowPlaying()
+      this.props.fetchTop100()
     }
   }
 
@@ -181,7 +181,7 @@ export class FrontPage extends Component {
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) ? fetchNowPlaying() : fetchTop100()}>
-                <TabPane tabName="Сейчас в кино" onClick={() => fetchTop100()}>
+                <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
                     {result.length > 0 && result.map(item =>
                       <Preview 
