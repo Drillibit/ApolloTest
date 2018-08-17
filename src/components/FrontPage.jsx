@@ -159,13 +159,11 @@ export class FrontPage extends Component {
     return (
       <div>
         <FeaturedMovie film={somefilm} />
-        <button onClick={() => fetchNowPlaying()}>NOW PLAYING</button>
-        <button onClick={() => fetchTop100()}>TOP100</button>
         <StyledGrid>
           <StyledRow>
             <StyledCol xs={12}>
-              <Tabs>
-                <TabPane tabName="Сейчас в кино">
+              <Tabs onChange={id => (id === 0) ? fetchNowPlaying() : fetchTop100()}>
+                <TabPane tabName="Сейчас в кино" onClick={() => fetchTop100()}>
                   <PreviewStyled>
                     {result.length > 0 && result.map(item =>
                       <Preview
@@ -185,24 +183,24 @@ export class FrontPage extends Component {
                   </PreviewStyled>
                 </TabPane>
 
-                <TabPane tabName="Топ 100" onClick={() => fetchTop100()}>
-                <PreviewStyled>
-                {result.length > 0 && result.map(item =>
-                  <Preview
-                    key={item.id}
-                    title={item.title}
-                    voteAverage={item.vote_average}
-                    voteCount={item.vote_count}
-                    bg={`${BACKDROP_PATH + item.backdrop_path}`}
-                    year={item.release_date}
-                    duration={'123'}
-                    pg={item.adult ? "18+" : "6+"}
-                    genre={item.genre_ids}
-                    description={item.overview}
-                    {...item} 
-                  />
-                )}
-              </PreviewStyled>
+                <TabPane tabName="Топ 100">
+                  <PreviewStyled>
+                    {result.length > 0 && result.map(item =>
+                      <Preview
+                        key={item.id}
+                        title={item.title}
+                        voteAverage={item.vote_average}
+                        voteCount={item.vote_count}
+                        bg={`${BACKDROP_PATH + item.backdrop_path}`}
+                        year={item.release_date}
+                        duration={'123'}
+                        pg={item.adult ? "18+" : "6+"}
+                        genre={item.genre_ids}
+                        description={item.overview}
+                        {...item} 
+                      />
+                    )}
+                  </PreviewStyled>
                 </TabPane>
 
                 <TabPane tabName={<Filter list={list} />} />
