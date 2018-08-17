@@ -9,6 +9,10 @@ export const fetchNowPlaying = () => ({
   type: TYPES.FETCH_NOW_PLAYING,
 });
 
+export const fetchTop100 = () => ({
+  type: TYPES.FETCH_TOP_100,
+});
+
 export const searchMovies = req => ({
   type: TYPES.SEARCH_MOVIES,
   payload: req

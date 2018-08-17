@@ -1,5 +1,7 @@
 export const FETCH_NOW_PLAYING = 'FETCH_NOW_PLAYING';
 
+export const FETCH_TOP_100 = 'FETCH_TOP_100';
+
 export const SET_MOVIES = 'SET_MOVIES';
 
 export const SEARCH_MOVIES = 'SEARCH_MOVIES';

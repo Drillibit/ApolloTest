@@ -148,12 +148,13 @@ export const FrontPage = props => (
   <div>{console.log(props, 'this')}
 
     <FeaturedMovie film={somefilm} />
-    <button onClick={() => props.fetchNowPlaying()}>Click</button>
+    <button onClick={() => props.fetchNowPlaying()}>NOW PLAYING</button>
+    <button onClick={() => props.fetchTop100()}>TOP100</button>
     <StyledGrid>
       <StyledRow>
         <StyledCol xs={12}>
           <Tabs>
-            <TabPane tabName="Сейчас в кино" onClick={() => props.fetchNowPlaying()} >
+            <TabPane tabName="Сейчас в кино" onClick={() => props.fetchNowPlaying()}>
               <PreviewStyled>
                 {props.result.length > 0 && props.result.map(item =>
                   <Preview
@@ -171,10 +172,23 @@ export const FrontPage = props => (
                 )}
               </PreviewStyled>
             </TabPane>
-            <TabPane tabName="Топ 100" >
-              <PreviewStyled>
-                <Preview />
-              </PreviewStyled>
+            <TabPane tabName="Топ 100" onClick={() => props.fetchTop100()}>
+            <PreviewStyled onClick={() => props.fetchTop100()} >
+            {props.result.length > 0 && props.result.map(item =>
+              <Preview
+                key={item.id}
+                title={item.title}
+
+                bg={`${BACKDROP_PATH + item.backdrop_path}`}
+                year={item.release_date}
+                duration={'123'}
+                pg={item.adult ? "18+" : "6+"}
+                genre={item.genre_ids}
+                description={item.overview}
+                {...item} 
+              />
+            )}
+          </PreviewStyled>
             </TabPane>
 
             <TabPane tabName={<Filter list={list} />} />
