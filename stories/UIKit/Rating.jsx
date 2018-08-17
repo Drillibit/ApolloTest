@@ -7,7 +7,7 @@ import { Rating } from '../../src/components/UIKit/Rating';
 const stories = storiesOf('UIKit', module);
 
 const propsOne = {
-  voteAverage: 9.9999,
+  voteAverage: 10,
   voteCount: 4.546,
   size: 'lg'
 };
