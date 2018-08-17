@@ -31,7 +31,7 @@ export const searchById = id => ({
 
 export const setMovieById = movie => ({
   type: TYPES.SET_MOVIE_BY_ID,
-  payloda: { movie }
+  payload: { movie }
 });
 
 export const clearError = () => ({

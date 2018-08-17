@@ -23,10 +23,9 @@ function* searchMovies({ payload }) {
 
 function* searchById({ payload }) {
   try {
-    console.log(payload)
-    const { data } = yield call(requestMovieById, payload);
+    const { data } = yield call(requestMovieById, payload.id);
     yield put(clearError());
-    yield put(setMovieById(data.results));
+    yield put(setMovieById(data));
   } catch (error) {
     yield put(setError(error.toString()));
   }

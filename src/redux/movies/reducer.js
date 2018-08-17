@@ -4,7 +4,7 @@ import * as TYPES from './constants';
 const initState = {
   error: '',
   sorted: [],
-  byId: {},
+  movie: {},
   searchResults: [],
 };
 
@@ -34,9 +34,9 @@ const clearSearch = state => ({
   searchResults: []
 });
 
-const setMovieById = state => ({
+const setMovieById = (state, { movie }) => ({
   ...state,
-  movieById: {}
+  movie
 });
 
 const handlers = {
