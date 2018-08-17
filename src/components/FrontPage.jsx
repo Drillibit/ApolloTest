@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { object, objectOf } from 'prop-types';
 import styled from 'styled-components';
 
@@ -144,19 +144,49 @@ const PreviewStyled = styled.div`
 
 const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
 
-export const FrontPage = props => (
-  <div>{console.log(props, 'this')}
+export class FrontPage extends Component {
+  constructor(props) {
+    super(props)
+  }
 
-    <FeaturedMovie film={somefilm} />
-    <button onClick={() => props.fetchNowPlaying()}>NOW PLAYING</button>
-    <button onClick={() => props.fetchTop100()}>TOP100</button>
-    <StyledGrid>
-      <StyledRow>
-        <StyledCol xs={12}>
-          <Tabs>
-            <TabPane tabName="Сейчас в кино" onClick={() => props.fetchNowPlaying()}>
-              <PreviewStyled>
-                {props.result.length > 0 && props.result.map(item =>
+  componentDidMount() {
+    this.props.fetchNowPlaying()
+  }
+
+  render() {
+    console.log(this.props, 'this');
+    const { fetchNowPlaying, fetchTop100, result } = this.props;
+    return (
+      <div>
+        <FeaturedMovie film={somefilm} />
+        <button onClick={() => fetchNowPlaying()}>NOW PLAYING</button>
+        <button onClick={() => fetchTop100()}>TOP100</button>
+        <StyledGrid>
+          <StyledRow>
+            <StyledCol xs={12}>
+              <Tabs>
+                <TabPane tabName="Сейчас в кино">
+                  <PreviewStyled>
+                    {result.length > 0 && result.map(item =>
+                      <Preview
+                        key={item.id}
+                        title={item.title}
+
+                        bg={`${BACKDROP_PATH + item.backdrop_path}`}
+                        year={item.release_date}
+                        duration={'123'}
+                        pg={item.adult ? "18+" : "6+"}
+                        genre={item.genre_ids}
+                        description={item.overview}
+                        {...item} 
+                      />
+                    )}
+                  </PreviewStyled>
+                </TabPane>
+                
+                <TabPane tabName="Топ 100" onClick={() => fetchTop100()}>
+                <PreviewStyled>
+                {result.length > 0 && result.map(item =>
                   <Preview
                     key={item.id}
                     title={item.title}
@@ -171,38 +201,23 @@ export const FrontPage = props => (
                   />
                 )}
               </PreviewStyled>
-            </TabPane>
-            <TabPane tabName="Топ 100" onClick={() => props.fetchTop100()}>
-            <PreviewStyled onClick={() => props.fetchTop100()} >
-            {props.result.length > 0 && props.result.map(item =>
-              <Preview
-                key={item.id}
-                title={item.title}
+                </TabPane>
 
-                bg={`${BACKDROP_PATH + item.backdrop_path}`}
-                year={item.release_date}
-                duration={'123'}
-                pg={item.adult ? "18+" : "6+"}
-                genre={item.genre_ids}
-                description={item.overview}
-                {...item} 
-              />
-            )}
-          </PreviewStyled>
-            </TabPane>
+                <TabPane tabName={<Filter list={list} />} />
+                <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
+              </Tabs>
+            </StyledCol>
+            <StyledCol>
+                  {/* const { hasMore, isLoading, handleLoad } = this.props;}*/}
 
-            <TabPane tabName={<Filter list={list} />} />
-            <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
-          </Tabs>
-        </StyledCol>
-        <StyledCol>
-              {/* const { hasMore, isLoading, handleLoad } = this.props;}*/}
+            </StyledCol>
+          </StyledRow>
+        </StyledGrid>
+      </div>
 
-        </StyledCol>
-      </StyledRow>
-    </StyledGrid>
-  </div>
-);
+    );
+  }
+}
 // FrontPage.propTypes = {
 //   films: objectOf
 // };
