@@ -109,7 +109,9 @@ const RatingStyled = styled(Rating)`
   padding: 10px;
   border-radius: 5px;
   border: solid 2px rgba(255, 255, 255, 0.2);
-  background-color: transparent;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  background-color: rgba(73, 76, 98, 0.2);
   &:before {
     content: '';
     position: absolute;
@@ -120,6 +122,14 @@ const RatingStyled = styled(Rating)`
     padding: 10px;
     border-radius: 5px;
   }
+`;
+
+const StyledPreloader = styled.div`
+  max-height: 87vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `;
 
 const StyledBgKeeper = styled.div`
@@ -202,7 +212,11 @@ export class MoviePage extends Component {
     const { similar } = this.props;
 
     if (typeof this.props.movie.id !== 'number') {
-      return <Preloader>Загрузка</Preloader>;
+      return (
+        <StyledPreloader>
+          <Preloader>Загрузка</Preloader>
+        </StyledPreloader>
+      );
     }
 
     return (
@@ -301,8 +315,13 @@ export class MoviePage extends Component {
                   <LargeText>Похожие</LargeText>
                 </StyledDetailsHeader>
                 <StyledSimilar>
-                  {similar.length > 0 &&
-                    similar.map(movie => <Preview key={movie.id} {...movie} />)}
+                  {similar.length > 0 ? (
+                    similar.map(movie => <Preview key={movie.id} {...movie} />)
+                  ) : (
+                    <StyledPreloader>
+                      <Preloader>Загрузка</Preloader>
+                    </StyledPreloader>
+                  )}
                 </StyledSimilar>
               </StyledCol>
             </StyledRow>

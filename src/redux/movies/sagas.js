@@ -47,7 +47,6 @@ function* searchById({ payload }) {
         : '2Z4m4lnjxkY';
     yield put(setMovieVideo(validVid));
     const dataSimilar = yield call(requestSimilarMovies, payload.id);
-    console.log(dataSimilar.data.results.slice(0, 4));
     yield put(setSimilarMovies(dataSimilar.data.results.slice(0, 4)));
   } catch (error) {
     yield put(setError(error.toString()));

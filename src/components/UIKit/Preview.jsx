@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -56,8 +57,8 @@ const StyledHeader = H3.extend`
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 16px 12px 2px 12px;
-  transition: transform ease .3s;
-  ${({ open }) => (open ? StyledHeaderClose : '')}
+  transition: transform ease 0.3s;
+  ${({ open }) => (open ? StyledHeaderClose : '')};
 `;
 
 const BgAnimation = keyframes`
@@ -160,7 +161,8 @@ export class Preview extends PureComponent {
     duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     genre: PropTypes.string,
-    cast: PropTypes.string
+    cast: PropTypes.string,
+    id: PropTypes.number
   };
 
   static defaultProps = {
@@ -171,7 +173,8 @@ export class Preview extends PureComponent {
     year: '',
     pg: '',
     genre: '',
-    cast: ''
+    cast: '',
+    id: 0
   };
 
   state = {
@@ -203,7 +206,8 @@ export class Preview extends PureComponent {
       duration,
       pg,
       genre,
-      cast
+      cast,
+      id
     } = this.props;
 
     return (
@@ -255,9 +259,11 @@ export class Preview extends PureComponent {
                 <Icon icon="heart" />
                 Избранное
               </Button>
-              <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
-                Подробнее
-              </StyledCustomBtn>
+              <Link to={`/movie/${id}`}>
+                <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
+                  Подробнее
+                </StyledCustomBtn>
+              </Link>
             </ButtonContainer>
           </StyledInfoContainer>
         </StyledPreviewContainer>
