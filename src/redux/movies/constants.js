@@ -11,3 +11,5 @@ export const SET_ERROR = 'SET_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
+
+export const TOGGLE_FAVOURITE = 'TOGGLE_FAVOURITE';

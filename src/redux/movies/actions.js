@@ -31,3 +31,8 @@ export const clearError = () => ({
 export const clearSearch = () => ({
   type: TYPES.CLEAR_SEARCH,
 });
+
+export const toggleFavourite = id => ({
+  type: TYPES.TOGGLE_FAVOURITE,
+  payload: { id },
+});
