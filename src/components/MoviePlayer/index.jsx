@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import styled from 'styled-components';
-import { string } from 'prop-types';
+import { string, bool, func, } from 'prop-types';
 
 import { Icon } from '../UIKit/Icon';
 import { Button } from '../UIKit/Button';
@@ -45,25 +45,14 @@ const StyledOveraly = styled.div`
   z-index: 10;
 `;
 
-export class MoviePlayer extends Component {
-  state = {
-    playing: false
-  };
-
-  onPlay = () => {
-    this.setState({
-      playing: true
-    });
-  };
-
+export class MoviePlayer extends PureComponent {
   render() {
-    const { link, image } = this.props;
-    const { playing } = this.state;
+    const { link, image, playing, onPlay } = this.props;
     return (
       <VideWrapper>
         {!playing && (
           <StyledOveraly bg={image}>
-            <Button btnType="primary" btnSize="middle" onClick={this.onPlay}>
+            <Button btnType="primary" btnSize="middle" onClick={onPlay}>
               <Icon icon="play" />
               Смотреть трейлер
             </Button>
@@ -88,10 +77,14 @@ export class MoviePlayer extends Component {
 
 MoviePlayer.propTypes = {
   link: string,
-  image: string
+  image: string,
+  playing: bool,
+  onPlay: func
 };
 
 MoviePlayer.defaultProps = {
   link: '/',
-  image: '/'
+  image: '/',
+  playing: false,
+  onPlay: f => f
 };

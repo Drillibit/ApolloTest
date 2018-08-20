@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import {
@@ -38,11 +38,11 @@ const StyledBottom = styled.div`
   margin: 25px;
 `;
 
-const StyledLargeText = styled(LargeText)`
+const StyledLargeText = LargeText.extend`
   color: ${colors.grey200};
 `;
 
-const StyledSmallInfo = styled(SmallText)`
+const StyledSmallInfo = LargeText.extend`
   color: ${colors.grey500};
   margin-right: 10px;
 `;
@@ -148,7 +148,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
 `;
 
-export class MoviePage extends Component {
+export class MoviePage extends PureComponent {
   static propTypes = {
     searchById: func.isRequired,
     video: string,
@@ -180,6 +180,18 @@ export class MoviePage extends Component {
     video: '/',
     similar: []
   };
+  static getDerivedStateFromProps(props, state) {
+    if (props.match.params.id !== state.path) {
+      return { playing: false, path: props.match.params.id }
+    }
+
+    return null;
+  }
+
+  state = {
+    playing: false,
+    path: this.props.match.params.id
+  }
   componentDidMount() {
     const { searchById } = this.props;
     searchById(this.props.match.params.id);
@@ -190,6 +202,12 @@ export class MoviePage extends Component {
     if (this.props.match.params.id !== prevProps.match.params.id) {
       searchById(this.props.match.params.id);
     }
+  }
+
+  onPlay = () => {
+    this.setState({
+      playing: true
+    });
   }
 
   render() {
@@ -242,7 +260,12 @@ export class MoviePage extends Component {
                     <SmallText>{original_title}</SmallText>
                   </StyledHeadersGroup>
                   <StyledPlayerWrapper>
-                    <MoviePlayer link={this.props.video} image={poster_path} />
+                    <MoviePlayer
+                      link={this.props.video}
+                      image={poster_path}
+                      playing={this.state.playing}
+                      onPlay={this.onPlay}
+                    />
                   </StyledPlayerWrapper>
                 </StyledLeftGroup>
               </StyledCol>
