@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import { number, string } from 'prop-types';
+import { string } from 'prop-types';
 
 import { Icon } from '../UIKit/Icon';
 import { Button } from '../UIKit/Button';
@@ -50,9 +50,6 @@ export class MoviePlayer extends Component {
     playing: false
   };
 
-  componentDidMount() {
-    console.log('Mount');
-  }
   onPlay = () => {
     this.setState({
       playing: true

@@ -38,8 +38,12 @@ const StyledBottom = styled.div`
   margin: 25px;
 `;
 
-const StyledSmallInfo = styled.span`
+const StyledLargeText = styled(LargeText)`
   color: ${colors.grey200};
+`;
+
+const StyledSmallInfo = styled(SmallText)`
+  color: ${colors.grey500};
   margin-right: 10px;
 `;
 
@@ -49,11 +53,7 @@ const StyledDetails = styled.div`
   align-items: baseline;
 `;
 
-const StyledDetailsText = SmallText.extend`
-  color: ${colors.grey500};
-`;
-
-const StyledDetailsHeader = StyledSmallInfo.extend`
+const StyledDetailsHeader = styled.span`
   min-width: 90px;
 `;
 
@@ -125,7 +125,7 @@ const RatingStyled = styled(Rating)`
 `;
 
 const StyledPreloader = styled.div`
-  max-height: 87vh;
+  height: 87vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -273,46 +273,38 @@ export class MoviePage extends Component {
               <StyledCol xs={12} md={6}>
                 <StyledDetails>
                   <StyledDetailsHeader>
-                    <LargeText>Страна:</LargeText>
+                    <StyledLargeText>Страна:</StyledLargeText>
                   </StyledDetailsHeader>
-                  <StyledDetailsText>
-                    <LargeText>
-                      {production_countries.map(gen => gen.name)}
-                    </LargeText>
-                  </StyledDetailsText>
+                  <StyledSmallInfo>
+                    {production_countries.map((gen, index) => `${gen.name}${production_countries.length - 1 !== index ? ', ' : ''}`)}
+                  </StyledSmallInfo>
                 </StyledDetails>
                 <StyledDetails>
                   <StyledDetailsHeader>
-                    <LargeText>Жанр:</LargeText>
+                    <StyledLargeText>Жанр:</StyledLargeText>
                   </StyledDetailsHeader>
-                  <StyledDetailsText>
-                    <LargeText>{genres.map(gen => gen.name)}</LargeText>
-                  </StyledDetailsText>
+                  <StyledSmallInfo>{genres.map((gen, index) => `${gen.name}${genres.length - 1 !== index ? ', ' : ''}`)}</StyledSmallInfo>
                 </StyledDetails>
                 <StyledDetails>
                   <StyledDetailsHeader>
-                    <LargeText>Время:</LargeText>
+                    <StyledLargeText>Время:</StyledLargeText>
                   </StyledDetailsHeader>
-                  <StyledDetailsText>
-                    <LargeText>{runtime} мин</LargeText>
-                  </StyledDetailsText>
+                  <StyledSmallInfo>{runtime} мин</StyledSmallInfo>
                 </StyledDetails>
               </StyledCol>
               <StyledCol xs={12} md={6}>
                 <StyledDetails>
                   <StyledDetailsHeader>
-                    <LargeText>Описание:</LargeText>
+                    <StyledLargeText>Описание:</StyledLargeText>
                   </StyledDetailsHeader>
-                  <StyledDetailsText>
-                    <LargeText>{overview}</LargeText>
-                  </StyledDetailsText>
+                  <StyledSmallInfo>{overview}</StyledSmallInfo>
                 </StyledDetails>
               </StyledCol>
             </StyledCustomRow>
             <StyledRow>
               <StyledCol md={12}>
                 <StyledDetailsHeader>
-                  <LargeText>Похожие</LargeText>
+                  <StyledLargeText>Похожие</StyledLargeText>
                 </StyledDetailsHeader>
                 <StyledSimilar>
                   {similar.length > 0 ? (

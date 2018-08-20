@@ -15,30 +15,14 @@ const StyledMain = styled.div`
   min-height: 100vh;
 `;
 
-// Styles for sticky footer
-const StyledContent = styled.div`
-  display: flex;
-  flex: 1;
-  padding-bottom: 80px;
-`;
-
-// Mockup header
-const StyledHeaderWrapper = styled.div`
-  padding-bottom: 150px;
-`;
-
 export const Main = () => (
   <StyledMain>
-    <StyledHeaderWrapper>
-      <Header />
-    </StyledHeaderWrapper>
-    <StyledContent>
-      <Switch>
-        <Route exact path="/" component={Content} />
-        <Route path="/movie/:id" component={MoviePageContainer} />
-        <Route path="/favourites" component={ConnectedFavourites} />
-      </Switch>
-    </StyledContent>
+    <Header />
+    <Switch>
+      <Route exact path="/" component={Content} />
+      <Route path="/movie/:id" component={MoviePageContainer} />
+      <Route path="/favourites" component={ConnectedFavourites} />
+    </Switch>
     <Footer>
       <SmallText>2018, Все права защищены</SmallText>
     </Footer>

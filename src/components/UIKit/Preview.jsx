@@ -262,6 +262,8 @@ export class Preview extends PureComponent {
                 btnType="transparent-dark"
                 onClick={this.handleDisplay}
                 btnSize="small"
+                isFavourite={isFavourite}
+                toggleFavourite={() => toggleFavourite(id)}
               >
                 <Icon icon="heart" />
                 Избранное
@@ -271,13 +273,6 @@ export class Preview extends PureComponent {
                   Подробнее
                 </StyledCustomBtn>
               </Link>
-              <FavouriteButton
-                isFavourite={isFavourite}
-                toggleFavourite={() => toggleFavourite(id)}
-              />
-              <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
-                Подробнее
-              </StyledCustomBtn>
             </ButtonContainer>
           </StyledInfoContainer>
         </StyledPreviewContainer>

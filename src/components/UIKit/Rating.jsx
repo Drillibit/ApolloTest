@@ -140,7 +140,5 @@ Rating.propTypes = {
 
 Rating.defaultProps = {
   size: 'md',
-  // voteAverage: 0,
-  // voteCount: 0,
   className: ''
 };
