@@ -25,3 +25,5 @@ export const getSimilar = state =>
       title
     })
   );
+
+export const getFavouriteMovies = list => Object.keys(list).filter(key => list[key]);

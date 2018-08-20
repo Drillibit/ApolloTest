@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 
+import { Icon } from './Icon';
 import { H3, SmallText } from './Typography';
 import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
-import { Button, StyledButton } from './Button';
-import { Icon } from './Icon';
+import { StyledButton } from './Button';
+import { FavouriteButton } from '../FavouriteButton';
 
 const StyledCustomBtn = styled(StyledButton)`
   padding: 4px 43px;
@@ -22,7 +23,7 @@ const StyledParent = styled.div`
 const StyledPreviewContainerOpen = css`
   z-index: 10;
   right: -67px;
-  width: 412px;
+  width: 430px;
   height: 526px;
   border-radius: 2px;
   background-color: #ffffff;
@@ -154,6 +155,7 @@ const ButtonContainer = styled.div`
 
 export class Preview extends PureComponent {
   static propTypes = {
+    id: PropTypes.number,
     description: PropTypes.string,
     title: PropTypes.string,
     bg: PropTypes.string,
@@ -162,10 +164,12 @@ export class Preview extends PureComponent {
     pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     genre: PropTypes.string,
     cast: PropTypes.string,
-    id: PropTypes.number
+    isFavourite: PropTypes.bool,
+    toggleFavourite: func,
   };
 
   static defaultProps = {
+    id: 0,
     description: '',
     title: '',
     bg: '',
@@ -174,7 +178,8 @@ export class Preview extends PureComponent {
     pg: '',
     genre: '',
     cast: '',
-    id: 0
+    isFavourite: false,
+    toggleFavourite: f => f,
   };
 
   state = {
@@ -199,6 +204,7 @@ export class Preview extends PureComponent {
   render() {
     const { inOpenState } = this.state;
     const {
+      id,
       description,
       title,
       year,
@@ -207,7 +213,8 @@ export class Preview extends PureComponent {
       pg,
       genre,
       cast,
-      id
+      isFavourite,
+      toggleFavourite,
     } = this.props;
 
     return (
@@ -251,19 +258,26 @@ export class Preview extends PureComponent {
               </StyledParagraph>
             </StyledDetails>
             <ButtonContainer>
-              <Button
+              <FavouriteButton
                 btnType="transparent-dark"
                 onClick={this.handleDisplay}
                 btnSize="small"
               >
                 <Icon icon="heart" />
                 Избранное
-              </Button>
+              </FavouriteButton>
               <Link to={`/movie/${id}`}>
                 <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
                   Подробнее
                 </StyledCustomBtn>
               </Link>
+              <FavouriteButton
+                isFavourite={isFavourite}
+                toggleFavourite={() => toggleFavourite(id)}
+              />
+              <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
+                Подробнее
+              </StyledCustomBtn>
             </ButtonContainer>
           </StyledInfoContainer>
         </StyledPreviewContainer>
