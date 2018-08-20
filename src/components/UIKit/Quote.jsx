@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { node, arrayOf, oneOfType } from 'prop-types';
 import styled from 'styled-components';
 
 import { Icon } from './Icon';
-import quotes from '../../assets/img/shape.svg';
 
 const QuoteStyled = styled.div`
   display: inline-block;
@@ -20,13 +19,8 @@ const Shape = styled.div`
   color: #ffffff;
 `;
 
-const StyledIcon = styled(Icon)`
-  font-size: 24px;
-  color: white;
-`;
-
 export const Quote = ({ children }) => (
-  <div>
+  <Fragment>
     <Shape>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +37,7 @@ export const Quote = ({ children }) => (
       </svg>
     </Shape>
     <QuoteStyled>{children}</QuoteStyled>
-  </div>
+  </Fragment>
 );
 
 Quote.propTypes = {

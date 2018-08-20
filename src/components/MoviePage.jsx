@@ -75,7 +75,7 @@ const StyledLeftGroup = styled.div`
   justify-content: center;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled.span`
   margin-right: 40px;
 `;
 const StyledBtnGroup = styled.div`
@@ -87,6 +87,7 @@ const StyledBtnGroup = styled.div`
 const StyledQuoteContainer = styled.div`
   display: flex;
   margin-bottom: 60px;
+  margin-left: 48px;
 `;
 
 const StyledRatingWrapper = styled.div`
@@ -109,6 +110,7 @@ const RatingStyled = styled(Rating)`
   padding: 10px;
   border-radius: 5px;
   border: solid 2px rgba(255, 255, 255, 0.2);
+  margin-left: 48px;
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   background-color: rgba(73, 76, 98, 0.2);
@@ -201,6 +203,7 @@ export class MoviePage extends PureComponent {
     const { searchById } = this.props;
     if (this.props.match.params.id !== prevProps.match.params.id) {
       searchById(this.props.match.params.id);
+      window.scrollTo(0, 0);
     }
   }
 
@@ -208,6 +211,10 @@ export class MoviePage extends PureComponent {
     this.setState({
       playing: true
     });
+  }
+
+  goBack = () => {
+    this.props.history.goBack();
   }
 
   render() {
@@ -245,8 +252,8 @@ export class MoviePage extends PureComponent {
               <StyledCol xs={12} md={6}>
                 <StyledLeftGroup>
                   <StyledBtnGroup>
-                    <StyledLink to="/">
-                      <Button btnType="transparent-white" btnSize="small">
+                    <StyledLink>
+                      <Button btnType="transparent-white" btnSize="small" onClick={this.goBack}>
                         <Icon icon="chevron-left" />
                         Назад
                       </Button>
@@ -271,13 +278,13 @@ export class MoviePage extends PureComponent {
               </StyledCol>
               <StyledCol xs={12} md={6}>
                 <StyledRightGroup>
-                  <StyledQuoteContainer>
-                    {tagline && (
+                  {tagline && (
+                    <StyledQuoteContainer>
                       <Quote>
                         <H2>{tagline}</H2>
                       </Quote>
-                    )}
-                  </StyledQuoteContainer>
+                    </StyledQuoteContainer>
+                  )}
                   <StyledRatingWrapper>
                     <RatingStyled
                       voteAverage={vote_average}
