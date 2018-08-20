@@ -10,7 +10,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { STORE, PERSISTOR, history } from './redux/store';
 import { Main } from './components/Main';
+
 import { Preloader } from './components/UIKit/Preloader';
+
 import './components/helpers/injectGlobalStyles';
 
 export const Application = hot(module)(() => (
