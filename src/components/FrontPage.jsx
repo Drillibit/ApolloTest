@@ -151,8 +151,12 @@ const FrontPageStyled = styled.div`
 const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
 
 export class FrontPage extends Component {
+  state = {
+    counter: 1
+  };
+
   componentDidMount() {
-    this.props.fetchNowPlaying();
+    this.props.fetchNowPlaying(1);
   }
 
   randomFilm = (min, max) => {
@@ -167,7 +171,10 @@ export class FrontPage extends Component {
     console.log(scrollbottom, 'bot');
     // Если пользователь добрался до конца страницы scrollbottom = true
     if (scrollbottom) {
-      this.props.fetchTop100()
+      this.props.fetchTop100(this.state.counter);
+
+      this.setState({ counter: this.state.counter+=1 });
+      console.log(this.state.counter, 'counter');
     }
   }
 
@@ -180,7 +187,7 @@ export class FrontPage extends Component {
         <StyledGrid >
           <StyledRow>
             <StyledCol xs={12}>
-              <Tabs onChange={id => (id === 0) ? fetchNowPlaying() : fetchTop100()}>
+              <Tabs onChange={id => (id === 0) ? fetchNowPlaying(2) : fetchTop100(7)}>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
                     {result.length > 0 && result.map(item =>

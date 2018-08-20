@@ -5,12 +5,14 @@ export const setMovies = list => ({
   payload: { list },
 });
 
-export const fetchNowPlaying = () => ({
+export const fetchNowPlaying = page => ({
   type: TYPES.FETCH_NOW_PLAYING,
+  payload: page
 });
 
-export const fetchTop100 = () => ({
+export const fetchTop100 = page => ({
   type: TYPES.FETCH_TOP_100,
+  payload: page
 });
 
 export const searchMovies = req => ({
