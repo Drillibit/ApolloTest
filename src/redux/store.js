@@ -13,7 +13,7 @@ import { rootSaga } from './rootSaga';
 const persistConfig = {
   key: 'root',
   storage,
-  whiteList: ['favourites'],
+  whiteList: ['movie'],
   stateReconciler: autoMergeLevel2
 };
 
