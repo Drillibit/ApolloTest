@@ -5,7 +5,8 @@ import { string, bool, func, } from 'prop-types';
 import { Icon } from '../UIKit/Icon';
 import { Button } from '../UIKit/Button';
 
-const VideWrapper = styled.div`
+const VideoWrapper = styled.div`
+  color: black;
   position: relative;
   padding-bottom: 20rem;
   height: 0;
@@ -22,12 +23,15 @@ const StyledIframe = styled.iframe`
 `;
 
 const StyledPreload = styled.div`
-  color: black;
-  top: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top:0;
   left: 0;
   width: 100%;
-  height: 100%;
-  z-index: 10;
+  height: 284px;
+  background-color: black;
 `;
 
 const StyledOveraly = styled.div`
@@ -39,6 +43,7 @@ const StyledOveraly = styled.div`
   left: 0;
   width: 100%;
   height: 284px;
+  background-color: black;
   background-image: 
    url('${({ bg }) => `https://image.tmdb.org/t/p/original${bg}`}');
   background-size: cover;
@@ -47,9 +52,15 @@ const StyledOveraly = styled.div`
 
 export class MoviePlayer extends PureComponent {
   render() {
-    const { link, image, playing, onPlay } = this.props;
+    const {
+      link,
+      image,
+      playing,
+      onPlay
+    } = this.props;
+
     return (
-      <VideWrapper>
+      <VideoWrapper>
         {!playing && (
           <StyledOveraly bg={image}>
             <Button btnType="primary" btnSize="middle" onClick={onPlay}>
@@ -60,17 +71,16 @@ export class MoviePlayer extends PureComponent {
         )}
         {playing && (
           <Fragment>
-            <StyledPreload>
-              <StyledIframe
-                id="ytplayer"
-                type="text/html"
-                src={`http://www.youtube.com/embed/${link}?autoplay=1`}
-                frameBorder="0"
-              />
-            </StyledPreload>
+            <StyledPreload />
+            <StyledIframe
+              id="ytplayer"
+              type="text/html"
+              src={`http://www.youtube.com/embed/${link}?autoplay=1`}
+              frameBorder="0"
+            />
           </Fragment>
         )}
-      </VideWrapper>
+      </VideoWrapper>
     );
   }
 }
