@@ -156,7 +156,7 @@ export class FrontPage extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchNowPlaying(1);
+    this.props.fetchNowPlaying(this.state.counter);
   }
 
   randomFilm = (min, max) => {
@@ -167,11 +167,13 @@ export class FrontPage extends Component {
   };
 
   onScrollList = e => {
-    const scrollbottom = e.target.scrollTop + e.target.offsetHeight == e.target.scrollHeight;
+    const scrollbottom = e.target.scrollTop + e.target.offsetHeight === e.target.scrollHeight;
+    //e.target.clientHeight + e.target.scrollTop === e.target.scrollHeight
     console.log(scrollbottom, 'bot');
     // Если пользователь добрался до конца страницы scrollbottom = true
     if (scrollbottom) {
       this.props.fetchTop100(this.state.counter);
+      this.props.addMovies();
 
       this.setState({ counter: this.state.counter+=1 });
       console.log(this.state.counter, 'counter');
@@ -180,7 +182,7 @@ export class FrontPage extends Component {
 
   render() {
     console.log(this.props, 'this');
-    const { fetchNowPlaying, fetchTop100, result } = this.props;
+    const { fetchNowPlaying, fetchTop100, searchResults } = this.props;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
         <FeaturedMovie film={somefilm} />
@@ -190,7 +192,7 @@ export class FrontPage extends Component {
               <Tabs onChange={id => (id === 0) ? fetchNowPlaying(2) : fetchTop100(7)}>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
-                    {result.length > 0 && result.map(item =>
+                    {searchResults.length > 0 && searchResults.map(item =>
                       <Preview 
                         key={item.id}
                         title={item.title}
@@ -209,7 +211,7 @@ export class FrontPage extends Component {
 
                 <TabPane tabName="Топ 100">
                   <PreviewStyled>
-                    {result.length > 0 && result.map(item =>
+                    {searchResults.length > 0 && searchResults.map(item =>
                       <Preview
                         key={item.id}
                         title={item.title}

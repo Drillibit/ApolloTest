@@ -5,6 +5,11 @@ export const setMovies = list => ({
   payload: { list },
 });
 
+export const addMovies = list => ({
+  type: TYPES.ADD_MOVIES,
+  payload: { list }
+});
+
 export const fetchNowPlaying = page => ({
   type: TYPES.FETCH_NOW_PLAYING,
   payload: page

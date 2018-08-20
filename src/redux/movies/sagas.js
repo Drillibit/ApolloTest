@@ -1,7 +1,7 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 
 import * as CONSTANTS from './constants';
-import { setMovies, setSearchResults, setError, clearError } from './actions';
+import { setMovies, setSearchResults, setError, clearError, addMovies } from './actions';
 import { requestNowPlayingMovies, requestMovieByKeywords, requestTop100 } from './requests';
 
 function* fetchNowPlaying({ payload }) {

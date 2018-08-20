@@ -6,7 +6,8 @@ const initState = {
   sorted: [],
   byId: {},
   searchResults: [],
-  byList: []
+  byList: [],
+  filmsArr: []
 };
 
 const setMovies = (state, { list }) => ({
@@ -15,6 +16,12 @@ const setMovies = (state, { list }) => ({
   byId: list.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {}),
   byList: list
 });
+
+const addMovies = (state, { list }) => {
+  console.log(state, 'state');
+  console.log({list}, 'list');
+  return Object.assign({}, state, { searchResults: state.concat(list) });
+};
 
 const setSearchResults = (state, { searchResults }) => ({
   ...state,
@@ -38,6 +45,7 @@ const clearSearch = state => ({
 
 const handlers = {
   [TYPES.SET_MOVIES]: setMovies,
+  [TYPES.ADD_MOVIES]: addMovies,
   [TYPES.SET_SEARCH_RESULTS]: setSearchResults,
   [TYPES.CLEAR_SEARCH]: clearSearch,
   [TYPES.CLEAR_ERROR]: clearError,

@@ -46,7 +46,7 @@ class SearchController extends Component {
 }
 
 const mapStateToProps = state => ({
-  result: getSearchResults(state),
+  searchResults: getSearchResults(state),
   genres: state.genres,
 });
 
