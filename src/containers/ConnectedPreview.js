@@ -8,7 +8,7 @@ import { CONFIG } from '../services/api';
 
 const mapStateToProps = ({ movies: { byId } }, { id }) => ({
   ...remapMovieFields(byId[id]),
-  bg: `${CONFIG.IMAGE_BASE}/w500/${byId[id].poster_path}`,
+  bg: `${CONFIG.IMAGE_BASE}/w780/${byId[id].poster_path}`,
   isFavourite: true,
 });
 
