@@ -11,6 +11,7 @@ const VideoWrapper = styled.div`
   padding-bottom: 20rem;
   height: 0;
   width: 100%;
+  border-radius: 2px;
 `;
 
 const StyledIframe = styled.iframe`
@@ -20,6 +21,7 @@ const StyledIframe = styled.iframe`
   width: 100%;
   height: 284px;
   z-index: 1;
+  border-radius: 2px;
 `;
 
 const StyledPreload = styled.div`
@@ -32,6 +34,7 @@ const StyledPreload = styled.div`
   width: 100%;
   height: 284px;
   background-color: black;
+  border-radius: 2px;
 `;
 
 const StyledOveraly = styled.div`
@@ -48,6 +51,7 @@ const StyledOveraly = styled.div`
    url('${({ bg }) => `https://image.tmdb.org/t/p/original${bg}`}');
   background-size: cover;
   z-index: 10;
+  border-radius: 2px;
 `;
 
 export class MoviePlayer extends PureComponent {

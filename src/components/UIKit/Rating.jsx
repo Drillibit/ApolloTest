@@ -88,7 +88,7 @@ const StyledStarContainer = styled.div`
   transform: scale(0.7);
   ${({ size }) => (size === 'lg' ? StyledStarContainerLg : '')};
 `;
-const rateConvert = rate => {
+const rateConvert = (rate) => {
   const num = parseFloat(rate) / 2;
   const restNum = num % 1;
   return {
@@ -99,8 +99,15 @@ const rateConvert = rate => {
   };
 };
 
-export const Rating = ({ className, voteAverage, voteCount, size }) => {
-  const { stars, singleStar, rate, emptyStars } = rateConvert(voteAverage);
+export const Rating = ({
+  className, voteAverage, voteCount, size
+}) => {
+  const {
+    stars,
+    singleStar,
+    rate,
+    emptyStars
+  } = rateConvert(voteAverage);
   return (
     <StyledRaitngMain className={className}>
       <StyledStarContainer size={size}>
