@@ -18,9 +18,17 @@ const setMovies = (state, { list }) => ({
 });
 
 const addMovies = (state, { list }) => {
-  console.log(state, 'state');
-  console.log({list}, 'list');
-  return Object.assign({}, state, { searchResults: state.concat(list) });
+  const { sorted, byId } = state;
+  const newById = list.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {});
+  const newSorted = list.map(item => item.id);
+
+  return Object.assign({}, state, {
+    sorted: sorted.concat(newSorted),
+    byId: {
+      ...byId,
+      ...newById
+    }
+  });
 };
 
 const setSearchResults = (state, { searchResults }) => ({
