@@ -100,10 +100,12 @@ export class Search extends PureComponent {
 
   onClose = () => {
     const { clearSearch } = this.props;
-    clearSearch();
-    this.setState({
-      isOpen: false
-    });
+    if (this.state.isOpen) {
+      clearSearch();
+      this.setState({
+        isOpen: false
+      });
+    }
   }
 
   toggleOpen = () => {
@@ -111,12 +113,6 @@ export class Search extends PureComponent {
     this.setState({
       isOpen: !isOpen
     });
-  }
-
-  handleOnBlur = () => {
-    const { clearSearch } = this.props;
-    this.props.onChange({ target: { value: '' } });
-    clearSearch();
   }
 
   render() {
@@ -137,7 +133,6 @@ export class Search extends PureComponent {
             innerRef={this.textInput}
             placeholder={searchPhrase}
             onChange={onChange}
-            onBlur={this.handleOnBlur}
             value={value}
           />
           {(isOpen && result.length > 0) && (

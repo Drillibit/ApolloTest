@@ -6,7 +6,8 @@ const initState = {
   sorted: [],
   byId: {},
   searchResults: [],
-  byList: []
+  searchNowPlaying: [],
+  searchTop100: []
 };
 
 const setMovies = (state, { list }) => ({
@@ -16,10 +17,12 @@ const setMovies = (state, { list }) => ({
   byList: list
 });
 
-const addMovies = (state, { list }) => ({
-  ...state,
-  byList: state.byList.concat(...list)
-});
+const addMovies = (state, { list }) => {
+  return {
+    ...state,
+    searchNowPlaying: state.searchNowPlaying.concat(list)
+  };
+};
 
 const setSearchResults = (state, { searchResults }) => ({
   ...state,
@@ -38,7 +41,7 @@ const clearError = state => ({
 
 const clearSearch = state => ({
   ...state,
-  searchResults: []
+  searchResults: [],
 });
 
 const handlers = {

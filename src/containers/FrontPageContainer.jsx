@@ -2,12 +2,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { } from 'prop-types';
 
-import { getSearchResultByList, getSearchResults, getSearchResultById } from '../redux/movies/selectors';
+import { getSearchNowPlaying, getSearchTop100Results } from '../redux/movies/selectors';
 import * as actions from '../redux/movies/actions';
 import { FrontPage } from '../components/FrontPage';
 
 const mapStateToProps = state => ({
-  searchResults: getSearchResultByList(state),
+  searchNowPlayingResults: getSearchNowPlaying(state),
+  searchTop100Results: getSearchTop100Results(state),
   genres: state.genres
 });
 

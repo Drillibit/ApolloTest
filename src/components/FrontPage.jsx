@@ -139,32 +139,18 @@ const PreloaderWrapper = styled.div`
   height: ${({ hasMore }) => (hasMore ? '170px' : '0')};
 `;
 
-/*
-  description: PropTypes.string,
-    title: PropTypes.string,
-    bg: PropTypes.string,
-    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    genre: PropTypes.string,
-    cast: PropTypes.string
-
-    ${({ film }) => `${CONFIG.IMAGE_BASE}/original/${film.backdrop_path}`}
-*/
-
 const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
 
 export class FrontPage extends Component {
   state = {
-    nowPalyingCounter: 1,
+    nowPlayingCounter: 1,
     top100Counter: 1,
-    hasMore: false,
-    isLoading: true,
-    end: 20,
+    hasMore: true,
+    isLoading: false,
   };
 
   componentDidMount() {
-    this.props.fetchNowPlaying(this.state.counter);
+    this.props.fetchNowPlaying(1);
   }
 
   randomFilm = (min, max) => {
@@ -174,56 +160,45 @@ export class FrontPage extends Component {
     return rand;
   };
 
-  handleLoad = () => {
-    const { searchResults, fetchNowPlaying, addMovies } = this.props;
-    this.setState({ isLoading: true });
-    console.log(this.state, 'state');
-    clearTimeout(this.timeOut);
-    this.timeOut = setTimeout(() => {
-      const newEnd = this.state.end + 20 > searchResults.length ? searchResults.length : this.state.end + 20;
-
-      if (newEnd === searchResults.length) {
-        console.log('true')
-        fetchNowPlaying(this.state.nowPalyingCounter);
-        addMovies(searchResults);
-        this.setState({ hasMore: false, end: newEnd, nowPalyingCounter: this.state.nowPalyingCounter += 1 });
-      } else {
-        console.log('false')
-        this.setState({ hasMore: true, end: newEnd });
-        
-      }
-      this.setState({ isLoading: false });
-
-    }, 2000);
-    console.log(this.state, 'state after');
-  };
-
   onScrollList = e => {
-    const { isLoading, hasMore } = this.state;
-    const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight;
-
-    if (scrollbottom && isLoading && !hasMore) {
+    const { hasMore, isLoading } = this.state;
+    const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
+    if (scrollbottom && hasMore && !isLoading) {
       this.handleLoad();
-      // this.props.fetchTop100(this.state.counter);
-      // this.setState({ counter: this.state.counter += 1 });
-      // this.props.addMovies(this.props.searchResults);
     }
   }
 
+  handleLoad = () => {
+    const { fetchNowPlaying } = this.props;
+    this.setState({ isLoading: true });
+    clearTimeout(this.timeOut);
+    this.timeOut = setTimeout(() => {
+      if (false) { //есть ли ещё фильмы на сервере
+        
+        this.setState({ hasMore: false, nowPlayingCounter: a });
+      } else {
+        const a = this.state.nowPlayingCounter + 1;
+        fetchNowPlaying(a);
+        this.setState({ hasMore: true, nowPlayingCounter: a });
+      }
+      this.setState({ isLoading: false });
+    }, 2000)
+  };
+
   render() {
-    //console.log(this.props, 'this');
-    const { fetchNowPlaying, fetchTop100, searchResults } = this.props;
-    const { top100Counter, nowPalyingCounter } = this.state;
+    console.log(this.props, 'this');
+    const { fetchNowPlaying, fetchTop100, searchNowPlayingResults } = this.props;
+    const { top100Counter, nowPlayingCounter } = this.state;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
         <FeaturedMovie film={somefilm} />
         <StyledGrid >
           <StyledRow>
             <StyledCol xs={12}>
-              <Tabs onChange={id => (id === 0) ? fetchNowPlaying(nowPalyingCounter) : fetchTop100(top100Counter)}>
+              <Tabs onChange={id => (id === 0) ? fetchNowPlaying(nowPlayingCounter) : fetchTop100(top100Counter)}>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
-                    {searchResults.length > 0 && searchResults.map(item => {
+                    {searchNowPlayingResults.length > 0 && searchNowPlayingResults.map(item => {
                       //console.log(item.id, 'item.id');
                       return (
                       <Preview 
@@ -245,7 +220,7 @@ export class FrontPage extends Component {
 
                 <TabPane tabName="Топ 100">
                   <PreviewStyled>
-                    {searchResults.length > 0 && searchResults.map(item =>
+                    {searchNowPlayingResults.length > 0 && searchNowPlayingResults.map(item =>
                       <Preview
                         key={item.id}
                         title={item.title}
