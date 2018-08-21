@@ -150,7 +150,7 @@ export class FrontPage extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchNowPlaying(1);
+    this.props.fetchNowPlaying();
   }
 
   randomFilm = (min, max) => {
@@ -186,7 +186,7 @@ export class FrontPage extends Component {
   };
 
   render() {
-    console.log(this.props, 'this');
+    // console.log(this.props, 'this');
     const { fetchNowPlaying, fetchTop100, searchNowPlayingResults } = this.props;
     const { top100Counter, nowPlayingCounter } = this.state;
     return (
@@ -195,7 +195,7 @@ export class FrontPage extends Component {
         <StyledGrid >
           <StyledRow>
             <StyledCol xs={12}>
-              <Tabs onChange={id => (id === 0) ? fetchNowPlaying(nowPlayingCounter) : fetchTop100(top100Counter)}>
+              <Tabs onChange={id => (id === 0) ? fetchNowPlaying() : fetchTop100()}>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
                     {searchNowPlayingResults.length > 0 && searchNowPlayingResults.map(item => {

@@ -5,16 +5,26 @@ import { setMovies, setSearchResults, setError, clearError, addMovies } from './
 import { requestNowPlayingMovies, requestMovieByKeywords, requestTop100 } from './requests';
 
 function* fetchNowPlaying({ payload }) {
-  const { data } = yield call(requestNowPlayingMovies, payload);
+  const { page } = payload;
+  const { data } = yield call(requestNowPlayingMovies, page);
   if (data && data.results) {
-    yield put(addMovies(data.results));
+    if (page) {
+      yield put(addMovies(data.results));
+    } else {
+      yield put(setMovies(data.results));
+    }
   }
 }
 
 function* fetchTop100({ payload }) {
+  const { page } = payload;
   const { data } = yield call(requestTop100, payload);
   if (data && data.results) {
-    yield put(setMovies(data.results));
+    if (page) {
+      yield put(addMovies(data.results));
+    } else {
+      yield put(setMovies(data.results));
+    }
   }
 }
 

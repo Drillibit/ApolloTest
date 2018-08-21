@@ -12,7 +12,7 @@ export const addMovies = list => ({
 
 export const fetchNowPlaying = page => ({
   type: TYPES.FETCH_NOW_PLAYING,
-  payload: page
+  payload: { page }
 });
 
 export const fetchTop100 = page => ({

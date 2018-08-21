@@ -14,7 +14,8 @@ const setMovies = (state, { list }) => ({
   ...state,
   sorted: list.map(item => item.id),
   byId: list.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {}),
-  byList: list
+  byList: list,
+  searchNowPlaying: list
 });
 
 const addMovies = (state, { list }) => {
