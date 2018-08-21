@@ -6,8 +6,7 @@ const initState = {
   sorted: [],
   byId: {},
   searchResults: [],
-  byList: [],
-  filmsArr: []
+  byList: []
 };
 
 const setMovies = (state, { list }) => ({
@@ -17,19 +16,10 @@ const setMovies = (state, { list }) => ({
   byList: list
 });
 
-const addMovies = (state, { list }) => {
-  const { sorted, byId } = state;
-  const newById = list.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {});
-  const newSorted = list.map(item => item.id);
-
-  return Object.assign({}, state, {
-    sorted: sorted.concat(newSorted),
-    byId: {
-      ...byId,
-      ...newById
-    }
-  });
-};
+const addMovies = (state, { list }) => ({
+  ...state,
+  byList: state.byList.concat(...list)
+});
 
 const setSearchResults = (state, { searchResults }) => ({
   ...state,

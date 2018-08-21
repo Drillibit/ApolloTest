@@ -17,6 +17,7 @@ const StyledMain = styled.div`
 const StyledContent = styled.div`
   display: flex;
   flex: 1;
+  height: calc(100vh - 120px);
 `;
 
 const Content = () => (
@@ -27,7 +28,10 @@ export const Main = () => (
   <StyledMain>
     <Header />
     
-    <FrontPageContainer />
+    <StyledContent>
+      <FrontPageContainer />
+    </StyledContent>
+
     <Footer>
       <SmallText>2018, Все права защищены</SmallText>
     </Footer>

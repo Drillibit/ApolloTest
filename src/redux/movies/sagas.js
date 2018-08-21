@@ -4,14 +4,10 @@ import * as CONSTANTS from './constants';
 import { setMovies, setSearchResults, setError, clearError, addMovies } from './actions';
 import { requestNowPlayingMovies, requestMovieByKeywords, requestTop100 } from './requests';
 
-function* fetchNowPlaying({ payload, page }) {
+function* fetchNowPlaying({ payload }) {
   const { data } = yield call(requestNowPlayingMovies, payload);
   if (data && data.results) {
-    if (page) {
-      yield put(addMovies(data.results));
-    } else {
-      yield put(setMovies(data.results));
-    }
+    yield put(addMovies(data.results));
   }
 }
 

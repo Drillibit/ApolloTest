@@ -10,7 +10,6 @@ import { Dropdown } from './UIKit/Dropdown';
 import { Preview } from './UIKit/Preview';
 import { Preloader } from './UIKit/Preloader';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
-import { LazyLoader } from './UIKit/LazyLoader';
 import { CONFIG } from '../services/api';
 
 /* eslint-disable */
@@ -132,7 +131,12 @@ const PreviewStyled = styled.div`
 const FrontPageStyled = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 800px;
+  height: 100%;
+  width: 100%;
+`;
+
+const PreloaderWrapper = styled.div`
+  height: ${({ hasMore }) => (hasMore ? '170px' : '0')};
 `;
 
 /*
@@ -152,7 +156,11 @@ const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
 
 export class FrontPage extends Component {
   state = {
-    counter: 1
+    nowPalyingCounter: 1,
+    top100Counter: 1,
+    hasMore: false,
+    isLoading: true,
+    end: 20,
   };
 
   componentDidMount() {
@@ -166,39 +174,64 @@ export class FrontPage extends Component {
     return rand;
   };
 
-  onScrollList = e => {
-    const scrollbottom = e.target.scrollTop + e.target.offsetHeight === e.target.scrollHeight;
-    //e.target.clientHeight + e.target.scrollTop === e.target.scrollHeight
-    console.log(scrollbottom, 'bot');
-    // Если пользователь добрался до конца страницы scrollbottom = true
-    if (scrollbottom) {
-      this.props.fetchTop100(this.state.counter);
-      this.props.addMovies();
+  handleLoad = () => {
+    const { searchResults, fetchNowPlaying, addMovies } = this.props;
+    this.setState({ isLoading: true });
+    console.log(this.state, 'state');
+    clearTimeout(this.timeOut);
+    this.timeOut = setTimeout(() => {
+      const newEnd = this.state.end + 20 > searchResults.length ? searchResults.length : this.state.end + 20;
 
-      this.setState({ counter: this.state.counter+=1 });
-      console.log(this.state.counter, 'counter');
+      if (newEnd === searchResults.length) {
+        console.log('true')
+        fetchNowPlaying(this.state.nowPalyingCounter);
+        addMovies(searchResults);
+        this.setState({ hasMore: false, end: newEnd, nowPalyingCounter: this.state.nowPalyingCounter += 1 });
+      } else {
+        console.log('false')
+        this.setState({ hasMore: true, end: newEnd });
+        
+      }
+      this.setState({ isLoading: false });
+
+    }, 2000);
+    console.log(this.state, 'state after');
+  };
+
+  onScrollList = e => {
+    const { isLoading, hasMore } = this.state;
+    const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight;
+
+    if (scrollbottom && isLoading && !hasMore) {
+      this.handleLoad();
+      // this.props.fetchTop100(this.state.counter);
+      // this.setState({ counter: this.state.counter += 1 });
+      // this.props.addMovies(this.props.searchResults);
     }
   }
 
   render() {
-    console.log(this.props, 'this');
+    //console.log(this.props, 'this');
     const { fetchNowPlaying, fetchTop100, searchResults } = this.props;
+    const { top100Counter, nowPalyingCounter } = this.state;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
         <FeaturedMovie film={somefilm} />
         <StyledGrid >
           <StyledRow>
             <StyledCol xs={12}>
-              <Tabs onChange={id => (id === 0) ? fetchNowPlaying(2) : fetchTop100(7)}>
+              <Tabs onChange={id => (id === 0) ? fetchNowPlaying(nowPalyingCounter) : fetchTop100(top100Counter)}>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
-                    {searchResults.length > 0 && searchResults.map(item =>
+                    {searchResults.length > 0 && searchResults.map(item => {
+                      //console.log(item.id, 'item.id');
+                      return (
                       <Preview 
                         key={item.id}
                         title={item.title}
                         voteAverage={item.vote_average}
                         voteCount={item.vote_count}
-                        bg={`${BACKDROP_PATH + item.backdrop_path}`}
+                        bg={item.backdrop_path ? `${BACKDROP_PATH + item.backdrop_path}` : ''}
                         year={item.release_date} 
                         duration={'123'}
                         pg={item.adult ? "18+" : "12+"}
@@ -206,6 +239,7 @@ export class FrontPage extends Component {
                         description={item.overview} {...item}
                       />
                     )}
+                  )}
                   </PreviewStyled>
                 </TabPane>
 
@@ -233,15 +267,16 @@ export class FrontPage extends Component {
                 <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
               </Tabs>
             </StyledCol>
-            <StyledCol>
-                  {/* const { hasMore, isLoading, handleLoad } = this.props;}*/}
-              
-              {/*isLoading && <Preloader>Загрузка</Preloader>*/}
+            <StyledCol xs={12}>
+              {this.state.isLoading && 
+                <PreloaderWrapper hasMore={this.state.hasMore}>
+                  <Preloader>Загрузка</Preloader>
+                </PreloaderWrapper>
+              }
             </StyledCol>
           </StyledRow>
         </StyledGrid>
       </FrontPageStyled>
-
     );
   }
 }

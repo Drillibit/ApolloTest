@@ -2,7 +2,7 @@ import * as TYPES from './constants';
 
 export const setMovies = list => ({
   type: TYPES.SET_MOVIES,
-  payload: { list },
+  payload: { list }
 });
 
 export const addMovies = list => ({
