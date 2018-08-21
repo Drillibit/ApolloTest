@@ -9,9 +9,7 @@ const initState = {
   similar: [],
   searchResults: [],
   byId: {},
-  favourites: {
-    351286: true, 363088: true, 353081: true, 299536: true, 260513: true, 442249: true,
-  },
+  favourites: {},
 };
 
 const setMovies = (state, { list }) => ({
@@ -58,7 +56,6 @@ const setSimilarMovies = (state, { similar }) => ({
 const toggleFavourite = ({ favourites, ...restState }, { id }) => ({
   ...restState,
   favourites: { ...favourites, [id]: !favourites[id] }
-
 });
 
 const handlers = {

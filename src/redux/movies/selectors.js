@@ -27,3 +27,5 @@ export const getSimilar = state =>
   );
 
 export const getFavouriteMovies = list => Object.keys(list).filter(key => list[key]);
+
+export const isFavourite = (favourites, { id }) => favourites[id] || false;
