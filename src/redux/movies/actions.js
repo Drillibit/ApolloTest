@@ -20,6 +20,11 @@ export const fetchTop100 = page => ({
   payload: { page }
 });
 
+export const fetchByGenres = (genre, sort, page) => ({
+  type: TYPES.FETCH_BY_GENRES,
+  payload: { genre, sort, page }
+});
+
 export const searchMovies = req => ({
   type: TYPES.SEARCH_MOVIES,
   payload: req

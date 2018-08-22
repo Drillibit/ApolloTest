@@ -207,15 +207,16 @@ export class FrontPage extends Component {
   };
 
   render() {
-    //console.log(this.props, 'this');
+    console.log(this.props, 'props');
     //console.log(this.state, 'state');
-    const { fetchNowPlaying, fetchTop100, searchNowPlayingResults, filmsList } = this.props;
+    const { fetchNowPlaying, fetchTop100, searchNowPlayingResults, filmsList, fetchByGenres } = this.props;
     //console.log(filmsList.movies.filmsList, 'list')
     const { top100Counter, nowPlayingCounter, isLoading } = this.state;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
         <FeaturedMovie film={somefilm} />
-        <StyledGrid >
+        <StyledGrid>
+        <button onClick={() => fetchByGenres(14, 'popularity.asc' , 1)}>click</button>
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) 
