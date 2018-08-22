@@ -7,6 +7,7 @@ const initState = {
   byId: {},
   searchResults: [],
   filmsList: [],
+  movie: {}
 };
 
 const setMovies = (state, { list }) => ({
@@ -14,6 +15,12 @@ const setMovies = (state, { list }) => ({
   sorted: list.map(item => item.id),
   byId: list.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {}),
   filmsList: list,
+});
+
+const setOneMovie = (state, { movie }) => ({
+  ...state,
+  // random movie in next
+  movie
 });
 
 const addMovies = (state, { list }) => {
@@ -50,6 +57,7 @@ const handlers = {
   [TYPES.CLEAR_SEARCH]: clearSearch,
   [TYPES.CLEAR_ERROR]: clearError,
   [TYPES.SET_ERROR]: setError,
+  [TYPES.SET_ONE_MOVIE]: setOneMovie,
 };
 
 export const reducer = createReducer(initState, handlers);

@@ -10,6 +10,16 @@ export const addMovies = list => ({
   payload: { list }
 });
 
+export const setOneMovie = movie => ({
+  type: TYPES.SET_ONE_MOVIE,
+  payload: { movie }
+});
+
+export const fetchOneMovie = id => ({
+  type: TYPES.FETCH_ONE_MOVIE,
+  payload: { id }
+});
+
 export const fetchNowPlaying = page => ({
   type: TYPES.FETCH_NOW_PLAYING,
   payload: { page }
@@ -20,10 +30,11 @@ export const fetchTop100 = page => ({
   payload: { page }
 });
 
-export const fetchByGenres = (genre, sort, page) => ({
+export const fetchByGenres = (page, genre) => ({
   type: TYPES.FETCH_BY_GENRES,
-  payload: { genre, sort, page }
+  payload: { page, genre }
 });
+
 
 export const searchMovies = req => ({
   type: TYPES.SEARCH_MOVIES,

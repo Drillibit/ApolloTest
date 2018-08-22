@@ -152,6 +152,7 @@ export class FrontPage extends Component {
 
   componentDidMount() {
     this.props.fetchNowPlaying();
+    this.props.fetchOneMovie(33);
   }
 
   randomFilm = (min, max) => {
@@ -216,7 +217,7 @@ export class FrontPage extends Component {
       <FrontPageStyled onScroll={this.onScrollList}>
         <FeaturedMovie film={somefilm} />
         <StyledGrid>
-        <button onClick={() => fetchByGenres(14, 'popularity.asc' , 1)}>click</button>
+        <button onClick={() => this.props.fetchOneMovie(33)}>click</button>
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) 
@@ -264,7 +265,7 @@ export class FrontPage extends Component {
                 </TabPane>
 
                 <TabPane tabName={<Filter list={list} onChange={id => {
-                  //console.log(id, 'id');
+                  // console.log(id, 'id');
                   return 0} }/>} />
                 <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
               </Tabs>
