@@ -94,10 +94,9 @@ export const FeaturedMovie = ({ film, onClick }) => (
           <StyledCol xs={12}>
             <StyledLargeText>СЕЙЧАС В КИНО</StyledLargeText>
             <H1>{film.title}</H1>
-            <Genres>
-              {film.genres.map(genre =>
-                <span key={genre.id}>{genre.name}&nbsp;</span>
-              )}
+            <Genres>{film.genres && film.genres.map(genre =>
+              <span key={genre.id}>{genre.name}&nbsp;</span>
+            )}
             </Genres>
             <Timing>{film.runtime} мин.</Timing>
           </StyledCol>

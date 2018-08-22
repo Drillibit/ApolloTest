@@ -160,7 +160,7 @@ export class Preview extends PureComponent {
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    genre: PropTypes.string,
+    genre: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     cast: PropTypes.string
   };
 
