@@ -6,22 +6,20 @@ const initState = {
   sorted: [],
   byId: {},
   searchResults: [],
-  searchNowPlaying: [],
-  searchTop100: []
+  filmsList: [],
 };
 
 const setMovies = (state, { list }) => ({
   ...state,
   sorted: list.map(item => item.id),
   byId: list.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {}),
-  byList: list,
-  searchNowPlaying: list
+  filmsList: list,
 });
 
 const addMovies = (state, { list }) => {
   return {
     ...state,
-    searchNowPlaying: state.searchNowPlaying.concat(list)
+    filmsList: state.filmsList.concat(list)
   };
 };
 

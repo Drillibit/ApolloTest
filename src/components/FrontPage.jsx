@@ -136,7 +136,7 @@ const FrontPageStyled = styled.div`
 `;
 
 const PreloaderWrapper = styled.div`
-  height: ${({ hasMore }) => (hasMore ? '170px' : '0')};
+  height: 170px;
 `;
 
 const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
@@ -145,6 +145,7 @@ export class FrontPage extends Component {
   state = {
     nowPlayingCounter: 1,
     top100Counter: 1,
+    tabId: 0,
     hasMore: true,
     isLoading: false,
   };
@@ -169,38 +170,61 @@ export class FrontPage extends Component {
   }
 
   handleLoad = () => {
-    const { fetchNowPlaying } = this.props;
+    const { fetchNowPlaying, fetchTop100 } = this.props;
+    const { tabId, nowPlayingCounter, top100Counter } = this.state;
     this.setState({ isLoading: true });
-    clearTimeout(this.timeOut);
-    this.timeOut = setTimeout(() => {
-      if (false) { //есть ли ещё фильмы на сервере
-        
-        this.setState({ hasMore: false, nowPlayingCounter: a });
+    if (false) { // есть ли ещё фильмы на сервере
+      this.setState({ hasMore: false, nowPlayingCounter: a });
+    } else {
+
+      if (tabId) {
+        let counter = this.state.top100Counter += 1;
+        fetchTop100(counter);
+        this.setState({ hasMore: true, top100Counter: counter });
       } else {
-        const a = this.state.nowPlayingCounter + 1;
-        fetchNowPlaying(a);
-        this.setState({ hasMore: true, nowPlayingCounter: a });
+        let counter = this.state.nowPlayingCounter += 1;
+        fetchNowPlaying(counter);
+        this.setState({ hasMore: true, nowPlayingCounter: counter });
       }
-      this.setState({ isLoading: false });
-    }, 2000)
+
+    }
+    this.setState({ isLoading: false });
+    // if (tabId) {
+    //   this.setState({ nowPlayingCounter: nowPlayingCounter += 1});
+    //   fetchNowPlaying(nowPlayingCounter);
+    //   this.setState({ hasMore: true });
+    //   } else {
+    //     this.setState({ top100Counter: top100Counter += 1});
+    //     fetchTop100(top100Counter);
+    //     this.setState({ hasMore: true });
+    //   }
+      
+    // const a = nowPlayingCounter + 1;
+    // const b = top100Counter + 1;
+    // (tabId === 0) ? fetchNowPlaying(a) : fetchTop100(b);
+    // this.setState({ hasMore: true, nowPlayingCounter: a, top100Counter: b });
+    // this.setState({ isLoading: false });
   };
 
   render() {
-    // console.log(this.props, 'this');
-    const { fetchNowPlaying, fetchTop100, searchNowPlayingResults } = this.props;
-    const { top100Counter, nowPlayingCounter } = this.state;
+    //console.log(this.props, 'this');
+    //console.log(this.state, 'state');
+    const { fetchNowPlaying, fetchTop100, searchNowPlayingResults, filmsList } = this.props;
+    //console.log(filmsList.movies.filmsList, 'list')
+    const { top100Counter, nowPlayingCounter, isLoading } = this.state;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
         <FeaturedMovie film={somefilm} />
         <StyledGrid >
           <StyledRow>
             <StyledCol xs={12}>
-              <Tabs onChange={id => (id === 0) ? fetchNowPlaying() : fetchTop100()}>
+              <Tabs onChange={id => (id === 0) 
+                ? (fetchNowPlaying(), this.setState({ tabId: 0, top100Counter: 1 }))
+                : (fetchTop100(), this.setState({ tabId: 1, nowPlayingCounter: 1 }))
+              }>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
-                    {searchNowPlayingResults.length > 0 && searchNowPlayingResults.map(item => {
-                      //console.log(item.id, 'item.id');
-                      return (
+                    {filmsList.movies.filmsList.length > 0 && filmsList.movies.filmsList.map(item => (
                       <Preview 
                         key={item.id}
                         title={item.title}
@@ -213,14 +237,14 @@ export class FrontPage extends Component {
                         genre={item.genre_ids}
                         description={item.overview} {...item}
                       />
-                    )}
+                    )
                   )}
                   </PreviewStyled>
                 </TabPane>
 
                 <TabPane tabName="Топ 100">
                   <PreviewStyled>
-                    {searchNowPlayingResults.length > 0 && searchNowPlayingResults.map(item =>
+                    {filmsList.movies.filmsList.length > 0 && filmsList.movies.filmsList.map(item =>
                       <Preview
                         key={item.id}
                         title={item.title}
@@ -238,16 +262,16 @@ export class FrontPage extends Component {
                   </PreviewStyled>
                 </TabPane>
 
-                <TabPane tabName={<Filter list={list} />} />
+                <TabPane tabName={<Filter list={list} onChange={id => {
+                  //console.log(id, 'id');
+                  return 0} }/>} />
                 <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
               </Tabs>
             </StyledCol>
             <StyledCol xs={12}>
-              {this.state.isLoading && 
-                <PreloaderWrapper hasMore={this.state.hasMore}>
-                  <Preloader>Загрузка</Preloader>
-                </PreloaderWrapper>
-              }
+              <PreloaderWrapper hasMore={this.state.hasMore}>
+                {isLoading && <Preloader>Загрузка</Preloader>}
+              </PreloaderWrapper>
             </StyledCol>
           </StyledRow>
         </StyledGrid>

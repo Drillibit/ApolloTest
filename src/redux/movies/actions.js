@@ -17,7 +17,7 @@ export const fetchNowPlaying = page => ({
 
 export const fetchTop100 = page => ({
   type: TYPES.FETCH_TOP_100,
-  payload: page
+  payload: { page }
 });
 
 export const searchMovies = req => ({

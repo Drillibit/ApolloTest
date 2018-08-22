@@ -18,7 +18,7 @@ function* fetchNowPlaying({ payload }) {
 
 function* fetchTop100({ payload }) {
   const { page } = payload;
-  const { data } = yield call(requestTop100, payload);
+  const { data } = yield call(requestTop100, page);
   if (data && data.results) {
     if (page) {
       yield put(addMovies(data.results));

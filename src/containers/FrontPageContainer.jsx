@@ -7,9 +7,7 @@ import * as actions from '../redux/movies/actions';
 import { FrontPage } from '../components/FrontPage';
 
 const mapStateToProps = state => ({
-  searchNowPlayingResults: getSearchNowPlaying(state),
-  searchTop100Results: getSearchTop100Results(state),
-  genres: state.genres
+  filmsList: state
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
