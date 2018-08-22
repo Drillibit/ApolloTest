@@ -152,15 +152,7 @@ export class FrontPage extends Component {
 
   componentDidMount() {
     this.props.fetchNowPlaying();
-    this.props.fetchOneMovie(33);
   }
-
-  randomFilm = (min, max) => {
-    let rand =  min + Math.random() * (max + 1 - min);
-    rand = Math.floor(rand);
-    console.log(rand, 'rand');
-    return rand;
-  };
 
   onScrollList = e => {
     const { hasMore, isLoading } = this.state;
@@ -209,13 +201,11 @@ export class FrontPage extends Component {
 
   render() {
     console.log(this.props, 'props');
-    //console.log(this.state, 'state');
     const { fetchNowPlaying, fetchTop100, searchNowPlayingResults, filmsList, fetchByGenres } = this.props;
-    //console.log(filmsList.movies.filmsList, 'list')
     const { top100Counter, nowPlayingCounter, isLoading } = this.state;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
-        <FeaturedMovie film={somefilm} />
+        <FeaturedMovie film={filmsList.movies.movie} />
         <StyledGrid>
         <button onClick={() => this.props.fetchOneMovie(33)}>click</button>
           <StyledRow>
