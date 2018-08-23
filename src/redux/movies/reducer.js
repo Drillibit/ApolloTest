@@ -4,10 +4,12 @@ import * as TYPES from './constants';
 const initState = {
   error: '',
   sorted: [],
-  byId: {},
+  movie: {},
+  video: '',
+  similar: [],
   searchResults: [],
   filmsList: [],
-  movie: {},
+  byId: {},
   favourites: {
     351286: true, 363088: true, 353081: true, 299536: true, 260513: true, 442249: true,
   },
@@ -53,9 +55,25 @@ const clearSearch = state => ({
   searchResults: [],
 });
 
+const setMovieById = (state, { movie }) => ({
+  ...state,
+  movie
+});
+
+const setMovieVideo = (state, { video }) => ({
+  ...state,
+  video
+});
+
+const setSimilarMovies = (state, { similar }) => ({
+  ...state,
+  similar
+});
+
 const toggleFavourite = ({ favourites, ...restState }, { id }) => ({
   ...restState,
   favourites: { ...favourites, [id]: !favourites[id] }
+
 });
 
 const handlers = {
@@ -63,6 +81,9 @@ const handlers = {
   [TYPES.ADD_MOVIES]: addMovies,
   [TYPES.SET_SEARCH_RESULTS]: setSearchResults,
   [TYPES.CLEAR_SEARCH]: clearSearch,
+  [TYPES.SET_MOVIE_BY_ID]: setMovieById,
+  [TYPES.SET_MOVIE_VIDEO]: setMovieVideo,
+  [TYPES.SET_SIMILAR_MOVIES]: setSimilarMovies,
   [TYPES.CLEAR_ERROR]: clearError,
   [TYPES.SET_ERROR]: setError,
   [TYPES.SET_ONE_MOVIE]: setOneMovie,

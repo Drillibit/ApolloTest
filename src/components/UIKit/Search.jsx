@@ -100,8 +100,9 @@ export class Search extends PureComponent {
 
   onClose = () => {
     const { clearSearch } = this.props;
-    if (this.state.isOpen) {
+    if (this.state.isOpen === true) {
       clearSearch();
+      this.props.onChange({ target: { value: '' } });
       this.setState({
         isOpen: false
       });
@@ -117,7 +118,7 @@ export class Search extends PureComponent {
 
   render() {
     const {
-      onChange, value, result
+      onChange, value, result,
     } = this.props;
 
     const { isOpen } = this.state;

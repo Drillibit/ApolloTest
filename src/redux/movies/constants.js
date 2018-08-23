@@ -22,4 +22,12 @@ export const FETCH_ONE_MOVIE = 'FETCH_ONE_MOVIE';
 
 export const SET_ONE_MOVIE = 'SET_ONE_MOVIE';
 
+export const SEARCH_BY_ID = 'SEARCH_BY_ID';
+
+export const SET_MOVIE_BY_ID = 'SET_MOVIE_BY_ID';
+
+export const SET_MOVIE_VIDEO = 'SET_MOVIE_VIDEO';
+
+export const SET_SIMILAR_MOVIES = 'SET_SIMILAR_MOVIES';
+
 export const TOGGLE_FAVOURITE = 'TOGGLE_FAVOURITE';

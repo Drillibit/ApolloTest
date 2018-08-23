@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import PropTypes, { func } from 'prop-types';
 
+import { Icon } from './Icon';
 import { H3, SmallText } from './Typography';
 import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
@@ -56,9 +58,8 @@ const StyledHeader = H3.extend`
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 16px 12px 2px 12px;
-  transition: transform ease .3s;
-  ${({ open }) => (open ? StyledHeaderClose : '')}
-  display: ${setTimeout(() => 'none', 1000)};
+  transition: transform ease 0.3s;
+  ${({ open }) => (open ? StyledHeaderClose : '')};
 `;
 
 const BgAnimation = keyframes`
@@ -259,12 +260,19 @@ export class Preview extends PureComponent {
             <ButtonContainer>
               <FavouriteButton
                 btnType="transparent-dark"
+                onClick={this.handleDisplay}
+                btnSize="small"
                 isFavourite={isFavourite}
                 toggleFavourite={() => toggleFavourite(id)}
-              />
-              <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
-                Подробнее
-              </StyledCustomBtn>
+              >
+                <Icon icon="heart" />
+                Избранное
+              </FavouriteButton>
+              <Link to={`/movie/${id}`}>
+                <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
+                  Подробнее
+                </StyledCustomBtn>
+              </Link>
             </ButtonContainer>
           </StyledInfoContainer>
         </StyledPreviewContainer>

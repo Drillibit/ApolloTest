@@ -9,6 +9,7 @@ import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-
 
 import { store, history } from './redux/store';
 import { Main } from './components/Main';
+
 import './components/helpers/injectGlobalStyles';
 
 export const Application = hot(module)(() => (

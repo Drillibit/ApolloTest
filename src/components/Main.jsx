@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router';
 
-import { Footer } from '$components/UIKit/Footer';
-import { SmallText } from '$components/UIKit/Typography';
+import { Content } from './Content';
 import { Header } from './Header';
 import { FrontPageContainer } from '../containers/FrontPageContainer';
 import { ConnectedFavourites } from '../containers/ConnectedFavourites';
+import { Footer } from './UIKit/Footer';
+import { SmallText } from './UIKit/Typography';
 
 const StyledMain = styled.div`
   display: flex;
@@ -21,9 +22,6 @@ const StyledContent = styled.div`
   height: calc(100vh - 120px);
 `;
 
-const Content = () => (
-  <StyledContent />
-);
 
 export const Main = () => (
   <StyledMain>
