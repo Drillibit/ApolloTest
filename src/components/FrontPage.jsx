@@ -14,25 +14,7 @@ import { CONFIG } from '../services/api';
 
 /* eslint-disable */
 
-const list = [
-  { id: 356, name: 'Мультфильм' },
-  { id: 357, name: 'Комедия' },
-  { id: 358, name: 'Боевик' },
-  { id: 359, name: 'Приключения' },
-  { id: 360, name: 'Фантастика' },
-  { id: 361, name: 'Мелодрама' },
-  { id: 362, name: 'Ужасы' },
-  { id: 363, name: 'Детектив' },
-  { id: 364, name: 'Спорт' },
-  { id: 365, name: 'Документальное' },
-  { id: 366, name: 'Триллер' },
-  { id: 367, name: 'Семейное кино' },
-  { id: 368, name: 'Драма' },
-  { id: 369, name: 'Арт-Хаус' },
-];
-
 const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }];
-
 
 const PreviewStyled = styled.div`
   margin: auto -20px;
@@ -65,8 +47,13 @@ export class FrontPage extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchNowPlaying();
-    //this.props.fetchOneMovie(this.randomFilm(this.props.filmsList.movies.sorted));
+     const { fetchNowPlaying, fetchGenres } = this.props;
+    // после загрузки страницы подтянем в наш store 
+    // 1. объект содержащий жанры с соответствующими им id
+    // 2. подгрузим список фильмов которые сейчас идут в кино это действие по умолчанию 
+    // поскольку пользователь при первом посещении страницы сразу попадает именно сюда
+    fetchNowPlaying();
+    fetchGenres();
   }
 
   // static getDerivedStateFromProps(nextProps) {
@@ -132,7 +119,7 @@ export class FrontPage extends Component {
   };
 
   render() {
-    // console.log(this.props, 'props');
+    console.log(this.props, 'props');
     const { fetchNowPlaying, fetchTop100, searchNowPlayingResults, filmsList, fetchByGenres } = this.props;
     const { top100Counter, nowPlayingCounter, isLoading } = this.state;
     return (
@@ -140,6 +127,7 @@ export class FrontPage extends Component {
         <FeaturedMovie film={filmsList.movies.movie} />
         <StyledGrid>
         <button onClick={() => this.props.fetchOneMovie(this.randomFilm(this.props.filmsList.movies.sorted))}>click</button>
+        <button onClick={() => this.props.fetchGenres()}>genres</button>
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) 
@@ -158,7 +146,7 @@ export class FrontPage extends Component {
                         year={item.release_date} 
                         duration={'123'}
                         pg={item.adult ? "18+" : "12+"}
-                        genre={item.genre_ids}
+                        genre={this.props.filmsList.genres.byId.filter(genre => item.genre_ids === genre)}
                         description={item.overview} {...item}
                       />
                     )
@@ -186,7 +174,7 @@ export class FrontPage extends Component {
                   </PreviewStyled>
                 </TabPane>
 
-                <TabPane tabName={<Filter list={list} onChange={id => {
+                <TabPane tabName={<Filter list={[this.props.filmsList.genres.byId]} onChange={id => {
                   // console.log(id, 'id');
                   return 0} }/>} />
                 <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
