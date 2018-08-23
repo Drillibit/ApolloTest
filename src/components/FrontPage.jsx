@@ -146,7 +146,7 @@ export class FrontPage extends Component {
                         year={item.release_date} 
                         duration={'123'}
                         pg={item.adult ? "18+" : "12+"}
-                        genre={this.props.filmsList.genres.byId.filter(genre => item.genre_ids === genre)}
+                        genre={[this.props.filmsList.genres.byId].filter(genre => item.genre_ids == genre)}
                         description={item.overview} {...item}
                       />
                     )
