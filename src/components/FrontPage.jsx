@@ -47,7 +47,7 @@ export class FrontPage extends Component {
   };
 
   componentDidMount() {
-     const { fetchNowPlaying, fetchGenres } = this.props;
+    const { fetchNowPlaying, fetchGenres } = this.props;
     // после загрузки страницы подтянем в наш store 
     // 1. объект содержащий жанры с соответствующими им id
     // 2. подгрузим список фильмов которые сейчас идут в кино это действие по умолчанию 

@@ -4,8 +4,9 @@ import { Route, Switch } from 'react-router';
 
 import { Content } from './Content';
 import { Header } from './Header';
-import { FrontPageContainer } from '../containers/FrontPageContainer';
+import { MoviePageContainer } from '../containers/MoviePageContainer';
 import { ConnectedFavourites } from '../containers/ConnectedFavourites';
+import { FrontPageContainer } from '../containers/FrontPageContainer';
 import { Footer } from './UIKit/Footer';
 import { SmallText } from './UIKit/Typography';
 
@@ -22,15 +23,20 @@ const StyledContent = styled.div`
   height: calc(100vh - 120px);
 `;
 
+const Component = () => (
+  <StyledContent>
+    <FrontPageContainer />
+  </StyledContent>
+);
 
 export const Main = () => (
   <StyledMain>
     <Header />
-    
-    <StyledContent>
-      <FrontPageContainer />
-    </StyledContent>
-
+    <Switch>
+      <Route exact path="/" component={Component} />
+      <Route path="/movie/:id" component={MoviePageContainer} />
+      <Route path="/favourites" component={ConnectedFavourites} />
+    </Switch>
     <Footer>
       <SmallText>2018, Все права защищены</SmallText>
     </Footer>

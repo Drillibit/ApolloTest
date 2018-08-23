@@ -140,12 +140,14 @@ export const Rating = ({
 
 Rating.propTypes = {
   size: PropTypes.string,
-  voteCount: PropTypes.number.isRequired,
-  voteAverage: PropTypes.number.isRequired,
+  voteCount: PropTypes.number,
+  voteAverage: PropTypes.number,
   className: PropTypes.string
 };
 
 Rating.defaultProps = {
   size: 'md',
-  className: ''
+  className: '',
+  voteAverage: 0,
+  voteCount: 0
 };
