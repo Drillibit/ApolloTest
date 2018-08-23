@@ -1,5 +1,6 @@
 import React from 'react';
 import { func, objectOf, any } from 'prop-types';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { CONFIG } from '../../services/api';
@@ -104,7 +105,9 @@ export const FeaturedMovie = ({ film, onClick }) => (
         <StyledRow alignItems="center" margin="10px 0 40px 0">
           <StyledCol xs={12} md={6} padding="0">
             <WrapButtonBlock>
-              <ButtonStyledWrap btnType="primary" btnSize="big" onClick={onClick}>Подробнее</ButtonStyledWrap>
+              <Link to={`/movie/${film.id}`}>
+                <ButtonStyledWrap btnType="primary" btnSize="big" onClick={onClick}>Подробнее</ButtonStyledWrap>
+              </Link>
               <ButtonStyledWrap btnType="transparent-white" btnSize="small" onClick={onClick}><Icon icon="heart" />В избранное</ButtonStyledWrap>
             </WrapButtonBlock>
           </StyledCol>

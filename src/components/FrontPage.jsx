@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { object, objectOf } from 'prop-types';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // libs
@@ -125,6 +126,7 @@ export class FrontPage extends Component {
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
         <FeaturedMovie film={filmsList.movies.movie} />
+        <br />
         <StyledGrid>
         <button onClick={() => this.props.fetchOneMovie(this.randomFilm(this.props.filmsList.movies.sorted))}>click</button>
         <button onClick={() => this.props.fetchGenres()}>genres</button>
