@@ -6,14 +6,11 @@ const initState = {
   sorted: [],
   byId: {},
   searchResults: [],
-<<<<<<< HEAD
   filmsList: [],
   movie: {}
-=======
   favourites: {
     351286: true, 363088: true, 353081: true, 299536: true, 260513: true, 442249: true,
   },
->>>>>>> master
 };
 
 const setMovies = (state, { list }) => ({
@@ -68,11 +65,8 @@ const handlers = {
   [TYPES.CLEAR_SEARCH]: clearSearch,
   [TYPES.CLEAR_ERROR]: clearError,
   [TYPES.SET_ERROR]: setError,
-<<<<<<< HEAD
   [TYPES.SET_ONE_MOVIE]: setOneMovie,
-=======
   [TYPES.TOGGLE_FAVOURITE]: toggleFavourite,
->>>>>>> master
 };
 
 export const reducer = createReducer(initState, handlers);

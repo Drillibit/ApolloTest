@@ -16,12 +16,10 @@ export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 
-<<<<<<< HEAD
 export const FETCH_BY_GENRES = 'FETCH_BY_GENRES';
 
 export const FETCH_ONE_MOVIE = 'FETCH_ONE_MOVIE';
 
 export const SET_ONE_MOVIE = 'SET_ONE_MOVIE';
-=======
+
 export const TOGGLE_FAVOURITE = 'TOGGLE_FAVOURITE';
->>>>>>> master

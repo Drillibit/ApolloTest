@@ -161,15 +161,10 @@ export class Preview extends PureComponent {
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-<<<<<<< HEAD
     genre: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-    cast: PropTypes.string
-=======
-    genre: PropTypes.string,
     cast: PropTypes.string,
     isFavourite: PropTypes.bool,
     toggleFavourite: func,
->>>>>>> master
   };
 
   static defaultProps = {
