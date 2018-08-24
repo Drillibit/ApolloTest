@@ -35,7 +35,6 @@ const setMovies = (state, { list }) => ({
 
 const setOneMovie = (state, { movie }) => ({
   ...state,
-  // random movie in next
   movie
 });
 

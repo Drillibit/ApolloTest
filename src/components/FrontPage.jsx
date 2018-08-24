@@ -14,8 +14,6 @@ import { CONFIG } from '../services/api';
 
 /* eslint-disable */
 
-const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }];
-
 const PreviewStyled = styled.div`
   margin: auto -20px;
   display: flex;
@@ -37,6 +35,8 @@ const PreloaderWrapper = styled.div`
 
 const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
 
+const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }];
+
 export class FrontPage extends Component {
   state = {
     tabCounter: 1,
@@ -54,21 +54,10 @@ export class FrontPage extends Component {
     fetchNowPlaying();
     fetchGenres();
   }
-
-  // static getDerivedStateFromProps(nextProps) {
-  //   console.log(nextProps, 'next');
-  //   // console.log(prevState, 'prev');
-    
-  //   if (nextProps.filmsList.movies.filmsList.length !== 0 && nextProps.filmsList.movies.filmsList.movie != 0) {
-  //     const rand = Math.floor(Math.random() * nextProps.filmsList.movies.filmsList.length);
-  //     console.log(rand);
-  //       nextProps.fetchOneMovie(nextProps.filmsList.movies.filmsList[rand]);
-  //   }
-  // }
  
   randomFilm = arr => {
     const rand = Math.floor(Math.random() * arr.length);
-    console.log(rand);
+    // console.log(rand);
     return arr[rand];
   }
 
@@ -124,7 +113,6 @@ export class FrontPage extends Component {
           break
       }
 
-
       // if (tabId) {
       //   let counter = this.state.top100Counter += 1;
       //   fetchTop100(counter);
@@ -141,8 +129,8 @@ export class FrontPage extends Component {
 
   render() {
     //console.log(this.props, 'props');
-    console.log(this.props.store.pages, 'pages store');
-    console.log(this.state, 'state');
+    //console.log(this.props.store.pages, 'pages store');
+    //console.log(this.state, 'state');
     const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres } = this.props;
     const { isLoading } = this.state;
     return (
