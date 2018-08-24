@@ -101,8 +101,7 @@ export class Search extends PureComponent {
     this.textInput = React.createRef();
   }
 
-  onClose = (e) => {
-    console.log(e)
+  onClose = () => {
     const { clearSearch } = this.props;
     if (this.state.isOpen === true) {
       clearSearch();
@@ -133,9 +132,9 @@ export class Search extends PureComponent {
 
   handleKeyDown = (e) => {
     const { position } = this.state;
-    // if (position >= 0) {
-    //   e.preventDefault();
-    // }
+    if ([39, 40].indexOf(e.keyCode) > -1) {
+      e.preventDefault();
+    }
 
     if (this.state.isOpen) {
       if (e.keyCode === 38) {
