@@ -148,21 +148,34 @@ export class FrontPage extends Component {
               }>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
-                    {store.filmsList.length > 0 && store.filmsList.map(item => (
+                    {store.filmsList.length > 0 && store.filmsList.map(item => {
+                      let bg;
+
+                      if (item.backdrop_path) {
+                        bg = `${BACKDROP_PATH + item.backdrop_path}`;
+                      } else {
+                          if(item.poster_path) {
+                            bg = `${BACKDROP_PATH + item.poster_path}`
+                          } else {
+                            bg = '../assets/img/background.jpg';
+                          }
+                      }
+                      return (
                       <Preview 
                         key={item.id}
                         title={item.title}
                         voteAverage={item.vote_average}
                         voteCount={item.vote_count}
-                        bg={item.backdrop_path ? `${BACKDROP_PATH + item.backdrop_path}` : ''}
+                        bg={bg}
+                          // item.backdrop_path ? `${BACKDROP_PATH + item.backdrop_path}` : `${BACKDROP_PATH + item.poster_path}`}
                         year={item.release_date} 
                         duration={'123'}
                         pg={item.adult ? "18+" : "12+"}
                         genre={'1'/*[this.props.filmsList.genres.byId].filter(genre => item.genre_ids == genre)*/}
                         description={item.overview} {...item}
-                      />
-                    )
-                  )}
+                      />)})
+                    
+                  }
                   </PreviewStyled>
                 </TabPane>
 
