@@ -59,7 +59,7 @@ const StyledDetailsHeader = styled.span`
 
 const StyledPlayerWrapper = styled.div`
   display: flex;
-  height: 284px;
+  height: 296px;
 `;
 
 const StyledHeadersGroup = styled.div`
@@ -106,7 +106,6 @@ const StyledRightGroup = styled.div`
 const RatingStyled = styled(Rating)`
   position: relative;
   display: inline-flex;
-  margin: 10px 0 10px 0;
   padding: 10px;
   border-radius: 5px;
   border: solid 2px rgba(255, 255, 255, 0.2);
@@ -344,7 +343,7 @@ export class MoviePage extends PureComponent {
                   <StyledLargeText>Похожие</StyledLargeText>
                 </StyledDetailsHeader>
                 <StyledSimilar>
-                  {similar.length > 0 ? (
+                  {similar.length > 1 ? (
                     similar.map(movie => <Preview key={movie.id} {...movie} />)
                   ) : (
                     <StyledPreloader>
