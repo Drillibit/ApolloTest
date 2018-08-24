@@ -304,6 +304,12 @@ export class MoviePage extends PureComponent {
               <StyledCol xs={12} md={6}>
                 <StyledDetails>
                   <StyledDetailsHeader>
+                    <StyledLargeText>Год:</StyledLargeText>
+                  </StyledDetailsHeader>
+                  <StyledSmallInfo>{release_date.split('-')[0]}</StyledSmallInfo>
+                </StyledDetails>
+                <StyledDetails>
+                  <StyledDetailsHeader>
                     <StyledLargeText>Страна:</StyledLargeText>
                   </StyledDetailsHeader>
                   <StyledSmallInfo>
