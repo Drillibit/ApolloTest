@@ -11,6 +11,7 @@ export const api = axios.create({
   baseURL: `${CONFIG.BASE_URL}/${CONFIG.VERSION}`,
   timeout: 1000,
   params: {
-    api_key: CONFIG.KEY
+    api_key: CONFIG.KEY,
+    language: 'ru-RU'
   }
 });

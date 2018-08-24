@@ -70,6 +70,10 @@ const LiStyled = styled.li`
 
 const TmpStyled = styled(Link)` 
   text-decoration: none;
+  &:focus > li > span {
+    color: ${colors.purple};
+    border-bottom: ${colors.purple} 2px solid;
+  }
 `;
 
 const StyledText = styled.span`
@@ -88,9 +92,11 @@ export class Search extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      position: 0
     };
 
+    this.activeLink = React.createRef();
     this.textInput = React.createRef();
   }
 
@@ -109,6 +115,21 @@ export class Search extends PureComponent {
     }
   }
 
+  handleKeyDown = (e) => {
+    const { position } = this.state;
+    const { result } = this.props;
+    console.log(this.activeLink.current)
+    // if (e.keyCode === 38 && position > 0) {
+    //   this.setState(prevState => ({
+    //     position: prevState.position - 1
+    //   }));
+    // } else if (e.keyCode === 40 && position < result.length - 1) {
+    //   this.setState(prevState => ({
+    //     position: prevState.position + 1
+    //   }));
+    // }
+  }
+
   toggleOpen = () => {
     const { isOpen } = this.state;
     this.setState({
@@ -118,7 +139,7 @@ export class Search extends PureComponent {
 
   render() {
     const {
-      onChange, value, result,
+      onChange, value, result
     } = this.props;
 
     const { isOpen } = this.state;
@@ -135,12 +156,19 @@ export class Search extends PureComponent {
             placeholder={searchPhrase}
             onChange={onChange}
             value={value}
+            onKeyDown={this.handleKeyDown}
           />
           {(isOpen && result.length > 0) && (
             <UlStyled>
-              {result.map(({ name, id }) => (
-                <TmpStyled key={id} to={`/movie/${id}`}>
-                  <LiStyled><StyledText>{name}</StyledText></LiStyled>
+              {result.map(({ name, id }, index) => (
+                <TmpStyled
+                  id={index}
+                  key={id}
+                  to={`/movie/${id}`}
+                  innerRef={this.activeLink}
+                  onClick={this.onClose}
+                >
+                  <LiStyled><StyledText>{name} {index}</StyledText></LiStyled>
                 </TmpStyled>))}
             </UlStyled>)
           }
