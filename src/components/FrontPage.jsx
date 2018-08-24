@@ -150,7 +150,6 @@ export class FrontPage extends Component {
                   <PreviewStyled>
                     {store.filmsList.length > 0 && store.filmsList.map(item => {
                       let bg;
-
                       if (item.backdrop_path) {
                         bg = `${BACKDROP_PATH + item.backdrop_path}`;
                       } else {
