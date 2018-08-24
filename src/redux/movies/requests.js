@@ -1,6 +1,6 @@
 import { api } from '../../services/api';
 
-export const requestNowPlayingMovies = page => {
+export const requestNowPlayingMovies = (page) => {
   try {
     return api.get(`movie/now_playing?page=${page}`);
   } catch (e) {

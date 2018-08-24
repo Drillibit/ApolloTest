@@ -28,7 +28,7 @@ function* fetchNowPlaying({ payload }) {
   const { data } = yield call(requestNowPlayingMovies, page);
   if (data && data.results) {
     if (page) {
-      yield put(addMovies(data.results));
+      yield put(addMovies(data.results, data.total_pages));
     } else {
       yield put(setMovies(data.results));
     }
@@ -40,7 +40,7 @@ function* fetchTop100({ payload }) {
   const { data } = yield call(requestTop100, page);
   if (data && data.results) {
     if (page) {
-      yield put(addMovies(data.results));
+      yield put(addMovies(data.results, data.total_pages));
     } else {
       yield put(setMovies(data.results));
     }
@@ -52,7 +52,7 @@ function* fetchByGenres({ payload }) {
   const { data } = yield call(requestByGenres, page, genre);
   if (data && data.results) {
     if (page) {
-      yield put(addMovies(data.results));
+      yield put(addMovies(data.results, data.total_pages));
     } else {
       yield put(setMovies(data.results));
     }

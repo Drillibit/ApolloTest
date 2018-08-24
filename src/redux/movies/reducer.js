@@ -13,7 +13,18 @@ const initState = {
   favourites: {
     351286: true, 363088: true, 353081: true, 299536: true, 260513: true, 442249: true,
   },
+  pages: 0
 };
+
+/**
+ * pages - это сколько фильмов содержится на сервере
+ * 1 page запрос == 20 фильмам (2 - 40, 3 - 60 и т.д)
+ * по умолчанию сделаем 1
+ * далее мы будет использовать это значение в компоненте для того
+ * чтобы понять что больше фильмов на сервере нет и нам необходимо
+ * прекратить отправлять запросы и соответственно отображать фильмы
+ * в компоненте
+ */
 
 const setMovies = (state, { list }) => ({
   ...state,
@@ -28,12 +39,11 @@ const setOneMovie = (state, { movie }) => ({
   movie
 });
 
-const addMovies = (state, { list }) => {
-  return {
-    ...state,
-    filmsList: state.filmsList.concat(list)
-  };
-};
+const addMovies = (state, { list, pages }) => ({
+  ...state,
+  filmsList: state.filmsList.concat(list),
+  pages
+});
 
 const setSearchResults = (state, { searchResults }) => ({
   ...state,

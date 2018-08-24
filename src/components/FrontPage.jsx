@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { object, objectOf } from 'prop-types';
-import { Link } from 'react-router-dom';
+// import { object, objectOf } from 'prop-types';
 import styled from 'styled-components';
 
 // libs
@@ -40,8 +39,7 @@ const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
 
 export class FrontPage extends Component {
   state = {
-    nowPlayingCounter: 1,
-    top100Counter: 1,
+    tabCounter: 1,
     tabId: 0,
     hasMore: true,
     isLoading: false,
@@ -77,68 +75,92 @@ export class FrontPage extends Component {
   onScrollList = e => {
     const { hasMore, isLoading } = this.state;
     const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
+    /**
+     * если пользователь пролистал до самого низа страницы и
+     * есть ещё неподгруженные фильмы 
+     */
     if (scrollbottom && hasMore && !isLoading) {
       this.handleLoad();
     }
   }
 
   handleLoad = () => {
-    const { fetchNowPlaying, fetchTop100 } = this.props;
-    const { tabId, nowPlayingCounter, top100Counter } = this.state;
+    const { tabId, tabCounter } = this.state;
+    const { fetchNowPlaying, fetchTop100, store } = this.props;
     this.setState({ isLoading: true });
-    if (false) { // есть ли ещё фильмы на сервере
-      this.setState({ hasMore: false, nowPlayingCounter: a });
+    /**
+     * если пользователь долистал до конца и зачхоет переключиться на другую вкладку
+     * метод перестает работать потому что hasMore: false, и нигде в коде это значение 
+     * не перебиватеся на true
+     */
+    if (store.pages === tabCounter) {
+      this.setState({ hasMore: false, tabCounter: 1 });
     } else {
-
-      if (tabId) {
-        let counter = this.state.top100Counter += 1;
-        fetchTop100(counter);
-        this.setState({ hasMore: true, top100Counter: counter });
-      } else {
-        let counter = this.state.nowPlayingCounter += 1;
-        fetchNowPlaying(counter);
-        this.setState({ hasMore: true, nowPlayingCounter: counter });
+      /**
+       * далее эту конструкцияю необходимо будет переделать
+       * можно сделать объект: 
+       * {
+       *    0: { id:0, tab: top100, method: fetchTop100 },
+       *    1: { id:1, tab: nowPlaying,  },
+       *    2: { id:2, tab: Animation },
+       *    3: { id:3, tab: Films },
+       *    x: { ... },
+       *    n: { id:n, tab: '...'}
+       * }
+       * и обращаться switch
+       */
+      switch (tabId) {
+        case 0:
+          const nowCounter = this.state.tabCounter += 1;
+          fetchNowPlaying(nowCounter);
+          this.setState({ hasMore: true, tabCounter: nowCounter });
+          break;
+        case 1:
+          const topCounter = this.state.tabCounter += 1;
+          fetchTop100(topCounter);
+          this.setState({ hasMore: true, tabCounter: topCounter });
+          break;
+        default:
+          break
       }
+
+
+      // if (tabId) {
+      //   let counter = this.state.top100Counter += 1;
+      //   fetchTop100(counter);
+      //   this.setState({ hasMore: true, top100Counter: counter });
+      // } else {
+      //   let counter = this.state.nowPlayingCounter += 1;
+      //   fetchNowPlaying(counter);
+      //   this.setState({ hasMore: true, nowPlayingCounter: counter });
+      // }
 
     }
     this.setState({ isLoading: false });
-    // if (tabId) {
-    //   this.setState({ nowPlayingCounter: nowPlayingCounter += 1});
-    //   fetchNowPlaying(nowPlayingCounter);
-    //   this.setState({ hasMore: true });
-    //   } else {
-    //     this.setState({ top100Counter: top100Counter += 1});
-    //     fetchTop100(top100Counter);
-    //     this.setState({ hasMore: true });
-    //   }
-      
-    // const a = nowPlayingCounter + 1;
-    // const b = top100Counter + 1;
-    // (tabId === 0) ? fetchNowPlaying(a) : fetchTop100(b);
-    // this.setState({ hasMore: true, nowPlayingCounter: a, top100Counter: b });
-    // this.setState({ isLoading: false });
   };
 
   render() {
-    console.log(this.props, 'props');
-    const { fetchNowPlaying, fetchTop100, searchNowPlayingResults, filmsList, fetchByGenres } = this.props;
-    const { top100Counter, nowPlayingCounter, isLoading } = this.state;
+    //console.log(this.props, 'props');
+    console.log(this.props.store.pages, 'pages store');
+    console.log(this.state, 'state');
+    const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres } = this.props;
+    const { isLoading } = this.state;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
-        <FeaturedMovie film={filmsList.movies.movie} />
+        <FeaturedMovie film={store.movie} />
         <br />
         <StyledGrid>
-        <button onClick={() => this.props.fetchOneMovie(this.randomFilm(this.props.filmsList.movies.sorted))}>click</button>
-        <button onClick={() => this.props.fetchGenres()}>genres</button>
+        <button onClick={() => fetchOneMovie(this.randomFilm(store.sorted))}>click</button>
+        <button onClick={() => fetchGenres()}>genres</button>
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) 
-                ? (fetchNowPlaying(), this.setState({ tabId: 0, top100Counter: 1 }))
-                : (fetchTop100(), this.setState({ tabId: 1, nowPlayingCounter: 1 }))
+                ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1 }))
+                : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1 }))
               }>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
-                    {filmsList.movies.filmsList.length > 0 && filmsList.movies.filmsList.map(item => (
+                    {store.filmsList.length > 0 && store.filmsList.map(item => (
                       <Preview 
                         key={item.id}
                         title={item.title}
@@ -148,7 +170,7 @@ export class FrontPage extends Component {
                         year={item.release_date} 
                         duration={'123'}
                         pg={item.adult ? "18+" : "12+"}
-                        genre={[this.props.filmsList.genres.byId].filter(genre => item.genre_ids == genre)}
+                        genre={'1'/*[this.props.filmsList.genres.byId].filter(genre => item.genre_ids == genre)*/}
                         description={item.overview} {...item}
                       />
                     )
@@ -158,7 +180,7 @@ export class FrontPage extends Component {
 
                 <TabPane tabName="Топ 100">
                   <PreviewStyled>
-                    {filmsList.movies.filmsList.length > 0 && filmsList.movies.filmsList.map(item =>
+                    {store.filmsList.length > 0 && store.filmsList.map(item =>
                       <Preview
                         key={item.id}
                         title={item.title}
@@ -176,7 +198,7 @@ export class FrontPage extends Component {
                   </PreviewStyled>
                 </TabPane>
 
-                <TabPane tabName={<Filter list={[this.props.filmsList.genres.byId]} onChange={id => {
+                <TabPane tabName={<Filter onChange={id => {
                   // console.log(id, 'id');
                   return 0} }/>} />
                 <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />

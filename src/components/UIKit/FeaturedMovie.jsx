@@ -105,9 +105,11 @@ export const FeaturedMovie = ({ film, onClick }) => (
         <StyledRow alignItems="center" margin="10px 0 40px 0">
           <StyledCol xs={12} md={6} padding="0">
             <WrapButtonBlock>
+              {/* eslint-disable */}
               <Link to={`/movie/${film.id}`}>
                 <ButtonStyledWrap btnType="primary" btnSize="big" onClick={onClick}>Подробнее</ButtonStyledWrap>
               </Link>
+              {/* eslint-enable */}
               <ButtonStyledWrap btnType="transparent-white" btnSize="small" onClick={onClick}><Icon icon="heart" />В избранное</ButtonStyledWrap>
             </WrapButtonBlock>
           </StyledCol>

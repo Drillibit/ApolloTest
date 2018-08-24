@@ -5,9 +5,9 @@ export const setMovies = list => ({
   payload: { list }
 });
 
-export const addMovies = list => ({
+export const addMovies = (list, pages) => ({
   type: TYPES.ADD_MOVIES,
-  payload: { list }
+  payload: { list, pages }
 });
 
 export const setOneMovie = movie => ({

@@ -5,6 +5,8 @@ export const getMovieById = state => state.movies.movie;
 
 export const getVideo = state => state.movies.video;
 
+/* eslint-disable */
+
 export const getSimilar = state =>
   state.movies.similar.map(
     ({
@@ -26,10 +28,10 @@ export const getSimilar = state =>
     })
   );
 
+/* eslint-enable */
+
 export const getFavouriteMovies = list => Object.keys(list).filter(key => list[key]);
 
-export const getSearchResultById = state => state.movies.byId;
+export const getState = state => state.movies;
 
-export const getSearchNowPlaying = state => state.movies.searchNowPlaying;
-
-export const getSearchTop100Results = state => state.movies.searchTop100Results;
+export const getGenres = state => state;
