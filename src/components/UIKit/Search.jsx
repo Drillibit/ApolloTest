@@ -132,6 +132,10 @@ export class Search extends PureComponent {
 
   handleKeyDown = (e) => {
     const { position } = this.state;
+    if (!this.activeLink.current) {
+      return null;
+    }
+
     if ([39, 40].indexOf(e.keyCode) > -1) {
       e.preventDefault();
     }
@@ -149,6 +153,8 @@ export class Search extends PureComponent {
         this.setFocus(position + 1);
       }
     }
+
+    return false;
   }
 
   toggleOpen = () => {
