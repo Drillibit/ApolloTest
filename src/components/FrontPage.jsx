@@ -55,11 +55,11 @@ export class FrontPage extends Component {
     // fetchGenres();
   // }
  
-  randomFilm = arr => {
-    const rand = Math.floor(Math.random() * arr.length);
-    // console.log(rand);
-    return arr[rand];
-  }
+  // randomFilm = arr => {
+  //   const rand = Math.floor(Math.random() * arr.length);
+  //   // console.log(rand);
+  //   return arr[rand];
+  // }
 
   onScrollList = e => {
     const { hasMore, isLoading } = this.state;
@@ -77,55 +77,61 @@ export class FrontPage extends Component {
     const { tabId, tabCounter } = this.state;
     const { fetchNowPlaying, fetchTop100, store } = this.props;
     this.setState({ isLoading: true });
+    clearTimeout(this.timeOut);
+
     /**
      * если пользователь долистал до конца и зачхоет переключиться на другую вкладку
      * метод перестает работать потому что hasMore: false, и нигде в коде это значение 
      * не перебиватеся на true
      */
-    if (store.pages === tabCounter) {
-      this.setState({ hasMore: false, tabCounter: 1 });
-    } else {
-      /**
-       * далее эту конструкцияю необходимо будет переделать
-       * можно сделать объект: 
-       * {
-       *    0: { id:0, tab: top100, method: fetchTop100 },
-       *    1: { id:1, tab: nowPlaying,  },
-       *    2: { id:2, tab: Animation },
-       *    3: { id:3, tab: Films },
-       *    x: { ... },
-       *    n: { id:n, tab: '...'}
-       * }
-       * и обращаться switch
-       */
-      switch (tabId) {
-        case 0:
-          const nowCounter = this.state.tabCounter += 1;
-          fetchNowPlaying(nowCounter);
-          this.setState({ hasMore: true, tabCounter: nowCounter });
-          break;
-        case 1:
-          const topCounter = this.state.tabCounter += 1;
-          fetchTop100(topCounter);
-          this.setState({ hasMore: true, tabCounter: topCounter });
-          break;
-        default:
-          break
+
+    this.timeOut = setTimeout(()=> {
+      if (store.pages === tabCounter) {
+        this.setState({ hasMore: false, tabCounter: 1 });
+      } else {
+        /**
+         * далее эту конструкцияю необходимо будет переделать
+         * можно сделать объект: 
+         * {
+         *    0: { id:0, tab: top100, method: fetchTop100 },
+         *    1: { id:1, tab: nowPlaying,  },
+         *    2: { id:2, tab: Animation },
+         *    3: { id:3, tab: Films },
+         *    x: { ... },
+         *    n: { id:n, tab: '...'}
+         * }
+         * и обращаться switch
+         */
+        switch (tabId) {
+          case 0:
+            const nowCounter = this.state.tabCounter += 1;
+            fetchNowPlaying(nowCounter);
+            this.setState({ hasMore: true, tabCounter: nowCounter });
+            break;
+          case 1:
+            const topCounter = this.state.tabCounter += 1;
+            fetchTop100(topCounter);
+            this.setState({ hasMore: true, tabCounter: topCounter });
+            break;
+          default:
+            break
+        }
+
+        // if (tabId) {
+        //   let counter = this.state.top100Counter += 1;
+        //   fetchTop100(counter);
+        //   this.setState({ hasMore: true, top100Counter: counter });
+        // } else {
+        //   let counter = this.state.nowPlayingCounter += 1;
+        //   fetchNowPlaying(counter);
+        //   this.setState({ hasMore: true, nowPlayingCounter: counter });
+        // }
+
       }
+      this.setState({ isLoading: false });
+    }, 1000);
+  }
 
-      // if (tabId) {
-      //   let counter = this.state.top100Counter += 1;
-      //   fetchTop100(counter);
-      //   this.setState({ hasMore: true, top100Counter: counter });
-      // } else {
-      //   let counter = this.state.nowPlayingCounter += 1;
-      //   fetchNowPlaying(counter);
-      //   this.setState({ hasMore: true, nowPlayingCounter: counter });
-      // }
-
-    }
-    this.setState({ isLoading: false });
-  };
 
   render() {
     //console.log(this.props, 'props');
