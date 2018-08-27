@@ -13,7 +13,7 @@ import { rootSaga } from './rootSaga';
 const persistConfig = {
   key: 'root',
   storage,
-  whiteList: ['favourites'],
+  whitelist: ['genres'],
   stateReconciler: autoMergeLevel2
 };
 
@@ -35,5 +35,4 @@ export const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 
-export const PERSISTOR = persistStore(store);
-export const STORE = store;
+export const persistor = persistStore(store);

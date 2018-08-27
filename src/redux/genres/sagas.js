@@ -1,13 +1,18 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { take, put, call, select, takeLatest } from 'redux-saga/effects';
 
 import * as CONSTANTS from './constants';
 import { setGenres } from './actions';
 import { requestFetchGenres } from './requests';
+import { getGenres } from './selectors';
 
 function* fetchGenres() {
-  const { data } = yield call(requestFetchGenres);
-  if (data && data.genres) {
-    yield put(setGenres(data.genres));
+  yield take('persist/REHYDRATE');
+  const res = yield select(getGenres);
+  if (res[12] === undefined) {
+    const { data } = yield call(requestFetchGenres);
+    if (data && data.genres) {
+      yield put(setGenres(data.genres));
+    }
   }
 }
 
