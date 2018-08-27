@@ -7,14 +7,14 @@ import { faHeart, faChevronUp, faChevronDown, faChevronLeft, faChevronRight, faC
 import { faHeart as faHeartFill, faStar } from '@fortawesome/free-regular-svg-icons';
 import { faFacebookF, faGooglePlusG, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-import { store, persistor, history } from './redux/store';
+import { store, history } from './redux/store';
 import { Main } from './components/Main';
 
 
 import './components/helpers/injectGlobalStyles';
 
 export const Application = hot(module)(() => (
-  <Provider store={store} persistor={persistor}>
+  <Provider store={store}>
     <ConnectedRouter history={history}>
       <Main />
     </ConnectedRouter>
