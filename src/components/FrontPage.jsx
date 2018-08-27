@@ -45,15 +45,15 @@ export class FrontPage extends Component {
     isLoading: false,
   };
 
-  componentDidMount() {
-    const { fetchNowPlaying, fetchGenres } = this.props;
+  // componentDidMount() {
+    // const { fetchNowPlaying, fetchGenres } = this.props;
     // после загрузки страницы подтянем в наш store 
     // 1. объект содержащий жанры с соответствующими им id
     // 2. подгрузим список фильмов которые сейчас идут в кино это действие по умолчанию 
     // поскольку пользователь при первом посещении страницы сразу попадает именно сюда
-    fetchNowPlaying();
-    fetchGenres();
-  }
+    // fetchNowPlaying();
+    // fetchGenres();
+  // }
  
   randomFilm = arr => {
     const rand = Math.floor(Math.random() * arr.length);
@@ -138,8 +138,6 @@ export class FrontPage extends Component {
         <FeaturedMovie film={store.movie} />
         <br />
         <StyledGrid>
-        <button onClick={() => fetchOneMovie(this.randomFilm(store.sorted))}>click</button>
-        <button onClick={() => fetchGenres()}>genres</button>
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) 

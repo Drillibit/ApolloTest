@@ -26,15 +26,8 @@ import {
 
 export function* fetchTrandingMovie() {
   const { data } = yield call(requestTrandingMovies);
-<<<<<<< HEAD
   if (data && data.results) {
     const film = yield call(requestMovie, data.results[0].id);
-=======
-  //console.log(data, 'data');
-  if (data && data.results) {
-    const film = yield call(requestMovie, data.results[0].id);
-    //console.log(film.data, 'film');
->>>>>>> feature/init-feature-movie
     yield put(setOneMovie(film.data));
   }
 }
