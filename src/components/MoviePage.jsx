@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+
 import {
   func,
   shape,
@@ -59,6 +59,7 @@ const StyledDetailsHeader = styled.span`
 
 const StyledPlayerWrapper = styled.div`
   display: flex;
+  height: 296px;
 `;
 
 const StyledHeadersGroup = styled.div`
@@ -72,7 +73,7 @@ const StyledLeftGroup = styled.div`
   height: 638px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
 `;
 
 const StyledLink = styled.span`
@@ -92,7 +93,6 @@ const StyledQuoteContainer = styled.div`
 
 const StyledRatingWrapper = styled.div`
   display: flex;
-  margin-bottom: 32px;
   margin-left: 43px;
 `;
 
@@ -106,7 +106,6 @@ const StyledRightGroup = styled.div`
 const RatingStyled = styled(Rating)`
   position: relative;
   display: inline-flex;
-  margin: 10px 0 10px 0;
   padding: 10px;
   border-radius: 5px;
   border: solid 2px rgba(255, 255, 255, 0.2);
@@ -138,11 +137,12 @@ const StyledBgKeeper = styled.div`
   min-height: 638px;
   width: 100%;
   background-image: 
-        linear-gradient(325deg, transparent, #130621 81%), 
+        linear-gradient(325deg, transparent, #130621 120%), 
         linear-gradient(206deg, transparent, #130621 81%),
     url('${({ bg }) => `https://image.tmdb.org/t/p/original${bg}`}');
   background-size: 100% 100%,100% 100% , cover;
   background-repeat: no-repeat;
+  padding-bottom: 40px;
 `;
 
 const StyledContainer = styled.div`
@@ -281,7 +281,7 @@ export class MoviePage extends PureComponent {
                   {tagline && (
                     <StyledQuoteContainer>
                       <Quote>
-                        <H2>{tagline}</H2>
+                        <H2>{tagline.charAt(0) === '«' ? tagline.slice(1, -1) : tagline}</H2>
                       </Quote>
                     </StyledQuoteContainer>
                   )}
@@ -301,6 +301,12 @@ export class MoviePage extends PureComponent {
           <StyledGrid>
             <StyledCustomRow>
               <StyledCol xs={12} md={6}>
+                <StyledDetails>
+                  <StyledDetailsHeader>
+                    <StyledLargeText>Год:</StyledLargeText>
+                  </StyledDetailsHeader>
+                  <StyledSmallInfo>{release_date.split('-')[0]}</StyledSmallInfo>
+                </StyledDetails>
                 <StyledDetails>
                   <StyledDetailsHeader>
                     <StyledLargeText>Страна:</StyledLargeText>
@@ -337,7 +343,7 @@ export class MoviePage extends PureComponent {
                   <StyledLargeText>Похожие</StyledLargeText>
                 </StyledDetailsHeader>
                 <StyledSimilar>
-                  {similar.length > 0 ? (
+                  {similar.length > 1 ? (
                     similar.map(movie => <Preview key={movie.id} {...movie} />)
                   ) : (
                     <StyledPreloader>

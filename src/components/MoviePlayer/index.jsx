@@ -8,7 +8,6 @@ import { Button } from '../UIKit/Button';
 const VideoWrapper = styled.div`
   color: black;
   position: relative;
-  padding-bottom: 20rem;
   height: 0;
   width: 100%;
   border-radius: 2px;
