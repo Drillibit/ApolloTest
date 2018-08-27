@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router';
 
-import { Content } from './Content';
 import { Header } from './Header';
 import { MoviePageContainer } from '../containers/MoviePageContainer';
 import { ConnectedFavourites } from '../containers/ConnectedFavourites';
+import { FrontPageContainer } from '../containers/FrontPageContainer';
 import { Footer } from './UIKit/Footer';
 import { SmallText } from './UIKit/Typography';
 
@@ -15,11 +15,24 @@ const StyledMain = styled.div`
   min-height: 100vh;
 `;
 
+// Styles for sticky footer
+const StyledContent = styled.div`
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 120px);
+`;
+
+const Component = () => (
+  <StyledContent>
+    <FrontPageContainer />
+  </StyledContent>
+);
+
 export const Main = () => (
   <StyledMain>
     <Header />
     <Switch>
-      <Route exact path="/" component={Content} />
+      <Route exact path="/" component={Component} />
       <Route path="/movie/:id" component={MoviePageContainer} />
       <Route path="/favourites" component={ConnectedFavourites} />
     </Switch>

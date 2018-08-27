@@ -1,5 +1,6 @@
 import React from 'react';
-import { func, objectOf } from 'prop-types';
+import { func, objectOf, any } from 'prop-types';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { CONFIG } from '../../services/api';
@@ -94,10 +95,9 @@ export const FeaturedMovie = ({ film, onClick }) => (
           <StyledCol xs={12}>
             <StyledLargeText>СЕЙЧАС В КИНО</StyledLargeText>
             <H1>{film.title}</H1>
-            <Genres>
-              {film.genres.map(genre =>
-                <span key={genre.id}>{genre.name}&nbsp;</span>
-              )}
+            <Genres>{film.genres && film.genres.map(genre =>
+              <span key={genre.id}>{genre.name}&nbsp;</span>
+            )}
             </Genres>
             <Timing>{film.runtime} мин.</Timing>
           </StyledCol>
@@ -105,7 +105,11 @@ export const FeaturedMovie = ({ film, onClick }) => (
         <StyledRow alignItems="center" margin="10px 0 40px 0">
           <StyledCol xs={12} md={6} padding="0">
             <WrapButtonBlock>
-              <ButtonStyledWrap btnType="primary" btnSize="big" onClick={onClick}>Подробнее</ButtonStyledWrap>
+              {/* eslint-disable */}
+              <Link to={`/movie/${film.id}`}>
+                <ButtonStyledWrap btnType="primary" btnSize="big" onClick={onClick}>Подробнее</ButtonStyledWrap>
+              </Link>
+              {/* eslint-enable */}
               <ButtonStyledWrap btnType="transparent-white" btnSize="small" onClick={onClick}><Icon icon="heart" />В избранное</ButtonStyledWrap>
             </WrapButtonBlock>
           </StyledCol>
@@ -121,7 +125,7 @@ export const FeaturedMovie = ({ film, onClick }) => (
 );
 
 FeaturedMovie.propTypes = {
-  film: objectOf(),
+  film: objectOf(any),
   onClick: func
 };
 

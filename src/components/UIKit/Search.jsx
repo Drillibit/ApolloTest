@@ -70,6 +70,11 @@ const LiStyled = styled.li`
 
 const TmpStyled = styled(Link)` 
   text-decoration: none;
+  outline: none;
+  &:focus > li > span {
+    color: ${colors.purple};
+    border-bottom: ${colors.purple} 2px solid;
+  }
 `;
 
 const StyledText = styled.span`
@@ -88,14 +93,12 @@ export class Search extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      position: -1
     };
 
+    this.activeLink = React.createRef();
     this.textInput = React.createRef();
-  }
-
-  componentDidUpdate() {
-    this.textInput.current.focus();
   }
 
   onClose = () => {
@@ -104,13 +107,62 @@ export class Search extends PureComponent {
       clearSearch();
       this.props.onChange({ target: { value: '' } });
       this.setState({
-        isOpen: false
+        isOpen: false,
+        position: -1
       });
     }
   }
 
+  setFocus = (pos) => {
+    if (pos < 0) {
+      this.textInput.current.focus();
+    } else {
+      const result = this.activeLink.current.childNodes;
+      if (pos >= result.length) {
+        this.setState({
+          position: result.length
+        });
+        return null;
+      }
+      result[pos].focus();
+    }
+
+    return null;
+  };
+
+  handleKeyDown = (e) => {
+    const { position } = this.state;
+    if (!this.activeLink.current) {
+      return null;
+    }
+
+    if ([38, 40].indexOf(e.keyCode) > -1) {
+      e.preventDefault();
+    }
+
+    if (this.state.isOpen) {
+      if (e.keyCode === 38) {
+        this.setState(prevState => ({
+          position: (prevState.position - 1 < -1) ? -1 : prevState.position - 1
+        }));
+        this.setFocus((position - 1 < -1) ? -1 : position - 1);
+      } else if (e.keyCode === 40) {
+        this.setState(prevState => ({
+          position: prevState.position + 1
+        }));
+        this.setFocus(position + 1);
+      }
+    }
+
+    return false;
+  }
+
   toggleOpen = () => {
     const { isOpen } = this.state;
+    if (!isOpen === true) {
+      this.textInput.current.focus();
+    }
+
     this.setState({
       isOpen: !isOpen
     });
@@ -118,14 +170,14 @@ export class Search extends PureComponent {
 
   render() {
     const {
-      onChange, value, result,
+      onChange, value, result
     } = this.props;
 
     const { isOpen } = this.state;
 
     return (
       <RootClose onRootClose={this.onClose}>
-        <SearchStyled isOpen={isOpen}>
+        <SearchStyled isOpen={isOpen} onKeyDown={this.handleKeyDown}>
           <StyledIconButton onClick={this.toggleOpen}>
             <StyledIcon color={isOpen ? colors.grey500 : 'white'} />
           </StyledIconButton>
@@ -137,9 +189,14 @@ export class Search extends PureComponent {
             value={value}
           />
           {(isOpen && result.length > 0) && (
-            <UlStyled>
-              {result.map(({ name, id }) => (
-                <TmpStyled key={id} to={`/movie/${id}`}>
+            <UlStyled innerRef={this.activeLink}>
+              {result.slice(0, 10).map(({ name, id }, index) => (
+                <TmpStyled
+                  id={index}
+                  key={id}
+                  to={`/movie/${id}`}
+                  onClick={this.onClose}
+                >
                   <LiStyled><StyledText>{name}</StyledText></LiStyled>
                 </TmpStyled>))}
             </UlStyled>)

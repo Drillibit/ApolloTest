@@ -79,5 +79,9 @@ export const Preloader = ({ children }) => (
 );
 
 Preloader.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)])
+};
+
+Preloader.defaultProps = {
+  children: []
 };
