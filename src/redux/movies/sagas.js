@@ -1,4 +1,4 @@
-import { put, call, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, call, takeLatest, takeEvery, fork } from 'redux-saga/effects';
 
 import * as CONSTANTS from './constants';
 import {
@@ -10,7 +10,7 @@ import {
   setError,
   clearError,
   addMovies,
-  setOneMovie
+  setOneMovie,
 } from './actions';
 import {
   requestNowPlayingMovies,
@@ -20,8 +20,18 @@ import {
   requestMovie,
   requestMovieById,
   requestMovieVideos,
-  requestSimilarMovies
+  requestSimilarMovies,
+  requestTrandingMovies,
 } from './requests';
+
+export function* fetchTrandingMovie() {
+  const { data } = yield call(requestTrandingMovies);
+  if (data && data.results) {
+    const film = yield call(requestMovie, data.results[0].id);
+    yield put(setOneMovie(film.data));
+  }
+}
+
 
 function* fetchNowPlaying({ payload }) {
   const { page } = payload;
@@ -102,4 +112,5 @@ export function* sagas() {
   yield takeLatest(CONSTANTS.FETCH_ONE_MOVIE, fetchMovie);
   yield takeEvery(CONSTANTS.SEARCH_BY_ID, searchById);
   yield takeLatest(CONSTANTS.FETCH_NOW_PLAYING, fetchNowPlaying);
+  yield fork(fetchTrandingMovie);
 }
