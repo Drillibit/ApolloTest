@@ -1,4 +1,4 @@
-import { put, call, takeLatest, takeEvery, take } from 'redux-saga/effects';
+import { put, call, takeLatest, takeEvery, fork } from 'redux-saga/effects';
 
 import * as CONSTANTS from './constants';
 import {
@@ -24,7 +24,7 @@ import {
   requestTrandingMovies,
 } from './requests';
 
-function* fetchTrandingMovie() {
+export function* fetchTrandingMovie() {
   const { data } = yield call(requestTrandingMovies);
   //console.log(data, 'data');
   if (data && data.results) {
@@ -114,5 +114,5 @@ export function* sagas() {
   yield takeLatest(CONSTANTS.FETCH_ONE_MOVIE, fetchMovie);
   yield takeEvery(CONSTANTS.SEARCH_BY_ID, searchById);
   yield takeLatest(CONSTANTS.FETCH_NOW_PLAYING, fetchNowPlaying);
-  yield takeLatest(CONSTANTS.FETCH_TRANDING_MOVIES, fetchTrandingMovie);
+  yield fork(fetchTrandingMovie);
 }
