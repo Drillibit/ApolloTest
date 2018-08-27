@@ -13,7 +13,7 @@ const StyledDropdownContent = styled.div`
   padding-right: 24px;
   box-shadow: 0 12px 75px 2px rgba(0, 0, 0, 0.41), 0 2px 9px 1px rgba(0, 0, 0, 0.28);
   padding-left: 16px;
-  top: 23px;
+  top: 32px;
   right: 32px;
   position: absolute;
 `;

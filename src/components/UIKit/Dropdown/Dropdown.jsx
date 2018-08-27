@@ -15,6 +15,7 @@ const StyledDropdownContainer = styled.div`
   border-radius: 2px;
   background-color: #fff;
   position: relative;
+  z-index: 1;
 `;
 
 const StyledDropdownButton = styled.button`
@@ -25,6 +26,7 @@ const StyledDropdownButton = styled.button`
 `;
 
 const StyledButtonContainer = styled.div`
+  padding: 10px 23px;
   display: flex;
   height: 20px;
 `;
@@ -45,9 +47,9 @@ export class Dropdown extends PureComponent {
   };
 
   static defaultProps = {
-    handleChange: null,
+    handleChange: f => f,
     options: [],
-    activeOption: null
+    activeOption: {}
   };
 
   state = {
@@ -84,7 +86,7 @@ export class Dropdown extends PureComponent {
       <StyledDropdownContainer>
         <StyledButtonContainer>
           <StyledDropdownButton onClick={this.handleClick}>
-            {activeOption.value}
+            {activeOption.value || 'Не выбранно'}
             <StyledDropdownArrow icon="chevron-down" rotation={isOpen ? 180 : null} />
           </StyledDropdownButton>
         </StyledButtonContainer>
