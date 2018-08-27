@@ -136,7 +136,7 @@ export class Search extends PureComponent {
       return null;
     }
 
-    if ([39, 40].indexOf(e.keyCode) > -1) {
+    if ([38, 40].indexOf(e.keyCode) > -1) {
       e.preventDefault();
     }
 
@@ -190,7 +190,7 @@ export class Search extends PureComponent {
           />
           {(isOpen && result.length > 0) && (
             <UlStyled innerRef={this.activeLink}>
-              {result.map(({ name, id }, index) => (
+              {result.slice(0, 10).map(({ name, id }, index) => (
                 <TmpStyled
                   id={index}
                   key={id}
