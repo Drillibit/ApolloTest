@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router';
 
-import { Content } from './Content';
 import { Header } from './Header';
 import { MoviePageContainer } from '../containers/MoviePageContainer';
 import { ConnectedFavourites } from '../containers/ConnectedFavourites';
