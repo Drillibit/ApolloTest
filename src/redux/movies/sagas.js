@@ -10,7 +10,8 @@ import {
   setError,
   clearError,
   addMovies,
-  setOneMovie
+  setOneMovie,
+  fetchTrandingMovies,
 } from './actions';
 import {
   requestNowPlayingMovies,
@@ -20,8 +21,18 @@ import {
   requestMovie,
   requestMovieById,
   requestMovieVideos,
-  requestSimilarMovies
+  requestSimilarMovies,
+  requestTrandingMovies,
 } from './requests';
+
+function* fetchTrandingMovie() {
+  const { data } = yield call(requestTrandingMovies);
+  if (data && data.results) {
+    const film = yield call(requestMovie, data[0].id);
+    console.log(data, 'data');
+    yield put(fetchTrandingMovies(film)
+  }
+}
 
 function* fetchNowPlaying({ payload }) {
   const { page } = payload;
@@ -102,4 +113,5 @@ export function* sagas() {
   yield takeLatest(CONSTANTS.FETCH_ONE_MOVIE, fetchMovie);
   yield takeEvery(CONSTANTS.SEARCH_BY_ID, searchById);
   yield takeLatest(CONSTANTS.FETCH_NOW_PLAYING, fetchNowPlaying);
+  yield takeLatest(CONSTANTS.FETCH_TRANDING_MOVIES, fetchTrandingMovie);
 }

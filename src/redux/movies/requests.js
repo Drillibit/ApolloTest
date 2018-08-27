@@ -23,3 +23,5 @@ export const requestMovieById = id => api.get(`movie/${id}`);
 export const requestMovieVideos = id => api.get(`movie/${id}/videos`);
 
 export const requestSimilarMovies = id => api.get(`movie/${id}/similar`);
+
+export const requestTrandingMovies = () => api.get('trending/movie/week');

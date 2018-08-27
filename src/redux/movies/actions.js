@@ -15,6 +15,11 @@ export const setOneMovie = movie => ({
   payload: { movie }
 });
 
+export const fetchTrandingMovies = film => ({
+  type: TYPES.FETCH_TRANDING_MOVIES,
+  payload: { film }
+});
+
 export const fetchOneMovie = id => ({
   type: TYPES.FETCH_ONE_MOVIE,
   payload: { id }

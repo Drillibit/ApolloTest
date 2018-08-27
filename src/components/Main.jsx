@@ -6,6 +6,7 @@ import { Header } from './Header';
 import { MoviePageContainer } from '../containers/MoviePageContainer';
 import { ConnectedFavourites } from '../containers/ConnectedFavourites';
 import { FrontPageContainer } from '../containers/FrontPageContainer';
+import { TrandingContainer } from '../containers/TrandingContainer';
 import { Footer } from './UIKit/Footer';
 import { SmallText } from './UIKit/Typography';
 
@@ -28,6 +29,12 @@ const Component = () => (
   </StyledContent>
 );
 
+const TestTranding = () => (
+  <StyledContent>
+    <TrandingContainer />
+  </StyledContent>
+);
+
 export const Main = () => (
   <StyledMain>
     <Header />
@@ -35,6 +42,7 @@ export const Main = () => (
       <Route exact path="/" component={Component} />
       <Route path="/movie/:id" component={MoviePageContainer} />
       <Route path="/favourites" component={ConnectedFavourites} />
+      <Route path="/test" component={TestTranding} />
     </Switch>
     <Footer>
       <SmallText>2018, Все права защищены</SmallText>
