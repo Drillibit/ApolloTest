@@ -8,12 +8,15 @@ import {
   number,
   array,
   arrayOf,
-  object
+  object,
+  objectOf,
+  bool
 } from 'prop-types';
 
 import { colors } from './helpers/colors';
 import { H1, H2, SmallText, LargeText } from './UIKit/Typography';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
+import { isFavourite } from '../redux/movies/selectors';
 import { MoviePlayer } from './MoviePlayer';
 import { Button } from './UIKit/Button';
 import { Icon } from './UIKit/Icon';
@@ -21,6 +24,7 @@ import { Rating } from './UIKit/Rating';
 import { Quote } from './UIKit/Quote';
 import { Preloader } from '../components/UIKit/Preloader';
 import { Preview } from '../components/UIKit/Preview';
+import { FavouriteButton } from './FavouriteButton';
 
 const StyledCustomRow = styled(StyledRow)`
   margin-bottom: 50px;
@@ -155,6 +159,9 @@ export class MoviePage extends PureComponent {
     searchById: func.isRequired,
     video: string,
     similar: arrayOf(object),
+    toggleFavourite: func,
+    favourite: bool,
+    favourites: objectOf(bool),
     movie: shape({
       poster_path: string,
       genres: array,
@@ -164,7 +171,7 @@ export class MoviePage extends PureComponent {
       tagline: string,
       vote_average: number,
       vote_count: number,
-      original_title: string
+      original_title: string,
     })
   };
 
@@ -179,12 +186,16 @@ export class MoviePage extends PureComponent {
       vote_average: 0,
       vote_count: 0
     },
+    favourite: false,
+    favourites: {},
     video: '/',
-    similar: []
+    similar: [],
+    toggleFavourite: f => f
   };
+
   static getDerivedStateFromProps(props, state) {
     if (props.match.params.id !== state.path) {
-      return { playing: false, path: props.match.params.id }
+      return { playing: false, path: props.match.params.id };
     }
 
     return null;
@@ -231,10 +242,15 @@ export class MoviePage extends PureComponent {
       tagline,
       production_countries,
       runtime,
-      overview
+      overview,
     } = this.props.movie;
 
-    const { similar } = this.props;
+    const {
+      similar,
+      toggleFavourite,
+      favourite,
+      favourites
+    } = this.props;
 
     if (typeof this.props.movie.id !== 'number') {
       return (
@@ -258,9 +274,11 @@ export class MoviePage extends PureComponent {
                         Назад
                       </Button>
                     </StyledLink>
-                    <Button btnType="transparent-white" btnSize="small">
-                      <Icon icon="heart" />В избранное
-                    </Button>
+                    <FavouriteButton
+                      btnType="transparent-white"
+                      toggleFavourite={() => toggleFavourite(id)}
+                      isFavourite={favourite}
+                    />
                   </StyledBtnGroup>
                   <StyledHeadersGroup>
                     <H1>{title}</H1>
@@ -344,7 +362,17 @@ export class MoviePage extends PureComponent {
                 </StyledDetailsHeader>
                 <StyledSimilar>
                   {similar.length > 1 ? (
-                    similar.map(movie => <Preview key={movie.id} {...movie} />)
+                    similar.map((movie) => {
+                    const fav = isFavourite(favourites, movie);
+                     return (
+                       <Preview
+                         key={movie.id}
+                         toggleFavourite={() => toggleFavourite(movie.id)}
+                         isFavourite={fav}
+                         {...movie}
+                       />);
+                    })
+
                   ) : (
                     <StyledPreloader>
                       <Preloader>Загрузка</Preloader>

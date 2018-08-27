@@ -32,6 +32,9 @@ export const getSimilar = state =>
 
 export const getFavouriteMovies = list => Object.keys(list).filter(key => list[key]);
 
+
+export const isFavourite = (favourites, { id }) => favourites[id] || false;
+
 export const getState = state => state.movies;
 
 export const getGenres = state => state;

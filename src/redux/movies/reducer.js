@@ -82,7 +82,6 @@ const setSimilarMovies = (state, { similar }) => ({
 const toggleFavourite = ({ favourites, ...restState }, { id }) => ({
   ...restState,
   favourites: { ...favourites, [id]: !favourites[id] }
-
 });
 
 const handlers = {
