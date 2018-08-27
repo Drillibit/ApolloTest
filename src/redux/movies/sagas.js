@@ -1,4 +1,4 @@
-import { put, call, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, call, takeLatest, takeEvery, take } from 'redux-saga/effects';
 
 import * as CONSTANTS from './constants';
 import {
@@ -11,7 +11,6 @@ import {
   clearError,
   addMovies,
   setOneMovie,
-  fetchTrandingMovies,
 } from './actions';
 import {
   requestNowPlayingMovies,
@@ -27,12 +26,14 @@ import {
 
 function* fetchTrandingMovie() {
   const { data } = yield call(requestTrandingMovies);
+  //console.log(data, 'data');
   if (data && data.results) {
-    const film = yield call(requestMovie, data[0].id);
-    console.log(data, 'data');
-    yield put(fetchTrandingMovies(film)
+    const film = yield call(requestMovie, data.results[0].id);
+    //console.log(film.data, 'film');
+    yield put(setOneMovie(film.data));
   }
 }
+
 
 function* fetchNowPlaying({ payload }) {
   const { page } = payload;

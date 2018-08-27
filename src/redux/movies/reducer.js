@@ -44,10 +44,10 @@ const addMovies = (state, { list, pages }) => ({
   pages
 });
 
-const setTrandingMovie = (state, { movie }) => ({
-  ...state,
-  movie
-});
+// const setTrandingMovie = (state, { movie }) => ({
+//   ...state,
+//   movie
+// });
 
 const setSearchResults = (state, { searchResults }) => ({
   ...state,
@@ -102,7 +102,6 @@ const handlers = {
   [TYPES.SET_ERROR]: setError,
   [TYPES.SET_ONE_MOVIE]: setOneMovie,
   [TYPES.TOGGLE_FAVOURITE]: toggleFavourite,
-  [TYPES.FETCH_TRANDING_MOVIES]: setTrandingMovie,
 };
 
 export const reducer = createReducer(initState, handlers);
