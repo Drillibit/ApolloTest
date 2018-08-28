@@ -147,8 +147,8 @@ export class FrontPage extends Component {
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) 
-                ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1 }))
-                : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1 }))
+                ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1, isLoading: false, hasMore: true }))
+                : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1, isLoading: false, hasMore: true }))
               }>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
