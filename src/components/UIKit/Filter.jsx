@@ -36,17 +36,17 @@ const StyledFilterButton = styled.button`
 `;
 
 const StyledFilterList = styled.div`
-  position: absolute;
-  top: 40px;
-  left: 0;
-  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
-  width: 392px;
-  height: 0;
-  height: ${({ isOpen }) => (isOpen ? '320px' : '0px')};
-  padding: 11px 23px;
-  flex-wrap: wrap;
-  flex-direction: column;
-  background-color: #fff;
+ position: absolute;
+ top: 40px;
+ left: 0;
+ display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+ width: 500px;  
+ height: 0;
+ height: ${({ isOpen }) => (isOpen ? '480px' : '0px') };
+ padding: 11px 23px;
+ flex-wrap: wrap;
+ flex-direction: column;
+ background-color: #fff;
 `;
 
 const StyledListButtonWrapper = styled.div`

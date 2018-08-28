@@ -131,7 +131,7 @@ export class FrontPage extends Component {
     //console.log(this.props, 'props');
     //console.log(this.props.store.pages, 'pages store');
     //console.log(this.state, 'state');
-    const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres } = this.props;
+    const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, genres } = this.props;
     const { isLoading } = this.state;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
@@ -198,9 +198,7 @@ export class FrontPage extends Component {
                   </PreviewStyled>
                 </TabPane>
 
-                <TabPane tabName={<Filter onChange={id => {
-                  // console.log(id, 'id');
-                  return 0} }/>} />
+                <TabPane tabName={<Filter list={Object.values(genres.byId)} />} />
                 <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
               </Tabs>
             </StyledCol>
