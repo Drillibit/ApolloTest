@@ -45,29 +45,9 @@ export class FrontPage extends Component {
     isLoading: false,
   };
 
-  // componentDidMount() {
-    // const { fetchNowPlaying, fetchGenres } = this.props;
-    // после загрузки страницы подтянем в наш store 
-    // 1. объект содержащий жанры с соответствующими им id
-    // 2. подгрузим список фильмов которые сейчас идут в кино это действие по умолчанию 
-    // поскольку пользователь при первом посещении страницы сразу попадает именно сюда
-    // fetchNowPlaying();
-    // fetchGenres();
-  // }
- 
-  // randomFilm = arr => {
-  //   const rand = Math.floor(Math.random() * arr.length);
-  //   // console.log(rand);
-  //   return arr[rand];
-  // }
-
   onScrollList = e => {
     const { hasMore, isLoading } = this.state;
     const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
-    /**
-     * если пользователь пролистал до самого низа страницы и
-     * есть ещё неподгруженные фильмы 
-     */
     if (scrollbottom && hasMore && !isLoading) {
       this.handleLoad();
     }
@@ -78,13 +58,6 @@ export class FrontPage extends Component {
     const { fetchNowPlaying, fetchTop100, store } = this.props;
     this.setState({ isLoading: true });
     clearTimeout(this.timeOut);
-
-    /**
-     * если пользователь долистал до конца и зачхоет переключиться на другую вкладку
-     * метод перестает работать потому что hasMore: false, и нигде в коде это значение 
-     * не перебиватеся на true
-     */
-
     this.timeOut = setTimeout(()=> {
       if (store.pages === tabCounter) {
         this.setState({ hasMore: false, tabCounter: 1 });
@@ -116,17 +89,6 @@ export class FrontPage extends Component {
           default:
             break
         }
-
-        // if (tabId) {
-        //   let counter = this.state.top100Counter += 1;
-        //   fetchTop100(counter);
-        //   this.setState({ hasMore: true, top100Counter: counter });
-        // } else {
-        //   let counter = this.state.nowPlayingCounter += 1;
-        //   fetchNowPlaying(counter);
-        //   this.setState({ hasMore: true, nowPlayingCounter: counter });
-        // }
-
       }
       this.setState({ isLoading: false });
     }, 1000);
@@ -134,9 +96,6 @@ export class FrontPage extends Component {
 
 
   render() {
-    //console.log(this.props, 'props');
-    //console.log(this.props.store.pages, 'pages store');
-    //console.log(this.state, 'state');
     const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres } = this.props;
     const { isLoading } = this.state;
     return (
