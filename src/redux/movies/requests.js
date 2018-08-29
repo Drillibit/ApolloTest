@@ -1,8 +1,11 @@
 import { api } from '../../services/api';
 
 export const requestNowPlayingMovies = (page, genre, sortBy) => {
+  const d = new Date();
+  d.setMonth(d.getMonth() - 1);
+  const date = d.toISOString().substring(0, 10);
   try {
-    return api.get(`movie/now_playing?page=${page}${sortBy ? `&sort_by=${sortBy}` : ''}${genre ? `&with_genres=${genre}` : ''}`);
+    return api.get(`discover/movie?page=${page}${sortBy ? `&sort_by=${sortBy}` : ''}&release_date.gte=${date}${genre ? `&with_genres=${genre}` : ''}`);
   } catch (e) {
     console.log(e);
   }
