@@ -24,3 +24,5 @@ export const requestSimilarMovies = id => api.get(`movie/${id}/similar`);
 
 export const requestTop100 = (page, genre, sortBy) =>
   api.get(`discover/movie?page=${page}&include_video=false&without_genres=99,10755&vote_count.gte=75&sort_by=${sortBy ? `${sortBy}` : 'vote_average.desc'}${genre ? `&with_genres=${genre}` : ''}`);
+
+export const requestTrandingMovies = () => api.get('trending/movie/week');

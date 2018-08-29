@@ -48,11 +48,6 @@ export class FrontPage extends Component {
     isLoading: false,
     activeOption: {},
   };
- 
-  randomFilm = arr => {
-    const rand = Math.floor(Math.random() * arr.length);
-    return arr[rand];
-  }
 
   onScrollList = e => {
     const { hasMore, isLoading } = this.state;
@@ -102,14 +97,13 @@ export class FrontPage extends Component {
 
   render() {
     const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, clearFilter, genres: { byId }, filters: { activeGenre },  } = this.props;
+
     const { isLoading } = this.state;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
         <FeaturedMovie film={store.movie} />
         <br />
         <StyledGrid>
-        <button onClick={() => fetchOneMovie(this.randomFilm(store.sorted))}>click</button>
-        <button onClick={() => fetchGenres()}>genres</button>
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) 
