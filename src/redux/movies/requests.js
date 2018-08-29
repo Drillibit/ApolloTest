@@ -1,8 +1,8 @@
 import { api } from '../../services/api';
 
-export const requestNowPlayingMovies = (page) => {
+export const requestNowPlayingMovies = (page, genre, sortBy) => {
   try {
-    return api.get(`movie/now_playing?page=${page}`);
+    return api.get(`movie/now_playing?page=${page}${sortBy ? `&sort_by=${sortBy}` : ''}${genre ? `&with_genres=${genre}` : ''}`);
   } catch (e) {
     console.log(e);
   }

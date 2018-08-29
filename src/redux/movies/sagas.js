@@ -23,11 +23,12 @@ import {
   requestSimilarMovies
 } from './requests';
 import { getFilters } from '../filters/selectors';
-import { ACTIVE_GENRE } from '../filters/constants';
+import { ACTIVE_GENRE, ACTIVE_SORT } from '../filters/constants';
 
 function* fetchNowPlaying({ payload }) {
   const { page } = payload;
-  const { data } = yield call(requestNowPlayingMovies, page);
+  const { activeGenre, activeSort } = yield select(getFilters);
+  const { data } = yield call(requestNowPlayingMovies, page, activeGenre, activeSort);
 
   if (data && data.results) {
     if (page) {
@@ -41,8 +42,7 @@ function* fetchNowPlaying({ payload }) {
 function* fetchTop100({ payload }) {
   const { page } = payload;
   const { activeGenre, activeSort } = yield select(getFilters);
-  const { data } = yield call(requestTop100, page, activeGenre);
-  console.log(activeGenre);
+  const { data } = yield call(requestTop100, page, activeGenre, activeSort);
   if (data && data.results) {
     if (page) {
       yield put(addMovies(data.results, data.total_pages));
@@ -101,6 +101,7 @@ function* searchById({ payload }) {
 }
 
 export function* sagas() {
+  yield takeLatest(ACTIVE_GENRE, fetchNowPlaying);
   yield takeLatest(ACTIVE_GENRE, fetchTop100);
   yield takeLatest(CONSTANTS.SEARCH_MOVIES, searchMovies);
   yield takeLatest(CONSTANTS.FETCH_TOP_100, fetchTop100);

@@ -44,12 +44,6 @@ export class FrontPage extends Component {
     hasMore: true,
     isLoading: false,
   };
-
-  componentDidMount() {
-    const { fetchNowPlaying, fetchGenres } = this.props;
-    fetchNowPlaying();
-    fetchGenres();
-  }
  
   randomFilm = arr => {
     const rand = Math.floor(Math.random() * arr.length);
