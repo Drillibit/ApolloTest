@@ -69,7 +69,7 @@ export class Dropdown extends PureComponent {
   };
 
   closeDropdown = (e) => {
-    const picked = parseInt(e.target.value, 10);
+    const picked = (parseInt(e.target.value, 10) - 1);
     if (picked >= 0) {
       this.props.handleChange(picked);
     }
@@ -86,7 +86,7 @@ export class Dropdown extends PureComponent {
       <StyledDropdownContainer>
         <StyledButtonContainer>
           <StyledDropdownButton onClick={this.handleClick}>
-            {activeOption.value || 'Не выбранно'}
+            {activeOption.name || 'Не выбранно'}
             <StyledDropdownArrow icon="chevron-down" rotation={isOpen ? 180 : null} />
           </StyledDropdownButton>
         </StyledButtonContainer>

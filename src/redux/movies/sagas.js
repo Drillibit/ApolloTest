@@ -101,6 +101,8 @@ function* searchById({ payload }) {
 }
 
 export function* sagas() {
+  yield takeLatest(ACTIVE_SORT, fetchNowPlaying);
+  yield takeLatest(ACTIVE_SORT, fetchTop100);
   yield takeLatest(ACTIVE_GENRE, fetchNowPlaying);
   yield takeLatest(ACTIVE_GENRE, fetchTop100);
   yield takeLatest(CONSTANTS.SEARCH_MOVIES, searchMovies);

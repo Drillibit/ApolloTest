@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { object, objectOf } from 'prop-types';
 import styled from 'styled-components';
 
 // libs
@@ -35,7 +34,11 @@ const PreloaderWrapper = styled.div`
 
 const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
 
-const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }];
+const optionsData = [
+  { id: 1, value: 'release_date.desc', name: 'По дате выхода' }, 
+  { id: 2, value: 'popularity.asc', name: 'По рейтингу' }, 
+  { id: 3, value: 'original_title.asc', name: 'По алфавиту' }
+];
 
 export class FrontPage extends Component {
   state = {
@@ -43,6 +46,7 @@ export class FrontPage extends Component {
     tabId: 0,
     hasMore: true,
     isLoading: false,
+    activeOption: {},
   };
  
   randomFilm = arr => {
@@ -84,14 +88,19 @@ export class FrontPage extends Component {
     this.setState({ isLoading: false });
   };
 
-  handelReq = e => {
-    this.props.activeGenre(e)
+  handelGenre = e => {
+    this.props.activeGenre(e);
+  }
+
+  handleSort = e => {
+    const optionsObj = Object.assign({}, optionsData);
+    this.props.activeSort(optionsObj[e].value);
+    this.setState({
+      activeOption: optionsObj[e]
+    });
   }
 
   render() {
-    //console.log(this.props, 'props');
-    //console.log(this.props.store.pages, 'pages store');
-    //console.log(this.state, 'state');
     const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, clearFilter, genres: { byId }, filters: { activeGenre },  } = this.props;
     const { isLoading } = this.state;
     return (
@@ -104,8 +113,8 @@ export class FrontPage extends Component {
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) 
-                ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1 }), clearFilter())
-                : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1 }), clearFilter())
+                ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1, activeOption: {} }), clearFilter())
+                : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1, activeOption: {} }), clearFilter())
               }>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
@@ -158,8 +167,8 @@ export class FrontPage extends Component {
                   </PreviewStyled>
                 </TabPane>
 
-                <TabPane tabName={<Filter activeGenre={activeGenre > 0 ? byId[activeGenre].name : 'Жанр'} onChange={this.handelReq} list={Object.values(byId)} />} />
-                <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
+                <TabPane tabName={<Filter activeGenre={byId[activeGenre]} onChange={this.handelGenre} list={Object.values(byId)} />} />
+                <TabPane tabName={<Dropdown activeOption={this.state.activeOption} handleChange={this.handleSort} options={optionsData} />} marginLeft="auto" />
               </Tabs>
             </StyledCol>
             <StyledCol xs={12}>
