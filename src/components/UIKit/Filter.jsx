@@ -120,7 +120,7 @@ export class Filter extends Component {
         <StyledFilterWrapper isOpen={this.state.isOpen}>
           <StyledFilterTitle>
             <StyledFilterButton onClick={this.handleToggle}>
-              Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : null} />
+              {this.props.activeGenre} <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : null} />
             </StyledFilterButton>
 
             <StyledFilterList isOpen={this.state.isOpen}>

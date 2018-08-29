@@ -11,7 +11,6 @@ import { Preview } from './UIKit/Preview';
 import { Preloader } from './UIKit/Preloader';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 import { CONFIG } from '../services/api';
-import { activeGenre } from '../redux/genres/actions';
 
 /* eslint-disable */
 
@@ -98,7 +97,7 @@ export class FrontPage extends Component {
     //console.log(this.props, 'props');
     //console.log(this.props.store.pages, 'pages store');
     //console.log(this.state, 'state');
-    const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, genres } = this.props;
+    const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, genres: { byId }, filters: { activeGenre },  } = this.props;
     const { isLoading } = this.state;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
@@ -164,7 +163,7 @@ export class FrontPage extends Component {
                   </PreviewStyled>
                 </TabPane>
 
-                <TabPane tabName={<Filter onChange={this.handelReq} list={Object.values(genres.byId)} />} />
+                <TabPane tabName={<Filter activeGenre={activeGenre > 0 ? byId[activeGenre].name : 'Жанр'} onChange={this.handelReq} list={Object.values(byId)} />} />
                 <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
               </Tabs>
             </StyledCol>
