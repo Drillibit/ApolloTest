@@ -1,4 +1,4 @@
-import { put, call, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, call, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
 import * as CONSTANTS from './constants';
 import {
@@ -22,10 +22,13 @@ import {
   requestMovieVideos,
   requestSimilarMovies
 } from './requests';
+import { getFilters } from '../filters/selectors';
+import { ACTIVE_GENRE } from '../filters/constants';
 
 function* fetchNowPlaying({ payload }) {
   const { page } = payload;
   const { data } = yield call(requestNowPlayingMovies, page);
+
   if (data && data.results) {
     if (page) {
       yield put(addMovies(data.results, data.total_pages));
@@ -37,7 +40,9 @@ function* fetchNowPlaying({ payload }) {
 
 function* fetchTop100({ payload }) {
   const { page } = payload;
-  const { data } = yield call(requestTop100, page);
+  const { activeGenre, activeSort } = yield select(getFilters);
+  const { data } = yield call(requestTop100, page, activeGenre);
+  console.log(activeGenre);
   if (data && data.results) {
     if (page) {
       yield put(addMovies(data.results, data.total_pages));
@@ -96,6 +101,7 @@ function* searchById({ payload }) {
 }
 
 export function* sagas() {
+  yield takeLatest(ACTIVE_GENRE, fetchTop100);
   yield takeLatest(CONSTANTS.SEARCH_MOVIES, searchMovies);
   yield takeLatest(CONSTANTS.FETCH_TOP_100, fetchTop100);
   yield takeLatest(CONSTANTS.FETCH_BY_GENRES, fetchByGenres);

@@ -9,3 +9,7 @@ export const activeSort = sort => ({
   type: TYPES.ACTIVE_SORT,
   payload: { sort }
 });
+
+export const clearFilter = () => ({
+  type: TYPES.CLEAR_FILTER
+});

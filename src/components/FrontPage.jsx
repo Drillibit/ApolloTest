@@ -68,6 +68,7 @@ export class FrontPage extends Component {
     const { tabId, tabCounter } = this.state;
     const { fetchNowPlaying, fetchTop100, store } = this.props;
     this.setState({ isLoading: true });
+
     if (store.pages === tabCounter) {
       this.setState({ hasMore: false, tabCounter: 1 });
     } else {
@@ -97,7 +98,7 @@ export class FrontPage extends Component {
     //console.log(this.props, 'props');
     //console.log(this.props.store.pages, 'pages store');
     //console.log(this.state, 'state');
-    const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, genres: { byId }, filters: { activeGenre },  } = this.props;
+    const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, clearFilter, genres: { byId }, filters: { activeGenre },  } = this.props;
     const { isLoading } = this.state;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
@@ -109,8 +110,8 @@ export class FrontPage extends Component {
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) 
-                ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1 }))
-                : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1 }))
+                ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1 }), clearFilter())
+                : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1 }), clearFilter())
               }>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
