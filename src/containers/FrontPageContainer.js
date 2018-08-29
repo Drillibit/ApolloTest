@@ -1,6 +1,5 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { } from 'prop-types';
 
 import { getState, getGenres } from '../redux/movies/selectors';
 import * as actions from '../redux/movies/actions';
