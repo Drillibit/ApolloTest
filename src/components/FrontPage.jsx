@@ -11,6 +11,7 @@ import { Preview } from './UIKit/Preview';
 import { Preloader } from './UIKit/Preloader';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 import { CONFIG } from '../services/api';
+import { activeGenre } from '../redux/genres/actions';
 
 /* eslint-disable */
 
@@ -47,27 +48,18 @@ export class FrontPage extends Component {
 
   componentDidMount() {
     const { fetchNowPlaying, fetchGenres } = this.props;
-    // после загрузки страницы подтянем в наш store 
-    // 1. объект содержащий жанры с соответствующими им id
-    // 2. подгрузим список фильмов которые сейчас идут в кино это действие по умолчанию 
-    // поскольку пользователь при первом посещении страницы сразу попадает именно сюда
     fetchNowPlaying();
     fetchGenres();
   }
  
   randomFilm = arr => {
     const rand = Math.floor(Math.random() * arr.length);
-    // console.log(rand);
     return arr[rand];
   }
 
   onScrollList = e => {
     const { hasMore, isLoading } = this.state;
     const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
-    /**
-     * если пользователь пролистал до самого низа страницы и
-     * есть ещё неподгруженные фильмы 
-     */
     if (scrollbottom && hasMore && !isLoading) {
       this.handleLoad();
     }
@@ -77,27 +69,9 @@ export class FrontPage extends Component {
     const { tabId, tabCounter } = this.state;
     const { fetchNowPlaying, fetchTop100, store } = this.props;
     this.setState({ isLoading: true });
-    /**
-     * если пользователь долистал до конца и зачхоет переключиться на другую вкладку
-     * метод перестает работать потому что hasMore: false, и нигде в коде это значение 
-     * не перебиватеся на true
-     */
     if (store.pages === tabCounter) {
       this.setState({ hasMore: false, tabCounter: 1 });
     } else {
-      /**
-       * далее эту конструкцияю необходимо будет переделать
-       * можно сделать объект: 
-       * {
-       *    0: { id:0, tab: top100, method: fetchTop100 },
-       *    1: { id:1, tab: nowPlaying,  },
-       *    2: { id:2, tab: Animation },
-       *    3: { id:3, tab: Films },
-       *    x: { ... },
-       *    n: { id:n, tab: '...'}
-       * }
-       * и обращаться switch
-       */
       switch (tabId) {
         case 0:
           const nowCounter = this.state.tabCounter += 1;
@@ -112,20 +86,13 @@ export class FrontPage extends Component {
         default:
           break
       }
-
-      // if (tabId) {
-      //   let counter = this.state.top100Counter += 1;
-      //   fetchTop100(counter);
-      //   this.setState({ hasMore: true, top100Counter: counter });
-      // } else {
-      //   let counter = this.state.nowPlayingCounter += 1;
-      //   fetchNowPlaying(counter);
-      //   this.setState({ hasMore: true, nowPlayingCounter: counter });
-      // }
-
     }
     this.setState({ isLoading: false });
   };
+
+  handelReq = e => {
+    this.props.activeGenre(e)
+  }
 
   render() {
     //console.log(this.props, 'props');
@@ -166,11 +133,10 @@ export class FrontPage extends Component {
                         voteAverage={item.vote_average}
                         voteCount={item.vote_count}
                         bg={bg}
-                          // item.backdrop_path ? `${BACKDROP_PATH + item.backdrop_path}` : `${BACKDROP_PATH + item.poster_path}`}
                         year={item.release_date} 
                         duration={'123'}
                         pg={item.adult ? "18+" : "12+"}
-                        genre={'1'/*[this.props.filmsList.genres.byId].filter(genre => item.genre_ids == genre)*/}
+                        genre={'1'}
                         description={item.overview} {...item}
                       />)})
                     
@@ -198,7 +164,7 @@ export class FrontPage extends Component {
                   </PreviewStyled>
                 </TabPane>
 
-                <TabPane tabName={<Filter list={Object.values(genres.byId)} />} />
+                <TabPane tabName={<Filter onChange={this.handelReq} list={Object.values(genres.byId)} />} />
                 <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
               </Tabs>
             </StyledCol>
