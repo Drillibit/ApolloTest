@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes, { func } from 'prop-types';
+import PropTypes, { func, shape, string, number } from 'prop-types';
 import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 
@@ -36,17 +36,17 @@ const StyledFilterButton = styled.button`
 `;
 
 const StyledFilterList = styled.div`
-  position: absolute;
-  top: 40px;
-  left: 0;
-  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
-  width: 392px;
-  height: 0;
-  height: ${({ isOpen }) => (isOpen ? '320px' : '0px')};
-  padding: 11px 23px;
-  flex-wrap: wrap;
-  flex-direction: column;
-  background-color: #fff;
+ position: absolute;
+ top: 40px;
+ left: 0;
+ display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+ width: 500px;  
+ height: 0;
+ height: ${({ isOpen }) => (isOpen ? '480px' : '0px') };
+ padding: 11px 23px;
+ flex-wrap: wrap;
+ flex-direction: column;
+ background-color: #fff;
 `;
 
 const StyledListButtonWrapper = styled.div`
@@ -66,6 +66,7 @@ const StyledListButton = styled.button`
   text-align: left;
   transition: color 0.3s ease;
   cursor: pointer;
+  ${({ active }) => (active && 'color: #ff0079;')}
 
   &::after {
     content: '';
@@ -120,13 +121,17 @@ export class Filter extends Component {
         <StyledFilterWrapper isOpen={this.state.isOpen}>
           <StyledFilterTitle>
             <StyledFilterButton onClick={this.handleToggle}>
-              Жанр <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : null} />
+              {this.props.activeGenre.name} <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : null} />
             </StyledFilterButton>
 
             <StyledFilterList isOpen={this.state.isOpen}>
               {this.props.list.map(item => (
                 <StyledListButtonWrapper key={item.id}>
-                  <StyledListButton data-id={item.id} onClick={this.handleClickFilterItem}>
+                  <StyledListButton
+                    active={this.props.activeGenre.id === item.id}
+                    data-id={item.id}
+                    onClick={this.handleClickFilterItem}
+                  >
                     {item.name}
                   </StyledListButton>
                 </StyledListButtonWrapper>
@@ -142,10 +147,18 @@ export class Filter extends Component {
 Filter.propTypes = {
   list: PropTypes.arrayOf(PropTypes.object),
   onChange: func,
+  activeGenre: shape({
+    name: string,
+    id: number
+  })
 };
 
 Filter.defaultProps = {
   list: [{}],
   onChange: f => f,
+  activeGenre: {
+    name: 'Жанр',
+    id: 0
+  }
 };
 

@@ -54,11 +54,11 @@ const StyledDropdownBtn = styled.button`
 
 export const DropdownList = ({ options, closeDropdown, activeOption }) => (
   <StyledDropdownContent>
-    {options.map(({ value, id }) => (
+    {options.map(({ name, id }) => (
       <StyledDropGroup key={id}>
         <StyledChecked icon="check" active={(id === activeOption.id).toString()} />
         <StyledDropdownBtn onClick={closeDropdown} value={id}>
-          {value}
+          {name}
         </StyledDropdownBtn>
       </StyledDropGroup>
       )

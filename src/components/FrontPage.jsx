@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { object, objectOf } from 'prop-types';
 import styled from 'styled-components';
 
 // libs
@@ -35,7 +34,11 @@ const PreloaderWrapper = styled.div`
 
 const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
 
-const optionsData = [{ id: 1, value: 'По дате выхода' }, { id: 2, value: 'По рейтингу' }, { id: 3, value: 'По алфавиту' }];
+const optionsData = [
+  { id: 1, value: 'release_date.desc', name: 'По дате выхода' }, 
+  { id: 2, value: 'popularity.asc', name: 'По рейтингу' }, 
+  { id: 3, value: 'original_title.asc', name: 'По алфавиту' }
+];
 
 export class FrontPage extends Component {
   state = {
@@ -43,6 +46,7 @@ export class FrontPage extends Component {
     tabId: 0,
     hasMore: true,
     isLoading: false,
+    activeOption: {},
   };
 
   onScrollList = e => {
@@ -57,46 +61,43 @@ export class FrontPage extends Component {
     const { tabId, tabCounter } = this.state;
     const { fetchNowPlaying, fetchTop100, store } = this.props;
     this.setState({ isLoading: true });
-    clearTimeout(this.timeOut);
-    this.timeOut = setTimeout(()=> {
-      if (store.pages === tabCounter) {
-        this.setState({ hasMore: false, tabCounter: 1 });
-      } else {
-        /**
-         * далее эту конструкцияю необходимо будет переделать
-         * можно сделать объект: 
-         * {
-         *    0: { id:0, tab: top100, method: fetchTop100 },
-         *    1: { id:1, tab: nowPlaying,  },
-         *    2: { id:2, tab: Animation },
-         *    3: { id:3, tab: Films },
-         *    x: { ... },
-         *    n: { id:n, tab: '...'}
-         * }
-         * и обращаться switch
-         */
-        switch (tabId) {
-          case 0:
-            const nowCounter = this.state.tabCounter += 1;
-            fetchNowPlaying(nowCounter);
-            this.setState({ hasMore: true, tabCounter: nowCounter });
-            break;
-          case 1:
-            const topCounter = this.state.tabCounter += 1;
-            fetchTop100(topCounter);
-            this.setState({ hasMore: true, tabCounter: topCounter });
-            break;
-          default:
-            break
-        }
+
+    if (store.pages === tabCounter) {
+      this.setState({ hasMore: false, tabCounter: 1 });
+    } else {
+      switch (tabId) {
+        case 0:
+          const nowCounter = this.state.tabCounter += 1;
+          fetchNowPlaying(nowCounter);
+          this.setState({ hasMore: true, tabCounter: nowCounter });
+          break;
+        case 1:
+          const topCounter = this.state.tabCounter += 1;
+          fetchTop100(topCounter);
+          this.setState({ hasMore: true, tabCounter: topCounter });
+          break;
+        default:
+          break
       }
-      this.setState({ isLoading: false });
-    }, 1000);
+    }
+    this.setState({ isLoading: false });
+  };
+
+  handelGenre = e => {
+    this.props.activeGenre(e);
   }
 
+  handleSort = e => {
+    const optionsObj = Object.assign({}, optionsData);
+    this.props.activeSort(optionsObj[e].value);
+    this.setState({
+      activeOption: optionsObj[e]
+    });
+  }
 
   render() {
-    const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres } = this.props;
+    const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, clearFilter, genres: { byId }, filters: { activeGenre },  } = this.props;
+
     const { isLoading } = this.state;
     return (
       <FrontPageStyled onScroll={this.onScrollList}>
@@ -106,8 +107,8 @@ export class FrontPage extends Component {
           <StyledRow>
             <StyledCol xs={12}>
               <Tabs onChange={id => (id === 0) 
-                ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1, isLoading: false, hasMore: true }))
-                : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1, isLoading: false, hasMore: true }))
+                ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1, activeOption: {} }), clearFilter())
+                : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1, activeOption: {} }), clearFilter())
               }>
                 <TabPane tabName="Сейчас в кино">
                   <PreviewStyled>
@@ -129,11 +130,10 @@ export class FrontPage extends Component {
                         voteAverage={item.vote_average}
                         voteCount={item.vote_count}
                         bg={bg}
-                          // item.backdrop_path ? `${BACKDROP_PATH + item.backdrop_path}` : `${BACKDROP_PATH + item.poster_path}`}
                         year={item.release_date} 
                         duration={'123'}
                         pg={item.adult ? "18+" : "12+"}
-                        genre={'1'/*[this.props.filmsList.genres.byId].filter(genre => item.genre_ids == genre)*/}
+                        genre={'1'}
                         description={item.overview} {...item}
                       />)})
                     
@@ -161,10 +161,8 @@ export class FrontPage extends Component {
                   </PreviewStyled>
                 </TabPane>
 
-                <TabPane tabName={<Filter onChange={id => {
-                  // console.log(id, 'id');
-                  return 0} }/>} />
-                <TabPane tabName={<Dropdown options={optionsData} />} marginLeft="auto" />
+                <TabPane tabName={<Filter activeGenre={byId[activeGenre]} onChange={this.handelGenre} list={Object.values(byId)} />} />
+                <TabPane tabName={<Dropdown activeOption={this.state.activeOption} handleChange={this.handleSort} options={optionsData} />} marginLeft="auto" />
               </Tabs>
             </StyledCol>
             <StyledCol xs={12}>

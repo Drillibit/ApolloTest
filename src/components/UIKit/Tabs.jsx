@@ -89,8 +89,9 @@ export class Tabs extends Component {
         activeTab: id,
       });
     }
-
-    this.props.onChange(id);
+    if (id <= 1) {
+      this.props.onChange(id);
+    }
   };
 
   render() {
