@@ -1,7 +1,12 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getMovieById, getVideo, getSimilar, isFavourite } from '../redux/movies/selectors';
+import {
+  getMovieById,
+  getVideo,
+  getSimilar,
+  isFavourite
+} from '../redux/movies/selectors';
 import { searchById, toggleFavourite } from '../redux/movies/actions';
 import { MoviePage } from '../components/MoviePage';
 

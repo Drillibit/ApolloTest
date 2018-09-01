@@ -1,13 +1,14 @@
 const graphql = require('graphql');
 const axios = require('axios');
 
-const { 
+const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
   GraphQLSchema,
   GraphQLList,
-  GraphQLBoolean,
+  GraphQLFloat,
+  GraphQLBoolean
 } = graphql;
 
 const CONFIG = {
@@ -26,12 +27,12 @@ const api = axios.create({
   }
 });
 
-
 const MovieType = new GraphQLObjectType({
   name: 'Movie',
   fields: () => ({
     id: { type: GraphQLString },
     adult: { type: GraphQLBoolean },
+    runtime: { type: GraphQLString },
     backdrop_path: { type: GraphQLString },
     belongs_to_collection: { type: BelongsToCollection },
     budget: { type: GraphQLInt },
@@ -47,7 +48,7 @@ const MovieType = new GraphQLObjectType({
     release_date: { type: GraphQLString },
     tagline: { type: GraphQLString },
     title: { type: GraphQLString },
-    vote_average: { type: GraphQLInt },
+    vote_average: { type: GraphQLFloat },
     vote_count: { type: GraphQLInt }
   })
 });
@@ -69,15 +70,15 @@ const GenreType = new GraphQLObjectType({
     id: { type: GraphQLInt },
     name: { type: GraphQLString }
   })
-})
+});
 
 const BelongsToCollection = new GraphQLObjectType({
   name: 'BelongsToCollection',
   fields: () => ({
     id: { type: GraphQLInt },
-    name: { type:  GraphQLString },
+    name: { type: GraphQLString },
     poster_path: { type: GraphQLString },
-    backdrop_path: { type: GraphQLString  } 
+    backdrop_path: { type: GraphQLString }
   })
 });
 
@@ -90,7 +91,8 @@ const CompanyType = new GraphQLObjectType({
     users: {
       type: new GraphQLList(UserType),
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/companies/${parentValue.id}/users`)
+        return axios
+          .get(`http://localhost:3000/companies/${parentValue.id}/users`)
           .then(res => res.data);
       }
     }
@@ -105,40 +107,42 @@ const UserType = new GraphQLObjectType({
     age: { type: GraphQLInt },
     company: {
       type: CompanyType,
-      resolve (parentValue, args) {
-        return axios.get(`http://localhost:3000/companies/${parentValue.companyId}`)
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://localhost:3000/companies/${parentValue.companyId}`)
           .then(res => res.data);
       }
     }
   })
 });
 
-
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     user: {
       type: UserType,
-      args: { id: { type: GraphQLString }},
+      args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/users/${args.id}`)
+        return axios
+          .get(`http://localhost:3000/users/${args.id}`)
           .then(res => res.data);
       }
     },
     company: {
       type: CompanyType,
-      args: { id: { type: GraphQLString }},
+      args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/companies/${args.id}`)
+        return axios
+          .get(`http://localhost:3000/companies/${args.id}`)
           .then(res => res.data);
       }
     },
     movie: {
       type: MovieType,
-      args: { id: { type: GraphQLString }},
+      args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
-        return api.get(`movie/${args.id}`)
-          .then(res => res.data);
+        console.log('re');
+        return api.get(`movie/${args.id}`).then(res => res.data);
       }
     }
   }
