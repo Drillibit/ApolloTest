@@ -1,8 +1,10 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const expressGraphQL = require('express-graphql');
 const schema = require('./schema/schema');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
@@ -14,6 +16,15 @@ app.use(
 );
 
 app.use(bodyParser.json());
+
+mongoose
+  .connect(
+    'mongodb://mongo:27017/docker-node-mongo',
+    { useNewUrlParser: true }
+  )
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
+
 app.use(
   '/graphql',
   expressGraphQL({
@@ -22,6 +33,13 @@ app.use(
   })
 );
 
-app.listen(4000, () => {
-  console.log('Works!');
+app.use(express.static('www'));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
 });
+
+const PORT = process.env.PORT || 3000;
+
+console.log(`App running at ${PORT}`);
+
+app.listen(PORT);
