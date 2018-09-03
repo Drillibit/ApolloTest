@@ -7,7 +7,7 @@ const CONFIG = {
   IMAGE_BASE: 'https://image.tmdb.org/t/p'
 };
 
-module.exports = axios.create({
+module.exports.api = axios.create({
   baseURL: `${CONFIG.BASE_URL}/${CONFIG.VERSION}`,
   timeout: 2000,
   params: {

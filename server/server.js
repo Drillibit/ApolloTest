@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const expressGraphQL = require('express-graphql');
 const schema = require('./schema/schema');
 const bodyParser = require('body-parser');
@@ -17,13 +17,13 @@ app.use(
 
 app.use(bodyParser.json());
 
-mongoose
-  .connect(
-    'mongodb://mongo:27017/docker-node-mongo',
-    { useNewUrlParser: true }
-  )
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
+// mongoose
+//   .connect(
+//     'mongodb://mongo:27017/docker-node-mongo',
+//     { useNewUrlParser: true }
+//   )
+//   .then(() => console.log('MongoDB Connected'))
+//   .catch(err => console.log(err));
 
 app.use(
   '/graphql',
