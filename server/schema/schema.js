@@ -10,22 +10,23 @@ const {
   GraphQLList,
   GraphQLFloat,
   GraphQLBoolean,
-  GraphQLSchema
+  GraphQLSchema,
+  GraphQLID
 } = graphql;
 
-const GenreTypeIds = new GraphQLObjectType({
-  name: 'GenreIds',
-  fields: () => ({
-    i: { type: GraphQLInt }
-  })
-});
+// const GenreTypeIds = new GraphQLObjectType({
+//   name: 'GenreIds',
+//   fields: () => ({
+//     "0": { type: GraphQLInt }
+//   })
+// });
 
 const ResultType = new GraphQLObjectType({
   name: 'Results',
   fields: () => ({
     adult: { type: GraphQLBoolean },
     genre_ids: {
-      type: new GraphQLList(GenreTypeIds)
+      type: new GraphQLList(GraphQLID)
     },
     id: { type: GraphQLString },
     backdrop_path: { type: GraphQLString },
