@@ -37,7 +37,7 @@ const BelongsToCollection = new GraphQLObjectType({
   })
 });
 
-module.exports.MovieType = new GraphQLObjectType({
+module.exports = new GraphQLObjectType({
   name: 'Movie',
   fields: () => ({
     id: { type: GraphQLString },

@@ -14,7 +14,7 @@ const RootQuery = new GraphQLObjectType({
     movie: {
       type: MovieType,
       args: { id: { type: GraphQLString } },
-      resolve(parentValue, args) {
+      resolve(_, args) {
         return api.get(`movie/${args.id}`).then(res => res.data);
       }
     }
