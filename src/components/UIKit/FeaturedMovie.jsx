@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, objectOf, any } from 'prop-types';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import { gql } from 'apollo-boost';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 

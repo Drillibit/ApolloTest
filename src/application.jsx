@@ -34,7 +34,15 @@ import { Main } from './components/Main';
 import './components/helpers/injectGlobalStyles';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql'
+  uri: 'http://localhost:3000/graphql',
+  clientState: {
+    defaults: {
+      movie: {
+        __typename: 'Movie',
+        id: 3
+      }
+    }
+  }
 });
 
 export const Application = hot(module)(() => (
