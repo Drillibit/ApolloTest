@@ -1,51 +1,21 @@
 const graphql = require('graphql');
 const api = require('../network/api');
-const MovieType = require('../query/movie');
 const requestNowPlayingMovies = require('../network/requestNowPlayingMovies');
+
+const MovieType = require('../query/movie');
+const TrandingType = require('../query/tranding');
 
 const {
   GraphQLObjectType,
   GraphQLString,
-  GraphQLInt,
-  GraphQLList,
-  GraphQLFloat,
-  GraphQLBoolean,
+  // GraphQLInt,
+  // GraphQLList,
+  // GraphQLFloat,
+  // GraphQLBoolean,
   GraphQLSchema,
-  GraphQLID
+  // GraphQLID
 } = graphql;
 
-// const GenreTypeIds = new GraphQLObjectType({
-//   name: 'GenreIds',
-//   fields: () => ({
-//     "0": { type: GraphQLInt }
-//   })
-// });
-
-const ResultType = new GraphQLObjectType({
-  name: 'Results',
-  fields: () => ({
-    adult: { type: GraphQLBoolean },
-    genre_ids: {
-      type: new GraphQLList(GraphQLID)
-    },
-    id: { type: GraphQLString },
-    backdrop_path: { type: GraphQLString },
-    overview: { type: GraphQLString },
-    popularity: { type: GraphQLInt },
-    poster_path: { type: GraphQLString },
-    release_date: { type: GraphQLString },
-    title: { type: GraphQLString },
-    vote_average: { type: GraphQLFloat },
-    vote_count: { type: GraphQLInt }
-  })
-});
-
-const TrandingType = new GraphQLObjectType({
-  name: 'Tranding',
-  fields: () => ({
-    results: { type: new GraphQLList(ResultType) }
-  })
-});
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',

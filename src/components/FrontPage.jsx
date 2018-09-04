@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 // libs
-import { FeaturedMovie } from './UIKit/FeaturedMovie';
+import { FeaturedMovie } from './UIKit/FeaturedMovie/index';
 import { Tabs, TabPane } from './UIKit/Tabs';
 import { Filter } from './UIKit/Filter';
 import { Dropdown } from './UIKit/Dropdown';

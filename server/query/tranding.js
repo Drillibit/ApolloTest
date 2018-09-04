@@ -6,6 +6,33 @@ const {
   GraphQLInt,
   GraphQLList,
   GraphQLFloat,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLID
 } = graphql;
+
+const ResultType = new GraphQLObjectType({
+  name: 'Results',
+  fields: () => ({
+    adult: { type: GraphQLBoolean },
+    genre_ids: {
+      type: new GraphQLList(GraphQLID)
+    },
+    id: { type: GraphQLString },
+    backdrop_path: { type: GraphQLString },
+    overview: { type: GraphQLString },
+    popularity: { type: GraphQLInt },
+    poster_path: { type: GraphQLString },
+    release_date: { type: GraphQLString },
+    title: { type: GraphQLString },
+    vote_average: { type: GraphQLFloat },
+    vote_count: { type: GraphQLInt }
+  })
+});
+
+module.exports = new GraphQLObjectType({
+  name: 'Tranding',
+  fields: () => ({
+    results: { type: new GraphQLList(ResultType) }
+  })
+});
 
