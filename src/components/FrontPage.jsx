@@ -83,7 +83,7 @@ export class FrontPage extends Component {
         fetchPolicy='cache-and-network'
       >
       {({ loading, error, data: { tranding }, fetchMore }) => {
-        if (loading) return 'Loading...'
+        if (loading) return ''
         if (error) return `Error ${error.message}`
        return (
         <FrontPageStyled onScroll={e => {
@@ -91,17 +91,23 @@ export class FrontPage extends Component {
           if (scrollbottom) {
             fetchMore({
               variables: {
-                page: `${(tranding.page + 1,
-                console.log(tranding.page + 1))}`
+                page: `${tranding.page + 1}`
               },
               updateQuery: (prev, { fetchMoreResult }) => {
                 if (!fetchMoreResult) return prev;
-                return Object.assign({}, prev, {
-                  tranding: [
-                    prev.tranding,
-                    fetchMoreResult.tranding
-                  ]
+                const res = Object.assign({}, prev, {
+                  tranding: {
+                    ...prev.tranding,
+                    page: fetchMoreResult.tranding.page,
+                    results: [
+                      ...prev.tranding.results,
+                      ...fetchMoreResult.tranding.results
+                    ]
+                  }
                 });
+                console.log(res);
+                console.log(prev)
+                return res;
               }
             });
           }
