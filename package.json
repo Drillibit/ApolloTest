@@ -7,10 +7,10 @@
   "license": "Proprietary",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --open",
+    "start": "BASE_URL=http://localhost:3000/graphql webpack-dev-server --progress --colors --open",
     "test": "jest",
-    "build:dev": "NODE_ENV=production webpack --env dev --progress --colors",
-    "build:prod": "NODE_ENV=production webpack --env production --progress --colors",
+    "build:dev": "BASE_URL=http://localhost/graphql NODE_ENV=production webpack --env dev --progress --colors",
+    "build:prod": "BASE_URL=http://176.57.214.189/graphql NODE_ENV=production webpack --env production --progress --colors",
     "storybook": "start-storybook -p 6006 -s ./stories",
     "build-storybook": "build-storybook"
   },

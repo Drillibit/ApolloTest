@@ -177,7 +177,7 @@ module.exports = (releaseStage) => {
 
   /* Output */
   const output = {
-    path: path.join(__dirname, 'www'),
+    path: path.join(__dirname, 'server/www'),
     pathinfo: isDevelopment,
     publicPath: '/',
     filename: isDevelopment ? '[name].js' : '[name]-[chunkhash].js'
@@ -220,7 +220,8 @@ module.exports = (releaseStage) => {
   plugins.push(
     new webpack.DefinePlugin(wrapEnvironment({
       RELEASE_STAGE: releaseStage,
-      APP_VERSION: version
+      APP_VERSION: version,
+      BASE_URL: process.env.BASE_URL,
     })),
     new MiniCssExtractPlugin({
       filename: isDevelopment
