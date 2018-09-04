@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Query } from 'react-apollo';
 
 // libs
 import { FeaturedMovie } from './UIKit/FeaturedMovie/index';
@@ -10,6 +11,7 @@ import { Preview } from './UIKit/Preview';
 import { Preloader } from './UIKit/Preloader';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 import { CONFIG } from '../services/api';
+import { GET_TRANDING } from './Requests/frontPage';
 
 /* eslint-disable */
 
@@ -53,35 +55,9 @@ export class FrontPage extends Component {
     const { hasMore, isLoading } = this.state;
     const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
     if (scrollbottom && hasMore && !isLoading) {
-      this.handleLoad();
+      console.log('scroll');
     }
   }
-
-  handleLoad = () => {
-    const { tabId, tabCounter } = this.state;
-    const { fetchNowPlaying, fetchTop100, store } = this.props;
-    this.setState({ isLoading: true });
-
-    if (store.pages === tabCounter) {
-      this.setState({ hasMore: false, tabCounter: 1 });
-    } else {
-      switch (tabId) {
-        case 0:
-          const nowCounter = this.state.tabCounter += 1;
-          fetchNowPlaying(nowCounter);
-          this.setState({ hasMore: true, tabCounter: nowCounter });
-          break;
-        case 1:
-          const topCounter = this.state.tabCounter += 1;
-          fetchTop100(topCounter);
-          this.setState({ hasMore: true, tabCounter: topCounter });
-          break;
-        default:
-          break
-      }
-    }
-    this.setState({ isLoading: false });
-  };
 
   handelGenre = e => {
     this.props.activeGenre(e);
@@ -98,90 +74,89 @@ export class FrontPage extends Component {
   render() {
     const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, clearFilter, genres: { byId }, filters: { activeGenre },  } = this.props;
 
-    const { isLoading } = this.state;
+    const { isLoading, page } = this.state;
     return (
-      <FrontPageStyled onScroll={this.onScrollList}>
-        <FeaturedMovie film={store.movie} />
-        <br />
-        <StyledGrid>
-          <StyledRow>
-            <StyledCol xs={12}>
-              <Tabs onChange={id => (id === 0) 
-                ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1, activeOption: {} }), clearFilter())
-                : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1, activeOption: {} }), clearFilter())
-              }>
-                <TabPane tabName="Сейчас в кино">
-                  <PreviewStyled>
-                    {store.filmsList.length > 0 && store.filmsList.map(item => {
-                      let bg;
-                      if (item.backdrop_path) {
-                        bg = `${BACKDROP_PATH + item.backdrop_path}`;
-                      } else {
-                          if(item.poster_path) {
-                            bg = `${BACKDROP_PATH + item.poster_path}`
-                          } else {
-                            bg = '../assets/img/background.jpg';
-                          }
-                      }
-                      return (
-                      <Preview 
-                        key={item.id}
-                        title={item.title}
-                        voteAverage={item.vote_average}
-                        voteCount={item.vote_count}
-                        bg={bg}
-                        year={item.release_date} 
-                        duration={'123'}
-                        pg={item.adult ? "18+" : "12+"}
-                        genre={'1'}
-                        description={item.overview} {...item}
-                      />)})
-                    
-                  }
-                  </PreviewStyled>
-                </TabPane>
+      <Query query={GET_TRANDING} variables={{ page: `${page}` }}>
+      {({ loading, error, data: { tranding } }) => {
+        if (loading) return 'Loading...'
+        if (error) return `Error ${error.message}`
+       return (
+        <FrontPageStyled onScroll={this.onScrollList}>
+          <FeaturedMovie film={store.movie} />
+          <br />
+          <StyledGrid>
+            <StyledRow>
+              <StyledCol xs={12}>
+                <Tabs onChange={id => (id === 0) 
+                  ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1, activeOption: {} }), clearFilter())
+                  : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1, activeOption: {} }), clearFilter())
+                }>
+                  <TabPane tabName="Сейчас в кино">
+                    <PreviewStyled>
+                      {tranding.results.length > 0 && tranding.results.map(item => {
+                        let bg;
+                        if (item.backdrop_path) {
+                          bg = `${BACKDROP_PATH + item.backdrop_path}`;
+                        } else {
+                            if(item.poster_path) {
+                              bg = `${BACKDROP_PATH + item.poster_path}`
+                            } else {
+                              bg = '../assets/img/background.jpg';
+                            }
+                        }
+                        return (
+                        <Preview 
+                          key={item.id}
+                          title={item.title}
+                          voteAverage={item.vote_average}
+                          voteCount={item.vote_count}
+                          bg={bg}
+                          year={item.release_date} 
+                          duration={'123'}
+                          pg={item.adult ? "18+" : "12+"}
+                          genre={'1'}
+                          description={item.overview} {...item}
+                        />)})
+                      
+                    }
+                    </PreviewStyled>
+                  </TabPane>
 
-                <TabPane tabName="Топ 100">
-                  <PreviewStyled>
-                    {store.filmsList.length > 0 && store.filmsList.map(item =>
-                      <Preview
-                        key={item.id}
-                        title={item.title}
-                        voteAverage={item.vote_average}
-                        voteCount={item.vote_count}
-                        bg={`${BACKDROP_PATH + item.backdrop_path}`}
-                        year={item.release_date}
-                        duration={'123'}
-                        pg={item.adult ? "18+" : "6+"}
-                        genre={item.genre_ids}
-                        description={item.overview}
-                        {...item} 
-                      />
-                    )}
-                  </PreviewStyled>
-                </TabPane>
+                  <TabPane tabName="Топ 100">
+                    <PreviewStyled>
+                      {store.filmsList.length > 0 && store.filmsList.map(item =>
+                        <Preview
+                          key={item.id}
+                          title={item.title}
+                          voteAverage={item.vote_average}
+                          voteCount={item.vote_count}
+                          bg={`${BACKDROP_PATH + item.backdrop_path}`}
+                          year={item.release_date}
+                          duration={'123'}
+                          pg={item.adult ? "18+" : "6+"}
+                          genre={item.genre_ids}
+                          description={item.overview}
+                          {...item} 
+                        />
+                      )}
+                    </PreviewStyled>
+                  </TabPane>
 
-                <TabPane tabName={<Filter activeGenre={byId[activeGenre]} onChange={this.handelGenre} list={Object.values(byId)} />} />
-                <TabPane tabName={<Dropdown activeOption={this.state.activeOption} handleChange={this.handleSort} options={optionsData} />} marginLeft="auto" />
-              </Tabs>
-            </StyledCol>
-            <StyledCol xs={12}>
-              <PreloaderWrapper hasMore={this.state.hasMore}>
-                {isLoading && <Preloader>Загрузка</Preloader>}
-              </PreloaderWrapper>
-            </StyledCol>
-          </StyledRow>
-        </StyledGrid>
-      </FrontPageStyled>
+                  <TabPane tabName={<Filter activeGenre={byId[activeGenre]} onChange={this.handelGenre} list={Object.values(byId)} />} />
+                  <TabPane tabName={<Dropdown activeOption={this.state.activeOption} handleChange={this.handleSort} options={optionsData} />} marginLeft="auto" />
+                </Tabs>
+              </StyledCol>
+              <StyledCol xs={12}>
+                <PreloaderWrapper hasMore={this.state.hasMore}>
+                  {isLoading && <Preloader>Загрузка</Preloader>}
+                </PreloaderWrapper>
+              </StyledCol>
+            </StyledRow>
+          </StyledGrid>
+        </FrontPageStyled>
+          );
+        }}
+      </Query>
     );
   }
 }
-
-/* eslint-enable */
-// FrontPage.propTypes = {
-//   films: objectOf
-// };
-
-// FrontPage.defaultProps = {
-//   films: {}
-// };
