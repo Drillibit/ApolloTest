@@ -21,8 +21,9 @@ const PreviewStyled = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-`;
-
+  `;
+  
+  // <FeaturedMovie film={store.movie} />
 const FrontPageStyled = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
@@ -54,7 +55,7 @@ export class FrontPage extends Component {
   onScrollList = e => {
     const { hasMore, isLoading } = this.state;
     const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
-    if (scrollbottom && hasMore && !isLoading) {
+    if (scrollbottom) {
       console.log('scroll');
     }
   }
@@ -74,15 +75,37 @@ export class FrontPage extends Component {
   render() {
     const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, clearFilter, genres: { byId }, filters: { activeGenre },  } = this.props;
 
-    const { isLoading, page } = this.state;
+    const { isLoading } = this.state;
     return (
-      <Query query={GET_TRANDING} variables={{ page: `${page}` }}>
-      {({ loading, error, data: { tranding } }) => {
+      <Query 
+        query={GET_TRANDING} 
+        variables={{ page: `${1}` }}
+        fetchPolicy='cache-and-network'
+      >
+      {({ loading, error, data: { tranding }, fetchMore }) => {
         if (loading) return 'Loading...'
         if (error) return `Error ${error.message}`
        return (
-        <FrontPageStyled onScroll={this.onScrollList}>
-          <FeaturedMovie film={store.movie} />
+        <FrontPageStyled onScroll={e => {
+          const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
+          if (scrollbottom) {
+            fetchMore({
+              variables: {
+                page: `${(tranding.page + 1,
+                console.log(tranding.page + 1))}`
+              },
+              updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+                return Object.assign({}, prev, {
+                  tranding: [
+                    prev.tranding,
+                    fetchMoreResult.tranding
+                  ]
+                });
+              }
+            });
+          }
+       }}>
           <br />
           <StyledGrid>
             <StyledRow>

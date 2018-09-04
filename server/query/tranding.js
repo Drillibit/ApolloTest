@@ -32,6 +32,7 @@ const ResultType = new GraphQLObjectType({
 module.exports = new GraphQLObjectType({
   name: 'Tranding',
   fields: () => ({
+    page: { type: GraphQLInt },
     results: { type: new GraphQLList(ResultType) }
   })
 });
