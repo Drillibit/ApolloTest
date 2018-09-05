@@ -34,8 +34,9 @@ app.use(
 );
 
 app.use(express.static('www'));
+
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'www', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;

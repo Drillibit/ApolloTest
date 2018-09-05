@@ -24,7 +24,6 @@ const RootQuery = new GraphQLObjectType({
       type: MovieType,
       args: { id: { type: GraphQLString } },
       resolve(_, args) {
-        console.log(args)
         return api.get(`movie/${args.id}`).then(res => res.data);
       }
     },
@@ -34,7 +33,6 @@ const RootQuery = new GraphQLObjectType({
         page: { type: GraphQLString },
       },
       resolve(_, args) {
-        console.log(args.page);
         return requestNowPlayingMovies(api, args.page);
       }
     }

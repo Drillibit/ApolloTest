@@ -7,10 +7,10 @@ export const GET_MOVIE = gql`
       title
       overview
       backdrop_path
-      genres {
-        id
-        name
-      }
+      # genres {
+      #   id
+      #   name
+      # }
       runtime
       vote_count
       vote_average

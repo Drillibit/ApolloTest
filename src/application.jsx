@@ -33,8 +33,25 @@ import { Main } from './components/Main';
 
 import './components/helpers/injectGlobalStyles';
 
+const defaults = {
+  movie: {
+    __typename: 'Movie',
+    Movie: 299536,
+    backdrop_path: '/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg',
+    id: '299536',
+    overview: 'Пока Мстители и их союзники продолжают защищать мир от различных опасностей, с которыми не смог бы справиться один супергерой, новая угроза возникает из космоса: Танос. Межгалактический тиран преследует цель собрать все шесть Камней Бесконечности — артефакты невероятной силы, с помощью которых можно менять реальность по своему желанию. Всё, с чем Мстители сталкивались ранее, вело к этому моменту — судьба Земли никогда ещё не была столь неопределённой.',
+    runtime: '149',
+    title: 'Мстители: Война бесконечности',
+    vote_average: 8.3,
+    vote_count: 7600
+  }
+};
+
 const client = new ApolloClient({
   uri: process.env.BASE_URL,
+  clientState: {
+    defaults
+  }
 });
 
 

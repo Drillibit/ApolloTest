@@ -120,13 +120,14 @@ const FeaturedMovieView = ({ data: { movie, loading, error } }) => {
               <StyledLargeText>СЕЙЧАС В КИНО</StyledLargeText>
               <H1>{movie.title}</H1>
               <Genres>
-                {movie.genres &&
+                {/* {movie.genres &&
                   movie.genres.map(genre => (
                     <span key={genre.id}>
                       {genre.name}
                       &nbsp;
                     </span>
-                  ))}
+                  ))} */}
+                <p>Genres </p>
               </Genres>
               <Timing>{movie.runtime} мин.</Timing>
             </StyledCol>
