@@ -1,9 +1,11 @@
 const graphql = require('graphql');
 const api = require('../network/api');
 const requestNowPlayingMovies = require('../network/requestNowPlayingMovies');
+const requestGenres = require('../network/requestGenres');
 
 const MovieType = require('../query/movie');
 const TrandingType = require('../query/tranding');
+const GenresType = require('../query/genres');
 
 const {
   GraphQLObjectType,
@@ -31,9 +33,17 @@ const RootQuery = new GraphQLObjectType({
       type: TrandingType,
       args: {
         page: { type: GraphQLString },
+        genre: { type: GraphQLString },
+        sortBy: { type: GraphQLString }
       },
       resolve(_, args) {
-        return requestNowPlayingMovies(api, args.page);
+        return requestNowPlayingMovies(api, args);
+      }
+    },
+    genres: {
+      type: GenresType,
+      resolve() {
+        return requestGenres(api);
       }
     }
   }

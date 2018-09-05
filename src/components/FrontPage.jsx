@@ -108,14 +108,14 @@ export class FrontPage extends Component {
             });
           }
        }}>
-           <FeaturedMovie movie={store.movie} />
+           <FeaturedMovie movie={data.tranding.results[0]} />
           <br />
           <StyledGrid>
             <StyledRow>
               <StyledCol xs={12}>
                 <Tabs onChange={id => (id === 0) 
-                  ? (fetchNowPlaying(), this.setState({ tabId: 0, tabCounter: 1, activeOption: {} }), clearFilter())
-                  : (fetchTop100(), this.setState({ tabId: 1, tabCounter: 1, activeOption: {} }), clearFilter())
+                  ? (this.setState({ tabId: 0, tabCounter: 1, activeOption: {} }), clearFilter())
+                  : (this.setState({ tabId: 1, tabCounter: 1, activeOption: {} }), clearFilter())
                 }>
                   <TabPane tabName="Сейчас в кино">
                     <PreviewStyled>
