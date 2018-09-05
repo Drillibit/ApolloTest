@@ -12,6 +12,7 @@ import { Preloader } from './UIKit/Preloader';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 import { CONFIG } from '../services/api';
 import { GET_TRANDING } from './Requests/frontPage';
+import { arrayOfDeffered } from '../../node_modules/redux-saga/utils';
 
 /* eslint-disable */
 
@@ -23,7 +24,6 @@ const PreviewStyled = styled.div`
   justify-content: space-between;
   `;
   
-  // <FeaturedMovie film={store.movie} />
 const FrontPageStyled = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
@@ -74,16 +74,14 @@ export class FrontPage extends Component {
 
   render() {
     const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, clearFilter, genres: { byId }, filters: { activeGenre },  } = this.props;
-
-    const { isLoading } = this.state;
     return (
       <Query 
         query={GET_TRANDING} 
         variables={{ page: `${1}` }}
         fetchPolicy='cache-and-network'
       >
-      {({ loading, error, data: { tranding }, fetchMore }) => {
-        if (loading) return ''
+      {({error, loading, data, fetchMore }) => {
+        if (data.tranding === undefined) return ''
         if (error) return `Error ${error.message}`
        return (
         <FrontPageStyled onScroll={e => {
@@ -91,7 +89,7 @@ export class FrontPage extends Component {
           if (scrollbottom) {
             fetchMore({
               variables: {
-                page: `${tranding.page + 1}`
+                page: `${data.tranding.page + 1}`
               },
               updateQuery: (prev, { fetchMoreResult }) => {
                 if (!fetchMoreResult) return prev;
@@ -105,13 +103,12 @@ export class FrontPage extends Component {
                     ]
                   }
                 });
-                console.log(res);
-                console.log(prev)
                 return res;
               }
             });
           }
        }}>
+           <FeaturedMovie movie={store.movie} />
           <br />
           <StyledGrid>
             <StyledRow>
@@ -122,7 +119,7 @@ export class FrontPage extends Component {
                 }>
                   <TabPane tabName="Сейчас в кино">
                     <PreviewStyled>
-                      {tranding.results.length > 0 && tranding.results.map(item => {
+                      {data.tranding.results.length > 0 && data.tranding.results.map(item => {
                         let bg;
                         if (item.backdrop_path) {
                           bg = `${BACKDROP_PATH + item.backdrop_path}`;
@@ -177,7 +174,7 @@ export class FrontPage extends Component {
               </StyledCol>
               <StyledCol xs={12}>
                 <PreloaderWrapper hasMore={this.state.hasMore}>
-                  {isLoading && <Preloader>Загрузка</Preloader>}
+                  {loading && <Preloader>Загрузка</Preloader>}
                 </PreloaderWrapper>
               </StyledCol>
             </StyledRow>

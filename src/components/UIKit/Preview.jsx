@@ -155,7 +155,7 @@ const ButtonContainer = styled.div`
 
 export class Preview extends PureComponent {
   static propTypes = {
-    id: PropTypes.number,
+    id: PropTypes.string,
     description: PropTypes.string,
     title: PropTypes.string,
     bg: PropTypes.string,
@@ -169,7 +169,7 @@ export class Preview extends PureComponent {
   };
 
   static defaultProps = {
-    id: 0,
+    id: '0',
     description: '',
     title: '',
     bg: '',

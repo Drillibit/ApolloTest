@@ -35,15 +35,8 @@ import './components/helpers/injectGlobalStyles';
 
 const client = new ApolloClient({
   uri: process.env.BASE_URL,
-  clientState: {
-    defaults: {
-      movie: {
-        __typename: 'Movie',
-        id: 3
-      }
-    }
-  }
 });
+
 
 export const Application = hot(module)(() => (
   <ApolloProvider client={client}>

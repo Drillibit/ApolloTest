@@ -11,6 +11,7 @@ import { Rating } from '../Rating';
 import { StyledGrid, StyledRow, StyledCol } from '../../helpers/grid';
 import { H1, LargeText } from '../Typography';
 import { Icon } from '../Icon';
+import { Preloader } from '../Preloader';
 
 const FeaturedMovieStyled = styled.div`
   position: relative;
@@ -18,6 +19,15 @@ const FeaturedMovieStyled = styled.div`
   background: #000
     url(${({ movie }) => `${CONFIG.IMAGE_BASE}/original/${movie.backdrop_path}`})
     no-repeat center;
+  background-size: cover;
+`;
+
+const PreloaderContainer = styled.div`
+  min-height: 700px;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-size: cover;
 `;
 
@@ -89,7 +99,16 @@ const StyledLargeText = styled(LargeText)`
 `;
 
 const FeaturedMovieView = ({ data: { movie, loading, error } }) => {
-  if (loading) return 'Loading...';
+  if (loading) {
+    return (
+      <PreloaderContainer>
+        <Preloader>
+          Загрузка
+        </Preloader>
+      </PreloaderContainer>
+    );
+  }
+
   if (error) return `Error! ${error.message}`;
 
   return (
@@ -153,7 +172,7 @@ export const FeaturedMovie = compose(
   graphql(GET_MOVIE, {
     options: ownProps => ({
       variables: {
-        id: `${ownProps.film.id}`
+        id: `${ownProps.movie.id}`
       }
     })
   })
