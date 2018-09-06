@@ -3,14 +3,14 @@ const graphql = require('graphql');
 const {
   GraphQLObjectType,
   GraphQLString,
-  GraphQLInt,
   GraphQLList,
+  GraphQLID
 } = graphql;
 
 const GenreType = new GraphQLObjectType({
   name: 'Genres',
   fields: () => ({
-    id: { type: GraphQLInt },
+    id: { type: GraphQLID },
     name: { type: GraphQLString }
   })
 });

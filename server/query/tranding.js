@@ -17,7 +17,7 @@ const ResultType = new GraphQLObjectType({
     genre_ids: {
       type: new GraphQLList(GraphQLID)
     },
-    id: { type: GraphQLString },
+    id: { type: GraphQLID },
     backdrop_path: { type: GraphQLString },
     overview: { type: GraphQLString },
     popularity: { type: GraphQLInt },

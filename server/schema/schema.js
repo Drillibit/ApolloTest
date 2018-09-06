@@ -15,7 +15,7 @@ const {
   // GraphQLFloat,
   // GraphQLBoolean,
   GraphQLSchema,
-  // GraphQLID
+  GraphQLID
 } = graphql;
 
 
@@ -24,7 +24,7 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     movie: {
       type: MovieType,
-      args: { id: { type: GraphQLString } },
+      args: { id: { type: GraphQLID } },
       resolve(_, args) {
         return api.get(`movie/${args.id}`).then(res => res.data);
       }

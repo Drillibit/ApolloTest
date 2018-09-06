@@ -6,7 +6,8 @@ const {
   GraphQLInt,
   GraphQLList,
   GraphQLFloat,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLID
 } = graphql;
 
 const CompaniesType = new GraphQLObjectType({
@@ -22,7 +23,7 @@ const CompaniesType = new GraphQLObjectType({
 const GenreType = new GraphQLObjectType({
   name: 'Genre',
   fields: () => ({
-    id: { type: GraphQLInt },
+    id: { type: GraphQLID },
     name: { type: GraphQLString }
   })
 });
@@ -40,7 +41,7 @@ const BelongsToCollection = new GraphQLObjectType({
 module.exports = new GraphQLObjectType({
   name: 'Movie',
   fields: () => ({
-    id: { type: GraphQLString },
+    id: { type: GraphQLID },
     adult: { type: GraphQLBoolean },
     runtime: { type: GraphQLString },
     backdrop_path: { type: GraphQLString },
