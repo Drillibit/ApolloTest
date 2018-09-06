@@ -40,7 +40,7 @@ const RootQuery = new GraphQLObjectType({
         return requestNowPlayingMovies(api, args);
       }
     },
-    genres: {
+    genres_arr: {
       type: GenresType,
       resolve() {
         return requestGenres(api);

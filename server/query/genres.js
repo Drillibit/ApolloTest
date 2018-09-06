@@ -7,19 +7,13 @@ const {
   GraphQLList,
 } = graphql;
 
-const GenresType = new GraphQLList({
+const GenreType = new GraphQLObjectType({
   name: 'Genres',
   fields: () => ({
-    genres: {
-      name: 'Genre',
-      type: new GraphQLObjectType({
-        fields: () => ({
-          id: { type: GraphQLInt },
-          name: { type: GraphQLString }
-        })
-      })
-    }
+    id: { type: GraphQLInt },
+    name: { type: GraphQLString }
   })
 });
 
-module.exports = GenresType;
+module.exports = new GraphQLList(GenreType);
+
