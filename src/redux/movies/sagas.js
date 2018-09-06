@@ -28,7 +28,6 @@ import { ACTIVE_GENRE, ACTIVE_SORT } from '../filters/constants';
 
 export function* fetchTrandingMovie() {
   const { data } = yield call(requestTrandingMovies);
-  console.log('tranding', data);
   if (data && data.results) {
     const film = yield call(requestMovie, data.results[0].id);
     yield put(setOneMovie(film.data));
@@ -40,7 +39,6 @@ function* fetchNowPlaying({ payload }) {
   const { page } = payload;
   const { activeGenre, activeSort } = yield select(getFilters);
   const { data } = yield call(requestNowPlayingMovies, page, activeGenre, activeSort);
-  console.log(data);
 
   if (data && data.results) {
     if (page) {

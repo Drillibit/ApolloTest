@@ -25,7 +25,8 @@ import {
   faGooglePlusG,
   faTwitter
 } from '@fortawesome/free-brands-svg-icons';
-import ApolloClient from 'apollo-boost';
+import ApolloClient, { gql } from 'apollo-boost';
+
 import { ApolloProvider } from 'react-apollo';
 
 import { store, history } from './redux/store';
@@ -34,23 +35,17 @@ import { Main } from './components/Main';
 import './components/helpers/injectGlobalStyles';
 
 const defaults = {
-  Movie: {
-    __typename: 'Movie',
-    Movie: 299536,
-    backdrop_path: '/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg',
-    id: '299536',
-    overview: '',
-    runtime: '149',
-    title: '',
-    vote_average: 8.3,
-    vote_count: 7600
+  tranding: {
+    __typename: 'Tranding',
+    page: 0,
+    results: []
   }
 };
 
 const client = new ApolloClient({
   uri: process.env.BASE_URL,
   clientState: {
-    defaults
+    defaults,
   }
 });
 
