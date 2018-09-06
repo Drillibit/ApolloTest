@@ -1,5 +1,5 @@
 const express = require('express');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const expressGraphQL = require('express-graphql');
 const schema = require('./schema/schema');
 const bodyParser = require('body-parser');
@@ -17,6 +17,11 @@ app.use(
 
 app.use(bodyParser.json());
 
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://kvk-admin:293344asd@ds129926.mlab.com:29926/kvk-union',
+  { useNewUrlParser: true })
+  .then(() => console.log('MongoDB connected...'))
+  .catch(err => console.log(err));
 // mongoose
 //   .connect(
 //     'mongodb://mongo:27017/docker-node-mongo',

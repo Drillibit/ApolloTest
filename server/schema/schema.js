@@ -3,9 +3,12 @@ const api = require('../network/api');
 const requestNowPlayingMovies = require('../network/requestNowPlayingMovies');
 const requestGenres = require('../network/requestGenres');
 
+const User = require('../models/user');
+
 const MovieType = require('../query/movie');
 const TrandingType = require('../query/tranding');
 const GenresType = require('../query/genres');
+const UserType = require('../query/user');
 
 const {
   GraphQLObjectType,
@@ -49,6 +52,30 @@ const RootQuery = new GraphQLObjectType({
   }
 });
 
+const Mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addUser: {
+      type: UserType,
+      args: {
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        password: { type: GraphQLString }
+      },
+      resolve(_, { name, email, passowd }) {
+        const user = new User({
+          name,
+          email,
+          passowd
+        });
+
+        user.save();
+      }
+    }
+  }
+});
+
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation: Mutation
 });
