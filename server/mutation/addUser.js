@@ -4,14 +4,15 @@ const UserType = require('../types/user');
 
 const {
   GraphQLString,
+  GraphQLNonNull
 } = graphql;
 
 const addUser = {
   type: UserType,
   args: {
-    name: { type: GraphQLString },
-    email: { type: GraphQLString },
-    password: { type: GraphQLString }
+    name: { type: new GraphQLNonNull(GraphQLString) },
+    email: { type: new GraphQLNonNull(GraphQLString) },
+    password: { type: new GraphQLNonNull(GraphQLString) }
   },
   resolve(_, { name, email, passowd }) {
     const user = new User({
