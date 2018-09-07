@@ -9,4 +9,4 @@ const userSchema = new Schema({
   favouriteMovies: Array
 });
 
-mongoose.model('users', userSchema);
+module.exports = mongoose.model('users', userSchema);

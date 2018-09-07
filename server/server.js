@@ -18,7 +18,8 @@ app.use(
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://kvk-admin:293344asd@ds129926.mlab.com:29926/kvk-union',
+
+mongoose.connect('mongodb://admin:293344asd@ds161833.mlab.com:61833/addressbook',
   { useNewUrlParser: true })
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));

@@ -13,10 +13,6 @@ const UserType = require('../query/user');
 const {
   GraphQLObjectType,
   GraphQLString,
-  // GraphQLInt,
-  // GraphQLList,
-  // GraphQLFloat,
-  // GraphQLBoolean,
   GraphQLSchema,
   GraphQLID
 } = graphql;
@@ -62,14 +58,14 @@ const Mutation = new GraphQLObjectType({
         email: { type: GraphQLString },
         password: { type: GraphQLString }
       },
-      resolve(_, { name, email, passowd }) {
+      resolve(_, args) {
         const user = new User({
-          name,
-          email,
-          passowd
+          name: args.name,
+          email: args.email,
+          passowd: args.passowd
         });
 
-        user.save();
+        return user.save();
       }
     }
   }
