@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router';
 
+import { UserContainer } from './User';
 import { Header } from './Header';
 import { MoviePageContainer } from '../containers/MoviePageContainer';
 import { ConnectedFavourites } from '../containers/ConnectedFavourites';
@@ -35,6 +36,7 @@ export const Main = () => (
       <Route exact path="/" component={Component} />
       <Route path="/movie/:id" component={MoviePageContainer} />
       <Route path="/favourites" component={ConnectedFavourites} />
+      <Route path="/user" component={UserContainer} />
     </Switch>
     <Footer>
       <SmallText>2018, Все права защищены</SmallText>

@@ -81,7 +81,6 @@ export class FrontPage extends Component {
         fetchPolicy='cache-and-network'
       >
       {({error, loading, data, fetchMore }) => {
-        console.log(data)
         if (data.tranding === undefined) return ''
         if (error) return `Error ${error.message}`
        return (

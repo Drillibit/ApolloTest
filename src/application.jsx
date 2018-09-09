@@ -34,19 +34,46 @@ import { Main } from './components/Main';
 
 import './components/helpers/injectGlobalStyles';
 
+
+export const GET_TRANDING = gql`
+  query tranding($page: String!) @client {
+    tranding(page: $page) {
+      page
+      results {
+        genre_ids
+        id
+        title
+        backdrop_path
+        overview
+        poster_path
+        release_date
+        vote_count
+        vote_average
+      }
+    }
+  }
+`;
 const defaults = {
-  tranding: {
-    __typename: 'Tranding',
-    page: 0,
-    results: []
+  user: {
+    __typename: 'User',
+    id: 1,
+    name: 'Admin'
   }
 };
+
 
 const client = new ApolloClient({
   uri: process.env.BASE_URL,
   clientState: {
     defaults,
-  }
+    resolvers: {
+      Query: {
+        tranding: () => {
+          console.log('wow');
+        }
+      }
+    }
+  },
 });
 
 
