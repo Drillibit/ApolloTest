@@ -73,7 +73,7 @@ export class FrontPage extends Component {
     return (
       <Query 
         query={GET_TRANDING} 
-        variables={{ page: `${1}` }}
+        variables={{ page: `${1}`, genre: this.state.activeGenre }}
         fetchPolicy='cache-and-network'
       >
       {({error, loading, data, fetchMore }) => {
@@ -169,7 +169,7 @@ export class FrontPage extends Component {
                        if(loading) return 'Loading...'
                        if(error) return `Error ${error.message}`
                        
-                       const byId = genres_arr.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {})
+                       const byId = genres_arr.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {});
                        
                        return (
                          <Filter activeGenre={byId[this.state.activeGenre]} onChange={this.handelGenre} list={genres_arr} />
