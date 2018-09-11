@@ -12,7 +12,6 @@ import { Preloader } from './UIKit/Preloader';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 import { CONFIG } from '../services/api';
 import { GET_TRANDING, GET_GENRES } from './Requests/frontPage';
-import { actionChannel } from '../../node_modules/redux-saga/effects';
 
 /* eslint-disable */
 
@@ -68,7 +67,6 @@ export class FrontPage extends Component {
   }
 
   render() {
-    const { fetchNowPlaying, fetchTop100, store, fetchOneMovie, fetchGenres, clearFilter, genres: { byId }, filters: { activeGenre },  } = this.props;
     return (
       <Query 
         query={GET_TRANDING} 
@@ -114,8 +112,8 @@ export class FrontPage extends Component {
             <StyledRow>
               <StyledCol xs={12}>
                 <Tabs onChange={id => (id === 0) 
-                  ? (this.setState({ tabId: 0, tabCounter: 1, activeOption: {}, activeGenre: '' }), clearFilter())
-                  : (this.setState({ tabId: 1, tabCounter: 1, activeOption: {}, activeGenre: '' }), clearFilter(), refetch())
+                  ? (this.setState({ tabId: 0, tabCounter: 1, activeOption: {}, activeGenre: '' }))
+                  : (this.setState({ tabId: 1, tabCounter: 1, activeOption: {}, activeGenre: '' }), refetch())
                 }>
                   <TabPane tabName="Сейчас в кино">
                     <PreviewStyled>
