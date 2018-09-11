@@ -54,7 +54,6 @@ export class FrontPage extends Component {
   };
 
   handelGenre = e => {
-    console.log(e)
     this.setState(() => ({
       activeGenre: e
     }))
@@ -73,7 +72,7 @@ export class FrontPage extends Component {
     return (
       <Query 
         query={GET_TRANDING} 
-        variables={{ page: `${1}`, genre: this.state.activeGenre }}
+        variables={{ page: `${1}`, genre: this.state.activeGenre, sortBy: this.state.activeOption.value }}
         fetchPolicy='cache-and-network'
       >
       {({error, loading, data, fetchMore }) => {
