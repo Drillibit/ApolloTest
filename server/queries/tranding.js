@@ -4,7 +4,8 @@ const api = require('../network/api');
 const requestNowPlayingMovies = require('../network/requestNowPlayingMovies');
 
 const {
-  GraphQLString
+  GraphQLString,
+  GraphQLBoolean
 } = graphql;
 
 const tranding = {
@@ -12,7 +13,8 @@ const tranding = {
   args: {
     page: { type: GraphQLString },
     genre: { type: GraphQLString },
-    sortBy: { type: GraphQLString }
+    sortBy: { type: GraphQLString },
+    noDate: { type: GraphQLBoolean }
   },
   resolve(_, args) {
     return requestNowPlayingMovies(api, args);

@@ -38,8 +38,8 @@ const PreloaderWrapper = styled.div`
 const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
 
 const optionsData = [
-  { id: 1, value: 'release_date.desc', name: 'По дате выхода' }, 
-  { id: 2, value: 'popularity.asc', name: 'По рейтингу' }, 
+  { id: 1, value: 'release_date.asc', name: 'По дате выхода' }, 
+  { id: 2, value: 'popularity.desc', name: 'По рейтингу' }, 
   { id: 3, value: 'original_title.asc', name: 'По алфавиту' }
 ];
 
@@ -72,12 +72,17 @@ export class FrontPage extends Component {
     return (
       <Query 
         query={GET_TRANDING} 
-        variables={{ page: `${1}`, genre: this.state.activeGenre, sortBy: this.state.activeOption.value }}
+        variables={{ 
+          page: `${1}`, 
+          genre: this.state.activeGenre, 
+          sortBy: this.state.activeOption.value, 
+          noDate: this.state.tabId > 0 ? true : false }}
         fetchPolicy='cache-and-network'
       >
-      {({error, loading, data, fetchMore }) => {
+      {({error, loading, data, fetchMore, refetch }) => {
         if (data.tranding === undefined) return ''
         if (error) return `Error ${error.message}`
+        console.log(data.tranding);
        return (
         <FrontPageStyled onScroll={e => {
           const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
@@ -109,8 +114,8 @@ export class FrontPage extends Component {
             <StyledRow>
               <StyledCol xs={12}>
                 <Tabs onChange={id => (id === 0) 
-                  ? (this.setState({ tabId: 0, tabCounter: 1, activeOption: {} }), clearFilter())
-                  : (this.setState({ tabId: 1, tabCounter: 1, activeOption: {} }), clearFilter())
+                  ? (this.setState({ tabId: 0, tabCounter: 1, activeOption: {}, activeGenre: '' }), clearFilter())
+                  : (this.setState({ tabId: 1, tabCounter: 1, activeOption: {}, activeGenre: '' }), clearFilter(), refetch())
                 }>
                   <TabPane tabName="Сейчас в кино">
                     <PreviewStyled>
@@ -145,7 +150,7 @@ export class FrontPage extends Component {
 
                   <TabPane tabName="Топ 100">
                     <PreviewStyled>
-                      {store.filmsList.length > 0 && store.filmsList.map(item =>
+                       {data.tranding.results.length > 0 && data.tranding.results.map(item =>
                         <Preview
                           key={item.id}
                           title={item.title}
