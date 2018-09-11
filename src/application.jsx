@@ -54,11 +54,22 @@ export const GET_TRANDING = gql`
   }
 `;
 const defaults = {
-  user: {
-    __typename: 'User',
-    id: 1,
-    name: 'Admin'
-  }
+  users: {
+    __typename: 'Users',
+    page: 1,
+    userArr: [
+      {
+        __typename: 'User',
+        id: 1,
+        name: 'Admin'
+      },
+      {
+        __typename: 'User',
+        id: 2,
+        name: 'Client'
+      }
+    ]
+  },
 };
 
 
@@ -68,10 +79,21 @@ const client = new ApolloClient({
     defaults,
     resolvers: {
       Query: {
-        tranding: () => {
-          console.log('wow');
+        users: (_, { page }, { cache }) => {
+          const query = gql`
+            query getUser ($page: page) {
+              users(page: ${page}) @client {
+                page
+                userArr
+              }
+            }
+          `;
+          const data = cache.readQuery({ query });
+          console.log(data);
+          return defaults.users;
         }
-      }
+      },
+      Mutation: {}
     }
   },
 });

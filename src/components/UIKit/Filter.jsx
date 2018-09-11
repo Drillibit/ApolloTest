@@ -109,10 +109,7 @@ export class Filter extends Component {
 
   handleClickFilterItem = (e) => {
     this.handleToggle();
-
-    const id = +e.target.dataset.id;
-
-    this.props.onChange(id);
+    this.props.onChange(e.target.dataset.id);
   };
 
   render() {
@@ -149,7 +146,7 @@ Filter.propTypes = {
   onChange: func,
   activeGenre: shape({
     name: string,
-    id: number
+    id: string
   })
 };
 
@@ -158,7 +155,7 @@ Filter.defaultProps = {
   onChange: f => f,
   activeGenre: {
     name: 'Жанр',
-    id: 0
+    id: ''
   }
 };
 

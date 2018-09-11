@@ -4,9 +4,10 @@ import { gql } from 'apollo-boost';
 import { graphql, compose } from 'react-apollo';
 
 const getUser = gql`
-  query {
-    user @client {
-      name
+  query getUser ($page: page) {
+    users(page: $page) @client {
+      page
+      userArr
     }
   }
 `;
@@ -20,7 +21,7 @@ const Wrapper = styled.div`
 
 const User = props => (
   <Wrapper>
-   {console.log(props) }
+   {console.log(props.data) }
     <p>User Component</p>
   </Wrapper>
 );
@@ -28,6 +29,11 @@ const User = props => (
 
 export const UserContainer = compose(
   graphql(getUser, {
+    options: () => ({
+      variables: {
+        page: 1
+      }
+    }),
     props: data => ({
       data
     })

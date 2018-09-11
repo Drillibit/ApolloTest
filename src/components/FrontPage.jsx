@@ -11,8 +11,8 @@ import { Preview } from './UIKit/Preview';
 import { Preloader } from './UIKit/Preloader';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 import { CONFIG } from '../services/api';
-import { GET_TRANDING } from './Requests/frontPage';
-import { arrayOfDeffered } from '../../node_modules/redux-saga/utils';
+import { GET_TRANDING, GET_GENRES } from './Requests/frontPage';
+import { actionChannel } from '../../node_modules/redux-saga/effects';
 
 /* eslint-disable */
 
@@ -50,18 +50,14 @@ export class FrontPage extends Component {
     hasMore: true,
     isLoading: false,
     activeOption: {},
+    activeGenre: ''
   };
 
-  onScrollList = e => {
-    const { hasMore, isLoading } = this.state;
-    const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
-    if (scrollbottom) {
-      console.log('scroll');
-    }
-  }
-
   handelGenre = e => {
-    this.props.activeGenre(e);
+    console.log(e)
+    this.setState(() => ({
+      activeGenre: e
+    }))
   }
 
   handleSort = e => {
@@ -168,7 +164,18 @@ export class FrontPage extends Component {
                     </PreviewStyled>
                   </TabPane>
 
-                  <TabPane tabName={<Filter activeGenre={byId[activeGenre]} onChange={this.handelGenre} list={Object.values(byId)} />} />
+                  <TabPane tabName={<Query query={GET_GENRES}>
+                     { ({error, loading, data: { genres_arr }}) => {
+                       if(loading) return 'Loading...'
+                       if(error) return `Error ${error.message}`
+                       
+                       const byId = genres_arr.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {})
+                       
+                       return (
+                         <Filter activeGenre={byId[this.state.activeGenre]} onChange={this.handelGenre} list={genres_arr} />
+                       );
+                     } }
+                  </Query>} />
                   <TabPane tabName={<Dropdown activeOption={this.state.activeOption} handleChange={this.handleSort} options={optionsData} />} marginLeft="auto" />
                 </Tabs>
               </StyledCol>

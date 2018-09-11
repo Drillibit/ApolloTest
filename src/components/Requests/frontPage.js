@@ -18,3 +18,12 @@ export const GET_TRANDING = gql`
     }
   }
 `;
+
+export const GET_GENRES = gql`
+  query genres {
+    genres_arr {
+      id
+      name
+    }
+  }
+`;
