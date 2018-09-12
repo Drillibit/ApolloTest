@@ -156,7 +156,6 @@ const StyledContainer = styled.div`
 
 export class MoviePage extends PureComponent {
   static propTypes = {
-    searchById: func.isRequired,
     video: string,
     similar: arrayOf(object),
     toggleFavourite: func,
@@ -202,21 +201,16 @@ export class MoviePage extends PureComponent {
   }
 
   state = {
-    playing: false,
-    path: this.props.match.params.id
-  }
-  componentDidMount() {
-    const { searchById } = this.props;
-    searchById(this.props.match.params.id);
+    playing: false
   }
 
-  componentDidUpdate(prevProps) {
-    const { searchById } = this.props;
-    if (this.props.match.params.id !== prevProps.match.params.id) {
-      searchById(this.props.match.params.id);
-      window.scrollTo(0, 0);
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   const { searchById } = this.props;
+  //   if (this.props.match.params.id !== prevProps.match.params.id) {
+  //     searchById(this.props.match.params.id);
+  //     window.scrollTo(0, 0);
+  //   }
+  // }
 
   onPlay = () => {
     this.setState({
@@ -243,10 +237,10 @@ export class MoviePage extends PureComponent {
       production_countries,
       runtime,
       overview,
-    } = this.props.movie;
+      similar,
+    } = this.props;
 
     const {
-      similar,
       toggleFavourite,
       favourite,
       favourites
@@ -286,7 +280,7 @@ export class MoviePage extends PureComponent {
                   </StyledHeadersGroup>
                   <StyledPlayerWrapper>
                     <MoviePlayer
-                      link={this.props.video}
+                      link={this.props.video.key}
                       image={poster_path}
                       playing={this.state.playing}
                       onPlay={this.onPlay}
@@ -369,7 +363,16 @@ export class MoviePage extends PureComponent {
                          key={movie.id}
                          toggleFavourite={() => toggleFavourite(movie.id)}
                          isFavourite={fav}
-                         {...movie}
+                         id={movie.id}
+                         description={movie.overview}
+                         title={movie.title}
+                         bg={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                         voteAverage={movie.vote_average}
+                         voteCount={movie.vote_count}
+                         year={movie.release_date}
+                         duration={movie.runtime}
+                      //  pg,
+                      //  genre,
                        />);
                     })
 

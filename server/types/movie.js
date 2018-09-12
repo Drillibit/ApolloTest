@@ -16,14 +16,21 @@ const {
   GraphQLID
 } = graphql;
 
+const CountriesType = new GraphQLObjectType({
+  name: 'ProductionCountries',
+  fields: () => ({
+    name: { type: GraphQLString }
+  })
+});
+
 const CompaniesType = new GraphQLObjectType({
   name: 'ProductionCompanies',
-  fields: {
+  fields: () => ({
     id: { type: GraphQLInt },
     name: { type: GraphQLString },
     logo_path: { type: GraphQLString },
     original_country: { type: GraphQLString }
-  }
+  })
 });
 
 const GenreType = new GraphQLObjectType({
@@ -58,6 +65,9 @@ module.exports = new GraphQLObjectType({
     poster_path: { type: GraphQLString },
     production_companies: {
       type: new GraphQLList(CompaniesType)
+    },
+    production_countries: {
+      type: new GraphQLList(CountriesType)
     },
     genres: {
       type: new GraphQLList(GenreType)

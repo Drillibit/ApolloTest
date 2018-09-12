@@ -23,6 +23,7 @@ const SimilarTypeObj = new GraphQLObjectType({
     popularity: { type: GraphQLInt },
     poster_path: { type: GraphQLString },
     release_date: { type: GraphQLString },
+    runtime: { type: GraphQLString },
     title: { type: GraphQLString },
     vote_average: { type: GraphQLFloat },
     vote_count: { type: GraphQLInt }
