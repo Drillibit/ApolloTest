@@ -6,6 +6,10 @@ export const GET_MOVIE = gql`
       id 
       title
       overview
+      genres {
+        id
+        name
+      }
       backdrop_path
       runtime
       vote_count

@@ -80,7 +80,6 @@ export class FrontPage extends Component {
       {({error, loading, data, fetchMore, refetch }) => {
         if (data.tranding === undefined) return ''
         if (error) return `Error ${error.message}`
-        console.log(data.tranding);
        return (
         <FrontPageStyled onScroll={e => {
           const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
