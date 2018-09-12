@@ -86,6 +86,7 @@ function* searchMovies({ payload }) {
   try {
     const { data } = yield call(requestMovieByKeywords, payload);
     yield put(clearError());
+    console.log(data);
     yield put(setSearchResults(data.results));
   } catch (error) {
     yield put(setError(error.toString()));

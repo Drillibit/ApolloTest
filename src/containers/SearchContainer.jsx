@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { func } from 'prop-types';
 
 import { getSearchResults } from '../redux/movies/selectors';
@@ -9,7 +9,7 @@ import { Search } from '../components/UIKit/Search';
 
 import { fetchGenres } from '../redux/genres/actions';
 
-class SearchController extends Component {
+class SearchController extends PureComponent {
   static propTypes = {
     searchMovies: func.isRequired,
     clearSearch: func.isRequired

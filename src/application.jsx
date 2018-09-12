@@ -72,6 +72,7 @@ const defaults = {
   },
 };
 
+console.log(encodeURIComponent('мст'));
 
 const client = new ApolloClient({
   uri: process.env.BASE_URL,

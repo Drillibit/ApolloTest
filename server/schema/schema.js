@@ -11,6 +11,7 @@ const tranding = require('../queries/tranding');
 const genres_arr = require('../queries/genre');
 const similar = require('../queries/similar');
 const video = require('../queries/video');
+const search = require('../queries/search');
 // Mutations
 const addUser = require('../mutation/addUser');
 
@@ -22,7 +23,8 @@ const RootQuery = new GraphQLObjectType({
     tranding,
     genres_arr,
     similar,
-    video
+    video,
+    search
   }
 });
 // 5b91e9c01066aa03ee2b3811
