@@ -1,4 +1,10 @@
 const graphql = require('graphql');
+const api = require('../network/api');
+const requestSimilarMovies = require('../network/requestSimilar');
+const requestMovieVideos = require('../network/requestVideo');
+
+const SimilarType = require('./similar');
+const VideoType = require('./video');
 
 const {
   GraphQLObjectType,
@@ -60,6 +66,18 @@ module.exports = new GraphQLObjectType({
     tagline: { type: GraphQLString },
     title: { type: GraphQLString },
     vote_average: { type: GraphQLFloat },
-    vote_count: { type: GraphQLInt }
+    vote_count: { type: GraphQLInt },
+    similar: {
+      type: SimilarType,
+      resolve(parentArg) {
+        return requestSimilarMovies(api, parentArg);
+      }
+    },
+    video: {
+      type: VideoType,
+      resolve(parentArg) {
+        return requestMovieVideos(api, parentArg);
+      }
+    }
   })
 });

@@ -98,6 +98,7 @@ function* searchById({ payload }) {
     yield put(clearError());
     yield put(setMovieById(data));
     const dataVid = yield call(requestMovieVideos, payload.id);
+    console.log(dataVid);
     const validVid =
       dataVid.data.results.length > 0
         ? dataVid.data.results[0].key

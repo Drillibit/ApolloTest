@@ -98,7 +98,6 @@ const client = new ApolloClient({
   },
 });
 
-
 export const Application = hot(module)(() => (
   <ApolloProvider client={client}>
     <Provider store={store}>

@@ -259,7 +259,7 @@ export class MoviePage extends PureComponent {
         </StyledPreloader>
       );
     }
-
+    console.log(this.props);
     return (
       <StyledContainer>
         <StyledBgKeeper bg={backdrop_path}>
