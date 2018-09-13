@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 export const GET_TRANDING = gql`
-  query tranding($page: String!, $genre: String, $sortBy: String, $noDate: Boolean ) {
-    tranding(page: $page, genre: $genre, sortBy: $sortBy, noDate: $noDate) {
+  query tranding($page: String!, $genre: String, $sortBy: String, $source: Boolean ) {
+    tranding(page: $page, genre: $genre, sortBy: $sortBy, source: $source) {
       page
       results{
         genre_ids

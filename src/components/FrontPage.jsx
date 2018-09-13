@@ -60,7 +60,6 @@ export class FrontPage extends Component {
 
   handleSort = e => {
     const optionsObj = Object.assign({}, optionsData);
-    this.props.activeSort(optionsObj[e].value);
     this.setState({
       activeOption: optionsObj[e]
     });
@@ -74,7 +73,7 @@ export class FrontPage extends Component {
           page: `${1}`, 
           genre: this.state.activeGenre, 
           sortBy: this.state.activeOption.value, 
-          noDate: this.state.tabId > 0 ? true : false }}
+          source: this.state.tabId > 0 ? true : false }}
         fetchPolicy='cache-and-network'
       >
       {({error, loading, data, fetchMore, refetch }) => {
@@ -86,7 +85,7 @@ export class FrontPage extends Component {
           if (scrollbottom) {
             fetchMore({
               variables: {
-                page: `${data.tranding.page + 1}`
+                page: `${data.tranding.page + 1}`,
               },
               updateQuery: (prev, { fetchMoreResult }) => {
                 if (!fetchMoreResult) return prev;

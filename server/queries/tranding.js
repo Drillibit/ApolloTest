@@ -14,7 +14,7 @@ const tranding = {
     page: { type: GraphQLString },
     genre: { type: GraphQLString },
     sortBy: { type: GraphQLString },
-    noDate: { type: GraphQLBoolean }
+    source: { type: GraphQLBoolean }
   },
   resolve(_, args) {
     return requestNowPlayingMovies(api, args);
