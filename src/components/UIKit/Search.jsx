@@ -174,7 +174,6 @@ export class Search extends PureComponent {
     } = this.props;
 
     const { isOpen } = this.state;
-
     return (
       <RootClose onRootClose={this.onClose}>
         <SearchStyled isOpen={isOpen} onKeyDown={this.handleKeyDown}>
@@ -190,14 +189,14 @@ export class Search extends PureComponent {
           />
           {(isOpen && result.length > 0) && (
             <UlStyled innerRef={this.activeLink}>
-              {result.slice(0, 10).map(({ name, id }, index) => (
+              {result.slice(0, 10).map(({ title, id }, index) => (
                 <TmpStyled
                   id={index}
                   key={id}
                   to={`/movie/${id}`}
                   onClick={this.onClose}
                 >
-                  <LiStyled><StyledText>{name}</StyledText></LiStyled>
+                  <LiStyled><StyledText>{title}</StyledText></LiStyled>
                 </TmpStyled>))}
             </UlStyled>)
           }

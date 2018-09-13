@@ -1,37 +1,56 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import React, { PureComponent } from 'react';
-import { func } from 'prop-types';
+import React, { Component } from 'react';
+import { withApollo } from 'react-apollo';
+import { func, arrayOf, object, objectOf, any, shape } from 'prop-types';
 
-import { getSearchResults } from '../redux/movies/selectors';
-import * as actions from '../redux/movies/actions';
+
 import { Search } from '../components/UIKit/Search';
 
-import { fetchGenres } from '../redux/genres/actions';
+import { GET_SEARCH_RES } from '../components/Requests/search';
 
-class SearchController extends PureComponent {
+class SearchController extends Component {
   static propTypes = {
-    searchMovies: func.isRequired,
-    clearSearch: func.isRequired
+    searchMovies: func,
+    client: objectOf(any).isRequired,
+    data: shape({
+      search: arrayOf(object)
+    })
   }
+
+  static defaultProps = {
+    searchMovies: f => f,
+    data: {
+      search: []
+    }
+  };
 
   state = {
     value: '',
+    results: []
   };
 
   handleChange = (e) => {
     const { value } = e.target;
-    const { searchMovies } = this.props;
+    const { client } = this.props;
     clearTimeout(this.timeOut);
-    this.timeOut = setTimeout(() => {
+    this.timeOut = setTimeout(async () => {
       if (value.length > 0) {
-        searchMovies(value);
+        const { data: { search } } = await client.query({
+          query: GET_SEARCH_RES,
+          variables: { req: value }
+        });
+        this.setState({
+          results: search
+        });
       }
     }, 500);
 
     this.setState({ value: e.target.value });
+    if (value.length === 0) {
+      this.setState({
+        results: []
+      });
+    }
   };
-
   render() {
     return (
       <Search
@@ -39,21 +58,11 @@ class SearchController extends PureComponent {
         onClick={this.handleClick}
         onClose={this.handleClose}
         value={this.state.value}
+        result={this.state.results}
         {...this.props}
       />
     );
   }
 }
 
-const mapStateToProps = state => ({
-  result: getSearchResults(state),
-  genres: state.genres,
-});
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  ...actions,
-  fetchGenres
-}, dispatch);
-
-
-export const SearchContainer = connect(mapStateToProps, mapDispatchToProps)(SearchController);
+export const SearchContainer = withApollo(SearchController);

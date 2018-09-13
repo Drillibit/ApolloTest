@@ -5,8 +5,7 @@ import { Route, Switch } from 'react-router';
 import { UserContainer } from './User';
 import { Header } from './Header';
 import { MoviePageContainer } from '../containers/MoviePageContainer';
-import { ConnectedFavourites } from '../containers/ConnectedFavourites';
-import { FrontPageContainer } from '../containers/FrontPageContainer';
+import { FrontPage } from '../components/FrontPage';
 import { Footer } from './UIKit/Footer';
 import { SmallText } from './UIKit/Typography';
 
@@ -25,7 +24,7 @@ const StyledContent = styled.div`
 
 const Component = () => (
   <StyledContent>
-    <FrontPageContainer />
+    <FrontPage />
   </StyledContent>
 );
 
@@ -35,7 +34,6 @@ export const Main = () => (
     <Switch>
       <Route exact path="/" component={Component} />
       <Route path="/movie/:id" component={MoviePageContainer} />
-      <Route path="/favourites" component={ConnectedFavourites} />
       <Route path="/user" component={UserContainer} />
     </Switch>
     <Footer>
