@@ -1,7 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { hot } from 'react-hot-loader';
-import { ConnectedRouter } from 'connected-react-router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faHeart,
@@ -29,7 +27,6 @@ import ApolloClient, { gql } from 'apollo-boost';
 
 import { ApolloProvider } from 'react-apollo';
 
-import { store, history } from './redux/store';
 import { Main } from './components/Main';
 
 import './components/helpers/injectGlobalStyles';
@@ -99,11 +96,7 @@ const client = new ApolloClient({
 
 export const Application = hot(module)(() => (
   <ApolloProvider client={client}>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Main />
-      </ConnectedRouter>
-    </Provider>
+    <Main />
   </ApolloProvider>
 ));
 

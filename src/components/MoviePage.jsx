@@ -16,7 +16,6 @@ import {
 import { colors } from './helpers/colors';
 import { H1, H2, SmallText, LargeText } from './UIKit/Typography';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
-import { isFavourite } from '../redux/movies/selectors';
 import { MoviePlayer } from './MoviePlayer';
 import { Button } from './UIKit/Button';
 import { Icon } from './UIKit/Icon';
@@ -203,15 +202,6 @@ export class MoviePage extends PureComponent {
   state = {
     playing: false
   }
-
-  // componentDidUpdate(prevProps) {
-  //   const { searchById } = this.props;
-  //   if (this.props.match.params.id !== prevProps.match.params.id) {
-  //     searchById(this.props.match.params.id);
-  //     window.scrollTo(0, 0);
-  //   }
-  // }
-
   onPlay = () => {
     this.setState({
       playing: true
@@ -357,7 +347,7 @@ export class MoviePage extends PureComponent {
                 <StyledSimilar>
                   {similar.length > 1 ? (
                     similar.map((movie) => {
-                    const fav = isFavourite(favourites, movie);
+                     const fav = false;
                      return (
                        <Preview
                          key={movie.id}

@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Route, Switch } from 'react-router';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { UserContainer } from './User';
 import { Header } from './Header';
 import { MoviePageContainer } from '../containers/MoviePageContainer';
+
 import { FrontPage } from '../components/FrontPage';
 import { Footer } from './UIKit/Footer';
 import { SmallText } from './UIKit/Typography';
@@ -29,15 +30,17 @@ const Component = () => (
 );
 
 export const Main = () => (
-  <StyledMain>
-    <Header />
-    <Switch>
-      <Route exact path="/" component={Component} />
-      <Route path="/movie/:id" component={MoviePageContainer} />
-      <Route path="/user" component={UserContainer} />
-    </Switch>
-    <Footer>
-      <SmallText>2018, Все права защищены</SmallText>
-    </Footer>
-  </StyledMain>
+  <Router>
+    <StyledMain>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Component} />
+        <Route path="/movie/:id" component={MoviePageContainer} />
+        <Route path="/user" component={UserContainer} />
+      </Switch>
+      <Footer>
+        <SmallText>2018, Все права защищены</SmallText>
+      </Footer>
+    </StyledMain>
+  </Router>
 );
