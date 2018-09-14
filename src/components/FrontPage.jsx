@@ -11,6 +11,7 @@ import { Preview } from './UIKit/Preview';
 import { Preloader } from './UIKit/Preloader';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 import { CONFIG } from '../services/api';
+// Network
 import { GET_TRANDING, GET_GENRES } from './Requests/frontPage';
 
 /* eslint-disable */
@@ -79,8 +80,6 @@ export class FrontPage extends Component {
       {({error, loading, data, fetchMore, networkStatus }) => {
         if (data.tranding === undefined) return ''
         if (error) return `Error ${error.message}`
-        console.log(networkStatus)
-        console.log(loading)
        return (
         <FrontPageStyled onScroll={e => {
           const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
@@ -119,13 +118,15 @@ export class FrontPage extends Component {
                     <PreviewStyled>
                        {!(networkStatus === 7) ? ''
                       : data.tranding.results.map(item => {
+                        const bg = item.backdrop_path ? BACKDROP_PATH + item.backdrop_path : '../assets/img/background.jpg';
+
                       return (
                         <Preview 
                           key={item.id}
                           title={item.title}
                           voteAverage={item.vote_average}
                           voteCount={item.vote_count}
-                          bg={BACKDROP_PATH + item.backdrop_path || '../assets/img/background.jpg'}
+                          bg={bg}
                           year={item.release_date} 
                           duration={'123'}
                           pg={item.adult ? "18+" : "12+"}
@@ -140,7 +141,7 @@ export class FrontPage extends Component {
                   <TabPane tabName="Топ 100">
                     <PreviewStyled>
                        {!(networkStatus === 7) ? ''
-                       : data.tranding.results.length > 0 && data.tranding.results.map(item =>
+                       : data.tranding.results.map(item =>
                         <Preview
                           key={item.id}
                           title={item.title}
