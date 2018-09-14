@@ -6,7 +6,6 @@ const requestNowPlayingMovies = (api, {
   const d = new Date();
   d.setDate(d.getDate() - 30);
   const date = d.toISOString().substring(0, 10);
-  console.log(currentDate, date);
   try {
     if (!source) {
       return api.get(`discover/movie?page=${page}&region=RU${sortBy ? `&sort_by=${sortBy}` : ''}${genre ? `&with_genres=${genre}` : ''}&release_date.gte=${date}&release_date.lte=${currentDate}&with_release_type=3%7C2`)
