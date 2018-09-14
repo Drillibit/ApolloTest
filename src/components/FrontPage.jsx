@@ -74,11 +74,13 @@ export class FrontPage extends Component {
           genre: this.state.activeGenre, 
           sortBy: this.state.activeOption.value, 
           source: this.state.tabId > 0 ? true : false }}
-        fetchPolicy='cache-and-network'
+        fetchPolicy='network-only'
       >
-      {({error, loading, data, fetchMore, refetch }) => {
+      {({error, loading, data, fetchMore, networkStatus }) => {
         if (data.tranding === undefined) return ''
         if (error) return `Error ${error.message}`
+        console.log(networkStatus)
+        console.log(loading)
        return (
         <FrontPageStyled onScroll={e => {
           const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
@@ -111,28 +113,19 @@ export class FrontPage extends Component {
               <StyledCol xs={12}>
                 <Tabs onChange={id => (id === 0) 
                   ? (this.setState({ tabId: 0, tabCounter: 1, activeOption: {}, activeGenre: '' }))
-                  : (this.setState({ tabId: 1, tabCounter: 1, activeOption: {}, activeGenre: '' }), refetch())
+                   : (this.setState({ tabId: 1, tabCounter: 1, activeOption: {}, activeGenre: '' }))
                 }>
                   <TabPane tabName="Сейчас в кино">
                     <PreviewStyled>
-                      {data.tranding.results.length > 0 && data.tranding.results.map(item => {
-                        let bg;
-                        if (item.backdrop_path) {
-                          bg = `${BACKDROP_PATH + item.backdrop_path}`;
-                        } else {
-                            if(item.poster_path) {
-                              bg = `${BACKDROP_PATH + item.poster_path}`
-                            } else {
-                              bg = '../assets/img/background.jpg';
-                            }
-                        }
-                        return (
+                       {!(networkStatus === 7) ? ''
+                      : data.tranding.results.map(item => {
+                      return (
                         <Preview 
                           key={item.id}
                           title={item.title}
                           voteAverage={item.vote_average}
                           voteCount={item.vote_count}
-                          bg={bg}
+                          bg={BACKDROP_PATH + item.backdrop_path || '../assets/img/background.jpg'}
                           year={item.release_date} 
                           duration={'123'}
                           pg={item.adult ? "18+" : "12+"}
@@ -146,7 +139,8 @@ export class FrontPage extends Component {
 
                   <TabPane tabName="Топ 100">
                     <PreviewStyled>
-                       {data.tranding.results.length > 0 && data.tranding.results.map(item =>
+                       {!(networkStatus === 7) ? ''
+                       : data.tranding.results.length > 0 && data.tranding.results.map(item =>
                         <Preview
                           key={item.id}
                           title={item.title}
@@ -181,7 +175,7 @@ export class FrontPage extends Component {
               </StyledCol>
               <StyledCol xs={12}>
                 <PreloaderWrapper hasMore={this.state.hasMore}>
-                  {loading && <Preloader>Загрузка</Preloader>}
+                  {(loading || networkStatus === 7) && <Preloader>Загрузка</Preloader>}
                 </PreloaderWrapper>
               </StyledCol>
             </StyledRow>

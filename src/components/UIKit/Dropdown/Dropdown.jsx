@@ -81,7 +81,6 @@ export class Dropdown extends PureComponent {
 
   render() {
     const { activeOption, options } = this.props;
-    console.log(activeOption);
     const { isOpen } = this.state;
     return (
       <StyledDropdownContainer>
