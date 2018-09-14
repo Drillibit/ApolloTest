@@ -47,11 +47,17 @@ export class FrontPage extends Component {
   state = {
     tabCounter: 1,
     tabId: 0,
-    hasMore: true,
     isLoading: false,
     activeOption: {},
+    hasMore: false,
     activeGenre: ''
   };
+
+  handleMore = more => {
+    this.setState({
+      hasMore: more
+    });
+  }
 
   handelGenre = e => {
     this.setState(() => ({
@@ -90,6 +96,11 @@ export class FrontPage extends Component {
               },
               updateQuery: (prev, { fetchMoreResult }) => {
                 if (!fetchMoreResult) return prev;
+                if (fetchMoreResult.tranding.results.length === 0) {
+                  this.handleMore(false);
+                } else {
+                  this.handleMore(true);
+                }
                 const res = Object.assign({}, prev, {
                   tranding: {
                     ...prev.tranding,
@@ -118,7 +129,7 @@ export class FrontPage extends Component {
                     <PreviewStyled>
                        {!(networkStatus === 7) ? ''
                       : data.tranding.results.map(item => {
-                        const bg = item.backdrop_path ? BACKDROP_PATH + item.backdrop_path : '../assets/img/background.jpg';
+                           const bg = item.poster_path ? BACKDROP_PATH + item.poster_path : '../assets/img/background.jpg';
 
                       return (
                         <Preview 
@@ -132,8 +143,7 @@ export class FrontPage extends Component {
                           pg={item.adult ? "18+" : "12+"}
                           genre={'1'}
                           description={item.overview} {...item}
-                        />)})
-                      
+                        />)})         
                     }
                     </PreviewStyled>
                   </TabPane>
@@ -175,8 +185,9 @@ export class FrontPage extends Component {
                 </Tabs>
               </StyledCol>
               <StyledCol xs={12}>
-                <PreloaderWrapper hasMore={this.state.hasMore}>
-                  {(loading || networkStatus === 7) && <Preloader>Загрузка</Preloader>}
+                <PreloaderWrapper>
+                    {console.log(loading, networkStatus)}
+                  {(loading || networkStatus === 7 && this.state.hasMore) ? <Preloader>Загрузка</Preloader> : ''}
                 </PreloaderWrapper>
               </StyledCol>
             </StyledRow>

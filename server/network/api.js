@@ -9,7 +9,7 @@ const CONFIG = {
 
 module.exports = axios.create({
   baseURL: `${CONFIG.BASE_URL}/${CONFIG.VERSION}`,
-  timeout: 2000,
+  timeout: 5000,
   params: {
     api_key: CONFIG.KEY,
     language: 'ru-RU'
