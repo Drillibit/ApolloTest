@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression');
 const mongoose = require('mongoose');
 const expressGraphQL = require('express-graphql');
 const schema = require('./schema/schema');
@@ -15,6 +16,7 @@ app.use(
   })
 );
 
+app.use(compression());
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;

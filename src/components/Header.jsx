@@ -60,9 +60,9 @@ export const Header = () => (
             <SearchWrapper>
               <SearchContainer />
             </SearchWrapper>
-            <Button btnType="primary">
+            {/* <Button btnType="primary">
               Войти
-            </Button>
+            </Button> */}
           </StyledRightGroup>
         </StyledCol>
       </StyledRow>
