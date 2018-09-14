@@ -2,6 +2,11 @@ const express = require('express');
 const compression = require('compression');
 const mongoose = require('mongoose');
 const expressGraphQL = require('express-graphql');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const passport = require('passport');
+const models = require('./models');
+const passportConfig = require('./services/auth');
 const schema = require('./schema/schema');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -33,6 +38,21 @@ mongoose.connect('mongodb://admin:293344asd@ds161833.mlab.com:61833/addressbook'
 //   .then(() => console.log('MongoDB Connected'))
 //   .catch(err => console.log(err));
 
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: 'aaabbbccc',
+  store: new MongoStore({
+    url: 'mongodb://admin:293344asd@ds161833.mlab.com:61833/addressbook',
+    autoReconnect: true
+  })
+}));
+
+app.use(express.static('www'));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(
   '/graphql',
   expressGraphQL({
@@ -40,8 +60,6 @@ app.use(
     graphiql: true
   })
 );
-
-app.use(express.static('www'));
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'www', 'index.html'));
