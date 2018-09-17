@@ -1,5 +1,4 @@
 const graphql = require('graphql');
-const User = require('../models/user');
 const UserType = require('../types/user');
 const AuthService = require('../services/auth');
 
@@ -16,7 +15,9 @@ const addUser = {
     password: { type: new GraphQLNonNull(GraphQLString) }
   },
   resolve(_, { name, email, password }, req) {
-    return AuthService.signup({ email, password, req });
+    return AuthService.signup({
+      name, email, password, req
+    });
   }
 };
 

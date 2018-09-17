@@ -30,8 +30,10 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
   });
 }));
 
-function signup({ email, password, req }) {
-  const user = new User({ email, password });
+function signup({
+  name, email, password, req
+}) {
+  const user = new User({ name, email, password });
   if (!email || !password) { throw new Error('You must provide an email and password.'); }
 
   return User.findOne({ email })
