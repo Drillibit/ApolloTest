@@ -4,9 +4,11 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const User = mongoose.model('users');
 
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
+
 
 passport.deserializeUser((id, done) => {
   User.findById(id, (err, user) => {
@@ -18,8 +20,8 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
   User.findOne({ email: email.toLowerCase() }, (err, user) => {
     if (err) { return done(err); }
     if (!user) { return done(null, false, 'Invalid Credentials'); }
-    user.comparePassword(password, (error, isMatch) => {
-      if (error) { return done(err); }
+    user.comparePassword(password, (err, isMatch) => {
+      if (err) { return done(err); }
       if (isMatch) {
         return done(null, user);
       }
@@ -46,6 +48,7 @@ function signup({ email, password, req }) {
       });
     });
 }
+
 
 function login({ email, password, req }) {
   return new Promise((resolve, reject) => {
