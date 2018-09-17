@@ -14,6 +14,8 @@ const video = require('../queries/video');
 const search = require('../queries/search');
 // Mutations
 const signUp = require('../mutation/signUp');
+const logOut = require('../mutation/logOut');
+const logIn = require('../mutation/logIn');
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -27,11 +29,13 @@ const RootQuery = new GraphQLObjectType({
     search
   }
 });
-// 5b91e9c01066aa03ee2b3811
+
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    signUp
+    signUp,
+    logOut,
+    logIn
   }
 });
 
