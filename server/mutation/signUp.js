@@ -7,7 +7,7 @@ const {
   GraphQLNonNull
 } = graphql;
 
-const addUser = {
+const signUp = {
   type: UserType,
   args: {
     name: { type: new GraphQLNonNull(GraphQLString) },
@@ -21,4 +21,4 @@ const addUser = {
   }
 };
 
-module.exports = addUser;
+module.exports = signUp;

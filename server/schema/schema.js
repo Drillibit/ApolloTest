@@ -13,7 +13,7 @@ const similar = require('../queries/similar');
 const video = require('../queries/video');
 const search = require('../queries/search');
 // Mutations
-const addUser = require('../mutation/addUser');
+const signUp = require('../mutation/signUp');
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -31,7 +31,7 @@ const RootQuery = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    addUser
+    signUp
   }
 });
 
