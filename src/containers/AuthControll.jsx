@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 import { Link } from 'react-router-dom';
 
-import { LOG_OUT } from '../components/Requests/user';
+import { LOG_OUT, CURRENT_USER } from '../components/Requests/user';
+import userImage from '../assets/img/user.png';
 
 import { Button } from '../components/UIKit/Button';
 import { Icon } from '../components/UIKit/Icon';
@@ -112,19 +113,25 @@ export class AuthControll extends PureComponent {
               </Button>
             </Link>
             <StyledOutWrapper>
-              <StyledUserIcon src={userData.image} alt="user image" onClick={this.switchOut} />
+              <StyledUserIcon src={userData.image || userImage} alt="user image" onClick={this.switchOut} />
               {letMeOut && (
               <RootClose onRootClose={this.onClose}>
-                <Mutation mutation={LOG_OUT}>
+                <Mutation mutation={LOG_OUT} refetchQueries={[{ query: CURRENT_USER }]}>
                   {(logOut, { data }) => (
                     <StyeldOutBtnWrapper>
-                      {console.log(logOut, data)}
-                      <StyledCustomBtn btnType="primary" onClick={this.logMeOut}>
+                      {console.log(logOut)}
+                      <StyledCustomBtn
+                        btnType="primary"
+                        onClick={() => {
+                          logOut();
+                          this.logMeOut();
+                      }}
+                      >
                         Выход
                       </StyledCustomBtn>
                     </StyeldOutBtnWrapper>
                   )}
-                </Mutation>
+                  </Mutation>
               </RootClose>
               )}
             </StyledOutWrapper>
