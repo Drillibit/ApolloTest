@@ -46,8 +46,9 @@ const SearchWrapper = styled.div`
   }
 `;
 
-export const Header = () => (
+export const Header = props => (
   <StyledHeaderContainer>
+    {console.log(props)}
     <StyledGrid>
       <StyledRow middle="xs">
         <StyledCol xs={6} md={4} lg={6}>
@@ -60,9 +61,12 @@ export const Header = () => (
             <SearchWrapper>
               <SearchContainer />
             </SearchWrapper>
-            {/* <Button btnType="primary">
-              Войти
-            </Button> */}
+            {
+              props.auth ?
+                <Button btnType="primary">Выйти</Button>
+              :
+                <Button btnType="primary">Войти</Button>
+            }
           </StyledRightGroup>
         </StyledCol>
       </StyledRow>

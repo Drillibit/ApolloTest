@@ -1,5 +1,6 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
+import { Query } from 'react-apollo';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faHeart,
@@ -27,9 +28,11 @@ import ApolloClient, { gql } from 'apollo-boost';
 
 import { ApolloProvider } from 'react-apollo';
 
+import { CURRENT_USER } from './components/Requests/user';
 import { Main } from './components/Main';
 
 import './components/helpers/injectGlobalStyles';
+import { Preloader } from './components/UIKit/Preloader';
 
 
 export const GET_TRANDING = gql`
@@ -71,6 +74,7 @@ const defaults = {
 
 const client = new ApolloClient({
   uri: process.env.BASE_URL,
+  dataIdFromObject: o => o.id,
   clientState: {
     defaults,
     resolvers: {
@@ -96,7 +100,15 @@ const client = new ApolloClient({
 
 export const Application = hot(module)(() => (
   <ApolloProvider client={client}>
-    <Main />
+    <Query query={CURRENT_USER}>
+      {({ error, loading, data: { currentUser } }) => {
+        if (loading) return <Preloader>Загрузка</Preloader>;
+        if (error) return `Error ${error.message}`;
+        return (
+          <Main auth={currentUser} />
+        );
+    }}
+    </Query>
   </ApolloProvider>
 ));
 

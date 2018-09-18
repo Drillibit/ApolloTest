@@ -243,7 +243,6 @@ export class MoviePage extends PureComponent {
         </StyledPreloader>
       );
     }
-    console.log(this.props);
     return (
       <StyledContainer>
         <StyledBgKeeper bg={backdrop_path}>
@@ -361,8 +360,6 @@ export class MoviePage extends PureComponent {
                          voteCount={movie.vote_count}
                          year={movie.release_date}
                          duration={movie.runtime}
-                      //  pg,
-                      //  genre,
                        />);
                     })
 

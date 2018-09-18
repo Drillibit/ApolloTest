@@ -29,10 +29,10 @@ const Component = () => (
   </StyledContent>
 );
 
-export const Main = () => (
+export const Main = props => (
   <Router>
     <StyledMain>
-      <Header />
+      <Header {...props} />
       <Switch>
         <Route exact path="/" component={Component} />
         <Route path="/movie/:id" component={MoviePageContainer} />
