@@ -10,7 +10,8 @@ import {
   arrayOf,
   object,
   objectOf,
-  bool
+  bool,
+  any
 } from 'prop-types';
 
 import { colors } from './helpers/colors';
@@ -155,7 +156,7 @@ const StyledContainer = styled.div`
 
 export class MoviePage extends PureComponent {
   static propTypes = {
-    video: string,
+    video: objectOf(any),
     similar: arrayOf(object),
     toggleFavourite: func,
     favourite: bool,
@@ -186,7 +187,7 @@ export class MoviePage extends PureComponent {
     },
     favourite: false,
     favourites: {},
-    video: '/',
+    video: {},
     similar: [],
     toggleFavourite: f => f
   };
@@ -235,7 +236,7 @@ export class MoviePage extends PureComponent {
       favourite,
       favourites
     } = this.props;
-
+    console.log(this.props);
     if (typeof this.props.movie.id !== 'number') {
       return (
         <StyledPreloader>
@@ -340,11 +341,12 @@ export class MoviePage extends PureComponent {
             </StyledCustomRow>
             <StyledRow>
               <StyledCol md={12}>
-                <StyledDetailsHeader>
-                  <StyledLargeText>Похожие</StyledLargeText>
-                </StyledDetailsHeader>
+                {similar.length !== 0 &&
+                  <StyledDetailsHeader>
+                    <StyledLargeText>Похожие</StyledLargeText>
+                  </StyledDetailsHeader>}
                 <StyledSimilar>
-                  {similar.length > 1 ? (
+                  {similar.length !== 0 ?
                     similar.map((movie) => {
                      const fav = false;
                      return (
@@ -361,13 +363,7 @@ export class MoviePage extends PureComponent {
                          year={movie.release_date}
                          duration={movie.runtime}
                        />);
-                    })
-
-                  ) : (
-                    <StyledPreloader>
-                      <Preloader>Загрузка</Preloader>
-                    </StyledPreloader>
-                  )}
+                    }) : ''}
                 </StyledSimilar>
               </StyledCol>
             </StyledRow>

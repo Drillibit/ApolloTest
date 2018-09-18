@@ -37,18 +37,17 @@ const StyledRightGroup = styled.div`
   }
 `;
 
-const SearchWrapper = styled.div`
-  margin: 0 20px 0 auto;
-   @media (max-width: 440px) {
-    position: absolute;
-    top: 55px;
-    left: 10px;
-  }
-`;
+// const SearchWrapper = styled.div`
+//   margin: 0 20px 0 auto;
+//    @media (max-width: 440px) {
+//     position: absolute;
+//     top: 55px;
+//     left: 10px;
+//   }
+// `;
 
 export const Header = props => (
   <StyledHeaderContainer>
-    {console.log(props)}
     <StyledGrid>
       <StyledRow middle="xs">
         <StyledCol xs={6} md={4} lg={6}>
@@ -58,15 +57,7 @@ export const Header = props => (
         </StyledCol>
         <StyledCol marginLeft="auto" xs={6} md={8} lg={6}>
           <StyledRightGroup>
-            <SearchWrapper>
-              <SearchContainer />
-            </SearchWrapper>
-            {
-              props.auth ?
-                <Button btnType="primary">Выйти</Button>
-              :
-                <Button btnType="primary">Войти</Button>
-            }
+            <SearchContainer {...props} />
           </StyledRightGroup>
         </StyledCol>
       </StyledRow>

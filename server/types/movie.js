@@ -80,6 +80,7 @@ module.exports = new GraphQLObjectType({
     similar: {
       type: SimilarType,
       resolve(parentArg) {
+        console.log(parentArg.id);
         return requestSimilarMovies(api, parentArg);
       }
     },

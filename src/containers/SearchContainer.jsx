@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
 import { withApollo } from 'react-apollo';
 import { func, arrayOf, object, objectOf, any, shape } from 'prop-types';
+import styled from 'styled-components';
+
+import { AuthControll } from './AuthControll';
 
 
 import { Search } from '../components/UIKit/Search';
 
 import { GET_SEARCH_RES } from '../components/Requests/search';
+
+const StyledRightGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 25px;
+  min-width: ${({ user }) => user ? '700px' : '530px'};
+`;
+
+const SearchWrapper = styled.div`
+  margin: 0 20px 0 auto;
+`;
 
 class SearchController extends Component {
   static propTypes = {
@@ -52,15 +68,21 @@ class SearchController extends Component {
     }
   };
   render() {
+    console.log(this.props);
     return (
-      <Search
-        onChange={this.handleChange}
-        onClick={this.handleClick}
-        onClose={this.handleClose}
-        value={this.state.value}
-        result={this.state.results}
-        {...this.props}
-      />
+      <StyledRightGroup user={this.props.auth}>
+        <SearchWrapper>
+          <Search
+            onChange={this.handleChange}
+            onClick={this.handleClick}
+            onClose={this.handleClose}
+            value={this.state.value}
+            result={this.state.results}
+            {...this.props}
+          />
+        </SearchWrapper>
+        <AuthControll userData={this.props.auth} />
+      </StyledRightGroup>
     );
   }
 }

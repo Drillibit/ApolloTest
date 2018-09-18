@@ -80,6 +80,10 @@ export const ModalRegister = ({ onClose, children }) => (
 );
 
 ModalRegister.propTypes = {
-  onClose: func.isRequired,
+  onClose: func,
   children: node.isRequired,
+};
+
+ModalRegister.defaultProps = {
+  onClose: f => f
 };
