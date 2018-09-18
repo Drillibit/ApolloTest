@@ -4,6 +4,8 @@ const {
   GraphQLObjectType,
   GraphQLSchema,
 } = graphql;
+
+const UserType = require('../types/user');
 // Queries
 const user = require('../queries/user');
 const movie = require('../queries/movie');
@@ -26,7 +28,13 @@ const RootQuery = new GraphQLObjectType({
     genres_arr,
     similar,
     video,
-    search
+    search,
+    currentUser: {
+      type: UserType,
+      resolve(_, args, req) {
+        return req.user;
+      }
+    }
   }
 });
 
