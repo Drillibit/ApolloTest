@@ -19,3 +19,13 @@ export const LOG_OUT = gql`
     }
   }
 `;
+
+export const LOG_IN = gql`
+  mutation Login ($password: String!,$email: String! ){
+    logIn(email: $email, password: $password){
+      id
+      name
+      email
+    }
+  }
+`;

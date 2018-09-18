@@ -11,7 +11,7 @@ import userImage from '../assets/img/user.png';
 import { Button } from '../components/UIKit/Button';
 import { Icon } from '../components/UIKit/Icon';
 import { Modal } from '../components/UIKit/Modal';
-import { ModalRegister, SocialContainer } from '../components/UIKit/ModalRegister';
+import { ModalRegister, SignUp } from '../components/UIKit/ModalRegister';
 
 const StyledCustomBtn = styled(Button)`
   padding: 0 36px;
@@ -119,7 +119,6 @@ export class AuthControll extends PureComponent {
                 <Mutation mutation={LOG_OUT} refetchQueries={[{ query: CURRENT_USER }]}>
                   {(logOut, { data }) => (
                     <StyeldOutBtnWrapper>
-                      {console.log(logOut)}
                       <StyledCustomBtn
                         btnType="primary"
                         onClick={() => {
@@ -139,7 +138,7 @@ export class AuthControll extends PureComponent {
         )}
         <Modal open={open && !userData} onClose={this.toggleModal}>
           <ModalRegister>
-            <SocialContainer login={this.props.login} />
+            <SignUp />
           </ModalRegister>
         </Modal>
       </Fragment>
