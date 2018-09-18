@@ -1,6 +1,7 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import { Query } from 'react-apollo';
+import ApolloClient, { gql, InMemoryCache,  } from 'apollo-boost';
+import { Query, ApolloProvider } from 'react-apollo';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faHeart,
@@ -24,9 +25,7 @@ import {
   faGooglePlusG,
   faTwitter
 } from '@fortawesome/free-brands-svg-icons';
-import ApolloClient, { gql } from 'apollo-boost';
 
-import { ApolloProvider } from 'react-apollo';
 
 import { CURRENT_USER } from './components/Requests/user';
 import { Main } from './components/Main';
@@ -72,9 +71,14 @@ const defaults = {
   },
 };
 
+const cache = new InMemoryCache({
+  dataIdFromObject: obj => obj.id
+});
+
 const client = new ApolloClient({
   uri: process.env.BASE_URL,
-  dataIdFromObject: o => o.id,
+  cache,
+  credentials: 'include',
   clientState: {
     defaults,
     resolvers: {

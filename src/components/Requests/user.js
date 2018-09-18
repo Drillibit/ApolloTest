@@ -11,3 +11,11 @@ export const CURRENT_USER = gql`
     }
   }
 `;
+
+export const LOG_OUT = gql`
+  mutation {
+    logOut{
+      email
+    }
+  }
+`;

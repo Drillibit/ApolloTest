@@ -129,8 +129,8 @@ const RatingStyled = styled(Rating)`
   }
 `;
 
-const StyledPreloader = styled.div`
-  height: 87vh;
+const StyledPreloderFront = styled.div`
+  min-height: 1000px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -236,12 +236,11 @@ export class MoviePage extends PureComponent {
       favourite,
       favourites
     } = this.props;
-    console.log(this.props);
     if (typeof this.props.movie.id !== 'number') {
       return (
-        <StyledPreloader>
+        <StyledPreloderFront>
           <Preloader>Загрузка</Preloader>
-        </StyledPreloader>
+        </StyledPreloderFront>
       );
     }
     return (

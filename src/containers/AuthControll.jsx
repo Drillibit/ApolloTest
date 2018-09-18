@@ -1,14 +1,16 @@
 import React, { PureComponent, Fragment } from 'react';
-import { func, string, bool, shape } from 'prop-types';
+import { func, string, shape } from 'prop-types';
+import { Mutation } from 'react-apollo';
 import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 import { Link } from 'react-router-dom';
+
+import { LOG_OUT } from '../components/Requests/user';
 
 import { Button } from '../components/UIKit/Button';
 import { Icon } from '../components/UIKit/Icon';
 import { Modal } from '../components/UIKit/Modal';
 import { ModalRegister, SocialContainer } from '../components/UIKit/ModalRegister';
-
 
 const StyledCustomBtn = styled(Button)`
   padding: 0 36px;
@@ -113,11 +115,16 @@ export class AuthControll extends PureComponent {
               <StyledUserIcon src={userData.image} alt="user image" onClick={this.switchOut} />
               {letMeOut && (
               <RootClose onRootClose={this.onClose}>
-                <StyeldOutBtnWrapper>
-                  <StyledCustomBtn btnType="primary" onClick={this.logMeOut}>
-                    Выход
-                  </StyledCustomBtn>
-                </StyeldOutBtnWrapper>
+                <Mutation mutation={LOG_OUT}>
+                  {(logOut, { data }) => (
+                    <StyeldOutBtnWrapper>
+                      {console.log(logOut, data)}
+                      <StyledCustomBtn btnType="primary" onClick={this.logMeOut}>
+                        Выход
+                      </StyledCustomBtn>
+                    </StyeldOutBtnWrapper>
+                  )}
+                </Mutation>
               </RootClose>
               )}
             </StyledOutWrapper>

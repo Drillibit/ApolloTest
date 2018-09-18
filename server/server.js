@@ -16,7 +16,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: '*',
+    credentials: true,
+    origin: 'http://0.0.0.0:3004',
     optionsSuccessStatus: 200
   })
 );
