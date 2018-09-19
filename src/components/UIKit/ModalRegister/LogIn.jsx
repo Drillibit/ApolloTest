@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Mutation } from 'react-apollo';
-import { SIGN_UP, CURRENT_USER } from '../../Requests/user';
+import { LOG_IN, CURRENT_USER } from '../../Requests/user';
 // import styled from 'styled-components';
 
-export class SignUp extends PureComponent {
+export class LogIn extends PureComponent {
   state = {
-    name: '',
     email: '',
     password: '',
   };
@@ -18,23 +17,19 @@ export class SignUp extends PureComponent {
   };
 
   render() {
-    const { name, password, email } = this.state;
     return (
-      <Mutation mutation={SIGN_UP} refetchQueries={[{ query: CURRENT_USER }]}>
-        {signUp => (
+      <Mutation mutation={LOG_IN} refetchQueries={[{ query: CURRENT_USER }]}>
+        {logIn => (
           <form onSubmit={(e) => {
             e.preventDefault();
-            signUp({
+            logIn({
               variables: {
-                name,
-                email,
-                password
+                email: this.state.email,
+                password: this.state.password
               }
             });
           }}
           >
-            <label htmlFor="name">Name:</label>
-            <input name="name" type="text" onChange={this.handleInputChange} />
             <label htmlFor="email">Email:</label>
             <input name="email" type="text" onChange={this.handleInputChange} />
             <label htmlFor="password">Password:</label>

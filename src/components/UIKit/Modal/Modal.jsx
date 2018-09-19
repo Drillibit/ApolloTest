@@ -1,4 +1,4 @@
-import React, { Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
 import ReactDOM from 'react-dom';
 import { bool, func, node } from 'prop-types';
 import styled, { keyframes } from 'styled-components';
@@ -56,7 +56,7 @@ const ModalContainer = styled.div`
   z-index: 1001;
 `;
 
-export class Modal extends React.Component {
+export class Modal extends Component {
   static propTypes = {
     open: bool,
     onClose: func,

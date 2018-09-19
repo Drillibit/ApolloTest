@@ -1,10 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import styled from 'styled-components';
-import { node, func } from 'prop-types';
+import { func } from 'prop-types';
 
+import { Button } from '../Button';
 import { colors } from '../../helpers/colors';
-import { Text, H3 } from '../Typography';
+import { H3 } from '../Typography';
 import { Icon } from '../Icon';
+import { LogIn } from './LogIn';
+import { SignUp } from './SignUp';
+
+const StyledCustomBtn = styled(Button)`
+  padding: 0 36px;
+`;
 
 const ModalOverlay = styled.div`
   margin: 0 auto;
@@ -42,16 +49,6 @@ const ModalHeader = H3.extend`
   text-align: center;
 `;
 
-const ModalText = Text.extend`
-  width: 90%;
-  height: 24px;
-  font-weight: 300;
-  text-align: center;
-  margin: 0 auto;
-  margin-top: 24px;
-  line-height: 1.2;
-  color: ${colors.grey500};
-`;
 const CloseSign = styled(Icon)`
   display: inline;
   margin: 10px 10px 0 0;
@@ -64,26 +61,50 @@ const CloseContainer = styled.div`
   font-size: 21px;
   justify-content: flex-end;
 `;
+export class ModalRegister extends PureComponent {
+  static propTypes = {
+    onClose: func
+  }
 
-export const ModalRegister = ({ onClose, children }) => (
-  <Fragment>
-    <ModalContainer>
-      <CloseContainer>
-        <CloseSign icon="close" onClick={onClose} />
-      </CloseContainer>
-      <ModalHeader>Войти</ModalHeader>
-      <ModalText>Используйте любую соцсеть для регистрации</ModalText>
-      {children}
-    </ModalContainer>
-    <ModalOverlay onClick={onClose} />
-  </Fragment>
-);
+  static defaultProps = {
+    onClose: f => f
+  }
+  state = {
+    formStatus: true
+  }
 
-ModalRegister.propTypes = {
-  onClose: func,
-  children: node.isRequired,
-};
+  statusReg = () => {
+    this.setState({
+      formStatus: true
+    });
+  }
 
-ModalRegister.defaultProps = {
-  onClose: f => f
-};
+  statusSign = () => {
+    this.setState({
+      formStatus: false
+    });
+  }
+
+  render() {
+    const { onClose } = this.props;
+    return (
+      <Fragment>
+        <ModalContainer>
+          <CloseContainer>
+            <CloseSign icon="close" onClick={onClose} />
+          </CloseContainer>
+          <ModalHeader>Войти</ModalHeader>
+          {this.state.formStatus ? <LogIn /> : <SignUp />}
+          <StyledCustomBtn btnType="primary" onClick={this.statusReg}>
+            Регистрация
+          </StyledCustomBtn>
+          <StyledCustomBtn btnType="primary" onClick={this.statusSign}>
+            Войти
+          </StyledCustomBtn>
+        </ModalContainer>
+        <ModalOverlay onClick={onClose} />
+      </Fragment>
+    );
+  }
+}
+

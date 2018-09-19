@@ -11,7 +11,7 @@ import userImage from '../assets/img/user.png';
 import { Button } from '../components/UIKit/Button';
 import { Icon } from '../components/UIKit/Icon';
 import { Modal } from '../components/UIKit/Modal';
-import { ModalRegister, SignUp } from '../components/UIKit/ModalRegister';
+import { ModalRegister } from '../components/UIKit/ModalRegister';
 
 const StyledCustomBtn = styled(Button)`
   padding: 0 36px;
@@ -54,7 +54,6 @@ const StyledUserIcon = styled.img`
 
 export class AuthControll extends PureComponent {
   static propTypes = {
-    login: func,
     logout: func,
     userData: shape({
       name: string,
@@ -64,7 +63,6 @@ export class AuthControll extends PureComponent {
   };
 
   static defaultProps = {
-    login: f => f,
     logout: f => f,
     userData: { }
   };
@@ -117,7 +115,7 @@ export class AuthControll extends PureComponent {
               {letMeOut && (
               <RootClose onRootClose={this.onClose}>
                 <Mutation mutation={LOG_OUT} refetchQueries={[{ query: CURRENT_USER }]}>
-                  {(logOut, { data }) => (
+                  {logOut => (
                     <StyeldOutBtnWrapper>
                       <StyledCustomBtn
                         btnType="primary"
@@ -130,16 +128,14 @@ export class AuthControll extends PureComponent {
                       </StyledCustomBtn>
                     </StyeldOutBtnWrapper>
                   )}
-                  </Mutation>
+                </Mutation>
               </RootClose>
               )}
             </StyledOutWrapper>
           </Fragment>
         )}
         <Modal open={open && !userData} onClose={this.toggleModal}>
-          <ModalRegister>
-            <SignUp />
-          </ModalRegister>
+          <ModalRegister />
         </Modal>
       </Fragment>
     );
