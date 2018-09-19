@@ -68,7 +68,6 @@ class SearchController extends Component {
     }
   };
   render() {
-    console.log(this.props);
     return (
       <StyledRightGroup user={this.props.auth}>
         <SearchWrapper>

@@ -52,24 +52,6 @@ export const GET_TRANDING = gql`
     }
   }
 `;
-const defaults = {
-  users: {
-    __typename: 'Users',
-    page: 1,
-    userArr: [
-      {
-        __typename: 'User',
-        id: 1,
-        name: 'Admin'
-      },
-      {
-        __typename: 'User',
-        id: 2,
-        name: 'Client'
-      }
-    ]
-  },
-};
 
 const cache = new InMemoryCache({
   dataIdFromObject: obj => obj.id
@@ -79,27 +61,6 @@ const client = new ApolloClient({
   uri: process.env.BASE_URL,
   cache,
   credentials: 'include',
-  clientState: {
-    defaults,
-    resolvers: {
-      Query: {
-        users: (_, { page }, { cache }) => {
-          const query = gql`
-            query getUser ($page: page) {
-              users(page: ${page}) @client {
-                page
-                userArr
-              }
-            }
-          `;
-          const data = cache.readQuery({ query });
-          console.log(data);
-          return defaults.users;
-        }
-      },
-      Mutation: {}
-    }
-  },
 });
 
 export const Application = hot(module)(() => (
