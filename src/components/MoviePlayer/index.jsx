@@ -80,6 +80,7 @@ export class MoviePlayer extends PureComponent {
               type="text/html"
               src={`http://www.youtube.com/embed/${link}?autoplay=1`}
               frameBorder="0"
+              allowFullScreen="1"
             />
           </Fragment>
         )}
