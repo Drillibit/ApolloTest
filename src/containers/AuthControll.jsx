@@ -38,7 +38,7 @@ const StyeldOutBtnWrapper = styled.div`
     top: -37px;
     border-radius: 20px 20px 0 0;
     background: #fff;
-    left: 35px;
+    left: 47px;
   }
 `;
 
@@ -46,7 +46,7 @@ const StyledUserIcon = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  margin-left: 48px;
+  margin-left: 60px;
   z-index: 10;
   position: relative;
   border: 2px solid #fff;

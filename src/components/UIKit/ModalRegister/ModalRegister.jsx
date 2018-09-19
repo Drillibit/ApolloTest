@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { func } from 'prop-types';
 
 import { Button } from '../Button';
@@ -37,6 +37,9 @@ const ModalContainer = styled.div`
   z-index: 2;
   position: relative;
 `;
+const Border = css`
+ border-bottom: 3px solid ${colors.purple};
+`;
 
 const ModalHeader = H3.extend`
   width: 116px;
@@ -47,6 +50,12 @@ const ModalHeader = H3.extend`
   line-height: 1.2;
   color: ${colors.grey500};
   text-align: center;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  padding-bottom: 4px;
+  height: 30px;
+  transition: all .3s ease;
+  ${({ active }) => active && Border}
 `;
 
 const CloseSign = styled(Icon)`
@@ -61,6 +70,12 @@ const CloseContainer = styled.div`
   font-size: 21px;
   justify-content: flex-end;
 `;
+
+const StyledBtnGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export class ModalRegister extends PureComponent {
   static propTypes = {
     onClose: func
@@ -87,20 +102,22 @@ export class ModalRegister extends PureComponent {
 
   render() {
     const { onClose } = this.props;
+    const { formStatus } = this.state;
     return (
       <Fragment>
         <ModalContainer>
           <CloseContainer>
             <CloseSign icon="close" onClick={onClose} />
           </CloseContainer>
-          <ModalHeader>Войти</ModalHeader>
+          <StyledBtnGroup>
+            <ModalHeader btnType="primary" onClick={this.statusReg} active={formStatus}>
+              Регистрация
+            </ModalHeader>
+            <ModalHeader btnType="primary" onClick={this.statusSign} active={!formStatus}>
+                Войти
+            </ModalHeader>
+          </StyledBtnGroup>
           {this.state.formStatus ? <LogIn /> : <SignUp />}
-          <StyledCustomBtn btnType="primary" onClick={this.statusReg}>
-            Регистрация
-          </StyledCustomBtn>
-          <StyledCustomBtn btnType="primary" onClick={this.statusSign}>
-            Войти
-          </StyledCustomBtn>
         </ModalContainer>
         <ModalOverlay onClick={onClose} />
       </Fragment>

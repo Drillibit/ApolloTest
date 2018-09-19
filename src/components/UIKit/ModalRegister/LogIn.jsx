@@ -17,6 +17,7 @@ export class LogIn extends PureComponent {
   };
 
   render() {
+    const { email, password } = this.state;
     return (
       <Mutation mutation={LOG_IN} refetchQueries={[{ query: CURRENT_USER }]}>
         {logIn => (
@@ -24,8 +25,8 @@ export class LogIn extends PureComponent {
             e.preventDefault();
             logIn({
               variables: {
-                email: this.state.email,
-                password: this.state.password
+                email,
+                password
               }
             });
           }}
