@@ -18,6 +18,7 @@ const search = require('../queries/search');
 const signUp = require('../mutation/signUp');
 const logOut = require('../mutation/logOut');
 const logIn = require('../mutation/logIn');
+const addFavourite = require('../mutation/addFavourite');
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -43,7 +44,8 @@ const Mutation = new GraphQLObjectType({
   fields: {
     signUp,
     logOut,
-    logIn
+    logIn,
+    addFavourite
   }
 });
 
