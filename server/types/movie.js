@@ -16,6 +16,8 @@ const {
   GraphQLID
 } = graphql;
 
+const GraphQLObjectId = require('graphql-scalar-objectid');
+
 const CountriesType = new GraphQLObjectType({
   name: 'ProductionCountries',
   fields: () => ({
@@ -54,6 +56,7 @@ const BelongsToCollection = new GraphQLObjectType({
 module.exports = new GraphQLObjectType({
   name: 'Movie',
   fields: () => ({
+    _id: { type: GraphQLObjectId },
     id: { type: GraphQLID },
     adult: { type: GraphQLBoolean },
     runtime: { type: GraphQLString },

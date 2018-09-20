@@ -5,18 +5,20 @@ const UserType = require('../types/user');
 
 const {
   GraphQLNonNull,
-  GraphQLID
+  GraphQLID,
+  GraphQLBoolean,
 } = graphql;
 
 const addFavourite = {
   type: UserType,
   args: {
     userId: { type: new GraphQLNonNull(GraphQLID) },
-    favouriteId: { type: new GraphQLNonNull(GraphQLID) }
+    favouriteId: { type: new GraphQLNonNull(GraphQLID) },
+    favourite: { type: new GraphQLNonNull(GraphQLBoolean) }
   },
-  async resolve(_, { userId, favouriteId }) {
+  async resolve(_, { userId, favouriteId, favourite }) {
     const user = await User.findById(userId);
-    if (user.favouriteMovies.id(favouriteId) !== null) {
+    if (favourite) {
       user.favouriteMovies.id(favouriteId).remove();
       return user.save();
     }
