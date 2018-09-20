@@ -41,6 +41,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: 'aaabbbccc',
+  clear_interval: 900,
+  cookie: { maxAge: 2 * 60 * 60 * 1000 },
   store: new MongoStore({
     url: 'mongodb://admin:293344asd@ds161833.mlab.com:61833/addressbook',
     autoReconnect: true
