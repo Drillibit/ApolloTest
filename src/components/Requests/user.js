@@ -1,15 +1,31 @@
 import { gql } from 'apollo-boost';
 
 export const CURRENT_USER = gql`
-  {
-    currentUser{
-      id
-      email
-      favouriteMovies{
+ {
+  currentUser {
+    name
+    email
+    favouriteMovies { 
+      _id
+        id 
+      title
+      overview
+      genres {
         id
+        name
       }
+      backdrop_path
+      poster_path
+      release_date
+      production_countries {
+        name
+      }
+      runtime
+      vote_count
+      vote_average
     }
   }
+}
 `;
 
 export const LOG_OUT = gql`
