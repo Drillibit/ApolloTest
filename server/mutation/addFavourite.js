@@ -15,9 +15,15 @@ const addFavourite = {
     favouriteId: { type: new GraphQLNonNull(GraphQLID) }
   },
   async resolve(_, { userId, favouriteId }) {
-    const { data } = await api.get(`movie/${favouriteId}`);
     const user = await User.findById(userId);
-    user.favouriteMovies = [...user.favouriteMovies, data];
+    if (user.favouriteMovies.id(favouriteId) !== null) {
+      user.favouriteMovies.id(favouriteId).remove();
+      return user.save();
+    }
+
+    const { data } = await api.get(`movie/${favouriteId}`);
+    user.favouriteMovies.push(data);
+
     return user.save();
   }
 };
