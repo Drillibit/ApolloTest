@@ -5,6 +5,7 @@ export const CURRENT_USER = gql`
   currentUser {
     name
     email
+    id
     favouriteMovies { 
       _id
     }
@@ -45,7 +46,6 @@ export const ADD_FAVOURITE = gql`
     addFavourite(userId: $userId, favouriteId: $favouriteId, favourite: $favourite){
       favouriteMovies{
         _id
-        id
       }
     }
   }

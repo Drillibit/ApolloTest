@@ -4,12 +4,21 @@ import PropTypes, { func } from 'prop-types';
 import { Button } from '$UIKit/Button';
 import { Icon } from '$UIKit/Icon';
 import { colors } from '$helpers/colors';
+import { CURRENT_USER } from './Requests/user';
 
 export const FavouriteButton = (props) => {
   const isFavourite = props.data.currentUser ? props.data.currentUser.favouriteMovies.find(el => el._id === props.movieId) : false;
-  // console.log(props.data.currentUser.favouriteMovies.find(el => el.id === '439079') );
+
+  const toggleFavourite = () => {
+    props.mutate({
+      variables: {
+        userId: props.data.currentUser.id, favouriteId: props.movieId, favourite: isFavourite instanceof Object
+      },
+      refetchQueries: [{ query: CURRENT_USER }]
+    });
+  };
   return (
-    <Button btnType={props.btnType} btnSize="small" onClick={props.toggleFavourite}>
+    <Button btnType={props.btnType} btnSize="small" onClick={toggleFavourite}>
       <Icon icon={isFavourite ? 'heart-fill' : 'heart'} color={isFavourite ? colors.purple : 'inherit'} /> {isFavourite ? 'В избранном' : 'В избанное'}
     </Button>
   );
@@ -17,10 +26,8 @@ export const FavouriteButton = (props) => {
 
 FavouriteButton.propTypes = {
   btnType: PropTypes.string,
-  toggleFavourite: func,
 };
 
 FavouriteButton.defaultProps = {
   btnType: '',
-  toggleFavourite: f => f,
 };
