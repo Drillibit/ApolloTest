@@ -22,9 +22,11 @@ const addFavourite = {
       user.favouriteMovies.id(favouriteId).remove();
       return user.save();
     }
+    const movie = {
+      _id: favouriteId
+    };
 
-    const { data } = await api.get(`movie/${favouriteId}`);
-    user.favouriteMovies.push(data);
+    user.favouriteMovies.push(movie);
 
     return user.save();
   }

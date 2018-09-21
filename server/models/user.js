@@ -4,25 +4,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const movieSchema = new Schema({
-  id: Number,
-  adult: Boolean,
-  runtime: String,
-  backdrop_path: String,
-  belongs_to_collection: Object,
-  budget: Number,
-  overview: String,
-  popularity: Number,
-  poster_path: String,
-  production_companies: Array,
-  production_countries: Array,
-  genres: Array,
-  release_date: String,
-  tagline: String,
-  title: String,
-  vote_average: Number,
-  vote_count: Number,
-  similar: Array,
-  video: String
+  _id: Number
 });
 
 const userSchema = new Schema({
