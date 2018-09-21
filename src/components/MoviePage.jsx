@@ -259,8 +259,7 @@ export class MoviePage extends PureComponent {
                     </StyledLink>
                     <FavouriteControll
                       btnType="transparent-white"
-                      toggleFavourite={() => toggleFavourite(id)}
-                      isFavourite={favourite}
+                      movieId={id}
                     />
                   </StyledBtnGroup>
                   <StyledHeadersGroup>

@@ -59,7 +59,6 @@ const cache = new InMemoryCache({
 
 const client = new ApolloClient({
   uri: process.env.BASE_URL,
-  cache,
   credentials: 'include',
 });
 

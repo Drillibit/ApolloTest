@@ -6,7 +6,7 @@ import { CURRENT_USER, ADD_FAVOURITE } from '../components/Requests/user';
 
 export const FavouriteControll = compose(
   graphql(CURRENT_USER, {
-    props: data => ({
+    props: ({ data }) => ({
       data
     })
   }),

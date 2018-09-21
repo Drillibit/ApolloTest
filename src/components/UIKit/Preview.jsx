@@ -262,8 +262,7 @@ export class Preview extends PureComponent {
                 btnType="transparent-dark"
                 onClick={this.handleDisplay}
                 btnSize="small"
-                isFavourite={isFavourite}
-                toggleFavourite={() => toggleFavourite(id)}
+                movieId={id}
               >
                 <Icon icon="heart" />
                 Избранное
