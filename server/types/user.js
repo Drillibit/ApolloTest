@@ -1,5 +1,5 @@
 const graphql = require('graphql');
-const MovieType = require('./movie');
+const GraphQLObjectId = require('graphql-scalar-objectid');
 
 const {
   GraphQLObjectType,
@@ -8,6 +8,13 @@ const {
   GraphQLID
 } = graphql;
 
+const MovieIdType = new GraphQLObjectType({
+  name: 'MovieId',
+  fields: () => ({
+    _id: { type: GraphQLObjectId }
+  })
+});
+
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
@@ -15,7 +22,7 @@ const UserType = new GraphQLObjectType({
     name: { type: GraphQLString },
     email: { type: GraphQLString },
     password: { type: GraphQLString },
-    favouriteMovies: { type: new GraphQLList(MovieType) }
+    favouriteMovies: { type: new GraphQLList(MovieIdType) }
   })
 });
 
