@@ -23,8 +23,11 @@ const addFavourite = {
       return user.save();
     }
 
-    const { data } = await api.get(`movie/${favouriteId}`);
-    user.favouriteMovies.push(data);
+    const movie = {
+      _id: favouriteId
+    };
+
+    user.favouriteMovies.push(movie);
 
     return user.save();
   }
