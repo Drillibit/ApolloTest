@@ -6,7 +6,7 @@ import { Icon } from '$UIKit/Icon';
 import { colors } from '$helpers/colors';
 
 export const FavouriteButton = (props) => {
-  const isFavourite = props.data.currentUser ? props.data.currentUser.favouriteMovies.find(el => console.log(el)) : console.log('aaa');
+  const isFavourite = props.data.currentUser ? props.data.currentUser.favouriteMovies.find(el => el._id === props.movieId) : false;
   // console.log(props.data.currentUser.favouriteMovies.find(el => el.id === '439079') );
   return (
     <Button btnType={props.btnType} btnSize="small" onClick={props.toggleFavourite}>
