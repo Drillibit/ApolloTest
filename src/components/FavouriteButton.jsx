@@ -5,9 +5,10 @@ import { Button } from '$UIKit/Button';
 import { Icon } from '$UIKit/Icon';
 import { colors } from '$helpers/colors';
 
-export const FavouriteButton = ({ isFavourite, btnType, toggleFavourite }) => (
-  <Button btnType={btnType} btnSize="small" onClick={toggleFavourite}>
-    <Icon icon={isFavourite ? 'heart-fill' : 'heart'} color={isFavourite ? colors.purple : 'inherit'} /> {isFavourite ? 'В избранном' : 'В избанное'}
+export const FavouriteButton = props => (
+  <Button btnType={props.btnType} btnSize="small" onClick={props.toggleFavourite}>
+    {console.log(props)}
+    <Icon icon={props.isFavourite ? 'heart-fill' : 'heart'} color={props.isFavourite ? colors.purple : 'inherit'} /> {props.isFavourite ? 'В избранном' : 'В избанное'}
   </Button>
 );
 

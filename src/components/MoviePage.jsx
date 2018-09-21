@@ -24,7 +24,7 @@ import { Rating } from './UIKit/Rating';
 import { Quote } from './UIKit/Quote';
 import { Preloader } from '../components/UIKit/Preloader';
 import { Preview } from '../components/UIKit/Preview';
-import { FavouriteButton } from './FavouriteButton';
+import { FavouriteControll } from '../containers/FavouriteControll';
 
 const StyledCustomRow = styled(StyledRow)`
   margin-bottom: 50px;
@@ -257,7 +257,7 @@ export class MoviePage extends PureComponent {
                         Назад
                       </Button>
                     </StyledLink>
-                    <FavouriteButton
+                    <FavouriteControll
                       btnType="transparent-white"
                       toggleFavourite={() => toggleFavourite(id)}
                       isFavourite={favourite}

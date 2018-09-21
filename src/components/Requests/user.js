@@ -55,3 +55,14 @@ export const SIGN_UP = gql`
     }
   }
 `;
+
+export const ADD_FAVOURITE = gql`
+  mutation addFavourite($userId: ID!, $favouriteId: ID!, $favourite: Boolean!){
+    addFavourite(userId: $userId, favouriteId: $favouriteId, favourite: $favourite){
+      favouriteMovies{
+        _id
+        id
+      }
+    }
+  }
+`;

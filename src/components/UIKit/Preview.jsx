@@ -8,7 +8,7 @@ import { H3, SmallText } from './Typography';
 import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
 import { StyledButton } from './Button';
-import { FavouriteButton } from '../FavouriteButton';
+import { FavouriteControll } from '../../containers/FavouriteControll';
 
 const StyledCustomBtn = styled(StyledButton)`
   padding: 4px 43px;
@@ -258,7 +258,7 @@ export class Preview extends PureComponent {
               </StyledParagraph>
             </StyledDetails>
             <ButtonContainer>
-              <FavouriteButton
+              <FavouriteControll
                 btnType="transparent-dark"
                 onClick={this.handleDisplay}
                 btnSize="small"
@@ -267,7 +267,7 @@ export class Preview extends PureComponent {
               >
                 <Icon icon="heart" />
                 Избранное
-              </FavouriteButton>
+              </FavouriteControll>
               <Link to={`/movie/${id}`}>
                 <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
                   Подробнее
