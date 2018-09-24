@@ -260,7 +260,6 @@ export class Preview extends PureComponent {
             <ButtonContainer>
               <FavouriteControll
                 btnType="transparent-dark"
-                onClick={this.handleDisplay}
                 btnSize="small"
                 movieId={id}
               >

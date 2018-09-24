@@ -12,6 +12,7 @@ import { StyledGrid, StyledRow, StyledCol } from '../../helpers/grid';
 import { H1, LargeText } from '../Typography';
 import { Icon } from '../Icon';
 import { Preloader } from '../Preloader';
+import { FavouriteControll } from '../../../containers/FavouriteControll';
 
 const FeaturedMovieStyled = styled.div`
   position: relative;
@@ -144,12 +145,13 @@ const FeaturedMovieView = ({ data: { movie, loading, error } }) => {
                   </ButtonStyledWrap>
                 </Link>
                 {/* eslint-enable */}
-                <ButtonStyledWrap
-                  btnType="transparent-white"
+                <FavouriteControll
                   btnSize="small"
+                  movieId={movie.id}
                 >
-                  <Icon icon="heart" />В избранное
-                </ButtonStyledWrap>
+                  <Icon icon="heart" />
+                  В избранное
+              </FavouriteControll>
               </WrapButtonBlock>
             </StyledCol>
             <StyledCol xs={12} md={6} padding="0" marginLeft="auto">

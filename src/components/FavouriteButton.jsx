@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes, { func } from 'prop-types';
+import { string } from 'prop-types';
 
 import { Button } from '$UIKit/Button';
 import { Icon } from '$UIKit/Icon';
@@ -25,7 +25,7 @@ export const FavouriteButton = (props) => {
 };
 
 FavouriteButton.propTypes = {
-  btnType: PropTypes.string,
+  btnType: string,
 };
 
 FavouriteButton.defaultProps = {
