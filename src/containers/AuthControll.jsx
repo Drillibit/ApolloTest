@@ -105,11 +105,11 @@ export class AuthControll extends PureComponent {
         </StyledCustomBtn>)}
         {userData && (
           <Fragment>
-            <Link to="/favourites">
+            {/* <Link to="/favourites">
               <Button>
                 <Icon icon="heart" />Избранное
               </Button>
-            </Link>
+            </Link> */}
             <StyledOutWrapper>
               <StyledUserIcon src={userData.image || userImage} alt="user image" onClick={this.switchOut} />
               {letMeOut && (
