@@ -1,6 +1,13 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import ApolloClient, { gql, InMemoryCache,  } from 'apollo-boost';
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
+import { onError } from 'apollo-link-error';
+import { withClientState } from 'apollo-link-state';
+import { ApolloLink, Observable } from 'apollo-link';
+import gql from 'graphql-tag';
+import { createUploadLink } from 'apollo-upload-client';
 import { Query, ApolloProvider } from 'react-apollo';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -57,9 +64,29 @@ const cache = new InMemoryCache({
   dataIdFromObject: obj => obj.id
 });
 
+// const client = new ApolloClient({
+//   uri: process.env.BASE_URL,
+//   credentials: 'include',
+//   link: createUploadLink(),
+// });
+
 const client = new ApolloClient({
-  uri: process.env.BASE_URL,
-  credentials: 'include',
+  link: ApolloLink.from([
+    onError(({ graphQLErrors, networkError }) => {
+      if(graphQLErrors)
+        graphQLErrors.map(({ message, locations, path }) =>
+          console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+          ),
+        );
+      if (networkError) console.log(`[Network error]: ${networkError}`);
+    }),
+    new HttpLink({
+      uri: process.env.BASE_URL,
+      credentials: 'include'
+    })
+  ]),
+  cache: new InMemoryCache()
 });
 
 export const Application = hot(module)(() => (

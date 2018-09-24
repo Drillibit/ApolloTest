@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
 export const GET_SEARCH_RES = gql`
   query search ($req: String) {

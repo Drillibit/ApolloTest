@@ -250,7 +250,7 @@ module.exports = (releaseStage) => {
 
   /* Resolve */
   const resolve = {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.json'],
     alias: {
       $UIKit: path.resolve(__dirname, 'src/components/UIKit'),
       $components: path.resolve(__dirname, 'src/components'),

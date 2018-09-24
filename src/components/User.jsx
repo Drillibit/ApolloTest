@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 
 const getUser = gql`

@@ -12,7 +12,8 @@ const signUp = {
   args: {
     name: { type: new GraphQLNonNull(GraphQLString) },
     email: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) }
+    password: { type: new GraphQLNonNull(GraphQLString) },
+    image: { type: new GraphQLNonNull(GraphQLString) }
   },
   resolve(_, { name, email, password }, req) {
     return AuthService.signup({

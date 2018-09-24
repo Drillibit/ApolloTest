@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
 export const GET_TRANDING = gql`
   query tranding($page: String!, $genre: String, $sortBy: String, $source: Boolean ) {

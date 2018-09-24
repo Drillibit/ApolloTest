@@ -47,7 +47,7 @@ const StyledVideo = styled.video`
   height: 126px;
 `;
 
-const MediaHandler = (vid, canvas) => {
+const MediaHandler = (vid) => {
   navigator.mediaDevices.getUserMedia({ video: true, audio: false })
     .then((stream) => {
       vid.current.srcObject = stream;
@@ -72,6 +72,18 @@ export class SignUp extends PureComponent {
 
   componentDidMount() {
     MediaHandler(this.authVideo);
+  }
+
+  takePhoto = (e) => {
+    e.preventDefault();
+    const canvas = this.authCanvas.current;
+    const video = this.authVideo.current;
+
+    const context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, 167, 126);
+
+    const ImageURL = canvas.toDataURL('image/png');
+    console.log(ImageURL);
   }
 
   handleInputChange = (e) => {
@@ -113,6 +125,7 @@ export class SignUp extends PureComponent {
               <StyledCustomBtn btnType="primary">Отправить</StyledCustomBtn>
             </BtnWrapper>
             <div>
+              <button onClick={this.takePhoto}>Take Photo</button>
               <StyledVideoContainer>
                 <StyledVideo innerRef={this.authVideo}>What are you looking at?</StyledVideo>
               </StyledVideoContainer>

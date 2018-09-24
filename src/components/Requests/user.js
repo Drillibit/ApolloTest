@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
 export const CURRENT_USER = gql`
  {
@@ -27,16 +27,18 @@ export const LOG_IN = gql`
       id
       name
       email
+      image
     }
   }
 `;
 
 export const SIGN_UP = gql`
-  mutation SignUp ($password: String!,$email: String!, $name: String!){
-    signUp(email: $email, password: $password, name: $name){
+  mutation SignUp ($password: String!,$email: String!, $name: String!, $image: String!){
+    signUp(email: $email, password: $password, name: $name, image: $image){
       id
       name
       email
+      image
     }
   }
 `;
