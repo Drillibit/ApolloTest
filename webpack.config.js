@@ -80,7 +80,7 @@ module.exports = (releaseStage) => {
 
   /* Development Server */
   const devServer = {
-    host: '0.0.0.0',
+    // host: '0.0.0.0',
     port: 3004,
     contentBase: 'src',
     filename: './application.jsx',

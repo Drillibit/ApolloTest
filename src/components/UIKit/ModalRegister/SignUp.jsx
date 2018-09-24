@@ -34,12 +34,45 @@ const StyledLabel = styled.label`
   color: ${colors.grey300};
 `;
 
+const StyledVideoContainer = styled.div`
+  width: 120px;
+  height: 120px;
+  border-radius: 125px;
+  margin: 0 auto;
+  -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+`;
+
+const StyledVideo = styled.video`
+  width: 167px;
+  height: 126px;
+`;
+
+const MediaHandler = (vid, canvas) => {
+  navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    .then((stream) => {
+      vid.current.srcObject = stream;
+      vid.current.play();
+    })
+    .catch((err) => {
+      console.log(`Error: ${err}`);
+    });
+};
+
 export class SignUp extends PureComponent {
-  state = {
-    name: '',
-    email: '',
-    password: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      password: '',
+    };
+    this.authCanvas = React.createRef();
+    this.authVideo = React.createRef();
+  }
+
+  componentDidMount() {
+    MediaHandler(this.authVideo);
+  }
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -79,6 +112,12 @@ export class SignUp extends PureComponent {
             <BtnWrapper>
               <StyledCustomBtn btnType="primary">Отправить</StyledCustomBtn>
             </BtnWrapper>
+            <div>
+              <StyledVideoContainer>
+                <StyledVideo innerRef={this.authVideo}>What are you looking at?</StyledVideo>
+              </StyledVideoContainer>
+              <canvas ref={this.authCanvas}></canvas>
+            </div>
           </form>
         )}
       </Mutation>
