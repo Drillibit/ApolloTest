@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Query } from 'react-apollo';
 
 // libs
-import { FeaturedMovie } from './UIKit/FeaturedMovie/index';
+import { FeaturedContainer } from '../containers/FeatureContainer';
 import { Tabs, TabPane } from './UIKit/Tabs';
 import { Filter } from './UIKit/Filter';
 import { Dropdown } from './UIKit/Dropdown';
@@ -116,7 +116,7 @@ export class FrontPage extends Component {
             });
           }
        }}>
-           <FeaturedMovie movie={data.tranding.results[0]} />
+          <FeaturedContainer />
           <br />
           <StyledGrid>
             <StyledRow>
