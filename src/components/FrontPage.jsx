@@ -186,7 +186,6 @@ export class FrontPage extends Component {
               </StyledCol>
               <StyledCol xs={12}>
                 <PreloaderWrapper>
-                    {console.log(loading, networkStatus)}
                   {(loading || networkStatus === 7 && this.state.hasMore) ? <Preloader>Загрузка</Preloader> : ''}
                 </PreloaderWrapper>
               </StyledCol>

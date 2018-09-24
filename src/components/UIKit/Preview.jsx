@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
+import RootClose from 'react-overlays/lib/RootCloseWrapper';
 import PropTypes, { func } from 'prop-types';
 
 import { Icon } from './Icon';
@@ -9,6 +10,7 @@ import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
 import { StyledButton } from './Button';
 import { FavouriteControll } from '../../containers/FavouriteControll';
+
 
 const StyledCustomBtn = styled(StyledButton)`
   padding: 4px 43px;
@@ -187,11 +189,9 @@ export class Preview extends PureComponent {
   };
 
   handleDisplay = () => {
-    this.timeOut = setTimeout(() => {
-      this.setState({
-        inOpenState: true
-      });
-    }, 1000);
+    this.setState({
+      inOpenState: !this.state.inOpenState
+    });
   };
 
   handleHide = () => {
@@ -213,68 +213,67 @@ export class Preview extends PureComponent {
       pg,
       genre,
       cast,
-      isFavourite,
-      toggleFavourite,
     } = this.props;
 
     return (
-      <StyledParent>
-        <StyledPreviewContainer
-          onMouseEnter={this.handleDisplay}
-          onMouseLeave={this.handleHide}
-          open={inOpenState}
-        >
-          <StyledHeader open={inOpenState}>{title}</StyledHeader>
-          <RatingContainer open={inOpenState}>
-            <Rating {...this.props} />
-          </RatingContainer>
-          <BgKeeper open={inOpenState} bg={bg} />
-          <StyledInfoContainer open={inOpenState}>
-            <StyledHeaderInfo>{title}</StyledHeaderInfo>
-            <StyledDigitContainer>
-              <StyledSmallInfo>{year}</StyledSmallInfo>
-              <StyledSmallInfo>
-                {duration} {duration && 'мин'}
-              </StyledSmallInfo>
-              <StyledSmallInfo>{pg}</StyledSmallInfo>
-            </StyledDigitContainer>
-            {genre && (
+      <RootClose onRootClose={this.handleHide}>
+        <StyledParent>
+          <StyledPreviewContainer
+            onClick={this.handleDisplay}
+            open={inOpenState}
+          >
+            <StyledHeader open={inOpenState}>{title}</StyledHeader>
+            <RatingContainer open={inOpenState}>
+              <Rating {...this.props} />
+            </RatingContainer>
+            <BgKeeper open={inOpenState} bg={bg} />
+            <StyledInfoContainer open={inOpenState}>
+              <StyledHeaderInfo>{title}</StyledHeaderInfo>
+              <StyledDigitContainer>
+                <StyledSmallInfo>{year}</StyledSmallInfo>
+                <StyledSmallInfo>
+                  {duration} {duration && 'мин'}
+                </StyledSmallInfo>
+                <StyledSmallInfo>{pg}</StyledSmallInfo>
+              </StyledDigitContainer>
+              {genre && (
+                <StyledDetails>
+                  <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
+                  <StyledDetailsText>{genre}</StyledDetailsText>
+                </StyledDetails>
+              )}
+              {cast && (
+                <StyledDetails>
+                  <StyledDetailsHeader>В ролях:</StyledDetailsHeader>
+                  <StyledDetailsText>{cast}</StyledDetailsText>
+                </StyledDetails>
+              )}
               <StyledDetails>
-                <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
-                <StyledDetailsText>{genre}</StyledDetailsText>
+                <StyledParagraph>
+                  {description.length > 90
+                    ? `${description.slice(0, 90)}...`
+                    : description}
+                </StyledParagraph>
               </StyledDetails>
-            )}
-            {cast && (
-              <StyledDetails>
-                <StyledDetailsHeader>В ролях:</StyledDetailsHeader>
-                <StyledDetailsText>{cast}</StyledDetailsText>
-              </StyledDetails>
-            )}
-            <StyledDetails>
-              <StyledParagraph>
-                {description.length > 90
-                  ? `${description.slice(0, 90)}...`
-                  : description}
-              </StyledParagraph>
-            </StyledDetails>
-            <ButtonContainer>
-              <FavouriteControll
-                btnType="transparent-dark"
-                btnSize="small"
-                movieId={id}
-              >
-                <Icon icon="heart" />
-                Избранное
-              </FavouriteControll>
-              <Link to={`/movie/${id}`}>
-                <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
-                  Подробнее
-                </StyledCustomBtn>
-              </Link>
-            </ButtonContainer>
-          </StyledInfoContainer>
-        </StyledPreviewContainer>
-      </StyledParent>
+              <ButtonContainer>
+                <FavouriteControll
+                  btnType="transparent-dark"
+                  btnSize="small"
+                  movieId={id}
+                >
+                  <Icon icon="heart" />
+                  Избранное
+                </FavouriteControll>
+                <Link to={`/movie/${id}`}>
+                  <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
+                    Подробнее
+                  </StyledCustomBtn>
+                </Link>
+              </ButtonContainer>
+            </StyledInfoContainer>
+          </StyledPreviewContainer>
+        </StyledParent>
+      </RootClose>
     );
   }
 }

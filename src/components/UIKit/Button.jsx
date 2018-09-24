@@ -123,6 +123,7 @@ const shadowStyles = css`
 `;
 
 export const StyledButton = styled.button`
+  background-color: transparent;
   ${buttonDefault}
 
   ${(props) => {
