@@ -101,6 +101,12 @@ module.exports = (releaseStage) => {
   const rules = [];
 
   rules.push({
+    test: /\.mjs$/,
+    include: /node_modules/,
+    type: 'javascript/auto',
+  });
+
+  rules.push({
     test: /\.js$/,
     exclude: /node_modules/,
     loaders: [
