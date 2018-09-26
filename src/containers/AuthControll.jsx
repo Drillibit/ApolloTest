@@ -97,7 +97,6 @@ export class AuthControll extends PureComponent {
   render() {
     const { userData } = this.props;
     const { open, letMeOut } = this.state;
-    console.log(userData);
     return (
       <Fragment>
         {!userData && (

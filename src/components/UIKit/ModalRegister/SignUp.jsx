@@ -65,6 +65,7 @@ export class SignUp extends PureComponent {
       name: '',
       email: '',
       password: '',
+      image: ''
     };
     this.authCanvas = React.createRef();
     this.authVideo = React.createRef();
@@ -78,12 +79,16 @@ export class SignUp extends PureComponent {
     e.preventDefault();
     const canvas = this.authCanvas.current;
     const video = this.authVideo.current;
+    canvas.setAttribute('width', video.offsetHeight);
+    canvas.setAttribute('height', video.offsetHeight - 4);
 
     const context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, 167, 126);
+    context.drawImage(video, 0, 0, 167, 120);
 
     const ImageURL = canvas.toDataURL('image/png');
-    console.log(ImageURL);
+    this.setState({
+      image: ImageURL
+    });
   }
 
   handleInputChange = (e) => {
@@ -94,7 +99,12 @@ export class SignUp extends PureComponent {
   };
 
   render() {
-    const { name, password, email } = this.state;
+    const {
+      name,
+      password,
+      email,
+      image
+    } = this.state;
     return (
       <Mutation mutation={SIGN_UP} refetchQueries={[{ query: CURRENT_USER }]}>
         {signUp => (
@@ -104,7 +114,8 @@ export class SignUp extends PureComponent {
               variables: {
                 name,
                 email,
-                password
+                password,
+                image
               }
             });
           }}
