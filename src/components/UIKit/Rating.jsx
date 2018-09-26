@@ -95,7 +95,7 @@ const rateConvert = (rate) => {
     stars: new Array(Math.floor(num)).fill(),
     singleStar: restNum.toFixed(2) * 100,
     rate: num.toFixed(1),
-    emptyStars: new Array(num >= 5 ? 0 : 5 - Math.floor(num)).fill()
+    emptyStars: new Array(num >= 5 ? 0 : 4 - Math.floor(num)).fill()
   };
 };
 

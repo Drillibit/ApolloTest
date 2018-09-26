@@ -80,7 +80,7 @@ module.exports = (releaseStage) => {
 
   /* Development Server */
   const devServer = {
-    host: '0.0.0.0',
+    // host: '0.0.0.0',
     port: 3004,
     contentBase: 'src',
     filename: './application.jsx',
@@ -99,6 +99,12 @@ module.exports = (releaseStage) => {
 
   /* Rules */
   const rules = [];
+
+  rules.push({
+    test: /\.mjs$/,
+    include: /node_modules/,
+    type: 'javascript/auto',
+  });
 
   rules.push({
     test: /\.js$/,
@@ -250,7 +256,7 @@ module.exports = (releaseStage) => {
 
   /* Resolve */
   const resolve = {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.json'],
     alias: {
       $UIKit: path.resolve(__dirname, 'src/components/UIKit'),
       $components: path.resolve(__dirname, 'src/components'),

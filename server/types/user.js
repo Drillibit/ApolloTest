@@ -5,7 +5,7 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLList,
-  GraphQLID
+  GraphQLID,
 } = graphql;
 
 const MovieIdType = new GraphQLObjectType({
@@ -22,6 +22,7 @@ const UserType = new GraphQLObjectType({
     name: { type: GraphQLString },
     email: { type: GraphQLString },
     password: { type: GraphQLString },
+    image: { type: GraphQLString },
     favouriteMovies: { type: new GraphQLList(MovieIdType) }
   })
 });

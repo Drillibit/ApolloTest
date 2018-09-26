@@ -1,6 +1,13 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import ApolloClient, { gql, InMemoryCache,  } from 'apollo-boost';
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+// import { HttpLink } from 'apollo-link-http';
+// import { onError } from 'apollo-link-error';
+// import { withClientState } from 'apollo-link-state';
+// import { ApolloLink, Observable } from 'apollo-link';
+import gql from 'graphql-tag';
+import { createUploadLink } from 'apollo-upload-client';
 import { Query, ApolloProvider } from 'react-apollo';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -53,13 +60,24 @@ export const GET_TRANDING = gql`
   }
 `;
 
-const cache = new InMemoryCache({
-  dataIdFromObject: obj => obj.id
+// const cache = new InMemoryCache({
+//   dataIdFromObject: obj => obj.id
+// });
+
+// const client = new ApolloClient({
+//   uri: process.env.BASE_URL,
+//   credentials: 'include',
+//   link: createUploadLink(),
+// });
+
+const link = createUploadLink({
+  uri: process.env.BASE_URL,
+  credentials: 'include'
 });
 
 const client = new ApolloClient({
-  uri: process.env.BASE_URL,
-  credentials: 'include',
+  link,
+  cache: new InMemoryCache()
 });
 
 export const Application = hot(module)(() => (
