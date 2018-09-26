@@ -5,7 +5,7 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLList,
-  GraphQLID
+  GraphQLID,
 } = graphql;
 
 const MovieIdType = new GraphQLObjectType({

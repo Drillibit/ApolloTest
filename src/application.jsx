@@ -60,9 +60,9 @@ export const GET_TRANDING = gql`
   }
 `;
 
-const cache = new InMemoryCache({
-  dataIdFromObject: obj => obj.id
-});
+// const cache = new InMemoryCache({
+//   dataIdFromObject: obj => obj.id
+// });
 
 // const client = new ApolloClient({
 //   uri: process.env.BASE_URL,
@@ -70,22 +70,13 @@ const cache = new InMemoryCache({
 //   link: createUploadLink(),
 // });
 
+const link = createUploadLink({
+  uri: process.env.BASE_URL,
+  credentials: 'include'
+});
+
 const client = new ApolloClient({
-  link: ApolloLink.from([
-    onError(({ graphQLErrors, networkError }) => {
-      if(graphQLErrors)
-        graphQLErrors.map(({ message, locations, path }) =>
-          console.log(
-            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-          ),
-        );
-      if (networkError) console.log(`[Network error]: ${networkError}`);
-    }),
-    new HttpLink({
-      uri: process.env.BASE_URL,
-      credentials: 'include'
-    })
-  ]),
+  link,
   cache: new InMemoryCache()
 });
 

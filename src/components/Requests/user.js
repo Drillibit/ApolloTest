@@ -6,6 +6,7 @@ export const CURRENT_USER = gql`
     name
     email
     id
+    image
     favouriteMovies { 
       _id
     }

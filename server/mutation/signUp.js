@@ -13,11 +13,16 @@ const signUp = {
     name: { type: new GraphQLNonNull(GraphQLString) },
     email: { type: new GraphQLNonNull(GraphQLString) },
     password: { type: new GraphQLNonNull(GraphQLString) },
-    image: { type: new GraphQLNonNull(GraphQLString) }
+    image: { type: GraphQLString }
   },
-  resolve(_, { name, email, password }, req) {
+  resolve(_, {
+    name,
+    email,
+    password,
+    image
+  }, req) {
     return AuthService.signup({
-      name, email, password, req
+      image, name, email, password, req
     });
   }
 };

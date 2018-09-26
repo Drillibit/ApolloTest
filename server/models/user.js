@@ -12,7 +12,7 @@ const userSchema = new Schema({
   email: String,
   password: String,
   favouriteMovies: [movieSchema],
-  image: Buffer
+  image: String
 });
 
 
