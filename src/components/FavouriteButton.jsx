@@ -17,6 +17,11 @@ export const FavouriteButton = (props) => {
       refetchQueries: [{ query: CURRENT_USER }]
     });
   };
+
+  if (!props.data.currentUser) {
+    return '';
+  }
+
   return (
     <Button btnType={props.btnType} btnSize="small" onClick={toggleFavourite}>
       <Icon icon={isFavourite ? 'heart-fill' : 'heart'} color={isFavourite ? colors.purple : 'inherit'} /> {isFavourite ? 'В избранном' : 'В избанное'}
