@@ -9,8 +9,13 @@ const schema = require('./schema/schema');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const http = require('http');
+const socketIO = require('socket.io');
+
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
 
 app.use(
   cors({
@@ -68,6 +73,6 @@ app.get('*', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-console.log(`App running at ${PORT}`);
+server.listen(PORT);
 
-app.listen(PORT);
+console.log(`App running at ${PORT}`);
