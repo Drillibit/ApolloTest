@@ -1,7 +1,7 @@
 const express = require('express');
+const { ApolloServer, gql } = require('apollo-server-express');
 const compression = require('compression');
 const mongoose = require('mongoose');
-const expressGraphQL = require('express-graphql');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
@@ -9,13 +9,10 @@ const schema = require('./schema/schema');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const http = require('http');
-const socketIO = require('socket.io');
 
+const AuthService = require('./services/auth');
 
 const app = express();
-const server = http.createServer(app);
-const io = socketIO(server);
 
 app.use(
   cors({
@@ -24,6 +21,53 @@ app.use(
     optionsSuccessStatus: 200
   })
 );
+
+// id: { type: GraphQLID },
+// name: { type: GraphQLString },
+// email: { type: GraphQLString },
+// password: { type: GraphQLString },
+// image: { type: GraphQLString },
+// favouriteMovies: { type: new GraphQLList(MovieIdType) }
+
+const typeDefs = gql`
+  type MovieIdType {
+    _id: ID
+  },
+  type UserType {
+    id: ID,
+    name: String,
+    email: String,
+    password: String,
+    image: String,
+    favouriteMovies: [MovieIdType]
+  },
+  type Query {
+    hello: String,
+    CurrentUser: UserType
+  },
+  type Mutation {
+    logIn(email: String!, password: String!): UserType
+  }
+`;
+
+
+const resolvers = {
+  Query: {
+    hello: () => 'Hello world!',
+    CurrentUser: (_, args, req) => req.user,
+  },
+  Mutation: {
+    logIn: (_, { email, password }, req) => {
+      return AuthService.login({
+        email, password, req
+      });
+    }
+  }
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+server.applyMiddleware({ app });
 
 app.use(compression());
 app.use(bodyParser.json());
@@ -59,20 +103,12 @@ app.use(express.static('www'));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(
-  '/graphql',
-  expressGraphQL({
-    schema,
-    graphiql: true
-  })
-);
-
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'www', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
 
-server.listen(PORT);
+app.listen(PORT);
 
-console.log(`App running at ${PORT}`);
+console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
