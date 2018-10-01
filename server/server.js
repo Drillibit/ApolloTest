@@ -6,12 +6,11 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const schema = require('./schema/schema');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 
-const AuthService = require('./services/auth');
+const typeDefs = require('./types/typeDefs');
+const resolvers = require('./resolvers/resolvers');
 
 const app = express();
 
@@ -24,7 +23,7 @@ app.use(
 );
 
 app.use(compression());
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
 
@@ -56,64 +55,21 @@ app.use(express.static('www'));
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cookieParser());
-
-const UserType = `
-  id: ID,
-  name: String,
-  email: String,
-  password: String,
-  image: String,
-  favouriteMovies: [MovieIdType]
-`;
-
-const typeDefs = gql`
-  type MovieIdType {
-    _id: ID
-  },
-  type UserType {
-    ${UserType}
-  },
-  type Query {
-    hello: String,
-    CurrentUser: UserType
-  },
-  type Mutation {
-    logIn(email: String!, password: String!): UserType
-  }
-`;
-
-
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!',
-    CurrentUser: (_, args, req) => {
-      return req.user;
-    },
-  },
-  Mutation: {
-    logIn: (_, { email, password }, req) => {
-      return AuthService.login({
-        email, password, req
-      });
-    }
-  }
-};
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => {
-    console.log(req);
+  context: ({ req, res }) => {
     return req;
   }
 });
 
-server.applyMiddleware({ app });
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'www', 'index.html'));
 });
+
+server.applyMiddleware({ app });
 
 const PORT = process.env.PORT || 3000;
 
