@@ -1,7 +1,8 @@
 const api = require('../network/api');
 const AuthService = require('../services/auth');
-const GenresType = require('../types/genres');
 const requestGenres = require('../network/requestGenres');
+const requestSimilarMovies = require('../network/requestSimilar');
+const requestMovieVideos = require('../network/requestVideo');
 
 const resolvers = {
   Query: {
@@ -11,6 +12,13 @@ const resolvers = {
     },
     genres_arr: () => {
       return requestGenres(api);
+    },
+    movie: (_, args) => {
+      return api.get(`movie/${args.id}`).then(res => res.data);
+    },
+    similar: (parent) => {
+      console.log('lel');
+      return requestSimilarMovies(api, parent);
     }
   },
   Mutation: {
