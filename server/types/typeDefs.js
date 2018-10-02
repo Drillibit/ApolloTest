@@ -41,6 +41,11 @@ const typeDefs = gql`
     vote_average: Float,
     vote_count: Int
   },
+  type VideoType {
+    id: ID,
+    key: String,
+    name: String
+  },
   type movie {
     _id: ID,
     id: ID,
@@ -60,14 +65,21 @@ const typeDefs = gql`
     title: String,
     vote_average: Float,
     vote_count: Int,
-    similar: [SimilarType]
+    similar: [SimilarType],
+    video: VideoType
+  },
+  type SearchType {
+    id: ID,
+    title: String
   },
   type Query {
     hello: String,
     CurrentUser: UserType,
     genres_arr: [GenreType],
     movie(id: ID!): movie,
-    similar: [SimilarType] 
+    similar: [SimilarType],
+    video: [VideoType],
+    search(req: String!): [SearchType] 
   },
   type Mutation {
     logIn(email: String!, password: String!): UserType

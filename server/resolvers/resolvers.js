@@ -3,6 +3,7 @@ const AuthService = require('../services/auth');
 const requestGenres = require('../network/requestGenres');
 const requestSimilarMovies = require('../network/requestSimilar');
 const requestMovieVideos = require('../network/requestVideo');
+const requestMovieByKeywords = require('../network/requestSearch');
 
 const resolvers = {
   Query: {
@@ -16,9 +17,8 @@ const resolvers = {
     movie: (_, args) => {
       return api.get(`movie/${args.id}`).then(res => res.data);
     },
-    similar: (parent) => {
-      console.log('lel');
-      return requestSimilarMovies(api, parent);
+    search: (_, args) => {
+      return requestMovieByKeywords(api, args);
     }
   },
   Mutation: {
@@ -27,7 +27,11 @@ const resolvers = {
         email, password, req
       });
     }
-  }
+  },
+  movie: {
+    video: parent => requestMovieVideos(api, parent),
+    similar: parent => requestSimilarMovies(api, parent),
+  },
 };
 
 module.exports = resolvers;
