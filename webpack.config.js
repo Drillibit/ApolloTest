@@ -86,7 +86,12 @@ module.exports = (releaseStage) => {
     filename: './application.jsx',
     hot: true,
     inline: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      '/graphql': {
+        target: 'http://localhost:3000',
+      },
+    }
   };
 
   /* Development Tools */

@@ -14,13 +14,13 @@ const resolvers = require('./resolvers/resolvers');
 
 const app = express();
 
-app.use(
-  cors({
-    credentials: true,
-    origin: 'http://localhost:3004',
-    optionsSuccessStatus: 200
-  })
-);
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: 'http://localhost:3004',
+//     optionsSuccessStatus: 200
+//   })
+// );
 
 app.use(compression());
 // app.use(bodyParser.json());
@@ -59,17 +59,16 @@ app.use(passport.session());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req, res }) => {
+  context: ({ req }) => {
     return req;
   }
 });
 
+server.applyMiddleware({ app });
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'www', 'index.html'));
 });
-
-server.applyMiddleware({ app });
 
 const PORT = process.env.PORT || 3000;
 

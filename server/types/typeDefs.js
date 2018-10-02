@@ -46,6 +46,23 @@ const typeDefs = gql`
     key: String,
     name: String
   },
+  type ResultType {
+    adult: Boolean,
+    genre_ids: [ID],
+    id: ID,
+    backdrop_path: String,
+    overview: String,
+    popularity: Int,
+    poster_path: String,
+    release_date: String,
+    title: String,
+    vote_average: Float,
+    vote_count: Int
+  },
+  type TrandingType {
+    page: Int,
+    results: [ResultType]
+  },
   type movie {
     _id: ID,
     id: ID,
@@ -79,10 +96,12 @@ const typeDefs = gql`
     movie(id: ID!): movie,
     similar: [SimilarType],
     video: [VideoType],
-    search(req: String!): [SearchType] 
+    search(req: String!): [SearchType],
+    tranding(page: String!, genre: String, sortBy: String, source: Boolean): TrandingType
   },
   type Mutation {
-    logIn(email: String!, password: String!): UserType
+    logIn(email: String!, password: String!): UserType,
+    logOut: UserType
   }
 `;
 

@@ -60,18 +60,8 @@ export const GET_TRANDING = gql`
   }
 `;
 
-// const cache = new InMemoryCache({
-//   dataIdFromObject: obj => obj.id
-// });
-
-// const client = new ApolloClient({
-//   uri: process.env.BASE_URL,
-//   credentials: 'include',
-//   link: createUploadLink(),
-// });
-
 const link = createUploadLink({
-  uri: process.env.BASE_URL,
+  uri: '/graphql',
   credentials: 'include'
 });
 

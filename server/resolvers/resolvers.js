@@ -4,6 +4,7 @@ const requestGenres = require('../network/requestGenres');
 const requestSimilarMovies = require('../network/requestSimilar');
 const requestMovieVideos = require('../network/requestVideo');
 const requestMovieByKeywords = require('../network/requestSearch');
+const requestNowPlayingMovies = require('../network/requestNowPlayingMovies');
 
 const resolvers = {
   Query: {
@@ -19,13 +20,21 @@ const resolvers = {
     },
     search: (_, args) => {
       return requestMovieByKeywords(api, args);
-    }
+    },
+    tranding: (_, args) => {
+      return requestNowPlayingMovies(api, args);
+    },
   },
   Mutation: {
     logIn: (_, { email, password }, req) => {
       return AuthService.login({
         email, password, req
       });
+    },
+    logOut: (_, args, req) => {
+      const { user } = req;
+      req.logout();
+      return user;
     }
   },
   movie: {
