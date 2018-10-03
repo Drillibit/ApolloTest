@@ -1,29 +1,19 @@
 const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express');
+const { ApolloServer } = require('apollo-server-express');
 const compression = require('compression');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
-const schema = require('./schema/schema');
-const cors = require('cors');
 const path = require('path');
 
+require('./models/user');
 const typeDefs = require('./types/typeDefs');
 const resolvers = require('./resolvers/resolvers');
 
 const app = express();
 
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: 'http://localhost:3004',
-//     optionsSuccessStatus: 200
-//   })
-// );
-
 app.use(compression());
-// app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
 
