@@ -5,6 +5,7 @@ const requestSimilarMovies = require('../network/requestSimilar');
 const requestMovieVideos = require('../network/requestVideo');
 const requestMovieByKeywords = require('../network/requestSearch');
 const requestNowPlayingMovies = require('../network/requestNowPlayingMovies');
+const User = require('../models/user');
 
 const resolvers = {
   Query: {
@@ -25,6 +26,21 @@ const resolvers = {
       const { user } = req;
       req.logout();
       return user;
+    },
+    addFavourite: async (_, { userId, favouriteId, favourite }) => {
+      const user = await User.findById(userId);
+      if (favourite) {
+        user.favouriteMovies.id(favouriteId).remove();
+        return user.save();
+      }
+
+      const movie = {
+        _id: favouriteId
+      };
+
+      user.favouriteMovies.push(movie);
+
+      return user.save();
     }
   },
   movie: {

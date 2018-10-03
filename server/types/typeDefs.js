@@ -101,6 +101,7 @@ const typeDefs = gql`
   },
   type Mutation {
     logIn(email: String!, password: String!): UserType,
+    addFavourite(userId: ID!, favouriteId: ID!, favourite: Boolean): UserType,
     logOut: UserType
   }
 `;
