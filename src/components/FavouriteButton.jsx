@@ -18,30 +18,30 @@ const resolveMoives = (favouriteMovies, id) => {
 };
 
 export const FavouriteButton = (props) => {
-  const isFavourite = props.data.currentUser ?
-    props.data.currentUser.favouriteMovies.find(el => el._id === props.movieId)
+  const isFavourite = props.data.CurrentUser ?
+    props.data.CurrentUser.favouriteMovies.find(el => el._id === props.movieId)
     :
     false;
   const toggleFavourite = () => {
     props.mutate({
       variables: {
-        userId: props.data.currentUser.id, favouriteId: props.movieId, favourite: isFavourite instanceof Object
+        userId: props.data.CurrentUser.id, favouriteId: props.movieId, favourite: isFavourite instanceof Object
       },
       optimisticResponse: {
         addFavourite: {
-          ...props.data.currentUser,
-          favouriteMovies: resolveMoives(props.data.currentUser.favouriteMovies, props.movieId)
+          ...props.data.CurrentUser,
+          favouriteMovies: resolveMoives(props.data.CurrentUser.favouriteMovies, props.movieId)
         }
       },
       update: (store, { data: addFavourite }) => {
         const data = store.readQuery({ query: CURRENT_USER });
-        data.currentUser.favouriteMovies = addFavourite.addFavourite.favouriteMovies;
+        data.CurrentUser.favouriteMovies = addFavourite.addFavourite.favouriteMovies;
         store.writeQuery({ query: CURRENT_USER, data });
       }
     });
   };
 
-  if (!props.data.currentUser) {
+  if (!props.data.CurrentUser) {
     return '';
   }
 

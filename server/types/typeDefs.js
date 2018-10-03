@@ -96,7 +96,7 @@ const typeDefs = gql`
     movie(id: ID!): movie,
     similar: [SimilarType],
     video: [VideoType],
-    search(req: String!): [SearchType],
+    search(req: String): [SearchType],
     tranding(page: String!, genre: String, sortBy: String, source: Boolean): TrandingType
   },
   type Mutation {

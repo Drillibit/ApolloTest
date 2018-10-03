@@ -73,11 +73,11 @@ const client = new ApolloClient({
 export const Application = hot(module)(() => (
   <ApolloProvider client={client}>
     <Query query={CURRENT_USER}>
-      {({ error, loading, data: { currentUser } }) => {
+      {({ error, loading, data: { CurrentUser } }) => {
         if (loading) return <Preloader>Загрузка</Preloader>;
         if (error) return `Error ${error.message}`;
         return (
-          <Main auth={currentUser} />
+          <Main auth={CurrentUser} />
         );
     }}
     </Query>
