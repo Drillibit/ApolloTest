@@ -9,7 +9,6 @@ const User = require('../models/user');
 
 const resolvers = {
   Query: {
-    hello: () => 'Hello world!',
     CurrentUser: (_, args, req) => req.user,
     genres_arr: () => requestGenres(api),
     movie: (_, args) => api.get(`movie/${args.id}`).then(res => res.data),

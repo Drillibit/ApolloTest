@@ -6,7 +6,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const path = require('path');
-
+const http = require('http');
 require('./models/user');
 const typeDefs = require('./types/typeDefs');
 const resolvers = require('./resolvers/resolvers');
@@ -49,19 +49,22 @@ app.use(passport.session());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => {
-    return req;
-  }
+  context: ({ req }) => req
 });
-
-server.applyMiddleware({ app });
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'www', 'index.html'));
 });
 
+server.applyMiddleware({ app });
+
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT);
+httpServer.listen(PORT, () => {
+  console.log(`Subscriptions ready at http://localhost:${PORT}${server.subscriptionsPath}`);
+  console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+});
 
-console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
