@@ -6,7 +6,7 @@ module.exports = gql`
     similar: [SimilarType]
     video: [VideoType]
   }
-  
+
   type BelongsToCollection {
     id: Int
     name: String
@@ -35,7 +35,7 @@ module.exports = gql`
     id: ID
     backdrop_path: String
     overview: String
-    popularity: Int
+    popularity: Float
     poster_path: String
     release_date: String
     runtime: String
@@ -59,7 +59,7 @@ module.exports = gql`
     belongs_to_collection: BelongsToCollection
     budget: Int
     overview: String
-    popularity: Int
+    popularity: Float
     poster_path: String
     production_companies: [CompaniesType]
     production_countries: [CountriesType]
