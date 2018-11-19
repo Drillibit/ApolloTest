@@ -41,25 +41,6 @@ import './components/helpers/injectGlobalStyles';
 import { Preloader } from './components/UIKit/Preloader';
 
 
-export const GET_TRANDING = gql`
-  query tranding($page: String!) @client {
-    tranding(page: $page) {
-      page
-      results {
-        genre_ids
-        id
-        title
-        backdrop_path
-        overview
-        poster_path
-        release_date
-        vote_count
-        vote_average
-      }
-    }
-  }
-`;
-
 const link = createUploadLink({
   uri: '/graphql',
   credentials: 'include'

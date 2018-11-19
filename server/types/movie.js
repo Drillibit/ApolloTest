@@ -72,4 +72,5 @@ module.exports = gql`
     similar: [SimilarType]
     video: VideoType
   }
+
 `;

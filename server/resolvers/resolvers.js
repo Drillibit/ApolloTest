@@ -1,4 +1,6 @@
 const api = require('../network/api');
+// const events = require('../subscriptions/index');
+const { PubSub } = require('graphql-subscriptions');
 const AuthService = require('../services/auth');
 const requestGenres = require('../network/requestGenres');
 const requestSimilarMovies = require('../network/requestSimilar');
@@ -6,6 +8,10 @@ const requestMovieVideos = require('../network/requestVideo');
 const requestMovieByKeywords = require('../network/requestSearch');
 const requestNowPlayingMovies = require('../network/requestNowPlayingMovies');
 const User = require('../models/user');
+
+const pubSub = new PubSub();
+
+const NEW_MESSAGE = 'NEW_MESSAGE';
 
 const resolvers = {
   Query: {
@@ -15,12 +21,19 @@ const resolvers = {
     search: (_, args) => requestMovieByKeywords(api, args),
     tranding: (_, args) => requestNowPlayingMovies(api, args),
   },
+  // Subscription: {
+  //   addFavourite: {
+  //     subscribe: () => pubSub.asyncIterator([NEW_MESSAGE])
+  //   }
+  // },
   Mutation: {
-    logIn: (_, { email, password }, req) => {
-      return AuthService.login({
-        email, password, req
-      });
-    },
+    signUp: (_, { email, password, name }, req) =>
+      AuthService.signup({
+        email, password, name, req
+      }),
+    logIn: (_, { email, password }, req) => AuthService.login({
+      email, password, req
+    }),
     logOut: (_, args, req) => {
       const { user } = req;
       req.logout();

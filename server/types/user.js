@@ -8,6 +8,7 @@ module.exports = gql`
     logIn(email: String!, password: String!): UserType
     addFavourite(userId: ID!, favouriteId: ID!, favourite: Boolean): UserType
     logOut: UserType
+    signUp(password: String!, email: String!, name: String!, image: String!): UserType
   }
   
   type UserType {
