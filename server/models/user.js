@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const movieSchema = new Schema({
-  _id: Number,
+  _id: Number
 });
 
 const userSchema = new Schema({
@@ -15,10 +15,11 @@ const userSchema = new Schema({
   image: String
 });
 
-
 userSchema.pre('save', function save(next) {
   const user = this;
-  if (!user.isModified('password')) { return next(); }
+  if (!user.isModified('password')) {
+    return next();
+  }
   bcrypt.genSalt(10, (err, salt) => {
     if (err) {
       return next(err);
@@ -33,7 +34,10 @@ userSchema.pre('save', function save(next) {
   });
 });
 
-userSchema.methods.comparePassword = function comparePassword(candidatePassword, cb) {
+userSchema.methods.comparePassword = function comparePassword(
+  candidatePassword,
+  cb
+) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     cb(err, isMatch);
   });
