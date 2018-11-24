@@ -4,6 +4,9 @@ module.exports = gql`
   extend type Query {
     CurrentUser: UserType
   }
+  extend type Subscription {
+    addFavourite: UserType
+  }
   extend type Mutation {
     logIn(email: String!, password: String!): UserType
     addFavourite(userId: ID!, favouriteId: ID!, favourite: Boolean): UserType

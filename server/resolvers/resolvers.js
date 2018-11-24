@@ -11,7 +11,7 @@ const User = require('../models/user');
 
 const pubSub = new PubSub();
 
-const NEW_MESSAGE = 'NEW_MESSAGE';
+const ADDED_FAVOURITE = 'ADDED_FAVOURITE';
 
 const resolvers = {
   Query: {
@@ -21,11 +21,11 @@ const resolvers = {
     search: (_, args) => requestMovieByKeywords(api, args),
     tranding: (_, args) => requestNowPlayingMovies(api, args),
   },
-  // Subscription: {
-  //   addFavourite: {
-  //     subscribe: () => pubSub.asyncIterator([NEW_MESSAGE])
-  //   }
-  // },
+  Subscription: {
+    addFavourite: {
+      subscribe: () => pubSub.asyncIterator([ADDED_FAVOURITE])
+    }
+  },
   Mutation: {
     signUp: (_, { email, password, name }, req) =>
       AuthService.signup({
@@ -43,14 +43,19 @@ const resolvers = {
       const user = await User.findById(userId);
       if (favourite) {
         user.favouriteMovies.id(favouriteId).remove();
+        pubSub.publish(ADDED_FAVOURITE, {
+          addFavourite: user
+        });
         return user.save();
       }
 
       const movie = {
         _id: favouriteId
       };
-
       user.favouriteMovies.push(movie);
+      pubSub.publish(ADDED_FAVOURITE, {
+        addFavourite: user
+      });
 
       return user.save();
     }
