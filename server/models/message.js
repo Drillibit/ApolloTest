@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
 
-const messageSchema = new Schema({
+const messageSchema = mongoose.model('Message', new mongoose.Schema({
   owner: {
     type: String,
     required: true
@@ -19,6 +18,6 @@ const messageSchema = new Schema({
     type: Date,
     default: Date.now()
   }
-});
+}));
 
 module.exports = messageSchema;
