@@ -1,4 +1,4 @@
-// import { PubSub } from 'graphql-subscriptions';
+const { PubSub } = require('graphql-subscriptions');
 
 // import * as MESSAGE_EVENTS from './message';
 // import * as DIRECT_MESSAGE from './direct';
@@ -8,4 +8,4 @@
 //   DIRECT: DIRECT_MESSAGE
 // };
 
-// export default new PubSub();
+module.exports = new PubSub();
