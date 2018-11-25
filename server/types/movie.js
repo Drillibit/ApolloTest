@@ -1,96 +1,76 @@
-const graphql = require('graphql');
-const api = require('../network/api');
-const requestSimilarMovies = require('../network/requestSimilar');
-const requestMovieVideos = require('../network/requestVideo');
+const { gql } = require('apollo-server-express');
 
-const SimilarType = require('./similar');
-const VideoType = require('./video');
+module.exports = gql`
+  extend type Query {
+    movie(id: ID!): movie
+    similar: [SimilarType]
+    video: [VideoType]
+  }
 
-const {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLInt,
-  GraphQLList,
-  GraphQLFloat,
-  GraphQLBoolean,
-  GraphQLID
-} = graphql;
+  type BelongsToCollection {
+    id: Int
+    name: String
+    poster_path: String
+    backdrop_path: String
+  }
 
-const GraphQLObjectId = require('graphql-scalar-objectid');
+  type MovieIdType {
+    _id: ID
+  }
 
-const CountriesType = new GraphQLObjectType({
-  name: 'ProductionCountries',
-  fields: () => ({
-    name: { type: GraphQLString }
-  })
-});
+  type CompaniesType {
+    id: ID
+    name: String
+    logo_path: String
+    original_country: String
+  }
 
-const CompaniesType = new GraphQLObjectType({
-  name: 'ProductionCompanies',
-  fields: () => ({
-    id: { type: GraphQLInt },
-    name: { type: GraphQLString },
-    logo_path: { type: GraphQLString },
-    original_country: { type: GraphQLString }
-  })
-});
+  type CountriesType {
+    name: String
+  }
 
-const GenreType = new GraphQLObjectType({
-  name: 'Genre',
-  fields: () => ({
-    id: { type: GraphQLID },
-    name: { type: GraphQLString }
-  })
-});
+  type SimilarType {
+    adult: Boolean
+    genre_ids: [ID]
+    id: ID
+    backdrop_path: String
+    overview: String
+    popularity: Float
+    poster_path: String
+    release_date: String
+    runtime: String
+    title: String
+    vote_average: Float
+    vote_count: Int
+  }
 
-const BelongsToCollection = new GraphQLObjectType({
-  name: 'BelongsToCollection',
-  fields: () => ({
-    id: { type: GraphQLInt },
-    name: { type: GraphQLString },
-    poster_path: { type: GraphQLString },
-    backdrop_path: { type: GraphQLString }
-  })
-});
+  type VideoType {
+    id: ID
+    key: String
+    name: String
+  }
 
-module.exports = new GraphQLObjectType({
-  name: 'Movie',
-  fields: () => ({
-    _id: { type: GraphQLObjectId },
-    id: { type: GraphQLID },
-    adult: { type: GraphQLBoolean },
-    runtime: { type: GraphQLString },
-    backdrop_path: { type: GraphQLString },
-    belongs_to_collection: { type: BelongsToCollection },
-    budget: { type: GraphQLInt },
-    overview: { type: GraphQLString },
-    popularity: { type: GraphQLInt },
-    poster_path: { type: GraphQLString },
-    production_companies: {
-      type: new GraphQLList(CompaniesType)
-    },
-    production_countries: {
-      type: new GraphQLList(CountriesType)
-    },
-    genres: {
-      type: new GraphQLList(GenreType)
-    },
-    release_date: { type: GraphQLString },
-    tagline: { type: GraphQLString },
-    title: { type: GraphQLString },
-    vote_average: { type: GraphQLFloat },
-    vote_count: { type: GraphQLInt },
-    similar: {
-      type: SimilarType,
-      resolve(parentArg) {
-        return requestSimilarMovies(api, parentArg);
-      }
-    },
-    video: {
-      type: VideoType,
-      resolve(parentArg) {
-        return requestMovieVideos(api, parentArg);
-      }
-    }
-  })
-});
+  type movie {
+    _id: ID
+    id: ID
+    adult: Boolean
+    runtime: String
+    backdrop_path: String
+    belongs_to_collection: BelongsToCollection
+    budget: Int
+    overview: String
+    popularity: Float
+    poster_path: String
+    production_companies: [CompaniesType]
+    production_countries: [CountriesType]
+    genres: [GenreType]
+    release_date: String
+    tagline: String
+    title: String
+    vote_average: Float
+    vote_count: Int
+    similar: [SimilarType]
+    video: VideoType
+  }
+
+`;

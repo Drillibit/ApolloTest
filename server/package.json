@@ -5,29 +5,31 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apollo-server-express": "^2.1.0",
     "axios": "^0.18.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
     "connect-mongo": "^2.0.1",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
     "express": "^4.16.3",
-    "express-graphql": "^0.6.12",
     "express-session": "^1.15.6",
     "graphql": "^14.0.0",
-    "graphql-base64": "^1.0.2",
+    "graphql-resolvers": "^0.2.2",
     "graphql-scalar-objectid": "^0.1.1",
+    "graphql-subscriptions": "^1.0.0",
+    "graphql-tools": "^4.0.0",
     "json-server": "^0.14.0",
     "lodash": "^4.17.10",
     "mongoose": "^5.2.13",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-    "socket.io": "^2.1.1"
+    "passport-local": "^1.0.0"
   }
 }

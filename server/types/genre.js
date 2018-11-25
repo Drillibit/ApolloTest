@@ -2,10 +2,11 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   extend type Query {
-    search(req: String): [SearchType]
+    genres_arr: [GenreType]
   }
-  type SearchType {
+
+  type GenreType {
     id: ID
-    title: String
+    name: String
   }
 `;

@@ -1,39 +1,29 @@
-const graphql = require('graphql');
+const { gql } = require('apollo-server-express');
 
-const {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLInt,
-  GraphQLList,
-  GraphQLFloat,
-  GraphQLBoolean,
-  GraphQLID
-} = graphql;
-
-const ResultType = new GraphQLObjectType({
-  name: 'Results',
-  fields: () => ({
-    adult: { type: GraphQLBoolean },
-    genre_ids: {
-      type: new GraphQLList(GraphQLID)
-    },
-    id: { type: GraphQLID },
-    backdrop_path: { type: GraphQLString },
-    overview: { type: GraphQLString },
-    popularity: { type: GraphQLInt },
-    poster_path: { type: GraphQLString },
-    release_date: { type: GraphQLString },
-    title: { type: GraphQLString },
-    vote_average: { type: GraphQLFloat },
-    vote_count: { type: GraphQLInt }
-  })
-});
-
-module.exports = new GraphQLObjectType({
-  name: 'Tranding',
-  fields: () => ({
-    page: { type: GraphQLInt },
-    results: { type: new GraphQLList(ResultType) }
-  })
-});
-
+module.exports = gql`
+  extend type Query {
+    tranding(
+      page: String!
+      genre: String
+      sortBy: String
+      source: Boolean
+    ): TrandingType
+  }
+  type ResultType {
+    adult: Boolean
+    genre_ids: [ID]
+    id: ID
+    backdrop_path: String
+    overview: String
+    popularity: Int
+    poster_path: String
+    release_date: String
+    title: String
+    vote_average: Float
+    vote_count: Int
+  }
+  type TrandingType {
+    page: Int
+    results: [ResultType]
+  }
+`;

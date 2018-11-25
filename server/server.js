@@ -1,32 +1,20 @@
 const express = require('express');
+const depthLimit = require('graphql-depth-limit');
+const { ApolloServer } = require('apollo-server-express');
 const compression = require('compression');
 const mongoose = require('mongoose');
-const expressGraphQL = require('express-graphql');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
-const schema = require('./schema/schema');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 const path = require('path');
 const http = require('http');
-const socketIO = require('socket.io');
-
+require('./models/user');
+const typeDefs = require('./types/typeDefs');
+const resolvers = require('./resolvers/resolvers');
 
 const app = express();
-const server = http.createServer(app);
-const io = socketIO(server);
-
-app.use(
-  cors({
-    credentials: true,
-    origin: 'http://localhost:3004',
-    optionsSuccessStatus: 200
-  })
-);
 
 app.use(compression());
-app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
 
@@ -59,20 +47,26 @@ app.use(express.static('www'));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(
-  '/graphql',
-  expressGraphQL({
-    schema,
-    graphiql: true
-  })
-);
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  validationRules: [depthLimit(10)],
+  context: ({ req }) => req
+});
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'www', 'index.html'));
 });
 
+server.applyMiddleware({ app });
+
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
 const PORT = process.env.PORT || 3000;
 
-server.listen(PORT);
+httpServer.listen(PORT, () => {
+  console.log(`Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`);
+  console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+});
 
-console.log(`App running at ${PORT}`);

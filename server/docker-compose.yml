@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    container_name: docker-node-mongo
+    container_name: docker-node
     restart: always
     build: .
     ports:
@@ -9,7 +9,7 @@ services:
     links:
       - mongo
   mongo: 
-    container_name: mongo
+    container_name: mongodb
     image: mongo
     ports: 
       - '27017:27017'

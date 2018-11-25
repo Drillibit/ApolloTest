@@ -1,30 +1,35 @@
-const graphql = require('graphql');
-const GraphQLObjectId = require('graphql-scalar-objectid');
+const { gql } = require('apollo-server-express');
 
-const {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLList,
-  GraphQLID,
-} = graphql;
+module.exports = gql`
+  extend type Query {
+    CurrentUser: UserType
+    GetFriend(userId: ID!): UserType
+    GetAllFriends(userId: ID!): [UserType]
+  }
+  extend type Subscription {
+    addFavourite: UserType
+    addRemoveFriend(userId: ID!, friendId: ID!): UserType
+  }
+  extend type Mutation {
+    logIn(email: String!, password: String!): UserType
+    logOut: UserType
+    signUp(
+      password: String!
+      email: String!
+      name: String!
+      image: String!
+    ): UserType
+    addFavourite(userId: ID!, favouriteId: ID!, favourite: Boolean): UserType
+    addRemoveFriend(userId: ID!, friendId: ID!, inFriends: Boolean!): UserType
+  }
 
-const MovieIdType = new GraphQLObjectType({
-  name: 'MovieId',
-  fields: () => ({
-    _id: { type: GraphQLObjectId }
-  })
-});
-
-const UserType = new GraphQLObjectType({
-  name: 'User',
-  fields: () => ({
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-    email: { type: GraphQLString },
-    password: { type: GraphQLString },
-    image: { type: GraphQLString },
-    favouriteMovies: { type: new GraphQLList(MovieIdType) }
-  })
-});
-
-module.exports = UserType;
+  type UserType {
+    id: ID
+    name: String
+    email: String
+    password: String
+    image: String
+    favouriteMovies: [MovieIdType]
+    friends: [UserType]
+  }
+`;

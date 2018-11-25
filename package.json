@@ -31,11 +31,14 @@
     "apollo-link-error": "^1.1.1",
     "apollo-link-http": "^1.5.5",
     "apollo-link-state": "^0.4.2",
+    "apollo-link-ws": "^1.0.10",
     "apollo-upload-client": "^8.1.0",
+    "apollo-utilities": "^1.0.26",
     "autoprefixer": "8.4.1",
     "axios": "^0.18.0",
     "classnames": "2.2.5",
     "graphql": "^14.0.0",
+    "graphql-depth-limit": "^1.1.0",
     "graphql-tag": "^2.9.2",
     "history": "4.7.2",
     "prop-types": "15.6.1",
@@ -48,7 +51,8 @@
     "react-router": "4.2.0",
     "react-router-dom": "^4.3.1",
     "react-styled-flexboxgrid": "^2.4.0",
-    "styled-components": "^3.3.3"
+    "styled-components": "^3.3.3",
+    "subscriptions-transport-ws": "^0.9.15"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.8",

@@ -2,11 +2,10 @@ import React from 'react';
 import { hot } from 'react-hot-loader';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-// import { HttpLink } from 'apollo-link-http';
-// import { onError } from 'apollo-link-error';
-// import { withClientState } from 'apollo-link-state';
-// import { ApolloLink, Observable } from 'apollo-link';
-import gql from 'graphql-tag';
+import { split } from 'apollo-link';
+import { WebSocketLink } from 'apollo-link-ws';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { getMainDefinition } from 'apollo-utilities';
 import { createUploadLink } from 'apollo-upload-client';
 import { Query, ApolloProvider } from 'react-apollo';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -40,54 +39,39 @@ import { Main } from './components/Main';
 import './components/helpers/injectGlobalStyles';
 import { Preloader } from './components/UIKit/Preloader';
 
+const ws = new SubscriptionClient('ws://localhost:3000/graphql', {
+  reconnect: true
+});
 
-export const GET_TRANDING = gql`
-  query tranding($page: String!) @client {
-    tranding(page: $page) {
-      page
-      results {
-        genre_ids
-        id
-        title
-        backdrop_path
-        overview
-        poster_path
-        release_date
-        vote_count
-        vote_average
-      }
-    }
-  }
-`;
-
-// const cache = new InMemoryCache({
-//   dataIdFromObject: obj => obj.id
-// });
-
-// const client = new ApolloClient({
-//   uri: process.env.BASE_URL,
-//   credentials: 'include',
-//   link: createUploadLink(),
-// });
-
-const link = createUploadLink({
-  uri: process.env.BASE_URL,
+const httpLink = createUploadLink({
+  uri: '/graphql',
   credentials: 'include'
 });
 
+const wsLink = new WebSocketLink(ws);
+const link = split(
+  ({ query }) => {
+    const { kind, operation } = getMainDefinition(query);
+    return kind === 'OperationDefinition' && operation === 'subscription';
+  },
+  wsLink,
+  httpLink
+);
+
+const cache = new InMemoryCache();
 const client = new ApolloClient({
   link,
-  cache: new InMemoryCache()
+  cache
 });
 
 export const Application = hot(module)(() => (
   <ApolloProvider client={client}>
     <Query query={CURRENT_USER}>
-      {({ error, loading, data: { currentUser } }) => {
+      {({ error, loading, data: { CurrentUser } }) => {
         if (loading) return <Preloader>Загрузка</Preloader>;
         if (error) return `Error ${error.message}`;
         return (
-          <Main auth={currentUser} />
+          <Main auth={CurrentUser} />
         );
     }}
     </Query>
