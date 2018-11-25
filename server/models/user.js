@@ -7,12 +7,17 @@ const movieSchema = new Schema({
   _id: Number
 });
 
+const friendSchema = new Schema({
+  _id: String
+});
+
 const userSchema = new Schema({
   name: String,
   email: String,
   password: String,
   favouriteMovies: [movieSchema],
-  image: String
+  image: String,
+  friends: [friendSchema]
 });
 
 userSchema.pre('save', function save(next) {

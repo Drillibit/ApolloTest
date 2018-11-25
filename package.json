@@ -38,6 +38,7 @@
     "axios": "^0.18.0",
     "classnames": "2.2.5",
     "graphql": "^14.0.0",
+    "graphql-depth-limit": "^1.1.0",
     "graphql-tag": "^2.9.2",
     "history": "4.7.2",
     "prop-types": "15.6.1",

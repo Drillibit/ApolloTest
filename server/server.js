@@ -1,4 +1,5 @@
 const express = require('express');
+const depthLimit = require('graphql-depth-limit');
 const { ApolloServer } = require('apollo-server-express');
 const compression = require('compression');
 const mongoose = require('mongoose');
@@ -49,6 +50,7 @@ app.use(passport.session());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  validationRules: [depthLimit(10)],
   context: ({ req }) => req
 });
 
