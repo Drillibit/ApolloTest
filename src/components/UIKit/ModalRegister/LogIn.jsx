@@ -7,6 +7,13 @@ import { Button } from '../Button';
 
 import { LOG_IN, CURRENT_USER } from '../../Requests/user';
 
+const ErrorStyled = styled.p`
+  color: red;
+  font-size: 20px;
+  margin: 10px;
+  text-align: center;
+`;
+
 const BtnWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -37,10 +44,10 @@ const StyledLabel = styled.label`
 export class LogIn extends PureComponent {
   state = {
     email: '',
-    password: '',
+    password: ''
   };
 
-  handleInputChange = (e) => {
+  handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({
       [name]: value
@@ -51,29 +58,41 @@ export class LogIn extends PureComponent {
     const { email, password } = this.state;
     return (
       <Mutation mutation={LOG_IN} refetchQueries={[{ query: CURRENT_USER }]}>
-        {logIn => (
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            logIn({
-              variables: {
-                email,
-                password
-              }
-            });
-          }}
-          >
-            <FormField>
-              <StyledLabel htmlFor="email">Почта:</StyledLabel>
-              <FormInput name="email" type="text" onChange={this.handleInputChange} />
-            </FormField>
-            <FormField>
-              <StyledLabel htmlFor="password">Пароль:</StyledLabel>
-              <FormInput name="password" type="password" onChange={this.handleInputChange} />
-            </FormField>
-            <BtnWrapper>
-              <StyledCustomBtn btnType="primary">Отправить</StyledCustomBtn>
-            </BtnWrapper>
-          </form>
+        {(logIn, { loading, error }) => (
+          <fieldset disabled={loading} aria-busy={loading}>
+            {error && <ErrorStyled>{error.message}</ErrorStyled>}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                logIn({
+                  variables: {
+                    email,
+                    password
+                  }
+                });
+              }}
+            >
+              <FormField>
+                <StyledLabel htmlFor="email">Почта:</StyledLabel>
+                <FormInput
+                  name="email"
+                  type="text"
+                  onChange={this.handleInputChange}
+                />
+              </FormField>
+              <FormField>
+                <StyledLabel htmlFor="password">Пароль:</StyledLabel>
+                <FormInput
+                  name="password"
+                  type="password"
+                  onChange={this.handleInputChange}
+                />
+              </FormField>
+              <BtnWrapper>
+                <StyledCustomBtn btnType="primary">Отправить</StyledCustomBtn>
+              </BtnWrapper>
+            </form>
+          </fieldset>
         )}
       </Mutation>
     );
