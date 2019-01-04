@@ -8,6 +8,7 @@ module.exports = gql`
   }
   extend type Subscription {
     addFavourite: UserType
+    isOnline(userId: ID!): UserType
     addRemoveFriend(userId: ID!, friendId: ID!): UserType
   }
   extend type Mutation {
@@ -21,6 +22,7 @@ module.exports = gql`
     ): UserType
     addFavourite(userId: ID!, favouriteId: ID!, favourite: Boolean): UserType
     addRemoveFriend(userId: ID!, friendId: ID!, inFriends: Boolean!): UserType
+    isOnline(userId: ID!, online: Boolean!): UserType
   }
 
   type UserType {

@@ -5,6 +5,7 @@ const AuthService = require('../services/auth');
 const ADDED_FAVOURITE = 'ADDED_FAVOURITE';
 const ADD_FRIEND = 'ADD_FRIEND';
 const DELETE_FRIEND = 'DELETE_FRIEND';
+const IS_ONLINE = 'IS_ONLINE';
 
 const UserResolver = {
   Query: {
@@ -16,6 +17,9 @@ const UserResolver = {
     }
   },
   Subscription: {
+    isOnline: {
+      subscribe: () => pubSub.asyncIterator([IS_ONLINE])
+    },
     addFavourite: {
       subscribe: () => pubSub.asyncIterator([ADDED_FAVOURITE])
     },
@@ -24,6 +28,13 @@ const UserResolver = {
     }
   },
   Mutation: {
+    isOnline: async (_, { userId, online }) => {
+      const user = await User.findById(userId);
+      if (online) {
+        return pubSub.publish(IS_ONLINE, { ...user, isOnline: true });
+      }
+      return pubSub.publish(IS_ONLINE, { ...user, isOnline: false });
+    },
     signUp: (_, { email, password, name }, req) =>
       AuthService.signup({
         email,

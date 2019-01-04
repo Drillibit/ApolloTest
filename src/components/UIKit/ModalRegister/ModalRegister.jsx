@@ -110,11 +110,11 @@ export class ModalRegister extends PureComponent {
             <CloseSign icon="close" onClick={onClose} />
           </CloseContainer>
           <StyledBtnGroup>
-            <ModalHeader btnType="primary" onClick={this.statusReg} active={formStatus}>
-              Регистрация
+            <ModalHeader btnType="primary" onClick={this.statusSign} active={formStatus}>
+              Войти
             </ModalHeader>
-            <ModalHeader btnType="primary" onClick={this.statusSign} active={!formStatus}>
-                Войти
+            <ModalHeader btnType="primary" onClick={this.statusReg} active={!formStatus}>
+              Регистрация
             </ModalHeader>
           </StyledBtnGroup>
           {this.state.formStatus ? <LogIn /> : <SignUp />}
