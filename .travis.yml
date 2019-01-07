@@ -1,11 +1,9 @@
 
 language: node_js
 node_js:
-  - "9"
-script: "npm test -- --single-run --browsers Firefox"
+  - "8"
+script: "yarn build:prod"
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 cache: yarn
-addons:
-  firefox: latest
