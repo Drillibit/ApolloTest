@@ -170,7 +170,7 @@ export class MoviePage extends PureComponent {
       tagline: string,
       vote_average: number,
       vote_count: number,
-      original_title: string,
+      original_title: string
     })
   };
 
@@ -202,16 +202,16 @@ export class MoviePage extends PureComponent {
 
   state = {
     playing: false
-  }
+  };
   onPlay = () => {
     this.setState({
       playing: true
     });
-  }
+  };
 
   goBack = () => {
     this.props.history.goBack();
-  }
+  };
 
   render() {
     const {
@@ -228,14 +228,10 @@ export class MoviePage extends PureComponent {
       production_countries,
       runtime,
       overview,
-      similar,
+      similar
     } = this.props;
 
-    const {
-      toggleFavourite,
-      favourite,
-      favourites
-    } = this.props;
+    const { toggleFavourite, favourite, favourites } = this.props;
     if (typeof this.props.movie.id !== 'number') {
       return (
         <StyledPreloderFront>
@@ -252,7 +248,11 @@ export class MoviePage extends PureComponent {
                 <StyledLeftGroup>
                   <StyledBtnGroup>
                     <StyledLink>
-                      <Button btnType="transparent-white" btnSize="small" onClick={this.goBack}>
+                      <Button
+                        btnType="transparent-white"
+                        btnSize="small"
+                        onClick={this.goBack}
+                      >
                         <Icon icon="chevron-left" />
                         Назад
                       </Button>
@@ -281,7 +281,11 @@ export class MoviePage extends PureComponent {
                   {tagline && (
                     <StyledQuoteContainer>
                       <Quote>
-                        <H2>{tagline.charAt(0) === '«' ? tagline.slice(1, -1) : tagline}</H2>
+                        <H2>
+                          {tagline.charAt(0) === '«'
+                            ? tagline.slice(1, -1)
+                            : tagline}
+                        </H2>
                       </Quote>
                     </StyledQuoteContainer>
                   )}
@@ -305,21 +309,33 @@ export class MoviePage extends PureComponent {
                   <StyledDetailsHeader>
                     <StyledLargeText>Год:</StyledLargeText>
                   </StyledDetailsHeader>
-                  <StyledSmallInfo>{release_date.split('-')[0]}</StyledSmallInfo>
+                  <StyledSmallInfo>
+                    {release_date.split('-')[0]}
+                  </StyledSmallInfo>
                 </StyledDetails>
                 <StyledDetails>
                   <StyledDetailsHeader>
                     <StyledLargeText>Страна:</StyledLargeText>
                   </StyledDetailsHeader>
                   <StyledSmallInfo>
-                    {production_countries.map((gen, index) => `${gen.name}${production_countries.length - 1 !== index ? ', ' : ''}`)}
+                    {production_countries.map(
+                      (gen, index) =>
+                        `${gen.name}${
+                          production_countries.length - 1 !== index ? ', ' : ''
+                        }`
+                    )}
                   </StyledSmallInfo>
                 </StyledDetails>
                 <StyledDetails>
                   <StyledDetailsHeader>
                     <StyledLargeText>Жанр:</StyledLargeText>
                   </StyledDetailsHeader>
-                  <StyledSmallInfo>{genres.map((gen, index) => `${gen.name}${genres.length - 1 !== index ? ', ' : ''}`)}</StyledSmallInfo>
+                  <StyledSmallInfo>
+                    {genres.map(
+                      (gen, index) =>
+                        `${gen.name}${genres.length - 1 !== index ? ', ' : ''}`
+                    )}
+                  </StyledSmallInfo>
                 </StyledDetails>
                 <StyledDetails>
                   <StyledDetailsHeader>
@@ -339,29 +355,15 @@ export class MoviePage extends PureComponent {
             </StyledCustomRow>
             <StyledRow>
               <StyledCol md={12}>
-                {similar.length !== 0 &&
+                {similar.length !== 0 && (
                   <StyledDetailsHeader>
                     <StyledLargeText>Похожие</StyledLargeText>
-                  </StyledDetailsHeader>}
+                  </StyledDetailsHeader>
+                )}
                 <StyledSimilar>
-                  {similar.length !== 0 ?
-                    similar.map((movie) => {
-                     const fav = false;
-                     return (
-                       <Preview
-                         key={movie.id}
-                         toggleFavourite={() => toggleFavourite(movie.id)}
-                         isFavourite={fav}
-                         id={movie.id}
-                         description={movie.overview}
-                         title={movie.title}
-                         bg={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                         voteAverage={movie.vote_average}
-                         voteCount={movie.vote_count}
-                         year={movie.release_date}
-                         duration={movie.runtime}
-                       />);
-                    }) : ''}
+                  {similar.length !== 0
+                    ? similar.map(movie => <Preview key={movie.id} id={movie.id} />)
+                    : ''}
                 </StyledSimilar>
               </StyledCol>
             </StyledRow>

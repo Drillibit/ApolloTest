@@ -129,21 +129,7 @@ export class FrontPage extends Component {
                     <PreviewStyled>
                        {!(networkStatus === 7) ? ''
                       : data.tranding.results.map(item => {
-                           const bg = item.poster_path ? BACKDROP_PATH + item.poster_path : '../assets/img/background.jpg';
-
-                      return (
-                        <Preview 
-                          key={item.id}
-                          title={item.title}
-                          voteAverage={item.vote_average}
-                          voteCount={item.vote_count}
-                          bg={bg}
-                          year={item.release_date} 
-                          duration={'123'}
-                          pg={item.adult ? "18+" : "12+"}
-                          genre={'1'}
-                          description={item.overview} {...item}
-                        />)})         
+                      return <Preview key={item.id} id={item.id} />})         
                     }
                     </PreviewStyled>
                   </TabPane>
@@ -154,16 +140,7 @@ export class FrontPage extends Component {
                        : data.tranding.results.map(item =>
                         <Preview
                           key={item.id}
-                          title={item.title}
-                          voteAverage={item.vote_average}
-                          voteCount={item.vote_count}
-                          bg={`${BACKDROP_PATH + item.backdrop_path}`}
-                          year={item.release_date}
-                          duration={'123'}
-                          pg={item.adult ? "18+" : "6+"}
-                          genre={item.genre_ids}
-                          description={item.overview}
-                          {...item} 
+                          id={item.id} 
                         />
                       )}
                     </PreviewStyled>

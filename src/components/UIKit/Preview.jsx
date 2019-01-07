@@ -1,16 +1,37 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 import PropTypes, { func } from 'prop-types';
 
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 import { Icon } from './Icon';
 import { H3, SmallText } from './Typography';
 import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
 import { StyledButton } from './Button';
 import { FavouriteControll } from '../../containers/FavouriteControll';
+import { CONFIG } from '../../services/api';
 
+const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
+
+const GET_PREVIEW = gql`
+  query movie($id: ID!) {
+    movie(id: $id) {
+      genres {
+        name
+      }
+      id
+      title
+      overview
+      poster_path
+      release_date
+      vote_count
+      vote_average
+    }
+  }
+`;
 
 const StyledCustomBtn = styled(StyledButton)`
   padding: 4px 43px;
@@ -158,30 +179,12 @@ const ButtonContainer = styled.div`
 export class Preview extends PureComponent {
   static propTypes = {
     id: PropTypes.string,
-    description: PropTypes.string,
-    title: PropTypes.string,
-    bg: PropTypes.string,
-    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    genre: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-    cast: PropTypes.string,
-    isFavourite: PropTypes.bool,
-    toggleFavourite: func,
+    toggleFavourite: func
   };
 
   static defaultProps = {
     id: '0',
-    description: '',
-    title: '',
-    bg: '',
-    duration: '',
-    year: '',
-    pg: '',
-    genre: '',
-    cast: '',
-    isFavourite: false,
-    toggleFavourite: f => f,
+    toggleFavourite: f => f
   };
 
   state = {
@@ -203,17 +206,7 @@ export class Preview extends PureComponent {
 
   render() {
     const { inOpenState } = this.state;
-    const {
-      id,
-      description,
-      title,
-      year,
-      bg,
-      duration,
-      pg,
-      genre,
-      cast,
-    } = this.props;
+    const { id } = this.props;
 
     return (
       <RootClose onRootClose={this.handleHide}>
@@ -222,55 +215,72 @@ export class Preview extends PureComponent {
             onClick={this.handleDisplay}
             open={inOpenState}
           >
-            <StyledHeader open={inOpenState}>{title}</StyledHeader>
-            <RatingContainer open={inOpenState}>
-              <Rating {...this.props} />
-            </RatingContainer>
-            <BgKeeper open={inOpenState} bg={bg} />
-            <StyledInfoContainer open={inOpenState}>
-              <StyledHeaderInfo>{title}</StyledHeaderInfo>
-              <StyledDigitContainer>
-                <StyledSmallInfo>{year}</StyledSmallInfo>
-                <StyledSmallInfo>
-                  {duration} {duration && 'мин'}
-                </StyledSmallInfo>
-                <StyledSmallInfo>{pg}</StyledSmallInfo>
-              </StyledDigitContainer>
-              {genre && (
-                <StyledDetails>
-                  <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
-                  <StyledDetailsText>{genre}</StyledDetailsText>
-                </StyledDetails>
-              )}
-              {cast && (
-                <StyledDetails>
-                  <StyledDetailsHeader>В ролях:</StyledDetailsHeader>
-                  <StyledDetailsText>{cast}</StyledDetailsText>
-                </StyledDetails>
-              )}
-              <StyledDetails>
-                <StyledParagraph>
-                  {description.length > 90
-                    ? `${description.slice(0, 90)}...`
-                    : description}
-                </StyledParagraph>
-              </StyledDetails>
-              <ButtonContainer>
-                <FavouriteControll
-                  btnType="transparent-dark"
-                  btnSize="small"
-                  movieId={id}
-                >
-                  <Icon icon="heart" />
-                  Избранное
-                </FavouriteControll>
-                <Link to={`/movie/${id}`}>
-                  <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
-                    Подробнее
-                  </StyledCustomBtn>
-                </Link>
-              </ButtonContainer>
-            </StyledInfoContainer>
+            <Query query={GET_PREVIEW} variables={{ id }}>
+              {({ loading, error, data: { movie } }) => {
+                if (loading) return 'Loading...';
+                if (error) return `${error.message}`;
+                return (
+                  <Fragment>
+                    <StyledHeader open={inOpenState}>
+                      {movie.title}
+                    </StyledHeader>
+                    <RatingContainer open={inOpenState}>
+                      <Rating voteAverage={movie.vote_average} voteCount={movie.vote_count} />
+                    </RatingContainer>
+                    <BgKeeper
+                      open={inOpenState}
+                      bg={movie.poster_path ? BACKDROP_PATH + movie.poster_path : '../assets/img/background.jpg'}
+                  />
+                    <StyledInfoContainer open={inOpenState}>
+                      <StyledHeaderInfo>{movie.title}</StyledHeaderInfo>
+                      <StyledDigitContainer>
+                        <StyledSmallInfo>{movie.release_date}</StyledSmallInfo>
+                        <StyledSmallInfo>
+                          {movie.runtime} {movie.runtime && 'мин'}
+                        </StyledSmallInfo>
+                        <StyledSmallInfo>
+                          {movie.adult ? '18+' : '12+'}
+                        </StyledSmallInfo>
+                      </StyledDigitContainer>
+                      {movie.genres.length > 0 && (
+                        <StyledDetails>
+                          <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
+                          <StyledDetailsText>
+                            {movie.genres.map(gen => `${gen.name} `)}
+                          </StyledDetailsText>
+                        </StyledDetails>
+                      )}
+
+                      <StyledDetails>
+                        <StyledParagraph>
+                          {movie.overview.length > 90
+                            ? `${movie.overview.slice(0, 90)}...`
+                            : movie.overview}
+                        </StyledParagraph>
+                      </StyledDetails>
+                      <ButtonContainer>
+                        <FavouriteControll
+                          btnType="transparent-dark"
+                          btnSize="small"
+                          movieId={id}
+                        >
+                          <Icon icon="heart" />
+                          Избранное
+                        </FavouriteControll>
+                        <Link to={`/movie/${id}`}>
+                          <StyledCustomBtn
+                            btnType="primary"
+                            onClick={this.handleHide}
+                          >
+                            Подробнее
+                          </StyledCustomBtn>
+                        </Link>
+                      </ButtonContainer>
+                    </StyledInfoContainer>
+                  </Fragment>
+                );
+              }}
+            </Query>
           </StyledPreviewContainer>
         </StyledParent>
       </RootClose>

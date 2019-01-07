@@ -40,17 +40,6 @@ export class LazyLoader extends Component {
           {list.map(item => (
             <Preview
               key={item.id}
-              voteAverage={item.vote_average}
-              voteCount={item.vote_count}
-              size={item.size}
-              description={item.overview}
-              title={item.title}
-              bg={item.poster}
-              year={item.release_date}
-              duration={item.duration}
-              pg={item.pg}
-              genre={item.genre}
-              cast={item.cast}
             />
           ))}
         </Container>
