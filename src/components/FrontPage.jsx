@@ -81,7 +81,6 @@ export class FrontPage extends Component {
           genre: this.state.activeGenre, 
           sortBy: this.state.activeOption.value, 
           source: this.state.tabId > 0 ? true : false }}
-        fetchPolicy='network-only'
       >
       {({error, loading, data, fetchMore, networkStatus }) => {
         if (data.tranding === undefined) return ''
