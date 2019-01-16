@@ -38,7 +38,7 @@ const ModalContainer = styled.div`
   position: relative;
 `;
 const Border = css`
- border-bottom: 3px solid ${colors.purple};
+  border-bottom: 3px solid ${colors.purple};
 `;
 
 const ModalHeader = H3.extend`
@@ -54,7 +54,7 @@ const ModalHeader = H3.extend`
   border-bottom: 3px solid transparent;
   padding-bottom: 4px;
   height: 30px;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   ${({ active }) => active && Border}
 `;
 
@@ -79,26 +79,26 @@ const StyledBtnGroup = styled.div`
 export class ModalRegister extends PureComponent {
   static propTypes = {
     onClose: func
-  }
+  };
 
   static defaultProps = {
     onClose: f => f
-  }
+  };
   state = {
     formStatus: true
-  }
+  };
 
   statusReg = () => {
     this.setState({
-      formStatus: true
+      formStatus: false
     });
-  }
+  };
 
   statusSign = () => {
     this.setState({
-      formStatus: false
+      formStatus: true
     });
-  }
+  };
 
   render() {
     const { onClose } = this.props;
@@ -110,10 +110,18 @@ export class ModalRegister extends PureComponent {
             <CloseSign icon="close" onClick={onClose} />
           </CloseContainer>
           <StyledBtnGroup>
-            <ModalHeader btnType="primary" onClick={this.statusSign} active={formStatus}>
+            <ModalHeader
+              btnType="primary"
+              onClick={this.statusSign}
+              active={formStatus}
+            >
               Войти
             </ModalHeader>
-            <ModalHeader btnType="primary" onClick={this.statusReg} active={!formStatus}>
+            <ModalHeader
+              btnType="primary"
+              onClick={this.statusReg}
+              active={!formStatus}
+            >
               Регистрация
             </ModalHeader>
           </StyledBtnGroup>
@@ -124,4 +132,3 @@ export class ModalRegister extends PureComponent {
     );
   }
 }
-
