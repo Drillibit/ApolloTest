@@ -1,0 +1,44 @@
+{
+  "extends": [
+    "airbnb"
+  ],
+
+  "env": {
+    "browser": true
+  },
+
+  "rules": {
+    "comma-dangle": "off",
+    "import/no-default-export": "error",
+    "import/prefer-default-export": "off",
+    "function-paren-newline": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 100,
+        "tabWidth": 2,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
+      }
+    ]
+  },
+
+  "parser": "babel-eslint",
+
+  "settings": {
+    "import/resolver": "webpack"
+  },
+
+  "overrides": [
+    {
+      "files": ["stories/**/*.@(js|jsx)"],
+
+      "rules": {
+        "import/no-extraneous-dependencies": "off",
+        "react/forbid-prop-types": "off"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+export { FeaturedMovie } from './FeaturedMovie';
