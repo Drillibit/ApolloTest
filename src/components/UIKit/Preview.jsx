@@ -20,6 +20,7 @@ const StyledParent = styled.div`
   position: relative;
   width: 282px;
   height: 284px;
+  margin-bottom: 10px;
 `;
 
 const StyledPreviewContainerOpen = css`
