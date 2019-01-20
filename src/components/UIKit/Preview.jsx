@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 import PropTypes, { func } from 'prop-types';
+import { Query } from 'react-apollo';
 
 import { Icon } from './Icon';
 import { H3, SmallText } from './Typography';
@@ -10,7 +11,7 @@ import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
 import { StyledButton } from './Button';
 import { FavouriteControll } from '../../containers/FavouriteControll';
-
+import { GET_GENRES } from '../Requests/frontPage';
 
 const StyledCustomBtn = styled(StyledButton)`
   padding: 4px 43px;
@@ -73,7 +74,7 @@ const BgAnimation = keyframes`
   100% {height: 50%}
 `;
 const BgKeeperMove = css`
-  transform: translateY(-10%);
+  transform: translateY(-14%);
   min-height: 50%;
   min-height: 250px;
   animation: ${BgAnimation} 0.3s ease-in;
@@ -141,7 +142,8 @@ const StyledDetailsText = SmallText.extend`
 `;
 
 const StyledDetailsHeader = StyledSmallInfo.extend`
-  min-width: 60px;
+  min-width: 43px;
+  margin-right: 0;
 `;
 
 const StyledParagraph = StyledDetailsText.extend`
@@ -165,10 +167,10 @@ export class Preview extends PureComponent {
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    genre: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    genre_ids: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     cast: PropTypes.string,
     isFavourite: PropTypes.bool,
-    toggleFavourite: func,
+    toggleFavourite: func
   };
 
   static defaultProps = {
@@ -179,10 +181,10 @@ export class Preview extends PureComponent {
     duration: '',
     year: '',
     pg: '',
-    genre: '',
+    genre_ids: '',
     cast: '',
     isFavourite: false,
-    toggleFavourite: f => f,
+    toggleFavourite: f => f
   };
 
   state = {
@@ -212,8 +214,8 @@ export class Preview extends PureComponent {
       bg,
       duration,
       pg,
-      genre,
-      cast,
+      genre_ids,
+      cast
     } = this.props;
 
     return (
@@ -237,12 +239,34 @@ export class Preview extends PureComponent {
                 </StyledSmallInfo>
                 <StyledSmallInfo>{pg}</StyledSmallInfo>
               </StyledDigitContainer>
-              {genre && (
-                <StyledDetails>
-                  <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
-                  <StyledDetailsText>{genre}</StyledDetailsText>
-                </StyledDetails>
-              )}
+              <Query query={GET_GENRES}>
+                {({ error, loading, data: { genres_arr } }) => {
+                  if (error) return `Error: ${error.message}`;
+                  if (loading) return 'Loading...';
+                  if (genres_arr) {
+                    const genreObj = genres_arr.reduce((acc, item) => ({
+                      ...acc,
+                      [item.id]: { ...item }
+                    }));
+                    return (
+                      <StyledDetails>
+                        <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
+                        <StyledDetailsText>
+                          {genre_ids.length &&
+                            genre_ids.map((gen) => {
+                              if (genreObj[gen]) {
+                                if (genreObj[gen].name) {
+                                  return `${genreObj[gen].name} `;
+                                }
+                              }
+                              return null;
+                            })}
+                        </StyledDetailsText>
+                      </StyledDetails>
+                    );
+                  }
+                }}
+              </Query>
               {cast && (
                 <StyledDetails>
                   <StyledDetailsHeader>В ролях:</StyledDetailsHeader>
