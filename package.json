@@ -7,7 +7,9 @@
   "license": "Proprietary",
   "private": true,
   "scripts": {
-    "start": "BASE_URL=http://localhost:3000/graphql webpack-dev-server --progress --colors --open",
+    "client": "BASE_URL=http://localhost:3000/graphql webpack-dev-server --progress --colors --open",
+    "server": "cd server && yarn start",
+    "start": "concurrently \"yarn server\" \"yarn client\" ",
     "test": "jest",
     "build:dev": "BASE_URL=http://localhost/graphql NODE_ENV=production webpack --env dev --progress --colors",
     "build:prod": "BASE_URL=http://176.57.214.189/graphql NODE_ENV=production webpack --env production --progress --colors",
@@ -69,6 +71,7 @@
     "babel-preset-stage-2": "6.24.1",
     "babel-runtime": "6.26.0",
     "compression-webpack-plugin": "^2.0.0",
+    "concurrently": "^4.1.0",
     "css-loader": "0.28.11",
     "cssnano": "4.0.0-rc.2",
     "enzyme": "3.3.0",

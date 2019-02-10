@@ -18,8 +18,11 @@ app.use(compression());
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://admin:293344asd@ds161833.mlab.com:61833/addressbook',
-  { useNewUrlParser: true })
+mongoose
+  .connect(
+    'mongodb://admin:293344asd@ds161833.mlab.com:61833/addressbook',
+    { useNewUrlParser: true }
+  )
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));
 // mongoose
@@ -30,17 +33,19 @@ mongoose.connect('mongodb://admin:293344asd@ds161833.mlab.com:61833/addressbook'
 //   .then(() => console.log('MongoDB Connected'))
 //   .catch(err => console.log(err));
 
-app.use(session({
-  resave: true,
-  saveUninitialized: true,
-  secret: 'aaabbbccc',
-  clear_interval: 900,
-  cookie: { maxAge: 2 * 60 * 60 * 1000 },
-  store: new MongoStore({
-    url: 'mongodb://admin:293344asd@ds161833.mlab.com:61833/addressbook',
-    autoReconnect: true
+app.use(
+  session({
+    resave: true,
+    saveUninitialized: true,
+    secret: 'aaabbbccc',
+    clear_interval: 900,
+    cookie: { maxAge: 2 * 60 * 60 * 1000 },
+    store: new MongoStore({
+      url: 'mongodb://admin:293344asd@ds161833.mlab.com:61833/addressbook',
+      autoReconnect: true
+    })
   })
-}));
+);
 
 app.use(express.static('www'));
 
@@ -50,6 +55,10 @@ app.use(passport.session());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  formatError: (error) => {
+    console.log(error);
+    return new Error('Internal server error');
+  },
   validationRules: [depthLimit(10)],
   context: ({ req }) => req
 });
@@ -66,7 +75,10 @@ server.installSubscriptionHandlers(httpServer);
 const PORT = process.env.PORT || 3000;
 
 httpServer.listen(PORT, () => {
-  console.log(`Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`);
-  console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+  console.log(
+    `Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`
+  );
+  console.log(
+    `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
+  );
 });
-

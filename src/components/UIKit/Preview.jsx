@@ -1,37 +1,17 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 import PropTypes, { func } from 'prop-types';
-
-import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+
 import { Icon } from './Icon';
 import { H3, SmallText } from './Typography';
 import { colors } from '../helpers/colors';
 import { Rating } from './Rating';
 import { StyledButton } from './Button';
 import { FavouriteControll } from '../../containers/FavouriteControll';
-import { CONFIG } from '../../services/api';
-
-const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
-
-const GET_PREVIEW = gql`
-  query movie($id: ID!) {
-    movie(id: $id) {
-      genres {
-        name
-      }
-      id
-      title
-      overview
-      poster_path
-      release_date
-      vote_count
-      vote_average
-    }
-  }
-`;
+import { GET_GENRES } from '../Requests/frontPage';
 
 const StyledCustomBtn = styled(StyledButton)`
   padding: 4px 43px;
@@ -41,6 +21,7 @@ const StyledParent = styled.div`
   position: relative;
   width: 282px;
   height: 284px;
+  margin-bottom: 10px;
 `;
 
 const StyledPreviewContainerOpen = css`
@@ -93,7 +74,7 @@ const BgAnimation = keyframes`
   100% {height: 50%}
 `;
 const BgKeeperMove = css`
-  transform: translateY(-10%);
+  transform: translateY(-14%);
   min-height: 50%;
   min-height: 250px;
   animation: ${BgAnimation} 0.3s ease-in;
@@ -161,7 +142,8 @@ const StyledDetailsText = SmallText.extend`
 `;
 
 const StyledDetailsHeader = StyledSmallInfo.extend`
-  min-width: 60px;
+  min-width: 43px;
+  margin-right: 0;
 `;
 
 const StyledParagraph = StyledDetailsText.extend`
@@ -179,11 +161,29 @@ const ButtonContainer = styled.div`
 export class Preview extends PureComponent {
   static propTypes = {
     id: PropTypes.string,
+    description: PropTypes.string,
+    title: PropTypes.string,
+    bg: PropTypes.string,
+    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    genre_ids: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    cast: PropTypes.string,
+    isFavourite: PropTypes.bool,
     toggleFavourite: func
   };
 
   static defaultProps = {
     id: '0',
+    description: '',
+    title: '',
+    bg: '',
+    duration: '',
+    year: '',
+    pg: '',
+    genre_ids: '',
+    cast: '',
+    isFavourite: false,
     toggleFavourite: f => f
   };
 
@@ -206,7 +206,17 @@ export class Preview extends PureComponent {
 
   render() {
     const { inOpenState } = this.state;
-    const { id } = this.props;
+    const {
+      id,
+      description,
+      title,
+      year,
+      bg,
+      duration,
+      pg,
+      genre_ids,
+      cast
+    } = this.props;
 
     return (
       <RootClose onRootClose={this.handleHide}>
@@ -215,72 +225,77 @@ export class Preview extends PureComponent {
             onClick={this.handleDisplay}
             open={inOpenState}
           >
-            <Query query={GET_PREVIEW} variables={{ id }}>
-              {({ loading, error, data: { movie } }) => {
-                if (loading) return 'Loading...';
-                if (error) return `${error.message}`;
-                return (
-                  <Fragment>
-                    <StyledHeader open={inOpenState}>
-                      {movie.title}
-                    </StyledHeader>
-                    <RatingContainer open={inOpenState}>
-                      <Rating voteAverage={movie.vote_average} voteCount={movie.vote_count} />
-                    </RatingContainer>
-                    <BgKeeper
-                      open={inOpenState}
-                      bg={movie.poster_path ? BACKDROP_PATH + movie.poster_path : '../assets/img/background.jpg'}
-                  />
-                    <StyledInfoContainer open={inOpenState}>
-                      <StyledHeaderInfo>{movie.title}</StyledHeaderInfo>
-                      <StyledDigitContainer>
-                        <StyledSmallInfo>{movie.release_date}</StyledSmallInfo>
-                        <StyledSmallInfo>
-                          {movie.runtime} {movie.runtime && 'мин'}
-                        </StyledSmallInfo>
-                        <StyledSmallInfo>
-                          {movie.adult ? '18+' : '12+'}
-                        </StyledSmallInfo>
-                      </StyledDigitContainer>
-                      {movie.genres.length > 0 && (
-                        <StyledDetails>
-                          <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
-                          <StyledDetailsText>
-                            {movie.genres.map(gen => `${gen.name} `)}
-                          </StyledDetailsText>
-                        </StyledDetails>
-                      )}
-
+            <StyledHeader open={inOpenState}>{title}</StyledHeader>
+            <RatingContainer open={inOpenState}>
+              <Rating {...this.props} />
+            </RatingContainer>
+            <BgKeeper open={inOpenState} bg={bg} />
+            <StyledInfoContainer open={inOpenState}>
+              <StyledHeaderInfo>{title}</StyledHeaderInfo>
+              <StyledDigitContainer>
+                <StyledSmallInfo>{year}</StyledSmallInfo>
+                <StyledSmallInfo>
+                  {duration} {duration && 'мин'}
+                </StyledSmallInfo>
+                <StyledSmallInfo>{pg}</StyledSmallInfo>
+              </StyledDigitContainer>
+              <Query query={GET_GENRES}>
+                {({ error, loading, data: { genres_arr } }) => {
+                  if (error) return `Error: ${error.message}`;
+                  if (loading) return 'Loading...';
+                  if (genres_arr) {
+                    const genreObj = genres_arr.reduce((acc, item) => ({
+                      ...acc,
+                      [item.id]: { ...item }
+                    }));
+                    return (
                       <StyledDetails>
-                        <StyledParagraph>
-                          {movie.overview.length > 90
-                            ? `${movie.overview.slice(0, 90)}...`
-                            : movie.overview}
-                        </StyledParagraph>
+                        <StyledDetailsHeader>Жанр:</StyledDetailsHeader>
+                        <StyledDetailsText>
+                          {genre_ids.length &&
+                            genre_ids.map((gen) => {
+                              if (genreObj[gen]) {
+                                if (genreObj[gen].name) {
+                                  return `${genreObj[gen].name} `;
+                                }
+                              }
+                              return null;
+                            })}
+                        </StyledDetailsText>
                       </StyledDetails>
-                      <ButtonContainer>
-                        <FavouriteControll
-                          btnType="transparent-dark"
-                          btnSize="small"
-                          movieId={id}
-                        >
-                          <Icon icon="heart" />
-                          Избранное
-                        </FavouriteControll>
-                        <Link to={`/movie/${id}`}>
-                          <StyledCustomBtn
-                            btnType="primary"
-                            onClick={this.handleHide}
-                          >
-                            Подробнее
-                          </StyledCustomBtn>
-                        </Link>
-                      </ButtonContainer>
-                    </StyledInfoContainer>
-                  </Fragment>
-                );
-              }}
-            </Query>
+                    );
+                  }
+                }}
+              </Query>
+              {cast && (
+                <StyledDetails>
+                  <StyledDetailsHeader>В ролях:</StyledDetailsHeader>
+                  <StyledDetailsText>{cast}</StyledDetailsText>
+                </StyledDetails>
+              )}
+              <StyledDetails>
+                <StyledParagraph>
+                  {description.length > 90
+                    ? `${description.slice(0, 90)}...`
+                    : description}
+                </StyledParagraph>
+              </StyledDetails>
+              <ButtonContainer>
+                <FavouriteControll
+                  btnType="transparent-dark"
+                  btnSize="small"
+                  movieId={id}
+                >
+                  <Icon icon="heart" />
+                  Избранное
+                </FavouriteControll>
+                <Link to={`/movie/${id}`}>
+                  <StyledCustomBtn btnType="primary" onClick={this.handleHide}>
+                    Подробнее
+                  </StyledCustomBtn>
+                </Link>
+              </ButtonContainer>
+            </StyledInfoContainer>
           </StyledPreviewContainer>
         </StyledParent>
       </RootClose>

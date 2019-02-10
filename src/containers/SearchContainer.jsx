@@ -12,11 +12,11 @@ import { GET_SEARCH_RES } from '../components/Requests/search';
 
 const StyledRightGroup = styled.div`
   display: flex;
-  justify-content: space-between;
+  padding-right: 80px;
   align-items: center;
   position: absolute;
   top: 25px;
-  min-width: ${({ user }) => user ? '700px' : '530px'};
+  min-width: ${({ user }) => (user ? '700px' : '530px')};
 `;
 
 const SearchWrapper = styled.div`
