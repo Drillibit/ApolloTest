@@ -22,7 +22,11 @@ const devServerConfig = {
   port: PORT,
   contentBase: paths.distSrc,
   hot: true,
-  historyApiFallback: true
+  historyApiFallback: true,
+  proxy: {
+    '/graphql': 'http://localhost:3000',
+    '/ws': 'ws://localhost:3000'
+  }
 };
 
 const compiler = webpack(config('development'));

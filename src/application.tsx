@@ -39,12 +39,12 @@ import { Main } from './components/Main';
 import './components/helpers/injectGlobalStyles';
 import { Preloader } from './components/UIKit/Preloader';
 
-const ws = new SubscriptionClient('ws://localhost:3000/graphql', {
+const ws = new SubscriptionClient('ws://localhost:3000/ws', {
   reconnect: true
 });
 
 const httpLink = createUploadLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: '/graphql',
   credentials: 'include'
 });
 

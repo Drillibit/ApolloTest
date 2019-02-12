@@ -55,6 +55,9 @@ app.use(passport.session());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  subscriptions: {
+    path: '/ws'
+  },
   formatError: (error) => {
     console.log(error);
     return new Error('Internal server error');
