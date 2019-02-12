@@ -22,6 +22,7 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "graphql": "^14.0.0",
+    "graphql-depth-limit": "^1.1.0",
     "graphql-resolvers": "^0.2.2",
     "graphql-scalar-objectid": "^0.1.1",
     "graphql-subscriptions": "^1.0.0",
