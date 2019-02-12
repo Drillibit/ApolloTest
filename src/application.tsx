@@ -44,7 +44,7 @@ const ws = new SubscriptionClient('ws://localhost:3000/graphql', {
 });
 
 const httpLink = createUploadLink({
-  uri: '/graphql',
+  uri: 'http://localhost:3000/graphql',
   credentials: 'include'
 });
 

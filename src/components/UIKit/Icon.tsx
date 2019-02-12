@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { colors } from '$components/helpers/colors';
+import { colors } from '../helpers/colors';
 
 /*eslint-disable */
 const iconMap = {
