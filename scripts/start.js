@@ -20,7 +20,10 @@ const HOST = process.env.HOST || 'localhost';
 const devServerConfig = {
   host: HOST,
   port: PORT,
-  contentBase: paths.distSrc,
+  contentBase: paths.appSrc,
+  open: true,
+  openPage: 'localhost:3001',
+  watchContentBase: true,
   hot: true,
   historyApiFallback: true,
   proxy: {

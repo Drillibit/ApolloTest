@@ -1,5 +1,5 @@
 import React from 'react';
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { split } from 'apollo-link';
@@ -64,7 +64,7 @@ const client = new ApolloClient({
   cache
 });
 
-export const Application = hot(module)(() => (
+const Application = () => (
   <ApolloProvider client={client}>
     <Query query={CURRENT_USER}>
       {({ error, loading, data: { CurrentUser } }) => {
@@ -76,7 +76,7 @@ export const Application = hot(module)(() => (
     }}
     </Query>
   </ApolloProvider>
-));
+);
 
 library.add(
   faHeart,
@@ -96,3 +96,6 @@ library.add(
   faStar,
   faTimes
 );
+
+
+export default hot(Application);
