@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const depthLimit = require('graphql-depth-limit');
 const { ApolloServer } = require('apollo-server-express');
 const compression = require('compression');
@@ -13,6 +14,8 @@ const typeDefs = require('./types/typeDefs');
 const resolvers = require('./resolvers/resolvers');
 
 const app = express();
+
+app.use(cors());
 
 app.use(compression());
 
