@@ -56,7 +56,7 @@ const StyledHeaderClose = css`
   display: none;
 `;
 
-const StyledHeader = H3.extend`
+const StyledHeader = styled(H3)`
   color: ${colors.grey500};
   white-space: nowrap;
   overflow: hidden;
@@ -116,7 +116,7 @@ const StyledInfoContainer = styled.div`
   ${({ open }) => (open ? StyledInfoContainerMove : '')};
 `;
 
-const StyledHeaderInfo = H3.extend`
+const StyledHeaderInfo = styled(H3)`
   color: ${colors.grey500};
   width: 100%;
 `;
@@ -137,16 +137,16 @@ const StyledDetails = styled.div`
   align-items: baseline;
 `;
 
-const StyledDetailsText = SmallText.extend`
+const StyledDetailsText = styled(SmallText)`
   color: ${colors.grey500};
 `;
 
-const StyledDetailsHeader = StyledSmallInfo.extend`
+const StyledDetailsHeader = styled(StyledSmallInfo)`
   min-width: 43px;
   margin-right: 0;
 `;
 
-const StyledParagraph = StyledDetailsText.extend`
+const StyledParagraph = styled(StyledDetailsText)`
   max-height: 38px;
 `;
 

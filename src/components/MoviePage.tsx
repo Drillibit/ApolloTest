@@ -42,11 +42,11 @@ const StyledBottom = styled.div`
   margin: 25px;
 `;
 
-const StyledLargeText = LargeText.extend`
+const StyledLargeText = styled(LargeText)`
   color: ${colors.grey200};
 `;
 
-const StyledSmallInfo = LargeText.extend`
+const StyledSmallInfo = styled(LargeText)`
   color: ${colors.grey500};
   margin-right: 10px;
 `;

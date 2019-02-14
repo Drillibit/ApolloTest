@@ -1,8 +1,8 @@
-import { injectGlobal } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 /* eslint-disable */
 
-injectGlobal`
+export const GlobalStyle = createGlobalStyle`
 
   /* reset.css v2.0 */
   

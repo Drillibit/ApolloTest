@@ -9,6 +9,7 @@ import { getMainDefinition } from 'apollo-utilities';
 import { createUploadLink } from 'apollo-upload-client';
 import { Query, ApolloProvider } from 'react-apollo';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { GlobalStyle } from './components/helpers/injectGlobalStyles';
 import {
   faHeart,
   faChevronUp,
@@ -66,6 +67,7 @@ const client = new ApolloClient({
 
 const Application = () => (
   <ApolloProvider client={client}>
+    <GlobalStyle />
     <Query query={CURRENT_USER}>
       {({ error, loading, data: { CurrentUser } }) => {
         if (loading) return <Preloader>Загрузка</Preloader>;

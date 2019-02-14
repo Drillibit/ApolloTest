@@ -5,5 +5,5 @@ import Application  from './application';
 
 render(
   <Application />,
-  document.getElementById('root')
+  document.getElementById('root') as HTMLElement
 );

@@ -182,7 +182,7 @@ export class Search extends PureComponent {
           </StyledIconButton>
           <InputStyled
             type="text"
-            innerRef={this.textInput}
+            ref={this.textInput}
             placeholder={searchPhrase}
             onChange={onChange}
             value={value}
