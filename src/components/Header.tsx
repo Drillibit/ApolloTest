@@ -48,7 +48,6 @@ export const Header = props => (
         <StyledCol xs={6} md={4} lg={6}>
           <Link to="/">
             <Logo />
-            {/* <p>Hello</p> */}
           </Link>
         </StyledCol>
         <StyledCol marginLeft="auto" xs={6} md={8} lg={6}>

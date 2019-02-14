@@ -8,15 +8,36 @@ const PostCSSFlexBugsFixes = require('postcss-flexbugs-fixes');
 const paths = require('./paths');
 
 const publicPath = '/';
+const PORT = process.env.PORT || 3001;
+const HOST = process.env.HOST || '0.0.0.0';
+const mode = process.env.NODE_ENV || 'development';
 
-module.exports = mode => ({
-  mode: mode || 'none',
+module.exports = {
+  mode: mode || 'development',
   devtool: mode === 'development' ? 'cheap-module-source-map' : false,
   entry: ['@babel/polyfill', paths.indexSrc],
   output: {
     filename: 'js/bundle.[hash:10].js',
     path: paths.distSrc,
     publicPath
+  },
+  devServer: {
+    host: HOST,
+    port: PORT,
+    contentBase: paths.appSrc,
+    open: true,
+    watchContentBase: true,
+    hot: true,
+    historyApiFallback: true,
+    noInfo: true,
+    overlay: {
+      warnings: true,
+      errors: true
+    },
+    proxy: {
+      '/graphql': 'http://localhost:3000',
+      '/ws': 'ws://localhost:3000'
+    }
   },
   module: {
     strictExportPresence: true,
@@ -104,4 +125,4 @@ module.exports = mode => ({
   performance: {
     hints: mode === 'development' ? false : 'warning'
   }
-});
+};

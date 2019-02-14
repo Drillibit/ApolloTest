@@ -7,7 +7,7 @@
   "license": "Proprietary",
   "private": true,
   "scripts": {
-    "client": "BASE_URL=http://localhost:3000/graphql node scripts/start.js",
+    "client": "NODE_ENV=development yarn webpack-dev-server",
     "server": "cd server && yarn start",
     "start": "concurrently \"yarn server\" \"yarn client\" ",
     "test": "jest",
