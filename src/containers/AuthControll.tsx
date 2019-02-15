@@ -50,7 +50,6 @@ const StyledUserIcon = styled.img`
 `;
 
 type AuthControllProps = {
-  logout: () => void,
   userData: {
     name: string,
     email: string,
@@ -83,7 +82,6 @@ export class AuthControll extends PureComponent<AuthControllProps, AuthControllS
   }
 
   logMeOut = () => {
-    this.props.logout();
     this.setState({
       open: false,
       letMeOut: false
