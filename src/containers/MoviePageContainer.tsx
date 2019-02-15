@@ -15,7 +15,15 @@ const StyledPreloderFront = styled.div`
   width: 100%;
 `;
 
-export const MoviePageContainer = props => (
+type MoviePageContainerType = {
+  match: {
+    params: {
+      id: string
+    }
+  }
+};
+
+export const MoviePageContainer = (props:MoviePageContainerType) => (
   <Query query={GET_MOVIE_EXTEND} variables={{ id: props.match.params.id }}>
     {({ error, loading, data }) => {
       if (loading) return (

@@ -1,6 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
 import styled from 'styled-components';
-import { string, bool, func, } from 'prop-types';
 
 import { Icon } from '../UIKit/Icon';
 import { Button } from '../UIKit/Button';
@@ -35,7 +34,9 @@ const StyledPreload = styled.div`
   background-color: black;
   border-radius: 2px;
 `;
-
+type StyledOveralyType = {
+  bg: string
+}
 const StyledOveraly = styled.div`
   position: absolute;
   display: flex;
@@ -47,13 +48,19 @@ const StyledOveraly = styled.div`
   height: 284px;
   background-color: black;
   background-image: 
-   url('${({ bg }) => `https://image.tmdb.org/t/p/original${bg}`}');
+   url('${({ bg }:StyledOveralyType) => `https://image.tmdb.org/t/p/original${bg}`}');
   background-size: cover;
   z-index: 10;
   border-radius: 2px;
 `;
+type MoviePlayerProps = {
+  link: string,
+  image: string,
+  playing: boolean,
+  onPlay: () => void
+}
 
-export class MoviePlayer extends PureComponent {
+export class MoviePlayer extends PureComponent<MoviePlayerProps> {
   render() {
     const {
       link,
@@ -77,10 +84,9 @@ export class MoviePlayer extends PureComponent {
             <StyledPreload />
             <StyledIframe
               id="ytplayer"
-              type="text/html"
               src={`http://www.youtube.com/embed/${link}?autoplay=1`}
               frameBorder="0"
-              allowFullScreen="1"
+              allowFullScreen
             />
           </Fragment>
         )}
@@ -88,17 +94,3 @@ export class MoviePlayer extends PureComponent {
     );
   }
 }
-
-MoviePlayer.propTypes = {
-  link: string,
-  image: string,
-  playing: bool,
-  onPlay: func
-};
-
-MoviePlayer.defaultProps = {
-  link: '/',
-  image: '/',
-  playing: false,
-  onPlay: f => f
-};

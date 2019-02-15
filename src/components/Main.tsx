@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { UserContainer } from './User';
+// import { UserContainer } from './User';
 import { Header } from './Header';
 import { MoviePageContainer } from '../containers/MoviePageContainer';
 
@@ -36,7 +36,7 @@ export const Main = (props: any) => (
       <Switch>
         <Route exact path="/" component={Component} />
         <Route path="/movie/:id" component={MoviePageContainer} />
-        <Route path="/user" component={UserContainer} />
+        {/* <Route path="/user" component={UserContainer} /> */}
       </Switch>
       <Footer>
         <SmallText>2018, Все права защищены</SmallText>

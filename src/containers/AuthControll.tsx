@@ -1,15 +1,12 @@
 import React, { PureComponent, Fragment } from 'react';
-import { func, string, shape } from 'prop-types';
 import { Mutation } from 'react-apollo';
 import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
-import { Link } from 'react-router-dom';
 
 import { LOG_OUT, CURRENT_USER } from '../components/Requests/user';
 import userImage from '../assets/img/user.png';
 
 import { Button } from '../components/UIKit/Button';
-import { Icon } from '../components/UIKit/Icon';
 import { Modal } from '../components/UIKit/Modal';
 import { ModalRegister } from '../components/UIKit/ModalRegister';
 
@@ -52,21 +49,20 @@ const StyledUserIcon = styled.img`
   border: 2px solid #fff;
 `;
 
-export class AuthControll extends PureComponent {
-  static propTypes = {
-    logout: func,
-    userData: shape({
-      name: string,
-      email: string,
-      image: string
-    })
-  };
+type AuthControllProps = {
+  logout: () => void,
+  userData: {
+    name: string,
+    email: string,
+    image: string
+  }
+};
 
-  static defaultProps = {
-    logout: f => f,
-    userData: { }
-  };
-
+type AuthControllSate = {
+  open: boolean,
+  letMeOut: boolean
+}
+export class AuthControll extends PureComponent<AuthControllProps, AuthControllSate> {
   state = {
     open: false,
     letMeOut: false
@@ -105,11 +101,6 @@ export class AuthControll extends PureComponent {
         </StyledCustomBtn>)}
         {userData && (
           <Fragment>
-            {/* <Link to="/favourites">
-              <Button>
-                <Icon icon="heart" />Избранное
-              </Button>
-            </Link> */}
             <StyledOutWrapper>
               <StyledUserIcon src={userData.image || userImage} alt="user image" onClick={this.switchOut} />
               {letMeOut && (

@@ -1,18 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-
-import {
-  func,
-  shape,
-  string,
-  number,
-  array,
-  arrayOf,
-  object,
-  objectOf,
-  bool,
-  any
-} from 'prop-types';
+import { History } from 'history';
 
 import { colors } from './helpers/colors';
 import { H1, H2, SmallText, LargeText } from './UIKit/Typography';
@@ -137,13 +125,17 @@ const StyledPreloderFront = styled.div`
   width: 100%;
 `;
 
+type StyledBgKeeperType = {
+  bg: string
+}
+
 const StyledBgKeeper = styled.div`
   min-height: 638px;
   width: 100%;
   background-image: 
         linear-gradient(325deg, transparent, #130621 120%), 
         linear-gradient(206deg, transparent, #130621 81%),
-    url('${({ bg }) => `https://image.tmdb.org/t/p/original${bg}`}');
+    url('${({ bg }:StyledBgKeeperType) => `https://image.tmdb.org/t/p/original${bg}`}');
   background-size: 100% 100%,100% 100% , cover;
   background-repeat: no-repeat;
   padding-bottom: 40px;
@@ -154,45 +146,40 @@ const StyledContainer = styled.div`
   flex-direction: column;
 `;
 
-export class MoviePage extends PureComponent {
-  static propTypes = {
-    video: objectOf(any),
-    similar: arrayOf(object),
-    toggleFavourite: func,
-    favourite: bool,
-    favourites: objectOf(bool),
-    movie: shape({
-      poster_path: string,
-      genres: array,
-      id: number,
-      title: string,
-      release_date: string,
-      tagline: string,
-      vote_average: number,
-      vote_count: number,
-      original_title: string
-    })
-  };
+type MoviePageProps = {
+  video: { key: string },
+  similar: [],
+  favourite: boolean,
+  toggleFavourite: () => void,
+  favourites: { key: boolean },
+  poster_path: string,
+  backdrop_path: string,
+  genres: [{name: string}],
+  id: string,
+  title: string,
+  original_title: string,
+  release_date: string,
+  vote_average: number,
+  vote_count: number,
+  tagline: string,
+  production_countries: [],
+  runtime: string,
+  overview: string,
+  history: History,
+  match: {
+    params: {
+      id: string
+    }
+  } 
+};
 
-  static defaultProps = {
-    movie: {
-      poster_path: '/',
-      genres: [],
-      id: 0,
-      title: '',
-      original_title: '',
-      release_date: '',
-      vote_average: 0,
-      vote_count: 0
-    },
-    favourite: false,
-    favourites: {},
-    video: {},
-    similar: [],
-    toggleFavourite: f => f
-  };
+type MoviePageState =  {
+  playing: boolean,
+  path: string
+}
 
-  static getDerivedStateFromProps(props, state) {
+export class MoviePage extends PureComponent<MoviePageProps, MoviePageState> {
+  static getDerivedStateFromProps(props:MoviePageProps, state:MoviePageState) {
     if (props.match.params.id !== state.path) {
       return { playing: false, path: props.match.params.id };
     }
@@ -201,8 +188,10 @@ export class MoviePage extends PureComponent {
   }
 
   state = {
-    playing: false
+    playing: false,
+    path: ''
   };
+
   onPlay = () => {
     this.setState({
       playing: true
@@ -231,8 +220,7 @@ export class MoviePage extends PureComponent {
       similar
     } = this.props;
 
-    const { toggleFavourite, favourite, favourites } = this.props;
-    if (typeof this.props.movie.id !== 'number') {
+    if (!this.props.id) {
       return (
         <StyledPreloderFront>
           <Preloader>Загрузка</Preloader>
@@ -319,8 +307,8 @@ export class MoviePage extends PureComponent {
                   </StyledDetailsHeader>
                   <StyledSmallInfo>
                     {production_countries.map(
-                      (gen, index) =>
-                        `${gen.name}${
+                      (gen: { name:string }, index) =>
+                        `${name}${
                           production_countries.length - 1 !== index ? ', ' : ''
                         }`
                     )}
@@ -362,7 +350,7 @@ export class MoviePage extends PureComponent {
                 )}
                 <StyledSimilar>
                   {similar.length !== 0
-                    ? similar.map(movie => <Preview key={movie.id} id={movie.id} />)
+                    ? similar.map(({ id }) => <Preview key={id} id={id} />)
                     : ''}
                 </StyledSimilar>
               </StyledCol>
