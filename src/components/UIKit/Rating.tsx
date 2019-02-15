@@ -31,7 +31,7 @@ const StyledIcon = styled(Icon)`
   color: ${colors.purple};
 `;
 
-const StyledRatingBottom = StyledRatingTop.extend`
+const StyledRatingBottom = styled(StyledRatingTop)`
   display: block;
   width: ${({ width }) => `${width}%`};
 `;
@@ -61,7 +61,7 @@ const StyledVoteCount = styled.span`
   ${({ size }) => (size === 'lg' ? StyledVoteCountLg : '')};
 `;
 
-const StyledRateHeader = SmallText.extend`
+const StyledRateHeader = styled(SmallText)`
   margin-right: 8px;
   color: #fff;
 `;

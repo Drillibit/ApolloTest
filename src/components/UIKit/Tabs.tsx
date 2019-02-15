@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes, { func } from 'prop-types';
 import styled, { css } from 'styled-components';
 
-import { colors } from '$components/helpers/colors';
+import { colors } from '../helpers/colors';
 
 const underline = css`
   @keyframes change-width {

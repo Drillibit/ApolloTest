@@ -1,9 +1,9 @@
 import React from 'react';
 import { string } from 'prop-types';
 
-import { Button } from '$UIKit/Button';
-import { Icon } from '$UIKit/Icon';
-import { colors } from '$helpers/colors';
+import { Button } from './UIKit/Button';
+import { Icon } from './UIKit/Icon';
+import { colors } from './helpers/colors';
 import { CURRENT_USER } from './Requests/user';
 
 const resolveMoives = (favouriteMovies, id) => {

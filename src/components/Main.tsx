@@ -29,7 +29,7 @@ const Component = () => (
   </StyledContent>
 );
 
-export const Main = props => (
+export const Main = (props: any) => (
   <Router>
     <StyledMain>
       <Header {...props} />

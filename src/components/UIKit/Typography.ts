@@ -17,11 +17,11 @@ export const Text = styled.p`
   font-style: normal;
 `;
 
-export const SmallText = Text.extend`
+export const SmallText = styled(Text)`
   font-size: 14px;
 `;
 
-export const LargeText = Text.extend`
+export const LargeText = styled(Text)`
   font-size: 18px;
 `;
 

@@ -37,7 +37,7 @@ const Border = css`
   border-bottom: 3px solid ${colors.purple};
 `;
 
-const ModalHeader = H3.extend`
+const ModalHeader = styled(H3)`
   width: 116px;
   height: 24px;
   font-size: 20px;

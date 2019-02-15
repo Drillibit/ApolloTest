@@ -1,5 +1,5 @@
 import React from 'react';
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { split } from 'apollo-link';
@@ -9,6 +9,7 @@ import { getMainDefinition } from 'apollo-utilities';
 import { createUploadLink } from 'apollo-upload-client';
 import { Query, ApolloProvider } from 'react-apollo';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { GlobalStyle } from './components/helpers/injectGlobalStyles';
 import {
   faHeart,
   faChevronUp,
@@ -39,7 +40,7 @@ import { Main } from './components/Main';
 import './components/helpers/injectGlobalStyles';
 import { Preloader } from './components/UIKit/Preloader';
 
-const ws = new SubscriptionClient('ws://localhost:3000/graphql', {
+const ws = new SubscriptionClient('ws://localhost:3000/ws', {
   reconnect: true
 });
 
@@ -64,8 +65,9 @@ const client = new ApolloClient({
   cache
 });
 
-export const Application = hot(module)(() => (
+const Application = () => (
   <ApolloProvider client={client}>
+    <GlobalStyle />
     <Query query={CURRENT_USER}>
       {({ error, loading, data: { CurrentUser } }) => {
         if (loading) return <Preloader>Загрузка</Preloader>;
@@ -76,7 +78,7 @@ export const Application = hot(module)(() => (
     }}
     </Query>
   </ApolloProvider>
-));
+);
 
 library.add(
   faHeart,
@@ -96,3 +98,6 @@ library.add(
   faStar,
   faTimes
 );
+
+
+export default hot(Application);

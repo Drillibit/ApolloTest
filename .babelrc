@@ -1,20 +1,9 @@
 {
   "presets": [
-    [
-      "env",
-      {
-        "modules": "commonjs",
-        "targets": {
-          "node": "7.10.1",
-          "uglify": false
-        },
-        "useBuiltIns": true
-      }
-    ],
-    "stage-2",
-    "react"
+    "@babel/preset-env", "@babel/preset-react"
   ],
   "plugins": [
-    "styled-components"
+    "styled-components",
+    "react-hot-loader/babel"
   ]
 }

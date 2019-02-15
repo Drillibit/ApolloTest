@@ -20,15 +20,15 @@ const SocialLink = styled.a`
   font-size: 25px;
 `;
 
-const FacebookLink = SocialLink.extend`
+const FacebookLink = styled(SocialLink)`
   background-color: ${colors.blue};
 `;
 
-const GoogleLink = SocialLink.extend`
+const GoogleLink = styled(SocialLink)`
   background-color: ${colors.red};
 `;
 
-const TwitterLink = SocialLink.extend`
+const TwitterLink = styled(SocialLink)`
   background-color: ${colors.cyan};
 `;
 

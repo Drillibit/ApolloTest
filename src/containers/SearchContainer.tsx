@@ -10,6 +10,7 @@ import { Search } from '../components/UIKit/Search';
 
 import { GET_SEARCH_RES } from '../components/Requests/search';
 
+
 const StyledRightGroup = styled.div`
   display: flex;
   padding-right: 80px;

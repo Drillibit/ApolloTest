@@ -1,289 +1,128 @@
-const path = require('path');
 
-const cssnano = require('cssnano');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const UglifyJSWebpackPlugin = require('uglifyjs-webpack-plugin');
+
 const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const PostCSSFlexBugsFixes = require('postcss-flexbugs-fixes');
 
-const { browserslist, version } = require('./package.json');
+const paths = require('./paths');
 
-/*---------------------------------------
-# Utilities
----------------------------------------*/
+const publicPath = '/';
+const PORT = process.env.PORT || 3001;
+const HOST = process.env.HOST || '0.0.0.0';
+const mode = process.env.NODE_ENV || 'development';
 
-function createBabelOptions({ hot = false, optimize = false, react = false } = {}) {
-  const presets = [];
-  const plugins = [];
-
-  presets.push([
-    'env',
-    {
-      modules: false,
-      targets: {
-        browsers: browserslist,
-        uglify: false
-      },
-      useBuiltIns: false
-    }
-  ]);
-  presets.push('stage-2');
-
-  if (react) {
-    presets.push('react');
-
-    if (hot) {
-      plugins.push('react-hot-loader/babel');
-    } if (optimize) {
-      plugins.push(['transform-react-remove-prop-types', {
-        removeImport: true
-      }]);
-    }
-  }
-
-  if (!optimize) {
-    plugins.push('styled-components');
-  }
-
-  return { presets, plugins };
-}
-
-function wrapEnvironment(environment) {
-  return Object.keys(environment).reduce((variables, variable) => {
-    const value = environment[variable];
-
-    // eslint-disable-next-line
-    variables[`process.env.${variable}`] = JSON.stringify(value);
-
-    return variables;
-  }, {});
-}
-
-/*---------------------------------------
-# Configuration
----------------------------------------*/
-
-module.exports = (releaseStage) => {
-  const isDevelopment = process.env.NODE_ENV !== 'production';
-  const isServerUsed = process.argv.findIndex(arg => arg.includes('webpack-dev-server')) !== -1;
-
-  /* Mode */
-  const mode = isDevelopment ? 'development' : 'production';
-
-  /* Bail */
-  const bail = !isServerUsed;
-
-  /* Context */
-  const context = __dirname;
-
-  /* Development Server */
-  const devServer = {
-    // host: '0.0.0.0',
-    port: 3004,
-    contentBase: 'src',
-    filename: './application.jsx',
+module.exports = {
+  mode: mode || 'development',
+  devtool: mode === 'development' ? 'cheap-module-source-map' : false,
+  entry: ['@babel/polyfill', paths.indexSrc],
+  output: {
+    filename: 'js/bundle.[hash:10].js',
+    path: paths.distSrc,
+    publicPath
+  },
+  devServer: {
+    host: HOST,
+    port: PORT,
+    contentBase: paths.appSrc,
+    open: true,
+    watchContentBase: true,
     hot: true,
-    inline: true,
     historyApiFallback: true,
+    stats: 'minimal',
+    overlay: {
+      warnings: true,
+      errors: true
+    },
     proxy: {
-      '/graphql': {
-        target: 'http://localhost:3000',
-      },
+      '/graphql': 'http://localhost:3000',
+      '/ws': 'ws://localhost:3000'
     }
-  };
-
-  /* Development Tools */
-  const devtool = isServerUsed ? 'cheap-module-eval-source-map' : 'source-map';
-
-  /* Entry */
-  const entry = {
-    main: './src/index.jsx'
-  };
-
-  /* Rules */
-  const rules = [];
-
-  rules.push({
-    test: /\.mjs$/,
-    include: /node_modules/,
-    type: 'javascript/auto',
-  });
-
-  rules.push({
-    test: /\.js$/,
-    exclude: /node_modules/,
-    loaders: [
+  },
+  module: {
+    strictExportPresence: true,
+    rules: [
       {
-        loader: 'babel-loader',
-        options: createBabelOptions({ hot: isServerUsed })
-      }
-    ]
-  });
-
-  rules.push({
-    test: /\.jsx$/,
-    exclude: /node_modules/,
-    loaders: [
-      {
-        loader: 'babel-loader',
-        options: createBabelOptions({
-          hot: isServerUsed,
-          optimize: !isDevelopment,
-          react: true
-        })
-      }
-    ]
-  });
-
-  rules.push({
-    test: /\.(eot|svg|ttf|otf|woff|woff2)$/,
-    loader: 'file-loader',
-    options: {
-      name: isDevelopment ? 'fonts/[name].[ext]' : 'fonts/[name]-[hash].[ext]'
-    }
-  });
-
-  rules.push({
-    test: /\.(jpe?g|png|gif|svg|ico)$/,
-    include: path.join(__dirname, 'src/assets/img'),
-    loader: 'file-loader',
-    options: {
-      name: isDevelopment ? 'images/[name].[ext]' : 'images/[name]-[hash].[ext]'
-    }
-  });
-
-  rules.push({
-    test: /\.css$/,
-    loaders: [
-      MiniCssExtractPlugin.loader,
-      {
-        loader: 'css-loader',
+        test: [/\.jpe?g$/, /\.gif$/, /\.png$/],
+        loader: require.resolve('url-loader'),
         options: {
-          minimize: false,
-          sourceMap: true
+          limit: 10000,
+          name: 'assets/[name].[hash:10].[ext]'
         }
       },
-      'postcss-loader'
-    ]
-  });
-
-  rules.push({
-    test: /\.scss$/,
-    exclude: /node_modules/,
-    loaders: [
-      MiniCssExtractPlugin.loader,
       {
-        loader: 'css-loader',
+        test: [/\.ico$/, /\.svg$/],
+        loader: require.resolve('file-loader'),
         options: {
-          minimize: false,
-          sourceMap: true
+          name: 'assets/[name].[hash:10].[ext]'
         }
       },
-      'postcss-loader',
-      'sass-loader'
+      {
+        test: /\.(js|jsx|ts|tsx)$/,
+        include: paths.appSrc,
+        loader: require.resolve('babel-loader'),
+        options: {
+          cacheDirectory: true,
+          babelrc: true,
+          presets: [
+            [
+              '@babel/preset-env',
+              { targets: { browsers: 'last 2 versions' } } // or whatever your project requires
+            ],
+            '@babel/preset-typescript',
+            '@babel/preset-react'
+          ],
+          plugins: [
+            // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
+            ['@babel/plugin-proposal-decorators', { legacy: true }],
+            ['@babel/plugin-proposal-class-properties', { loose: true }],
+            'react-hot-loader/babel'
+          ]
+        }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          require.resolve('style-loader'),
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1
+            }
+          },
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                PostCSSFlexBugsFixes,
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 11'
+                  ],
+                  flexbox: 'no-2009'
+                })
+              ]
+            }
+          }
+        ]
+      }
     ]
-  });
-
-  /* Output */
-  const output = {
-    path: path.join(__dirname, 'server/www'),
-    pathinfo: isDevelopment,
-    publicPath: '/',
-    filename: isDevelopment ? '[name].js' : '[name]-[chunkhash].js'
-  };
-
-  /* Optimization */
-  const optimization = {};
-
-  optimization.minimizer = [
-    new UglifyJSWebpackPlugin({
-      cache: true,
-      parallel: true,
-      sourceMap: true,
-      uglifyOptions: {
-        safari10: true
-      }
-    }),
-    new OptimizeCSSAssetsPlugin({
-      cssProcessor: cssnano
-    })
-  ];
-
-  optimization.splitChunks = {
-    cacheGroups: {
-      commons: {
-        test: /[\\/]node_modules[\\/]/,
-        name: 'vendor',
-        chunks: 'initial'
-      }
-    }
-  };
-
-  optimization.runtimeChunk = {
-    name: 'manifest'
-  };
-
-  /* Plugins */
-  const plugins = [];
-
-  plugins.push(
-    new webpack.DefinePlugin(wrapEnvironment({
-      RELEASE_STAGE: releaseStage,
-      APP_VERSION: version,
-      BASE_URL: process.env.BASE_URL,
-    })),
-    new MiniCssExtractPlugin({
-      filename: isDevelopment
-        ? 'css/[name].css'
-        : 'css/[name]-[contenthash].css'
-    }),
+  },
+  plugins: [
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      inject: 'head',
-      title: 'keeno-allmax',
-      template: './src/index.html',
-      releaseStage
+      inject: true,
+      template: paths.htmlSrc
     }),
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'defer'
-    })
-  );
-
-  if (isDevelopment) {
-    if (isServerUsed) {
-      plugins.push(
-        new webpack.HotModuleReplacementPlugin()
-      );
-    }
+    new webpack.HotModuleReplacementPlugin({})
+  ],
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
+  },
+  performance: {
+    hints: mode === 'development' ? false : 'warning'
   }
-
-  /* Resolve */
-  const resolve = {
-    extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.json'],
-    alias: {
-      $UIKit: path.resolve(__dirname, 'src/components/UIKit'),
-      $components: path.resolve(__dirname, 'src/components'),
-      $containers: path.resolve(__dirname, 'src/containers'),
-      $redux: path.resolve(__dirname, 'src/redux'),
-      $assets: path.resolve(__dirname, 'src/assets'),
-      $helpers: path.resolve(__dirname, 'src/components/helpers'),
-    }
-  };
-
-  /* Export */
-  return {
-    mode,
-    bail,
-    devServer,
-    devtool,
-    context,
-    entry,
-    module: { rules },
-    output,
-    optimization,
-    plugins,
-    resolve
-  };
 };
