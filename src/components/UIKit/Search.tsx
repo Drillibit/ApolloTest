@@ -1,15 +1,18 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
-import { func, string, arrayOf, object } from 'prop-types';
 import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 
 import { colors } from '../../components/helpers/colors';
 import { SearchIcon } from '../../assets/img/search-icon';
 
+interface SearchStType {
+  isOpen: boolean
+}
+
 const SearchStyled = styled.div`
   position: relative;
-  width: ${({ isOpen }) => (isOpen ? '400px' : '60px')};
+  width: ${({ isOpen }: SearchStType) => (isOpen ? '400px' : '60px')};
   height: 56px;
   padding: 12px;
   transition: width .35s ease, background .35s ease;
@@ -88,24 +91,38 @@ const StyledText = styled.span`
 
 const searchPhrase = 'Найти по названию, жанру, актеру';
 
+type SearhState = {
+  isOpen: boolean,
+  position: number
+}
 
-export class Search extends PureComponent {
-  constructor(props) {
-    super(props);
+
+type SearchStateProps = {
+  clearSearch: () => void,
+  onChange: (event: { target: { value: string } }) => void,
+  value: string,
+  result: [{ id: number | string, title: string }]
+}
+
+export class Search extends PureComponent<SearchStateProps, SearhState> {
+  private activeLink: React.RefObject<HTMLUListElement>
+  private textInput: React.RefObject<HTMLInputElement>
+  constructor(props:SearchStateProps) {
+    super(props)
     this.state = {
       isOpen: false,
       position: -1
     };
-
+  
     this.activeLink = React.createRef();
     this.textInput = React.createRef();
   }
 
   onClose = () => {
-    const { clearSearch } = this.props;
+    const { clearSearch, onChange } = this.props;
     if (this.state.isOpen === true) {
       clearSearch();
-      this.props.onChange({ target: { value: '' } });
+      onChange({ target: { value: '' } });
       this.setState({
         isOpen: false,
         position: -1
@@ -113,24 +130,27 @@ export class Search extends PureComponent {
     }
   }
 
-  setFocus = (pos) => {
+  setFocus = (pos:number) => {
     if (pos < 0) {
-      this.textInput.current.focus();
+      const input = this.textInput.current;
+      if(input) input.focus();
     } else {
-      const result = this.activeLink.current.childNodes;
-      if (pos >= result.length) {
-        this.setState({
-          position: result.length
-        });
-        return null;
+      const result = this.activeLink.current;
+      if(result) {
+        if (pos >= result.childNodes.length) {
+          this.setState({
+            position: result.childNodes.length
+          });
+          return null;
+        }
+        (result.childNodes as NodeListOf<HTMLLinkElement>)[pos].focus();
       }
-      result[pos].focus();
     }
 
     return null;
   };
 
-  handleKeyDown = (e) => {
+  handleKeyDown = (e: React.KeyboardEvent) => {
     const { position } = this.state;
     if (!this.activeLink.current) {
       return null;
@@ -160,7 +180,8 @@ export class Search extends PureComponent {
   toggleOpen = () => {
     const { isOpen } = this.state;
     if (!isOpen === true) {
-      this.textInput.current.focus();
+      const input = this.textInput.current
+      if(input) input.focus();  
     }
 
     this.setState({
@@ -188,10 +209,10 @@ export class Search extends PureComponent {
             value={value}
           />
           {(isOpen && result.length > 0) && (
-            <UlStyled innerRef={this.activeLink}>
+            <UlStyled ref={this.activeLink}>
               {result.slice(0, 10).map(({ title, id }, index) => (
                 <TmpStyled
-                  id={index}
+                  id={`${index}`}
                   key={id}
                   to={`/movie/${id}`}
                   onClick={this.onClose}
@@ -206,16 +227,3 @@ export class Search extends PureComponent {
   }
 }
 
-Search.propTypes = {
-  onChange: func,
-  value: string,
-  clearSearch: func,
-  result: arrayOf(object)
-};
-
-Search.defaultProps = {
-  onChange: f => f,
-  clearSearch: f => f,
-  value: '',
-  result: []
-};

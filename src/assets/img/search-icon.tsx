@@ -1,6 +1,6 @@
 import React from 'react';
-interface SearchIconProps {
-  className: string,
+type SearchIconProps = {
+  className?: string,
   color: string
 }
 

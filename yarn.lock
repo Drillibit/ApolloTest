@@ -1051,6 +1051,14 @@
     "@types/prop-types" "*"
     "@types/react" "*"
 
+"@types/react-overlays@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@types/react-overlays/-/react-overlays-1.1.2.tgz#b83d60c52bdfd93c63316c4651a1c82b4ff316b6"
+  integrity sha512-nTqnPGyC5Z1nD5KgZXCPR9WlJZZPxXuugHciTUWebS/MK751nbYOQmIMiDw4vQeYvvZ9S9Mr2ZjHzpQ90k3QKw==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-transition-group" "*"
+
 "@types/react-router-dom@^4.3.1":
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-4.3.1.tgz#71fe2918f8f60474a891520def40a63997dafe04"
@@ -1066,6 +1074,13 @@
   integrity sha512-TZVfpT6nvUv/lbho/nRtckEtgkhspOQr3qxrnpXixwgQRKKyg5PvDfNKc8Uend/p/Pi70614VCmC0NPAKWF+0g==
   dependencies:
     "@types/history" "*"
+    "@types/react" "*"
+
+"@types/react-transition-group@*":
+  version "2.0.16"
+  resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-2.0.16.tgz#2dcb9e396ab385ee19c4af1c9caa469a14cd042f"
+  integrity sha512-FUJEx2BGJPU1qVQoWd9v7wpOwnCPTWhcE4iTaU5prry9SvwiI11lCXOci8Nz9cM/Fuf650l7Skg6nlVeCYjPFA==
+  dependencies:
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^16.8.3":

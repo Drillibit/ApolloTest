@@ -29,7 +29,7 @@ module.exports = {
     watchContentBase: true,
     hot: true,
     historyApiFallback: true,
-    noInfo: true,
+    stats: 'minimal',
     overlay: {
       warnings: true,
       errors: true
