@@ -39,7 +39,13 @@ const StyledTabs = styled.div`
   display: flex;
 `;
 
-const StyledTabPaneTitle = styled.div`
+type StyledTabPaneTitleType = {
+  active: boolean,
+  marginLeft: boolean,
+  jsx: boolean
+};
+
+const StyledTabPaneTitle = styled.div<StyledTabPaneTitleType>`
   width: 200px;
   position: relative;
   text-align: center;
@@ -57,13 +63,22 @@ const StyledTabPaneContent = styled.div`
   padding: 20px;
 `;
 
+type TabPaneProps = {
+  tabName: object | null,
+  id: string,
+  active: boolean,
+  marginLeft: boolean,
+  handleChangeTab: (id:string, tabName:object | null) => void
+};
+
 export const TabPane = ({
   tabName,
   handleChangeTab,
   id,
   active,
   marginLeft,
-}) => {
+}:TabPaneProps) => {
+  
   const jsx = tabName instanceof Object;
 
   return (
@@ -78,12 +93,17 @@ export const TabPane = ({
   );
 };
 
-export class Tabs extends Component {
+type TabsProps = {
+  id: string,
+  tabName: object,
+  onChange: (id:number) => void
+}
+export class Tabs extends Component<TabsProps> {
   state = {
     activeTab: 0,
   }
 
-  handleChangeTab = (id, tabName) => {
+  handleChangeTab = (id:number, tabName:object) => {
     if (!(tabName instanceof Object)) {
       this.setState({
         activeTab: id,

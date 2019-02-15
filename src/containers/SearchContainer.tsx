@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withApollo } from 'react-apollo';
+import { withApollo, ApolloProviderProps, WithApolloClient } from 'react-apollo';
 import { func, arrayOf, object, objectOf, any, shape } from 'prop-types';
 import styled from 'styled-components';
 
@@ -10,6 +10,9 @@ import { Search } from '../components/UIKit/Search';
 
 import { GET_SEARCH_RES } from '../components/Requests/search';
 
+type StyledRightGroupType = {
+  user: boolean
+};
 
 const StyledRightGroup = styled.div`
   display: flex;
@@ -17,35 +20,34 @@ const StyledRightGroup = styled.div`
   align-items: center;
   position: absolute;
   top: 25px;
-  min-width: ${({ user }) => (user ? '700px' : '530px')};
+  min-width: ${({ user }:StyledRightGroupType) => (user ? '700px' : '530px')};
 `;
 
 const SearchWrapper = styled.div`
   margin: 0 20px 0 auto;
 `;
 
-class SearchController extends Component {
-  static propTypes = {
-    searchMovies: func,
-    client: objectOf(any).isRequired,
-    data: shape({
-      search: arrayOf(object)
-    })
+type SearchControllerPorps = {
+  client: WithApolloClient<any>,
+  auth: {
+    name: string,
+    email: string,
+    image: string,
   }
+};
 
-  static defaultProps = {
-    searchMovies: f => f,
-    data: {
-      search: []
-    }
-  };
-
+type SearchControllerState = {
+  value: string,
+  results: []
+}
+class SearchController extends Component<SearchControllerPorps, SearchControllerState> {
+  timeOut = 0;
   state = {
     value: '',
-    results: []
+    results: [{ title: '', id: '' }]
   };
 
-  handleChange = (e) => {
+  handleChange = (e:React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     const { client } = this.props;
     clearTimeout(this.timeOut);
@@ -68,9 +70,12 @@ class SearchController extends Component {
       });
     }
   };
+  handleClick: any;
+  handleClose: any;
   render() {
+    const signedIn = this.props.auth ? true : false;
     return (
-      <StyledRightGroup user={this.props.auth}>
+      <StyledRightGroup user={signedIn}>
         <SearchWrapper>
           <Search
             onChange={this.handleChange}

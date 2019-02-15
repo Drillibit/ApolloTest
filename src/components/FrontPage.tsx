@@ -48,24 +48,24 @@ export class FrontPage extends Component {
     tabCounter: 1,
     tabId: 0,
     isLoading: false,
-    activeOption: {},
+    activeOption: { value: ''},
     hasMore: false,
     activeGenre: ''
   };
 
-  handleMore = more => {
+  handleMore = (more:boolean) => {
     this.setState({
       hasMore: more
     });
   }
 
-  handelGenre = e => {
+  handelGenre = (e:React.MouseEvent) => {
     this.setState(() => ({
       activeGenre: e
     }))
   }
 
-  handleSort = e => {
+  handleSort = (e:React.MouseEvent) => {
     const optionsObj = Object.assign({}, optionsData);
     this.setState({
       activeOption: optionsObj[e]

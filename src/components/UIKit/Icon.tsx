@@ -1,12 +1,15 @@
 import React, { PureComponent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { colors } from '../helpers/colors';
 
 /*eslint-disable */
-const iconMap = {
+type iconMapTypes = {
+  [key: string]: string[];
+};
+
+const iconMap:iconMapTypes = {
   'heart-fill': ['fas', 'heart'],
   'heart': ['far', 'heart'],
   'chevron-left': ['fas', 'chevron-left'],
@@ -25,7 +28,11 @@ const iconMap = {
   'close': ['fas', 'times',],
 };
 
-const sizes = {
+type KeyVal = {
+  [key: string]: string;
+}
+
+const sizes: KeyVal = {
   'sm': '16px',
   'md': '24px',
   'lg': '36px',
@@ -33,23 +40,18 @@ const sizes = {
 };
 /*eslint-disable */
 
-const StyledIcon = styled.i`
+type IconProps = {
+  icon: string,
+  size: string,
+  color: string
+};
+
+const StyledIcon = styled.i<IconProps>`
   font-size: ${({ size }) => size};
   color: ${({ color }) => color};
 `;
 
-export class Icon extends PureComponent {
-  static propTypes = {
-    icon: PropTypes.string,
-    size: PropTypes.string,
-    color: PropTypes.string,
-  };
-
-  static defaultProps = {
-    icon: '',
-    size: '',
-    color: '',
-  };
+export class Icon extends PureComponent<IconProps> {
   render () {
     const {
       icon, size, color, ...props

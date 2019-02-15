@@ -17,7 +17,11 @@ const FooterStyled = styled.footer`
   width: 100%;
 `;
 
-export const Footer = ({ children }) => (
+type FooterPorps = {
+  children: React.ReactChild[]
+};
+
+export const Footer = ({ children }:FooterPorps) => (
   <FooterStyled>
     <Logo color={colors.grey500} />
     {children}

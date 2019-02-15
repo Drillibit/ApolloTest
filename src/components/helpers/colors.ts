@@ -1,4 +1,8 @@
-export const colors = {
+type ColorsType = {
+  [key: string]: string
+};
+
+export const colors:ColorsType = {
   purple: '#ff0079',
   grey500: '#494c62',
   grey300: '#80818a',

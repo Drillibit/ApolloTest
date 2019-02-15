@@ -127,7 +127,7 @@ type BtnProps = {
   btnShadow: boolean,
   disabled: boolean,
   onClick: () => void,
-  children: React.ReactChildren
+  children: React.ReactChild[]
 };
 
 export const StyledButton = styled.button<BtnProps>`
