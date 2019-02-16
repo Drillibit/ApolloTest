@@ -1,8 +1,5 @@
 import React, { Fragment } from 'react';
-import { node, arrayOf, oneOfType } from 'prop-types';
 import styled from 'styled-components';
-
-import { Icon } from './Icon';
 
 const QuoteStyled = styled.div`
   display: inline-block;
@@ -19,7 +16,11 @@ const Shape = styled.div`
   color: #ffffff;
 `;
 
-export const Quote = ({ children }) => (
+type QuoteProp = {
+  children: React.ReactNode
+};
+
+export const Quote = ({ children }:QuoteProp) => (
   <Fragment>
     <Shape>
       <svg
@@ -39,7 +40,3 @@ export const Quote = ({ children }) => (
     <QuoteStyled>{children}</QuoteStyled>
   </Fragment>
 );
-
-Quote.propTypes = {
-  children: oneOfType([node, arrayOf(node)]).isRequired
-};

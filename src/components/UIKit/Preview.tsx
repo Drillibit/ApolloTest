@@ -13,6 +13,11 @@ import { StyledButton } from './Button';
 import { FavouriteControll } from '../../containers/FavouriteControll';
 import { GET_GENRES } from '../Requests/frontPage';
 
+type StyledPreviewType = {
+  open: boolean
+  bg?: string
+};
+
 const StyledCustomBtn = styled(StyledButton)`
   padding: 4px 43px;
 `;
@@ -35,7 +40,7 @@ const StyledPreviewContainerOpen = css`
     0 2px 9px 1px rgba(0, 0, 0, 0.28);
 `;
 
-const StyledPreviewContainer = styled.div`
+const StyledPreviewContainer = styled.div<StyledPreviewType>`
   position: absolute;
   overflow: hidden;
   width: 282px;
@@ -56,7 +61,7 @@ const StyledHeaderClose = css`
   display: none;
 `;
 
-const StyledHeader = styled(H3)`
+const StyledHeader = styled(H3)<StyledPreviewType>`
   color: ${colors.grey500};
   white-space: nowrap;
   overflow: hidden;
@@ -80,7 +85,7 @@ const BgKeeperMove = css`
   animation: ${BgAnimation} 0.3s ease-in;
 `;
 
-const BgKeeper = styled.div`
+const BgKeeper = styled.div<StyledPreviewType>`
   width: 100%;
   flex: 2;
   border-radius: 0 0 2px 2px;
@@ -94,7 +99,7 @@ const RatingMove = css`
   transform: translateX(600px);
 `;
 
-const RatingContainer = styled.div`
+const RatingContainer = styled.div<StyledPreviewType>`
   transition: transform ease 0.3s;
   margin-bottom: 11px;
   ${({ open }) => (open ? RatingMove : '')};
@@ -106,7 +111,7 @@ const StyledInfoContainerMove = css`
   flex-direction: column;
 `;
 
-const StyledInfoContainer = styled.div`
+const StyledInfoContainer = styled.div<StyledPreviewType>`
   display: none;
   transform: all ease 0.3s;
   padding: 0 16px 14px 16px;
@@ -158,21 +163,20 @@ const ButtonContainer = styled.div`
   margin: 0 auto;
 `;
 
-export class Preview extends PureComponent {
-  static propTypes = {
-    id: PropTypes.string,
-    description: PropTypes.string,
-    title: PropTypes.string,
-    bg: PropTypes.string,
-    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    pg: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    genre_ids: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-    cast: PropTypes.string,
-    isFavourite: PropTypes.bool,
-    toggleFavourite: func
-  };
-
+type PreviewProp = {
+  id: string
+  description: string
+  title: string
+  bg: string
+  year: string | number
+  duration: string | number
+  pg: string | number
+  genre_ids: string[]
+  cast?: string
+  isFavourite: boolean,
+  toggleFavourite: () => void
+};
+export class Preview extends PureComponent<PreviewProp> {
   static defaultProps = {
     id: '0',
     description: '',
@@ -184,7 +188,6 @@ export class Preview extends PureComponent {
     genre_ids: '',
     cast: '',
     isFavourite: false,
-    toggleFavourite: f => f
   };
 
   state = {
@@ -201,7 +204,6 @@ export class Preview extends PureComponent {
     this.setState({
       inOpenState: false
     });
-    clearTimeout(this.timeOut);
   };
 
   render() {
@@ -244,7 +246,7 @@ export class Preview extends PureComponent {
                   if (error) return `Error: ${error.message}`;
                   if (loading) return 'Loading...';
                   if (genres_arr) {
-                    const genreObj = genres_arr.reduce((acc, item) => ({
+                    const genreObj = genres_arr.reduce((acc:any, item:any) => ({
                       ...acc,
                       [item.id]: { ...item }
                     }));
@@ -286,7 +288,7 @@ export class Preview extends PureComponent {
                   btnSize="small"
                   movieId={id}
                 >
-                  <Icon icon="heart" />
+                  <Icon size="sm" color="#fff" icon="heart" />
                   Избранное
                 </FavouriteControll>
                 <Link to={`/movie/${id}`}>
