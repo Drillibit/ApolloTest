@@ -88,7 +88,7 @@ export class Dropdown extends PureComponent<DropdownPorps, DropdownState> {
         <StyledButtonContainer>
           <StyledDropdownButton onClick={this.handleClick}>
             {activeOption.name || 'Не выбранно'}
-            <StyledDropdownArrow size="sm" color="gray300" icon="chevron-down" rotation={isOpen ? 180 : null} />
+            <StyledDropdownArrow size="sm" color="gray300" icon="chevron-down" rotation={isOpen ? 180 : undefined} />
           </StyledDropdownButton>
         </StyledButtonContainer>
         {isOpen && (

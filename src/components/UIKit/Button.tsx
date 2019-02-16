@@ -126,7 +126,7 @@ type BtnProps = {
   btnSize?: string,
   btnShadow?: boolean,
   disabled?: boolean,
-  onClick: () => void,
+  onClick?: () => void,
   children: React.ReactNode
 };
 

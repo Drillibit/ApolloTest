@@ -44,12 +44,12 @@ type IconProps = {
   icon: string,
   size: string,
   color: string,
-  rotation?: number | null
+  rotation?: 90 | 180 | 270 | undefined
 };
 
 type StyledIcaonProps = {
   size: string,
-  color: string
+  color?: string
 }
 const StyledIcon = styled.i<StyledIcaonProps>`
   font-size: ${({ size }) => size};
