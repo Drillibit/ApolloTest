@@ -6,7 +6,7 @@ import { colors } from '../helpers/colors';
 
 /*eslint-disable */
 type iconMapTypes = {
-  [key: string]: string[];
+  [key: string]:  string[];
 };
 
 const iconMap:iconMapTypes = {
@@ -42,11 +42,15 @@ const sizes: KeyVal = {
 
 type IconProps = {
   icon: string,
-  size: string,
-  color: string
+  size?: string,
+  color?: string
 };
 
-const StyledIcon = styled.i<IconProps>`
+type StyledIcaonProps = {
+  size: string,
+  color: string
+}
+const StyledIcon = styled.i<StyledIcaonProps>`
   font-size: ${({ size }) => size};
   color: ${({ color }) => color};
 `;
@@ -56,12 +60,13 @@ export class Icon extends PureComponent<IconProps> {
     const {
       icon, size, color, ...props
     } = this.props;
+    const currentIcon:any = iconMap[icon]
     return (
       <StyledIcon
         size={size in sizes ? sizes[size] : size}
         color={color in colors ? colors[color] : color}
       >
-        <FontAwesomeIcon icon={iconMap[icon]} {...props} />
+        <FontAwesomeIcon icon={currentIcon} {...props} />
       </StyledIcon>
     );
   }

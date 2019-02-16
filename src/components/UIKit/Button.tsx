@@ -122,12 +122,12 @@ const shadowStyles = css`
 `;
 
 type BtnProps = {
-  btnType: string,
-  btnSize: string,
-  btnShadow: boolean,
-  disabled: boolean,
+  btnType?: string,
+  btnSize?: string,
+  btnShadow?: boolean,
+  disabled?: boolean,
   onClick: () => void,
-  children: React.ReactChild[]
+  children: React.ReactNode
 };
 
 export const StyledButton = styled.button<BtnProps>`
