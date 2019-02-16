@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes, { func, shape, string, number } from 'prop-types';
 import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
 
 import { Icon } from './Icon';
 
-const StyledFilterWrapper = styled.div`
+type StyledFilterWrapperType = {
+  isOpen: boolean
+};
+
+const StyledFilterWrapper = styled.div<StyledFilterWrapperType>`
   position: relative;
   filter: ${({ isOpen }) => (isOpen ? 'drop-shadow(0 0 40px rgba(0,0,0, 0.3))' : 'none')};
   z-index: ${({ isOpen }) => (isOpen ? '100' : 'initial')};
@@ -35,7 +38,7 @@ const StyledFilterButton = styled.button`
   }
 `;
 
-const StyledFilterList = styled.div`
+const StyledFilterList = styled.div<StyledFilterWrapperType>`
  position: absolute;
  top: 40px;
  left: 0;
@@ -53,7 +56,10 @@ const StyledListButtonWrapper = styled.div`
   text-align: left;
 `;
 
-const StyledListButton = styled.button`
+type StyledListButtonType = {
+  active: boolean
+};
+const StyledListButton = styled.button<StyledListButtonType>`
   position: relative;
   height: 40px;
   margin-right: 5px;
@@ -90,11 +96,28 @@ const StyledListButton = styled.button`
   }
 `;
 
-export class Filter extends Component {
+type FilterProp = {
+  list: [{
+    id: string
+    name: string
+  }]
+  activeGenre: {
+    name: string
+    id: string
+  }
+  onChange: (id:string) => void 
+};
+export class Filter extends Component<FilterProp> {
   state = {
     isOpen: false,
   };
-
+  static defaultProps = {
+    list: [{}],
+    activeGenre: {
+      name: 'Жанр',
+      id: ''
+    }
+  };
   handleToggle = () => {
     this.setState({
       isOpen: !this.state.isOpen,
@@ -102,23 +125,26 @@ export class Filter extends Component {
   };
 
   handleClose = () => {
-    this.setState({
-      isOpen: false,
-    });
+    const { isOpen } = this.state;
+    if(isOpen) {
+      this.setState({
+        isOpen: false,
+      });
+    }
   };
 
-  handleClickFilterItem = (e) => {
+  handleClickFilterItem = (e:any) => {
     this.handleToggle();
     this.props.onChange(e.target.dataset.id);
   };
 
   render() {
     return (
-      <RootClose onRootClose={this.state.isOpen ? this.handleClose : null}>
+      <RootClose onRootClose={this.handleClose}>
         <StyledFilterWrapper isOpen={this.state.isOpen}>
           <StyledFilterTitle>
             <StyledFilterButton onClick={this.handleToggle}>
-              {this.props.activeGenre.name} <Icon icon="chevron-down" rotation={this.state.isOpen ? 180 : null} />
+              {this.props.activeGenre.name} <Icon size="sm" color="gray300" icon="chevron-down" rotation={this.state.isOpen ? 180 : undefined} />
             </StyledFilterButton>
 
             <StyledFilterList isOpen={this.state.isOpen}>
@@ -140,22 +166,3 @@ export class Filter extends Component {
     );
   }
 }
-
-Filter.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.object),
-  onChange: func,
-  activeGenre: shape({
-    name: string,
-    id: string
-  })
-};
-
-Filter.defaultProps = {
-  list: [{}],
-  onChange: f => f,
-  activeGenre: {
-    name: 'Жанр',
-    id: ''
-  }
-};
-
