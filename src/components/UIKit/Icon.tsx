@@ -42,8 +42,9 @@ const sizes: KeyVal = {
 
 type IconProps = {
   icon: string,
-  size?: string,
-  color?: string
+  size: string,
+  color: string,
+  rotation?: number | null
 };
 
 type StyledIcaonProps = {
