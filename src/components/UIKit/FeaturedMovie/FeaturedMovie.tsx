@@ -1,5 +1,4 @@
 import React from 'react';
-import { objectOf, any } from 'prop-types';
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -13,8 +12,15 @@ import { H1, LargeText } from '../Typography';
 import { Icon } from '../Icon';
 import { Preloader } from '../Preloader';
 import { FavouriteControll } from '../../../containers/FavouriteControll';
+import { ApolloError } from 'apollo-client';
 
-const FeaturedMovieStyled = styled.div`
+type FeaturedMovieStyledType = {
+  movie: {
+    backdrop_path: string
+  }
+};
+
+const FeaturedMovieStyled = styled.div<FeaturedMovieStyledType>`
   position: relative;
   min-height: 700px;
   background: #000
@@ -99,7 +105,47 @@ const StyledLargeText = styled(LargeText)`
   font-weight: bold;
 `;
 
-const FeaturedMovieView = ({ data: { movie, loading, error } }) => {
+type FeaturedMovieViewProp = { 
+  data:{
+      loading: boolean
+      error?: ApolloError
+      movie: {
+      id: string 
+      title: number
+      overview: string
+      genres: [{
+        id: string
+        name: string
+      }]
+      backdrop_path: string
+      poster_path: string
+      release_date: string
+      production_countries: {
+        name: string
+      }
+      runtime: string
+      vote_count: number
+      vote_average: number
+      video: {
+        name: string
+        key: string
+      }
+      similar: {
+        id: string
+        title: string
+        backdrop_path: string
+        poster_path: string
+        vote_count: string
+        vote_average: string
+        overview: string
+        runtime: string
+        release_date: string
+      }
+    }
+  }
+}
+
+const FeaturedMovieView = ({ data: { movie, loading, error }}:FeaturedMovieViewProp) => {
   if (loading) {
     return (
       <PreloaderContainer>
@@ -149,7 +195,7 @@ const FeaturedMovieView = ({ data: { movie, loading, error } }) => {
                   btnSize="small"
                   movieId={movie.id}
                 >
-                  <Icon icon="heart" />
+                  <Icon size="sm" color="#fff" icon="heart" />
                   В избранное
               </FavouriteControll>
               </WrapButtonBlock>
@@ -170,20 +216,17 @@ const FeaturedMovieView = ({ data: { movie, loading, error } }) => {
   );
 };
 
+type MovieId = {
+  movie: {
+    id: string
+  }
+}
 export const FeaturedMovie = compose(
   graphql(GET_MOVIE, {
-    options: ownProps => ({
+    options: (ownProps:MovieId) => ({
       variables: {
         id: `${ownProps.movie.id}`
       }
     })
   })
 )(FeaturedMovieView);
-
-FeaturedMovieView.propTypes = {
-  data: objectOf(any),
-};
-
-FeaturedMovieView.defaultProps = {
-  data: {},
-};

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
-import PropTypes from 'prop-types';
 
 import { colors } from '../../helpers/colors';
 import { Icon } from '../Icon';
@@ -37,21 +36,23 @@ const StyledDropdownArrow = styled(Icon)`
   transition: all ease-in .3s;
 `;
 
-export class Dropdown extends PureComponent {
-  static propTypes = {
-    handleChange: PropTypes.func,
-    options: PropTypes.arrayOf(PropTypes.object),
-    activeOption: PropTypes.objectOf(PropTypes.oneOfType(
-      [PropTypes.string, PropTypes.number]
-    ))
-  };
+type DropdownPorps = {
+  handleChange: (picked:number) => void,
+  options: [{
+    id: string,
+    name: string
+  }],
+  activeOption: {
+    id: string | number,
+    name: string | undefined
+  }
+};
 
-  static defaultProps = {
-    handleChange: f => f,
-    options: [],
-    activeOption: {}
-  };
+type DropdownState = {
+  isOpen: boolean
+}
 
+export class Dropdown extends PureComponent<DropdownPorps, DropdownState> {
   state = {
     isOpen: false
   };
@@ -68,7 +69,7 @@ export class Dropdown extends PureComponent {
     });
   };
 
-  closeDropdown = (e) => {
+  closeDropdown = (e:any) => {
     const picked = (parseInt(e.target.value, 10) - 1);
     if (picked >= 0) {
       this.props.handleChange(picked);
@@ -87,7 +88,7 @@ export class Dropdown extends PureComponent {
         <StyledButtonContainer>
           <StyledDropdownButton onClick={this.handleClick}>
             {activeOption.name || 'Не выбранно'}
-            <StyledDropdownArrow icon="chevron-down" rotation={isOpen ? 180 : null} />
+            <StyledDropdownArrow size="sm" color="gray300" icon="chevron-down" rotation={isOpen ? 180 : undefined} />
           </StyledDropdownButton>
         </StyledButtonContainer>
         {isOpen && (

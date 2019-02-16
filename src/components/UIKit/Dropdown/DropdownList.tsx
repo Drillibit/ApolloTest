@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -23,7 +23,11 @@ const StyledDropGroup = styled.div`
   align-items: center;
 `;
 
-const StyledChecked = styled(Icon)`
+type StyledCheckedType = {
+  active: string
+};
+
+const StyledChecked = styled(Icon)<StyledCheckedType>`
   width: 14px;
   height: 14px;
   margin-right: 4px;
@@ -52,11 +56,21 @@ const StyledDropdownBtn = styled.button`
   }
 `;
 
-export const DropdownList = ({ options, closeDropdown, activeOption }) => (
+type DropdownListPorps = {
+  options: [{ 
+    id: string,
+    name: string
+   }],
+   closeDropdown: (e:any) => void,
+   activeOption: {
+     id: number | string
+   }
+}
+export const DropdownList = ({ options, closeDropdown, activeOption }:DropdownListPorps) => (
   <StyledDropdownContent>
     {options.map(({ name, id }) => (
       <StyledDropGroup key={id}>
-        <StyledChecked icon="check" active={(id === activeOption.id).toString()} />
+        <StyledChecked size="sm" color="gray300" icon="check" active={(id === activeOption.id).toString()} />
         <StyledDropdownBtn onClick={closeDropdown} value={id}>
           {name}
         </StyledDropdownBtn>
@@ -66,14 +80,3 @@ export const DropdownList = ({ options, closeDropdown, activeOption }) => (
   </StyledDropdownContent>
 );
 
-DropdownList.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.object),
-  closeDropdown: PropTypes.func.isRequired,
-  activeOption: PropTypes.objectOf(PropTypes.oneOfType(
-    [PropTypes.string, PropTypes.number]
-  )).isRequired
-};
-
-DropdownList.defaultProps = {
-  options: []
-};

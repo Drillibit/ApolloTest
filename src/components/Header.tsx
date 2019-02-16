@@ -41,7 +41,7 @@ const StyledRightGroup = styled.div`
   }
 `;
 
-export const Header = props => (
+export const Header = (props:any) => (
   <StyledHeaderContainer>
     <StyledGrid>
       <StyledRow middle="xs">

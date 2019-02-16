@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import PropTypes, { func } from 'prop-types';
 
 const buttonDefault = css`
   position: relative;
@@ -122,7 +121,16 @@ const shadowStyles = css`
   box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.5);
 `;
 
-export const StyledButton = styled.button`
+type BtnProps = {
+  btnType?: string,
+  btnSize?: string,
+  btnShadow?: boolean,
+  disabled?: boolean,
+  onClick?: () => void,
+  children: React.ReactNode
+};
+
+export const StyledButton = styled.button<BtnProps>`
   background-color: transparent;
   ${buttonDefault}
 
@@ -153,7 +161,7 @@ export const StyledButton = styled.button`
 
 export const Button = ({
   btnType, btnSize, btnShadow, disabled, onClick, children
-}) => (
+}:BtnProps) => (
   <StyledButton
     btnType={btnType}
     btnSize={btnSize}
@@ -164,21 +172,3 @@ export const Button = ({
     {children}
   </StyledButton>
 );
-
-Button.propTypes = {
-  btnType: PropTypes.string,
-  btnSize: PropTypes.string,
-  btnShadow: PropTypes.bool,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
-  disabled: PropTypes.bool,
-  onClick: func,
-};
-
-Button.defaultProps = {
-  onClick: f => f,
-  btnType: 'transparent-white',
-  btnSize: 'middle',
-  btnShadow: false,
-  disabled: false,
-};
-
