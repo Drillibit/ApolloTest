@@ -1,13 +1,12 @@
 import React from 'react';
-import { string } from 'prop-types';
 
 import { Button } from './UIKit/Button';
 import { Icon } from './UIKit/Icon';
 import { colors } from './helpers/colors';
 import { CURRENT_USER } from './Requests/user';
 
-const resolveMoives = (favouriteMovies, id) => {
-  const movieObj = favouriteMovies.reduce((acc, item) => ({ ...acc, [item._id]: { ...item } }), {});
+const resolveMoives = (favouriteMovies:[{_id:string}], id:string) => {
+  const movieObj:any = favouriteMovies.reduce((acc, item) => ({ ...acc, [item._id]: { ...item } }), {});
   if (movieObj[id]) {
     delete movieObj[id];
     return Object.values(movieObj);
@@ -17,9 +16,9 @@ const resolveMoives = (favouriteMovies, id) => {
   return arr;
 };
 
-export const FavouriteButton = (props) => {
+export const FavouriteButton = (props:any) => {
   const isFavourite = props.data.CurrentUser ?
-    props.data.CurrentUser.favouriteMovies.find(el => el._id === props.movieId)
+    props.data.CurrentUser.favouriteMovies.find((el:any) => el._id === props.movieId)
     :
     false;
   const toggleFavourite = () => {
@@ -33,7 +32,7 @@ export const FavouriteButton = (props) => {
           favouriteMovies: resolveMoives(props.data.CurrentUser.favouriteMovies, props.movieId)
         }
       },
-      update: (store, { data: addFavourite }) => {
+      update: (store:any, { data: addFavourite }:any) => {
         const data = store.readQuery({ query: CURRENT_USER });
         data.CurrentUser.favouriteMovies = addFavourite.addFavourite.favouriteMovies;
         store.writeQuery({ query: CURRENT_USER, data });
@@ -47,14 +46,11 @@ export const FavouriteButton = (props) => {
 
   return (
     <Button btnType={props.btnType} btnSize="small" onClick={toggleFavourite}>
-      <Icon icon={isFavourite ? 'heart-fill' : 'heart'} color={isFavourite ? colors.purple : 'inherit'} /> {isFavourite ? 'В избранном' : 'В избанное'}
+      <Icon size="" icon={isFavourite ? 'heart-fill' : 'heart'} color={isFavourite ? colors.purple : 'inherit'} /> {isFavourite ? 'В избранном' : 'В избанное'}
     </Button>
   );
 };
 
-FavouriteButton.propTypes = {
-  btnType: string,
-};
 
 FavouriteButton.defaultProps = {
   btnType: '',
