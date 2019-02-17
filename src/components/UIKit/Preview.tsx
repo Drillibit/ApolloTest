@@ -174,7 +174,7 @@ type PreviewProp = {
   genre_ids: string[]
   cast?: string
   isFavourite: boolean,
-  toggleFavourite: () => void
+  toggleFavourite?: () => void
 };
 export class Preview extends PureComponent<PreviewProp> {
   static defaultProps = {

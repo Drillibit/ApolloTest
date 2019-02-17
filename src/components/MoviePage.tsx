@@ -148,7 +148,7 @@ const StyledContainer = styled.div`
 
 type MoviePageProps = {
   video: { key: string },
-  similar: [],
+  similar: [{id: string}],
   favourite: boolean,
   toggleFavourite: () => void,
   favourites: { key: boolean },
@@ -241,7 +241,7 @@ export class MoviePage extends PureComponent<MoviePageProps, MoviePageState> {
                         btnSize="small"
                         onClick={this.goBack}
                       >
-                        <Icon icon="chevron-left" />
+                        <Icon size="" color="" icon="chevron-left" />
                         Назад
                       </Button>
                     </StyledLink>
@@ -343,14 +343,14 @@ export class MoviePage extends PureComponent<MoviePageProps, MoviePageState> {
             </StyledCustomRow>
             <StyledRow>
               <StyledCol md={12}>
-                {similar.length !== 0 && (
+                {similar.length > 0 && (
                   <StyledDetailsHeader>
                     <StyledLargeText>Похожие</StyledLargeText>
                   </StyledDetailsHeader>
                 )}
                 <StyledSimilar>
-                  {similar.length !== 0
-                    ? similar.map(({ id }) => <Preview key={id} id={id} />)
+                  {similar.length > 0
+                    ? similar.map(({id, ...item}) => <Preview key={id} {...item} />)
                     : ''}
                 </StyledSimilar>
               </StyledCol>

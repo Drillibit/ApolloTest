@@ -96,8 +96,8 @@ const StyledStarContainer = styled.div<StyledVoteCountType>`
   transform: scale(0.7);
   ${({ size }) => (size === 'lg' ? StyledStarContainerLg : '')};
 `;
-const rateConvert = (rate:string) => {
-  const num = parseFloat(rate) / 2;
+const rateConvert = (rate:number) => {
+  const num = rate / 2;
   const restNum = num % 1;
   return {
     stars: new Array(Math.floor(num)).fill(0),
@@ -109,8 +109,8 @@ const rateConvert = (rate:string) => {
 
 type RatingProp = {
   className: string
-  voteAverage: string
-  voteCount: string | number
+  voteAverage: number
+  voteCount: number
   size: string
 };
 

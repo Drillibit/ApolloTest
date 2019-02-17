@@ -47,19 +47,31 @@ const StyledVideo = styled.video`
   height: 126px;
 `;
 
-const MediaHandler = (vid) => {
+const MediaHandler = (vid:React.RefObject<HTMLVideoElement>) => {
   navigator.mediaDevices.getUserMedia({ video: true, audio: false })
     .then((stream) => {
-      vid.current.srcObject = stream;
-      vid.current.play();
+      if(vid.current) {
+        vid.current.srcObject = stream;
+        vid.current.play();
+      } 
     })
     .catch((err) => {
       console.log(`Error: ${err}`);
     });
 };
 
-export class SignUp extends PureComponent {
-  constructor(props) {
+type SignUpState = {
+  name?: string
+  email?: string
+  password?: string
+  image?: string
+};
+
+export class SignUp extends PureComponent<any, SignUpState> {
+  private authCanvas: React.RefObject<HTMLCanvasElement>;
+  private authVideo: React.RefObject<HTMLVideoElement>;
+
+  constructor(props:any) {
     super(props);
     this.state = {
       name: '',
@@ -75,23 +87,26 @@ export class SignUp extends PureComponent {
     MediaHandler(this.authVideo);
   }
 
-  takePhoto = (e) => {
+  takePhoto = (e:React.MouseEvent) => {
     e.preventDefault();
     const canvas = this.authCanvas.current;
     const video = this.authVideo.current;
-    canvas.setAttribute('width', video.offsetHeight);
-    canvas.setAttribute('height', video.offsetHeight - 4);
+    if(canvas && video) {
 
-    const context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, 167, 120);
-
-    const ImageURL = canvas.toDataURL('image/png');
-    this.setState({
-      image: ImageURL
-    });
+      canvas.setAttribute('width', `${video.offsetHeight}`);
+      canvas.setAttribute('height', `${video.offsetHeight - 4}`);
+  
+      const context = canvas.getContext('2d');
+      if(context) context.drawImage(video, 0, 0, 167, 120);
+  
+      const ImageURL = canvas.toDataURL('image/png');
+      this.setState({
+        image: ImageURL
+      });
+    }
   }
 
-  handleInputChange = (e) => {
+  handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     this.setState({
       [name]: value
@@ -138,7 +153,7 @@ export class SignUp extends PureComponent {
             <div>
               <button onClick={this.takePhoto}>Take Photo</button>
               <StyledVideoContainer>
-                <StyledVideo innerRef={this.authVideo}>What are you looking at?</StyledVideo>
+                <StyledVideo ref={this.authVideo}>What are you looking at?</StyledVideo>
               </StyledVideoContainer>
               <canvas ref={this.authCanvas}></canvas>
             </div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { withApollo, ApolloProviderProps, WithApolloClient } from 'react-apollo';
-import { func, arrayOf, object, objectOf, any, shape } from 'prop-types';
+import { withApollo, WithApolloClient } from 'react-apollo';
 import styled from 'styled-components';
 
 import { AuthControll } from './AuthControll';
@@ -38,16 +37,16 @@ type SearchControllerPorps = {
 
 type SearchControllerState = {
   value: string,
-  results: []
+  results: Array<{ title:string, id:string }>
 }
 class SearchController extends Component<SearchControllerPorps, SearchControllerState> {
   timeOut = 0;
   state = {
     value: '',
-    results: [{ title: '', id: '' }]
+    results: []
   };
 
-  handleChange = (e:React.ChangeEvent<HTMLInputElement>): void => {
+  handleChange = (e:any) => {
     const { value } = e.target;
     const { client } = this.props;
     clearTimeout(this.timeOut);

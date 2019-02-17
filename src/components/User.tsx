@@ -19,9 +19,8 @@ const Wrapper = styled.div`
  align-items: center;
 `;
 
-const User = props => (
+const User = () => (
   <Wrapper>
-   {console.log(props.data) }
     <p>User Component</p>
   </Wrapper>
 );
