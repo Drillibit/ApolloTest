@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PostCSSFlexBugsFixes = require('postcss-flexbugs-fixes');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const paths = require('./paths');
 
@@ -60,24 +61,9 @@ module.exports = {
       {
         test: /\.(js|jsx|ts|tsx)$/,
         include: paths.appSrc,
-        loader: require.resolve('babel-loader'),
+        loader: 'ts-loader',
         options: {
-          cacheDirectory: true,
-          babelrc: true,
-          presets: [
-            [
-              '@babel/preset-env',
-              { targets: { browsers: 'last 2 versions' } } // or whatever your project requires
-            ],
-            '@babel/preset-typescript',
-            '@babel/preset-react'
-          ],
-          plugins: [
-            // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
-            ['@babel/plugin-proposal-decorators', { legacy: true }],
-            ['@babel/plugin-proposal-class-properties', { loose: true }],
-            'react-hot-loader/babel'
-          ]
+          transpileOnly: true
         }
       },
       {
@@ -117,7 +103,11 @@ module.exports = {
       inject: true,
       template: paths.htmlSrc
     }),
-    new webpack.HotModuleReplacementPlugin({})
+    new ForkTsCheckerWebpackPlugin({
+      tsconfig: paths.tsConfig,
+      tslint: true
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']

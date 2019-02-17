@@ -3,6 +3,7 @@
   "defaultSeverity": "warning",
   "linterOptions": {
     "exclude": [
+      "./webpack.config.js",
       "config/**/*.js",
       "node_modules/**/*.ts"
     ]

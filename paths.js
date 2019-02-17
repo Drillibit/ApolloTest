@@ -11,4 +11,6 @@ module.exports = {
   indexSrc: getRealPath('src/index.tsx'),
   appSrc: getRealPath('src'),
   publicUrl: getRealPath('/'),
+  tsConfig: getRealPath('./tsconfig.json'),
+  tsLint: getRealPath('./tslint.json')
 };
