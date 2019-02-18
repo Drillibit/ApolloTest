@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { History } from 'history';
+import { CONFIG } from '../services/api';
 
 import { colors } from './helpers/colors';
 import { H1, H2, SmallText, LargeText } from './UIKit/Typography';
@@ -350,7 +351,22 @@ export class MoviePage extends PureComponent<MoviePageProps, MoviePageState> {
                 )}
                 <StyledSimilar>
                   {similar.length > 0
-                    ? similar.map(({id, ...item}) => <Preview key={id} {...item} />)
+                    ? similar.map((item:any) => {
+                      const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
+                      const bg:string = item.poster_path ? BACKDROP_PATH + item.poster_path : '../assets/img/background.jpg';
+                      return <Preview 
+                        key={item.id}
+                        title={item.title}
+                        voteAverage={item.vote_average}
+                        voteCount={item.vote_count}
+                        bg={bg}
+                        year={item.release_date}
+                        duration={'123'}
+                        pg={item.adult ? "18+" : "12+"}
+                        genre={item.genre_ids}
+                        description={item.overview} {...item}
+                      />
+                    })
                     : ''}
                 </StyledSimilar>
               </StyledCol>

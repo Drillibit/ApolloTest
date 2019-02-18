@@ -4,7 +4,8 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PostCSSFlexBugsFixes = require('postcss-flexbugs-fixes');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const paths = require('./paths');
 
@@ -26,7 +27,7 @@ module.exports = {
     host: HOST,
     port: PORT,
     contentBase: paths.appSrc,
-    open: true,
+    // open: true,
     watchContentBase: true,
     hot: true,
     historyApiFallback: true,
@@ -59,12 +60,8 @@ module.exports = {
         }
       },
       {
-        test: /\.(js|jsx|ts|tsx)$/,
-        include: paths.appSrc,
-        loader: 'ts-loader',
-        options: {
-          transpileOnly: true
-        }
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
       },
       {
         test: /\.css$/,
@@ -99,18 +96,18 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.htmlSrc
-    }),
-    new ForkTsCheckerWebpackPlugin({
-      tsconfig: paths.tsConfig,
-      tslint: true
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
+  },
+  optimization: {
+    minimizer: [new UglifyJsPlugin()]
   },
   performance: {
     hints: mode === 'development' ? false : 'warning'

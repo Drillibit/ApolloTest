@@ -7,7 +7,7 @@
   "license": "Proprietary",
   "private": true,
   "scripts": {
-    "client": "NODE_ENV=development yarn webpack-dev-server",
+    "client": "cd config && NODE_ENV=development yarn webpack-dev-server",
     "server": "cd server && yarn start",
     "start": "concurrently \"yarn server\" \"yarn client\" ",
     "test": "jest",
@@ -75,6 +75,7 @@
     "@types/react-router-dom": "^4.3.1",
     "@types/redux-devtools-extension": "^2.13.2",
     "@types/styled-components": "^4.0.3",
+    "awesome-typescript-loader": "^5.2.1",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.5",
@@ -85,6 +86,7 @@
     "babel-preset-stage-2": "6.24.1",
     "babel-runtime": "6.26.0",
     "chalk": "^2.4.2",
+    "clean-webpack-plugin": "^1.0.1",
     "compression-webpack-plugin": "^2.0.0",
     "concurrently": "^4.1.0",
     "css-loader": "0.28.11",
@@ -112,7 +114,7 @@
     "ts-loader": "^5.3.3",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3",
-    "uglifyjs-webpack-plugin": "1.2.5",
+    "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack": "^4.29.3",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14"
