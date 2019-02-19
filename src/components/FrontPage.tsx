@@ -48,7 +48,7 @@ export class FrontPage extends Component {
     tabCounter: 1,
     tabId: 0,
     isLoading: false,
-    activeOption: { value: ''},
+    activeOption: { id: ''},
     hasMore: false,
     activeGenre: ''
   };
@@ -65,7 +65,7 @@ export class FrontPage extends Component {
     }))
   }
 
-  handleSort = (e:React.MouseEvent) => {
+  handleSort = (e:number) => {
     const optionsObj = Object.assign({}, optionsData);
     this.setState({
       activeOption: optionsObj[e]
@@ -89,8 +89,9 @@ export class FrontPage extends Component {
           if (data.tranding === undefined) return ''
           if (error) return `Error ${error.message}`
           return (
-            <FrontPageStyled onScroll={e => {
-              const scrollbottom = e.target.clientHeight + e.target.scrollTop >= e.target.scrollHeight
+            <FrontPageStyled onScroll={(e:React.UIEvent) => {
+              const  target = e.target as HTMLDivElement;
+              const scrollbottom = target.clientHeight + target.scrollTop >= target.scrollHeight
               if (scrollbottom) {
                 fetchMore({
                   variables: {
@@ -130,7 +131,7 @@ export class FrontPage extends Component {
                       <TabPane tabName="Сейчас в кино">
                         <PreviewStyled>
                           {!(networkStatus === 7) ? ''
-                            : data.tranding.results.map(item => {
+                            : data.tranding.results.map((item:any) => {
                               const bg = item.poster_path ? BACKDROP_PATH + item.poster_path : '../assets/img/background.jpg';
 
                               return (
@@ -154,7 +155,7 @@ export class FrontPage extends Component {
                       <TabPane tabName="Топ 100">
                         <PreviewStyled>
                           {!(networkStatus === 7) ? ''
-                            : data.tranding.results.map(item =>
+                            : data.tranding.results.map((item:any) =>
                               <Preview
                                 key={item.id}
                                 title={item.title}
@@ -177,7 +178,7 @@ export class FrontPage extends Component {
                           if (loading) return 'Loading...'
                           if (error) return `Error ${error.message}`
 
-                          const byId = genres_arr.reduce((acc, item) => ({ ...acc, [item.id]: { ...item } }), {});
+                          const byId = genres_arr.reduce((acc:any, item:any) => ({ ...acc, [item.id]: { ...item } }), {});
 
                           return (
                             <Filter activeGenre={byId[this.state.activeGenre]} onChange={this.handelGenre} list={genres_arr} />

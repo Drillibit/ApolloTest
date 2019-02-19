@@ -57,18 +57,18 @@ const StyledDropdownBtn = styled.button`
 `;
 
 type DropdownListPorps = {
-  options: [{ 
+  options?: [{ 
     id: string,
     name: string
    }],
    closeDropdown: (e:any) => void,
    activeOption: {
-     id: number | string
+     id?: number | string
    }
 }
 export const DropdownList = ({ options, closeDropdown, activeOption }:DropdownListPorps) => (
   <StyledDropdownContent>
-    {options.map(({ name, id }) => (
+    {options && options.map(({ name, id }) => (
       <StyledDropGroup key={id}>
         <StyledChecked size="sm" color="gray300" icon="check" active={(id === activeOption.id).toString()} />
         <StyledDropdownBtn onClick={closeDropdown} value={id}>

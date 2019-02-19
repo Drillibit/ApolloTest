@@ -17,7 +17,7 @@ const mode = process.env.NODE_ENV || 'development';
 module.exports = {
   mode: mode || 'development',
   devtool: mode === 'development' ? 'cheap-module-source-map' : false,
-  entry: ['@babel/polyfill', paths.indexSrc],
+  entry: paths.indexSrc,
   output: {
     filename: 'js/bundle.[hash:10].js',
     path: paths.distSrc,
@@ -27,15 +27,11 @@ module.exports = {
     host: HOST,
     port: PORT,
     contentBase: paths.appSrc,
-    // open: true,
+    open: true,
     watchContentBase: true,
     hot: true,
     historyApiFallback: true,
     stats: 'minimal',
-    overlay: {
-      warnings: true,
-      errors: true
-    },
     proxy: {
       '/graphql': 'http://localhost:3000',
       '/ws': 'ws://localhost:3000'
@@ -44,6 +40,10 @@ module.exports = {
   module: {
     strictExportPresence: true,
     rules: [
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+      },
       {
         test: [/\.jpe?g$/, /\.gif$/, /\.png$/],
         loader: require.resolve('url-loader'),
@@ -58,10 +58,6 @@ module.exports = {
         options: {
           name: 'assets/[name].[hash:10].[ext]'
         }
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
       },
       {
         test: /\.css$/,

@@ -38,13 +38,13 @@ const StyledDropdownArrow = styled(Icon)`
 
 type DropdownPorps = {
   handleChange: (picked:number) => void,
-  options: [{
+  options?: [{
     id: string,
     name: string
   }],
   activeOption: {
-    id: string | number,
-    name: string | undefined
+    id?: string | number,
+    name?: string | undefined
   }
 };
 

@@ -1,6 +1,5 @@
 import React, { Component, Children, cloneElement } from 'react';
 import ReactDOM from 'react-dom';
-import { bool, func, node } from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
 const root = document.getElementById('root');
@@ -56,13 +55,15 @@ const ModalContainer = styled.div`
   z-index: 1001;
 `;
 
-export class Modal extends Component {
-  static propTypes = {
-    open: bool,
-    onClose: func,
-    rootClose: bool,
-    children: node.isRequired,
-  };
+type ModalProps = {
+  open: boolean
+  onClose: () => void
+  rootClose: boolean
+  children: React.ReactNodeArray
+};
+
+export class Modal extends Component<ModalProps> {
+  element: HTMLDivElement
 
   static defaultProps = {
     open: false,
@@ -70,20 +71,20 @@ export class Modal extends Component {
     onClose: null,
   };
 
-  constructor(props) {
+  constructor(props:ModalProps) {
     super(props);
     this.element = document.createElement('div');
   }
 
   componentDidMount() {
-    root.appendChild(this.element);
+    if (root) root.appendChild(this.element);
   }
 
   componentWillUnmount() {
-    root.removeChild(this.element);
+    if (root) root.removeChild(this.element);
   }
 
-  handleText = (e) => {
+  handleText = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     this.setState(() => ({
       text: value
@@ -97,7 +98,7 @@ export class Modal extends Component {
 
     if (!open) return null;
 
-    const content = Children.map(children, child =>
+    const content = Children.map(children, (child:any) =>
       cloneElement(child, { onClose }),
     );
 
@@ -106,7 +107,7 @@ export class Modal extends Component {
         <ModalContainer>
           {content}
         </ModalContainer>
-        <Overlay onClick={rootClose && onClose} />
+        {rootClose && <Overlay onClick={onClose} />}
       </Container>,
       this.element,
     );

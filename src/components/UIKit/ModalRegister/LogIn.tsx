@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { Mutation } from 'react-apollo';
 import styled from 'styled-components';
 
@@ -47,7 +47,7 @@ export class LogIn extends PureComponent {
     password: ''
   };
 
-  handleInputChange = e => {
+  handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     this.setState({
       [name]: value
