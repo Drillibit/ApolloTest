@@ -59,7 +59,7 @@ type ModalProps = {
   open: boolean
   onClose: () => void
   rootClose: boolean
-  children: React.ReactNodeArray
+  children: React.ReactNode
 };
 
 export class Modal extends Component<ModalProps> {

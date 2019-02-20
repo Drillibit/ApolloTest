@@ -74,7 +74,7 @@ export class MoviePlayer extends PureComponent<MoviePlayerProps> {
         {!playing && (
           <StyledOveraly bg={image}>
             <Button btnType="primary" btnSize="middle" onClick={onPlay}>
-              <Icon icon="play" />
+              <Icon size="sm" color="#fff" icon="play" />
               Смотреть трейлер
             </Button>
           </StyledOveraly>

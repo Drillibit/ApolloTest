@@ -7,7 +7,7 @@
   "license": "Proprietary",
   "private": true,
   "scripts": {
-    "client": "NODE_ENV=development yarn webpack-dev-server",
+    "client": "NODE_ENV=development webpack-dev-server",
     "server": "cd server && yarn start",
     "start": "concurrently \"yarn server\" \"yarn client\" ",
     "test": "jest",
