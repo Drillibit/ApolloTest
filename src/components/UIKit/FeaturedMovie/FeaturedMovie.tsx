@@ -20,12 +20,10 @@ type FeaturedMovieStyledType = {
   }
 };
 
-const FeaturedMovieStyled = styled.div<FeaturedMovieStyledType>`
+const FeaturedMovieStyled = styled.div`
   position: relative;
   min-height: 700px;
-  background: #000
-    url(${({ movie }) => `${CONFIG.IMAGE_BASE}/original/${movie.backdrop_path}`})
-    no-repeat center;
+  background: #000 url(${({ movie }:FeaturedMovieStyledType) => `${CONFIG.IMAGE_BASE}/original/${movie.backdrop_path}`}) no-repeat center;
   background-size: cover;
 `;
 
@@ -157,7 +155,7 @@ const FeaturedMovieView = ({ data: { movie, loading, error }}:FeaturedMovieViewP
   }
 
   if (error) return `Error! ${error.message}`;
-
+  console.log(movie)
   return (
     <FeaturedMovieStyled movie={movie}>
       <FeatureGradient>

@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Preview /> renders preview component 1`] = `
+<RootCloseWrapper
+  event="click"
+  onRootClose={[Function]}
+>
+  <styled.div>
+    <styled.div
+      onClick={[Function]}
+      open={false}
+    >
+      <Styled(styled.h3)
+        open={false}
+      >
+        Jurassic World: Fallen Kingdom
+      </Styled(styled.h3)>
+      <styled.div
+        open={false}
+      >
+        <Component
+          bg="https://image.tmdb.org/t/p/w500/c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg"
+          cast=""
+          className=""
+          description="Several years after the demise of Jurassic World, a volcanic eruption threatens the remaining dinosaurs on the island of Isla Nublar. Claire Dearing, the former park manager and founder of the Dinosaur Protection Group, recruits Owen Grady to help prevent the extinction of the dinosaurs once again."
+          duration="123"
+          genre_ids={
+            Array [
+              "28",
+              "12",
+              "878",
+            ]
+          }
+          id="351286"
+          isFavourite={false}
+          pg="16"
+          size="md"
+          title="Jurassic World: Fallen Kingdom"
+          voteAverage={0}
+          voteCount={0}
+          year="2018-06-06"
+        />
+      </styled.div>
+      <styled.div
+        bg="https://image.tmdb.org/t/p/w500/c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg"
+        open={false}
+      />
+      <styled.div
+        open={false}
+      >
+        <Styled(styled.h3)>
+          Jurassic World: Fallen Kingdom
+        </Styled(styled.h3)>
+        <styled.div>
+          <styled.span>
+            2018-06-06
+          </styled.span>
+          <styled.span>
+            123
+             
+            мин
+          </styled.span>
+          <styled.span>
+            16
+          </styled.span>
+        </styled.div>
+        <Query
+          query={
+            Object {
+              "definitions": Array [
+                Object {
+                  "directives": Array [],
+                  "kind": "OperationDefinition",
+                  "name": Object {
+                    "kind": "Name",
+                    "value": "genres",
+                  },
+                  "operation": "query",
+                  "selectionSet": Object {
+                    "kind": "SelectionSet",
+                    "selections": Array [
+                      Object {
+                        "alias": undefined,
+                        "arguments": Array [],
+                        "directives": Array [],
+                        "kind": "Field",
+                        "name": Object {
+                          "kind": "Name",
+                          "value": "genres_arr",
+                        },
+                        "selectionSet": Object {
+                          "kind": "SelectionSet",
+                          "selections": Array [
+                            Object {
+                              "alias": undefined,
+                              "arguments": Array [],
+                              "directives": Array [],
+                              "kind": "Field",
+                              "name": Object {
+                                "kind": "Name",
+                                "value": "id",
+                              },
+                              "selectionSet": undefined,
+                            },
+                            Object {
+                              "alias": undefined,
+                              "arguments": Array [],
+                              "directives": Array [],
+                              "kind": "Field",
+                              "name": Object {
+                                "kind": "Name",
+                                "value": "name",
+                              },
+                              "selectionSet": undefined,
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                  "variableDefinitions": Array [],
+                },
+              ],
+              "kind": "Document",
+              "loc": Object {
+                "end": 65,
+                "start": 0,
+              },
+            }
+          }
+        >
+          <Component />
+        </Query>
+        <styled.div>
+          <Styled(Styled(Styled(styled.p)))>
+            Several years after the demise of Jurassic World, a volcanic eruption threatens the remain...
+          </Styled(Styled(Styled(styled.p)))>
+        </styled.div>
+        <styled.div>
+          <Apollo(Apollo(Component))
+            btnSize="small"
+            btnType="transparent-dark"
+            movieId="351286"
+          >
+            <Icon
+              color="#fff"
+              icon="heart"
+              size="sm"
+            />
+            Избранное
+          </Apollo(Apollo(Component))>
+          <Link
+            replace={false}
+            to="/movie/351286"
+          >
+            <Styled(styled.button)
+              btnType="primary"
+              onClick={[Function]}
+            >
+              Подробнее
+            </Styled(styled.button)>
+          </Link>
+        </styled.div>
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</RootCloseWrapper>
+`;

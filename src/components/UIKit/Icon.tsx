@@ -41,9 +41,10 @@ const sizes: KeyVal = {
 /*eslint-disable */
 
 type IconProps = {
-  icon: string,
-  size: string,
-  color: string,
+  icon: string
+  size: string
+  color: string
+  onClick?: () => void
   rotation?: 90 | 180 | 270 | undefined
 };
 

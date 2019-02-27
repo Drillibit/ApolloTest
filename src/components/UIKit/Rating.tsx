@@ -31,7 +31,11 @@ const StyledIcon = styled(Icon)`
   color: ${colors.purple};
 `;
 
-const StyledRatingBottom = styled(StyledRatingTop)`
+type StyledRatingBottomType = {
+  width: number
+};
+
+const StyledRatingBottom = styled(StyledRatingTop)<StyledRatingBottomType>`
   display: block;
   width: ${({ width }) => `${width}%`};
 `;
@@ -54,7 +58,11 @@ const StyledVoteCountLg = css`
   color: #fff;
 `;
 
-const StyledVoteCount = styled.span`
+type StyledVoteCountType = {
+  size: string
+};
+
+const StyledVoteCount = styled.span<StyledVoteCountType>`
   font-size: 12px;
   margin-left: 10px;
   color: ${colors.grey200};
@@ -83,25 +91,32 @@ const StyledStarContainerLg = css`
   transform: scale(1);
 `;
 
-const StyledStarContainer = styled.div`
+const StyledStarContainer = styled.div<StyledVoteCountType>`
   display: flex;
   transform: scale(0.7);
   ${({ size }) => (size === 'lg' ? StyledStarContainerLg : '')};
 `;
-const rateConvert = (rate) => {
-  const num = parseFloat(rate) / 2;
+const rateConvert = (rate:number) => {
+  const num = rate / 2;
   const restNum = num % 1;
   return {
-    stars: new Array(Math.floor(num)).fill(),
-    singleStar: restNum.toFixed(2) * 100,
+    stars: new Array(Math.floor(num)).fill(0),
+    singleStar: +restNum.toFixed(2) * 100,
     rate: num.toFixed(1),
-    emptyStars: new Array(num >= 5 ? 0 : 4 - Math.floor(num)).fill()
+    emptyStars: new Array(num >= 5 ? 0 : 4 - Math.floor(num)).fill(0)
   };
+};
+
+type RatingProp = {
+  className: string
+  voteAverage: number
+  voteCount: number
+  size: string
 };
 
 export const Rating = ({
   className, voteAverage, voteCount, size
-}) => {
+}:RatingProp) => {
   const {
     stars,
     singleStar,
@@ -117,32 +132,25 @@ export const Rating = ({
             <StyledRateNumber>{rate}</StyledRateNumber>
           </StyledRate>
         )}
-        {stars.map((_, index) => (
-          <GenericStar icon="star-fill" key={index} />
+        {stars.map((_:any, index:number) => (
+          <GenericStar size="" color="" icon="star-fill" key={index} />
         ))}
         {singleStar > 0 && (
           <StyledRatingContainer>
             <StyledRatingTop>
-              <Icon icon="star" />
+              <Icon size="" color="" icon="star" />
             </StyledRatingTop>
             <StyledRatingBottom width={singleStar}>
-              <StyledIcon icon="star-fill" />
+              <StyledIcon size="" color="" icon="star-fill" />
             </StyledRatingBottom>
           </StyledRatingContainer>
         )}
       </StyledStarContainer>
       {size === 'lg' &&
-        emptyStars.map((_, index) => <GenericStar icon="star" key={index} />)}
+        emptyStars.map((_, index) => <GenericStar size="" color="" icon="star" key={index} />)}
       <StyledVoteCount size={size}>{voteCount} отзывов</StyledVoteCount>
     </StyledRaitngMain>
   );
-};
-
-Rating.propTypes = {
-  size: PropTypes.string,
-  voteCount: PropTypes.number,
-  voteAverage: PropTypes.number,
-  className: PropTypes.string
 };
 
 Rating.defaultProps = {

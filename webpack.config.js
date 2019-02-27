@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PostCSSFlexBugsFixes = require('postcss-flexbugs-fixes');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const paths = require('./paths');
 
@@ -15,7 +16,7 @@ const mode = process.env.NODE_ENV || 'development';
 module.exports = {
   mode: mode || 'development',
   devtool: mode === 'development' ? 'cheap-module-source-map' : false,
-  entry: ['@babel/polyfill', paths.indexSrc],
+  entry: paths.indexSrc,
   output: {
     filename: 'js/bundle.[hash:10].js',
     path: paths.distSrc,
@@ -30,10 +31,6 @@ module.exports = {
     hot: true,
     historyApiFallback: true,
     stats: 'minimal',
-    overlay: {
-      warnings: true,
-      errors: true
-    },
     proxy: {
       '/graphql': 'http://localhost:3000',
       '/ws': 'ws://localhost:3000'
@@ -42,6 +39,10 @@ module.exports = {
   module: {
     strictExportPresence: true,
     rules: [
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+      },
       {
         test: [/\.jpe?g$/, /\.gif$/, /\.png$/],
         loader: require.resolve('url-loader'),
@@ -55,29 +56,6 @@ module.exports = {
         loader: require.resolve('file-loader'),
         options: {
           name: 'assets/[name].[hash:10].[ext]'
-        }
-      },
-      {
-        test: /\.(js|jsx|ts|tsx)$/,
-        include: paths.appSrc,
-        loader: require.resolve('babel-loader'),
-        options: {
-          cacheDirectory: true,
-          babelrc: true,
-          presets: [
-            [
-              '@babel/preset-env',
-              { targets: { browsers: 'last 2 versions' } } // or whatever your project requires
-            ],
-            '@babel/preset-typescript',
-            '@babel/preset-react'
-          ],
-          plugins: [
-            // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
-            ['@babel/plugin-proposal-decorators', { legacy: true }],
-            ['@babel/plugin-proposal-class-properties', { loose: true }],
-            'react-hot-loader/babel'
-          ]
         }
       },
       {
@@ -113,11 +91,12 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.htmlSrc
     }),
-    new webpack.HotModuleReplacementPlugin({})
+    new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']

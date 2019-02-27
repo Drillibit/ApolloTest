@@ -1,15 +1,14 @@
 import React from 'react';
-import { string } from 'prop-types';
+
+type LogoType = {
+  color?: string
+};
 
 import { Keeno } from '../../assets/img/keeNo';
 
-export const Logo = ({ color }) => (
+export const Logo = ({ color }:LogoType) => (
   <Keeno color={color} />
 );
-
-Logo.propTypes = {
-  color: string
-};
 
 Logo.defaultProps = {
   color: '#ffffff'

@@ -98,10 +98,12 @@ type SearhState = {
 
 
 type SearchStateProps = {
-  clearSearch: () => void,
-  onChange: (event: { target: { value: string } }) => void,
-  value: string,
-  result: [{ id: number | string, title: string }]
+  clearSearch?: () => void
+  onChange: (event: { target: { value: string } }) => void
+  onClick?: () => void
+  onClose?: () => void
+  value: string
+  result: Array<{ title:string | undefined, id:string | undefined }>
 }
 
 export class Search extends PureComponent<SearchStateProps, SearhState> {
@@ -121,7 +123,7 @@ export class Search extends PureComponent<SearchStateProps, SearhState> {
   onClose = () => {
     const { clearSearch, onChange } = this.props;
     if (this.state.isOpen === true) {
-      clearSearch();
+      if(clearSearch) clearSearch();
       onChange({ target: { value: '' } });
       this.setState({
         isOpen: false,
@@ -210,7 +212,7 @@ export class Search extends PureComponent<SearchStateProps, SearhState> {
           />
           {(isOpen && result.length > 0) && (
             <UlStyled ref={this.activeLink}>
-              {result.slice(0, 10).map(({ title, id }, index) => (
+              {result.length > 0 && result.slice(0, 10).map(({ title, id }, index) => (
                 <TmpStyled
                   id={`${index}`}
                   key={id}

@@ -18,7 +18,7 @@ const FooterStyled = styled.footer`
 `;
 
 type FooterPorps = {
-  children: React.ReactChild[]
+  children: React.ReactNode
 };
 
 export const Footer = ({ children }:FooterPorps) => (

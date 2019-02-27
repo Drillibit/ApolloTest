@@ -53,7 +53,7 @@ const StyledOveraly = styled.div`
   z-index: 10;
   border-radius: 2px;
 `;
-type MoviePlayerProps = {
+export type MoviePlayerProps = {
   link: string,
   image: string,
   playing: boolean,
@@ -74,7 +74,7 @@ export class MoviePlayer extends PureComponent<MoviePlayerProps> {
         {!playing && (
           <StyledOveraly bg={image}>
             <Button btnType="primary" btnSize="middle" onClick={onPlay}>
-              <Icon icon="play" />
+              <Icon size="sm" color="#fff" icon="play" />
               Смотреть трейлер
             </Button>
           </StyledOveraly>

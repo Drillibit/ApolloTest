@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
 
 const rectlist = [
   { id: 1, height: '24px', animation: 'change-height-1 1s ease infinite' },
@@ -54,7 +53,12 @@ const MsgWrapper = styled.div`
   margin-top: 25px;
 `;
 
-const Rectangle = styled.div`
+type RectangleType = {
+  animation?: string
+  height?: string
+};
+
+const Rectangle = styled.div<RectangleType>`
   border-radius: 15px;
   background-color: #ff0079;
   width: 10px;
@@ -67,7 +71,11 @@ const Preload = styled.div`
   ${keyframes}
 `;
 
-export const Preloader = ({ children }) => (
+type PreloaderProp = {
+  children: React.ReactNode
+};
+
+export const Preloader = ({ children }:PreloaderProp) => (
   <Preload>
     <RectWrapper>
       {rectlist.map(({ id, height, animation }) =>
@@ -78,9 +86,6 @@ export const Preloader = ({ children }) => (
   </Preload>
 );
 
-Preloader.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)])
-};
 
 Preloader.defaultProps = {
   children: []

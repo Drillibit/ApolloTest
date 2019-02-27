@@ -37,7 +37,11 @@ const Border = css`
   border-bottom: 3px solid ${colors.purple};
 `;
 
-const ModalHeader = styled(H3)`
+type ModalHeaderType = {
+  active: boolean
+  btnType?: string
+};
+const ModalHeader = styled(H3)<ModalHeaderType>`
   width: 116px;
   height: 24px;
   font-size: 20px;
@@ -72,13 +76,16 @@ const StyledBtnGroup = styled.div`
   justify-content: space-between;
 `;
 
-export class ModalRegister extends PureComponent {
+type ModalRegisterType = {
+  onClose: () => void
+};
+export class ModalRegister extends PureComponent<ModalRegisterType> {
   static propTypes = {
     onClose: func
   };
 
   static defaultProps = {
-    onClose: f => f
+    onClose: () => null
   };
   state = {
     formStatus: true
@@ -103,7 +110,7 @@ export class ModalRegister extends PureComponent {
       <Fragment>
         <ModalContainer>
           <CloseContainer>
-            <CloseSign icon="close" onClick={onClose} />
+            <CloseSign size="sm" color="gray300" icon="close" onClick={onClose} />
           </CloseContainer>
           <StyledBtnGroup>
             <ModalHeader

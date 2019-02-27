@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { History } from 'history';
+import { CONFIG } from '../services/api';
 
 import { colors } from './helpers/colors';
 import { H1, H2, SmallText, LargeText } from './UIKit/Typography';
@@ -148,7 +149,7 @@ const StyledContainer = styled.div`
 
 type MoviePageProps = {
   video: { key: string },
-  similar: [],
+  similar: [{id: string}],
   favourite: boolean,
   toggleFavourite: () => void,
   favourites: { key: boolean },
@@ -241,7 +242,7 @@ export class MoviePage extends PureComponent<MoviePageProps, MoviePageState> {
                         btnSize="small"
                         onClick={this.goBack}
                       >
-                        <Icon icon="chevron-left" />
+                        <Icon size="" color="" icon="chevron-left" />
                         Назад
                       </Button>
                     </StyledLink>
@@ -343,14 +344,29 @@ export class MoviePage extends PureComponent<MoviePageProps, MoviePageState> {
             </StyledCustomRow>
             <StyledRow>
               <StyledCol md={12}>
-                {similar.length !== 0 && (
+                {similar.length > 0 && (
                   <StyledDetailsHeader>
                     <StyledLargeText>Похожие</StyledLargeText>
                   </StyledDetailsHeader>
                 )}
                 <StyledSimilar>
-                  {similar.length !== 0
-                    ? similar.map(({ id }) => <Preview key={id} id={id} />)
+                  {similar.length > 0
+                    ? similar.map((item:any) => {
+                      const BACKDROP_PATH = `${CONFIG.IMAGE_BASE}/w300`;
+                      const bg:string = item.poster_path ? BACKDROP_PATH + item.poster_path : '../assets/img/background.jpg';
+                      return <Preview 
+                        key={item.id}
+                        title={item.title}
+                        voteAverage={item.vote_average}
+                        voteCount={item.vote_count}
+                        bg={bg}
+                        year={item.release_date}
+                        duration={'123'}
+                        pg={item.adult ? "18+" : "12+"}
+                        genre={item.genre_ids}
+                        description={item.overview} {...item}
+                      />
+                    })
                     : ''}
                 </StyledSimilar>
               </StyledCol>
