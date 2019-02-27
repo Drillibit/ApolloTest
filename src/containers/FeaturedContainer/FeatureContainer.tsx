@@ -1,8 +1,8 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 
-import { GET_TRANDING } from '../components/Requests/frontPage';
-import { FeaturedMovie } from '../components/UIKit/FeaturedMovie';
+import { GET_TRANDING } from '../../components/Requests/frontPage';
+import { FeaturedMovie } from '../../components/UIKit/FeaturedMovie';
 
 export const FeaturedContainer = () => (
   <Query
