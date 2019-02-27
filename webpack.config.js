@@ -102,9 +102,6 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
   },
-  optimization: {
-    minimizer: [new UglifyJsPlugin()]
-  },
   performance: {
     hints: mode === 'development' ? false : 'warning'
   }

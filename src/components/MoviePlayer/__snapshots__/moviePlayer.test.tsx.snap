@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MoviePlayer /> renders player component 1`] = `
+<styled.div>
+  <styled.div
+    bg="sdfdsffsg"
+  >
+    <Component
+      btnSize="middle"
+      btnType="primary"
+      onClick={[MockFunction]}
+    >
+      <Icon
+        color="#fff"
+        icon="play"
+        size="sm"
+      />
+      Смотреть трейлер
+    </Component>
+  </styled.div>
+</styled.div>
+`;

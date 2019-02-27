@@ -53,7 +53,7 @@ const StyledOveraly = styled.div`
   z-index: 10;
   border-radius: 2px;
 `;
-type MoviePlayerProps = {
+export type MoviePlayerProps = {
   link: string,
   image: string,
   playing: boolean,
