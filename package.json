@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Starter template",
   "main": "src/js/application.jsx",
-  "author": "Allmax Team",
+  "author": "Ivan Baranov",
   "license": "Proprietary",
+  "node": "10.15.1",
   "private": true,
   "scripts": {
     "client": "NODE_ENV=development webpack-dev-server",

@@ -5,7 +5,6 @@ const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PostCSSFlexBugsFixes = require('postcss-flexbugs-fixes');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const paths = require('./paths');
 
