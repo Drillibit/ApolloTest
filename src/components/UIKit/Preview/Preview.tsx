@@ -2,16 +2,15 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
-import PropTypes, { func } from 'prop-types';
 import { Query } from 'react-apollo';
 
-import { Icon } from './Icon';
-import { H3, SmallText } from './Typography';
-import { colors } from '../helpers/colors';
-import { Rating } from './Rating';
-import { StyledButton } from './Button';
-import { FavouriteControll } from '../../containers/FavouriteControll';
-import { GET_GENRES } from '../Requests/frontPage';
+import { Icon } from '../Icon';
+import { H3, SmallText } from '../Typography';
+import { colors } from '../../helpers/colors';
+import { Rating } from '../Rating';
+import { StyledButton } from '../Button';
+import { FavouriteControll } from '../../../containers/FavouriteControll';
+import { GET_GENRES } from '../../Requests/frontPage';
 
 type StyledPreviewType = {
   open: boolean
@@ -163,7 +162,7 @@ const ButtonContainer = styled.div`
   margin: 0 auto;
 `;
 
-type PreviewProp = {
+export interface PreviewProp {
   id: string
   description: string
   title: string
