@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  server:
+    build: ./server
+    expose:
+      - ${SERVER_PORT}
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - ./server:/srv/app/keeno-server
+    command: yarn start
+  client:
+    build: ./
+    expose:
+      - ${CLIENT_PORT}
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
+    volumes:
+      - ./:/srv/app/keeno-client
+    links:
+      - server
+    command: yarn client

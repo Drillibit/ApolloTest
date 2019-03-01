@@ -26,7 +26,6 @@ module.exports = {
     host: HOST,
     port: PORT,
     contentBase: paths.appSrc,
-    open: true,
     watchContentBase: true,
     hot: true,
     historyApiFallback: true,

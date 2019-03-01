@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Query } from 'react-apollo';
 
 // libs
-import { FeaturedContainer } from '../containers/FeatureContainer';
+import { FeaturedContainer } from '../containers/FeaturedContainer';
 import { Preloader } from './UIKit/Preloader';
 import { StyledGrid, StyledRow, StyledCol } from './helpers/grid';
 import { CONFIG } from '../services/api';

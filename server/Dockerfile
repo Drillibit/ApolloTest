@@ -1,11 +1,15 @@
-FROM node:10
+FROM node:10.15.2-alpine
 
-WORKDIR /usr/src/app
+RUN mkdir -p /srv/app/keeno-server
+WORKDIR /srv/app/keeno-server
 
-COPY package*.json ./
+COPY package.json /srv/app/keeno-server
+COPY yarn.lock /srv/app/keeno-server
 
-RUN npm install
+RUN npm install -g nodemon
 
-COPY . .
+RUN yarn
 
-CMD ["node", "server.js"]
+COPY . /srv/app/keeno-server
+
+CMD ["nodemon", "server.js"]
