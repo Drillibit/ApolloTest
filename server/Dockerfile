@@ -1,11 +1,13 @@
-FROM node:10
+FROM node:10.15.2-alpine
 
-WORKDIR /usr/src/app
+RUN mkdir -p /srv/app/keeno-server
+WORKDIR /srv/app/keeno-server
 
-COPY package*.json ./
+COPY package.json /srv/app/keeno-server
+COPY yarn.lock /srv/app/keeno-server
 
-RUN npm install
+RUN yarn
 
-COPY . .
+COPY . /srv/app/keeno-server
 
-CMD ["node", "server.js"]
+CMD ["yarn", "start"]
