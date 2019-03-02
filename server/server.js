@@ -25,22 +25,17 @@ app.use(
 
 app.use(compression());
 
+const mongoURI = process.env.MONGO_URI || 'mongodb://admin:293344asd@ds161833.mlab.com:61833/addressbook'
+
 mongoose.Promise = global.Promise;
 
 mongoose
   .connect(
-    'mongodb://admin:293344asd@ds161833.mlab.com:61833/addressbook',
+    mongoURI,
     { useNewUrlParser: true }
   )
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));
-// mongoose
-//   .connect(
-//     'mongodb://mongo:27017/docker-node-mongo',
-//     { useNewUrlParser: true }
-//   )
-//   .then(() => console.log('MongoDB Connected'))
-//   .catch(err => console.log(err));
 
 app.use(
   session({

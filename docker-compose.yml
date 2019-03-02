@@ -3,13 +3,21 @@ version: '3'
 services: 
   server:
     build: ./server
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/docker-node-mongo
     expose:
       - ${SERVER_PORT}
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     volumes:
       - ./server:/srv/app/keeno-server
+    links:
+      - mongo
     command: yarn start
+  mongo:
+    image: mongo
+    volumes:
+      - ./data:/data/db
   client:
     build: ./
     environment:
