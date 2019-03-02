@@ -31,9 +31,13 @@ module.exports = {
     historyApiFallback: true,
     stats: 'minimal',
     proxy: {
-      '/graphql': 'http://localhost:3000',
-      '/ws': 'ws://localhost:3000'
-    }
+      '/graphql': 'http://server:3000',
+      '/ws': 'ws://server:3000',
+      ignorePath: true,
+      changeOrigin: true,
+      secure: false
+    },
+
   },
   module: {
     strictExportPresence: true,
