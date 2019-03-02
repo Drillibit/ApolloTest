@@ -12,6 +12,8 @@ services:
     command: yarn start
   client:
     build: ./
+    environment:
+      - CONTAINER_NAME=server
     expose:
       - ${CLIENT_PORT}
     ports:

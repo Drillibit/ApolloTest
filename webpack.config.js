@@ -12,6 +12,7 @@ const publicPath = '/';
 const PORT = process.env.PORT || 3001;
 const HOST = process.env.HOST || '0.0.0.0';
 const mode = process.env.NODE_ENV || 'development';
+const docker = process.env.CONTAINER_NAME || 'localhost';
 
 module.exports = {
   mode: mode || 'development',
@@ -31,8 +32,8 @@ module.exports = {
     historyApiFallback: true,
     stats: 'minimal',
     proxy: {
-      '/graphql': 'http://server:3000',
-      '/ws': 'ws://server:3000',
+      '/graphql': `http://${docker}:3000`,
+      '/ws': `ws://${docker}:3000`,
       ignorePath: true,
       changeOrigin: true,
       secure: false
