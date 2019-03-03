@@ -4,6 +4,6 @@ Keeno test project for AllMax.Team
 
 constainers: server client
 
-Для зупуска через Docker: docker-compose up --build
-Для отсановки Docker: docker-compose down
+Для зупуска через Docker: make build
+Для отсановки Docker: make down
 Для консоли внутри контейнера: docker-compose containername sh

@@ -9,6 +9,9 @@ services:
       - ${SERVER_PORT}
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - ./server:/srv/app/keeno-server
+      - /srv/app/keeno-server/node_modules
     links:
       - mongo
   mongo:
@@ -23,5 +26,8 @@ services:
       - ${CLIENT_PORT}
     ports:
       - ${CLIENT_PORT}:${CLIENT_PORT}
+    volumes:
+      - ./:/srv/app/keeno-client
+      - /srv/app/keeno-client/node_modules
     links:
       - server

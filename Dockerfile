@@ -6,7 +6,7 @@ WORKDIR /srv/app/keeno-client
 COPY package.json /srv/app/keeno-client
 COPY yarn.lock /srv/app/keeno-client
 
-RUN yarn
+RUN yarn install
 
 COPY . /srv/app/keeno-client
 

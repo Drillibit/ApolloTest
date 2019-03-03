@@ -8,7 +8,7 @@ COPY yarn.lock /srv/app/keeno-server
 
 RUN npm install -g nodemon
 
-RUN yarn
+RUN yarn install
 
 COPY . /srv/app/keeno-server
 
